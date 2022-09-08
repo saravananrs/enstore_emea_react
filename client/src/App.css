@@ -1,0 +1,69 @@
+/* html,
+body,
+.App,
+.App > div,
+#root,
+.loginContianer {
+  height: 100%;
+} */
+.App-header {
+  top: 0;
+  min-height: 2rem;
+  background-color: #000000;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+}
+.lifestyleImg{
+  background: linear-gradient(#97CDB4, #DDE0A5);
+  margin-left: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+.App-header .Logo {
+  width: 8.125rem;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}
+
+.app_footer {
+  position: relative;
+  border-top: 0.8px solid #dcdcd6;
+  padding: 87px 0px 30px 0px;
+}
+.lists {
+  color: #3c3c3c;
+  font-size: 0.75rem;
+  line-height: 1.3em;
+  letter-spacing: 0.01em;
+  margin-top: 15px;
+}
+.navicon {
+  font-size: 0.8rem;
+  margin: 0px 23px;
+}
+.headings {
+  font-family: enphase-visuelt-medium;
+  font-size: 1rem !important;
+}
+.slick-prev:before, .slick-next:before{
+  color: black !important;
+  font-size: 30px !important;
+} 
+
+/* react-elastic-carousel */
+
+.kdCslO{
+  display: none !important;
+}
+.eWjCzc {
+  background-color: rgba(0,0,0,.5) !important;
+}
+
+/* cartdropdown */
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
+  border-radius: 28px !important;
+}
