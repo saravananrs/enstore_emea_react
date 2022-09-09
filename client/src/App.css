@@ -8,8 +8,8 @@ body,
 } */
 .App-header {
   top: 0;
-  min-height: 2rem;
-  background-color: #000000;
+  min-height: 4rem;
+  /* background-color: #000000; */
   position: relative;
   text-align: center;
   box-sizing: border-box;

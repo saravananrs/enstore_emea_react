@@ -1,9 +1,8 @@
 import { Grid, Typography, Box } from "@mui/material";
-import Carousel from "react-elastic-carousel";
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import CardModel from "./card/CardModel";
-
+import { useProducts } from "./API/useProduct.hook";
 const useStyles = makeStyles(() => ({
   storageContainer: {
     padding: "70px 0px",
@@ -28,14 +27,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Storage() {
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
-  ];
+  
   const classes = useStyles();
 
+  const { categoryData, productCategories } = useProducts();
+  console.log(productCategories, "productCategories");
   const cardContent = [
     {
       id: 1,
@@ -81,27 +77,33 @@ export default function Storage() {
     },
   ];
   return (
-    <Grid container className={classes.storageContainer}>
-      <Box className={classes.storageHeader}>
-        <Typography variant="h3" className={classes.headTitle}>
-          Storage
-        </Typography>
-        <Typography variant="body1" className={classes.headBody}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta
-          nunc ut massa pharetra facilisis sit amet eget augue.
-        </Typography>
-      </Box>
-      <Grid container className={classes.cardContainer}>
-        <Carousel breakPoints={breakPoints}>
-          {cardContent.map((items) => {
-            return (
-              <>
-                <CardModel items={items} />
-              </>
-            );
-          })}
-        </Carousel>
-      </Grid>
-    </Grid>
+    <React.Fragment>
+      {categoryData.map((pName) => {
+        return (
+          <Grid container key={pName.id} className={classes.storageContainer}>
+            <Box className={classes.storageHeader}>
+              <Typography variant="h3" className={classes.headTitle}>
+                {pName.name}
+              </Typography>
+              <Typography variant="body1" className={classes.headBody}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                porta nunc ut massa pharetra facilisis sit amet eget augue.
+              </Typography>
+            </Box>
+            <Grid container className={classes.cardContainer}>
+              
+                {/* {cardContent.map((items) => {
+                  return (
+                    <> */}
+                      <CardModel items={pName} />
+                    {/* </>
+                  );
+                })} */}
+              {/* </Carousel> */}
+            </Grid>
+          </Grid>
+        );
+      })}
+    </React.Fragment>
   );
 }

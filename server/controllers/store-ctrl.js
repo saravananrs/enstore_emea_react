@@ -25,11 +25,15 @@ getCategories = async (req, res) => {
       
 }
 getProducts = (async(req, res) => {
-    await axios.get(`https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${req.body.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+  console.log("requ", req)
+  console.log("requ params", req.query)
+  console.log("requ body", req.body)
+    await axios.get(`https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
     {headers: { 
       'Authorization': 'Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b', 
     }}).
     then((response) => {
+      console.log("response", response.data)
       return res.send(JSON.stringify(response.data.items))
     }
     ).catch((error) => {

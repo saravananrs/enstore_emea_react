@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Button } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
   helpContaier: {
@@ -33,10 +33,53 @@ const useStyles = makeStyles(() => ({
     height: "32px",
     marginRight: "20px",
   },
+  lifestyleFooterContainer: {
+    backgroundColor: "#61C06A",
+    padding: "20px 0px",
+  },
+  lifestyleFooter: {
+    float: "none",
+    margin: "0 auto",
+    maxWidth: "90%",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  btncontainer: {
+    padding: "0px 20px",
+    borderRadius: "50px",
+    transition: "background .2s ease-out",
+    minWidth: "unset",
+    backgroundColor: "#ffffff",
+    height: "44px",
+  },
+  btn: {
+    color: "black",
+    padding: "0",
+    height: "44px",
+    fontFamily: "enphase-visuelt-medium,sans-serif",
+    textTransform: "capitalize !important",
+    fontSize: "0.875rem !important",
+    cursor: "pointer",
+    fontWeight: "550 !important",
+  },
+  questions: {
+    fontFamily: "enphase-visuelt-regular,sans-serif",
+    fontSize: "1.5rem !important",
+  },
 }));
 export default function LifestyleParts() {
   const classes = useStyles();
-  return (
+  return (<>
+    <Grid container className={classes.lifestyleFooterContainer}>
+        <Grid container className={classes.lifestyleFooter}>
+          <Box className={classes.questions}>
+            Questions? Contact us. We'll help you build your system, today.
+          </Box>
+          <Box className={classes.btncontainer}>
+            <Button className={classes.btn}>Get Enphase</Button>
+          </Box>
+        </Grid>
+      </Grid>
     <Grid container className={classes.helpContaier}>
       <Box>
         <Grid container className={classes.helpGrid}>
@@ -58,22 +101,23 @@ export default function LifestyleParts() {
       </Box>
       <Grid className={classes.payment}>
         <img
-          className={classes.payImg}
+          className={classes.payImg} alt='payimage'
           src="https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-10/visa.png?itok=Kbo2TBCn"
         />
         <img
-          className={classes.payImg}
+          className={classes.payImg} alt='payimage'
           src="https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-10/master.png?itok=uc2NawCj"
         />
         <img
-          className={classes.payImg}
+          className={classes.payImg} alt='payimage'
           src="https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-10/paypal.png?itok=OcLhvwdr"
         />
         <img
-          className={classes.payImg}
+          className={classes.payImg} alt='payimage'
           src="https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-10/affirm.png?itok=V9k-BVVx"
         />
       </Grid>
     </Grid>
+    </>
   );
 }

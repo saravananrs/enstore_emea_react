@@ -13,11 +13,11 @@ const Content = () => {
     <div>
       <HeroSection />
       <Storage />
-      <Microinverter />
+      {/* <Microinverter />
       <EvCharger />
       <Communications />
       <Accessories />
-      <CablesAndConnectors />
+      <CablesAndConnectors /> */}
       <Lifestyle />
     </div>
   );

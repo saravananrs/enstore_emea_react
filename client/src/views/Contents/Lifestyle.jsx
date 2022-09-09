@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, Button } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import LifestyleParts from "./LifestyleParts";
@@ -34,39 +34,8 @@ const useStyles = makeStyles(() => ({
     left: "28%",
     marginTop: "60px !important",
   },
-  lifestyleFooterContainer: {
-    backgroundColor: "#61C06A",
-    padding: "20px 0px",
-  },
-  lifestyleFooter: {
-    float: "none",
-    margin: "0 auto",
-    maxWidth: "90%",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  btncontainer: {
-    padding: "0px 20px",
-    borderRadius: "50px",
-    transition: "background .2s ease-out",
-    minWidth: "unset",
-    backgroundColor: "#ffffff",
-    height: "44px",
-  },
-  btn: {
-    color: "black",
-    padding: "0",
-    height: "44px",
-    fontFamily: "enphase-visuelt-medium,sans-serif",
-    textTransform: "capitalize !important",
-    fontSize: "0.875rem !important",
-    cursor: "pointer",
-    fontWeight: "550 !important",
-  },
-  questions: {
-    fontFamily: "enphase-visuelt-regular,sans-serif",
-    fontSize: "1.5rem !important",
-  },
+ 
+ 
 }));
 export default function Lifestyle() {
   const classes = useStyles();
@@ -88,16 +57,6 @@ export default function Lifestyle() {
             alt="name"
           />
         </Box>
-      </Grid>
-      <Grid container className={classes.lifestyleFooterContainer}>
-        <Grid container className={classes.lifestyleFooter}>
-          <Box className={classes.questions}>
-            Questions? Contact us. We'll help you build your system, today.
-          </Box>
-          <Box className={classes.btncontainer}>
-            <Button className={classes.btn}>Get Enphase</Button>
-          </Box>
-        </Grid>
       </Grid>
 
       <LifestyleParts />
