@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid,Paper } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import SingleProductContents from "./SingleProductContents";
@@ -17,11 +17,22 @@ const useStyles = makeStyles(() => ({
     borderRadius: "16px !important",
     marginBottom:"15px !important"
   },
+  imgSecChild: {
+    cursor: "pointer"
+  },
   rightAllign:{
     paddingLeft:"100px !important"
   },
 }));
-export default function SingleProduct() {
+const SingleProduct = (props)  => {
+  const product = props.productData;
+  const [mediaGallery, setMediaGallery] = useState()
+  const [productImage, setProductImage] = useState()
+  useEffect(()=> {
+    let media = product.media_gallery_entries.filter((data) => data.disabled == false )
+    setMediaGallery(media);
+    setProductImage(media[0])
+  }, [])
   const classes = useStyles();
   return (
     <Grid
@@ -31,51 +42,34 @@ export default function SingleProduct() {
       className={classes.productContainer}
     >
       <Grid item xs={6}>
-        <Paper className={classes.imgSec}>
+       {productImage &&  <Paper className={classes.imgSec}>
           <img
-            srcSet="https://store-d9.enphase.com/sites/default/files/styles/max_size_2800xauto_/public/2022-02/EP-NA-LK02-040_Hero%402x.png?itok=D9a6C4Ju"
+            srcSet={`https://store-qa2.enphase.com/media/catalog/product${productImage.file}`}
             alt="single product"
-          />
-        </Paper>
+          /> 
+        </Paper> }
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+       { mediaGallery && mediaGallery.map((data) => {
+        console.log(data)
+        return (
           <Grid item xs={6}>
             <Paper className={classes.imgSec}>
-              <img
-                srcSet="https://store-d9.enphase.com/sites/default/files/styles/max_size_2800xauto_/public/2022-02/EP-NA-LK02-040_Hero%402x.png?itok=D9a6C4Ju"
+              <img className={classes.imgSecChild}
+            srcSet={`https://store-qa2.enphase.com/media/catalog/product${data.file}`}
                 alt="single product"
+                onClick={() => setProductImage(data)}
               />
             </Paper>
           </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.imgSec}>
-              <img
-                srcSet="https://store-d9.enphase.com/sites/default/files/styles/max_size_2800xauto_/public/2022-02/EP-NA-LK02-040_Hero%402x.png?itok=D9a6C4Ju"
-                alt="single product"
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.imgSec}>
-              <img
-                srcSet="https://store-d9.enphase.com/sites/default/files/styles/max_size_2800xauto_/public/2022-02/EP-NA-LK02-040_Hero%402x.png?itok=D9a6C4Ju"
-                alt="single product"
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.imgSec}>
-              <img
-                srcSet="https://store-d9.enphase.com/sites/default/files/styles/max_size_2800xauto_/public/2022-02/EP-NA-LK02-040_Hero%402x.png?itok=D9a6C4Ju"
-                alt="single product"
-              />
-            </Paper>
-          </Grid>
+       ) })}
         </Grid>
       </Grid>
       <Grid item xs={6} className={classes.rightAllign}>
-      <SingleProductContents />
-      <ProductDetailAccordian />
+      <SingleProductContents productData={product} />
+      <ProductDetailAccordian productData={product} />
       </Grid>
     </Grid>
   );
 }
+
+export default SingleProduct

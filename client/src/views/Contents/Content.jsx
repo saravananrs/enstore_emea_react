@@ -1,24 +1,15 @@
 import React from "react";
-import Accessories from "./Accessories";
-import CablesAndConnectors from "./CablesAndConnecters";
-import Communications from "./Communication";
-import EvCharger from "./EvCharger";
-import HeroSection from "./HeroSection ";
-import Lifestyle from "./Lifestyle";
-import Microinverter from "./Microinverter";
-import Storage from "./Storage";
+import { Routes, Route, Navigate } from "react-router-dom";
+import HomePage from "./HomePage";
+import LearnMore from "./LearnMore/LearnMore";
 
 const Content = () => {
   return (
     <div>
-      <HeroSection />
-      <Storage />
-      {/* <Microinverter />
-      <EvCharger />
-      <Communications />
-      <Accessories />
-      <CablesAndConnectors /> */}
-      <Lifestyle />
+      <Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/product/:urlKey" element={<LearnMore />}/>
+      </Routes>
     </div>
   );
 };

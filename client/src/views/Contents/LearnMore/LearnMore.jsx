@@ -1,10 +1,12 @@
 import { Divider, Box ,Typography} from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import SingleProduct from "./SingleProduct";
 import Header from "../../Header/Header";
 import LifestyleParts from "../LifestyleParts";
 import Footer from "../../Footer/Footer";
+import { useParams } from 'react-router-dom';
+import axios from 'axios'
 const useStyles = makeStyles(() => ({
   learMoreContainer: {
     display:"flex",
@@ -34,21 +36,37 @@ const useStyles = makeStyles(() => ({
 
 }));
 export default function LearnMore() {
+  let { urlKey } = useParams();
+  const [product, setProduct] = useState();
   const classes = useStyles();
+  useEffect(() => {
+    axios
+    .get(`http://localhost:8000/api/productsByURLKey`, {
+      params: { id: urlKey },
+    })
+    .then((res) => {
+      console.log(res.data[0])
+      setProduct(res.data[0]);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, [])
   return (
-    <React.Fragment>
+    <>
+    {product && <>
         <Header />
       <Box className={classes.learMoreContainer}>
-        <Typography variant='body1' className={classes.lHeading}>IQ Load Controller</Typography>
+        <Typography variant='body1' className={classes.lHeading}>{product.name}</Typography>
         <Typography variant='body2'  className={classes.lSideText}>Documentation</Typography>
       </Box>
       <Divider className={classes.divider}/>
       <Box className={classes.learMoreContainer}>
         <Typography className={classes.storeAcc} variant='body2' >Store {'>'} Accessories</Typography>
       </Box> 
-      <SingleProduct />
+      <SingleProduct productData={product}/>
       <LifestyleParts />
-      <Footer />
-    </React.Fragment>
+      <Footer /></>}
+    </>
   );
 }

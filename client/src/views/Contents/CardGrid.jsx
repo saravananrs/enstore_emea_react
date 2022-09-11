@@ -26,56 +26,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Storage() {
+export default function CardGrid() {
   
   const classes = useStyles();
 
   const { categoryData, productCategories } = useProducts();
-  console.log(productCategories, "productCategories");
-  const cardContent = [
-    {
-      id: 1,
-      url: "https://store-d9.enphase.com/sites/default/files/2021-12/WARR-EXT-ENCHARGE-5YR%402x.png",
-      proCode: "SKU: WARR-EXT-ENCHARGE-5YR",
-      title: " 5-Year Limited Warranty Extension for IQ Battery",
-      price: null,
-    },
-    {
-      id: 2,
-      url: "https://store-d9.enphase.com/sites/default/files/2022-02/EP-NA-LK02-040_Hero%402x.png",
-      proCode: "SKU: WARR-EXT-ENCHARGE-5YR",
-      title: "IQ Load Container",
-      price: 24,
-    },
-    {
-      id: 3,
-      url: "https://store-d9.enphase.com/sites/default/files/2021-12/WARR-EXT-ENCHARGE-5YR%402x.png",
-      proCode: "SKU: WARR-EXT-ENCHARGE-5YR",
-      title: " 5-Year Limited Warranty Extension for IQ Battery",
-      price: null,
-    },
-    {
-      id: 4,
-      url: "https://store-d9.enphase.com/sites/default/files/2021-12/ENCHARGE-10-1P-NA-hero%402x_0.png",
-      proCode: "SKU: WARR-EXT-ENCHARGE-5YR",
-      title: "IQ Load Container",
-      price: 24,
-    },
-    {
-      id: 5,
-      url: "https://store-d9.enphase.com/sites/default/files/2021-12/WARR-EXT-ENCHARGE-5YR%402x.png",
-      proCode: "SKU: WARR-EXT-ENCHARGE-5YR",
-      title: " 5-Year Limited Warranty Extension for IQ Battery",
-      price: null,
-    },
-    {
-      id: 6,
-      url: "https://store-d9.enphase.com/sites/default/files/2021-12/ENCHARGE-10-1P-NA-hero%402x_0.png",
-      proCode: "SKU: WARR-EXT-ENCHARGE-5YR",
-      title: "IQ Load Container",
-      price: 24,
-    },
-  ];
   return (
     <React.Fragment>
       {categoryData.map((pName) => {
@@ -85,10 +40,10 @@ export default function Storage() {
               <Typography variant="h3" className={classes.headTitle}>
                 {pName.name}
               </Typography>
-              <Typography variant="body1" className={classes.headBody}>
+              {/* <Typography variant="body1" className={classes.headBody}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
                 porta nunc ut massa pharetra facilisis sit amet eget augue.
-              </Typography>
+              </Typography> */}
             </Box>
             <Grid container className={classes.cardContainer}>
               

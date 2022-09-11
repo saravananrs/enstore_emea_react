@@ -95,10 +95,15 @@ const useStyles = makeStyles(() => ({
     margin: "30px 0px !important",
   },
 }));
-export default function SingleProductContents() {
+export default function SingleProductContents(props) {
+  const product = props.productData;
   const classes = useStyles();
   const [count, setCount] = useState(1);
   const [readMore, setReadMore] = useState(true);
+  let custome_attribute = {}
+  product.custom_attributes.map((attributes) => {
+    custome_attribute[attributes.attribute_code] = attributes.value
+  });
   const handleReadClick = () => {
     setReadMore(!readMore);
   };
@@ -117,15 +122,14 @@ export default function SingleProductContents() {
     <React.Fragment>
       <Box className={classes.contentContainer}>
         <Typography variant="h4" className={classes.header}>
-          IQ Load Controller
+          {product.name}
         </Typography>
         <Typography variant="body2" className={classes.price}>
-          $472.00 <span className={classes.pCode}>SKU: EP-NA-LK02-040</span>
+          {product.price} € <span className={classes.pCode}>SKU: {product.sku}</span>
         </Typography>
         <Box>
-          <Typography variant="body2" className={classes.pText}>
-            The IQ Load Controller is a complete solution to use the load
-            control feature of the IQ System Controller.
+          <Typography variant="h4" className={classes.pText}>
+            {custome_attribute.short_description.replace('"', '\\"')}
           </Typography>
           {readMore ? (
             <Typography

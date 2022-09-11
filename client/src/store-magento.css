@@ -4051,7 +4051,7 @@ footer.dark-mode .footnote,
         width: 24px;
         height: 24px;
         display: block;
-        background-image: url("./../public/images/store.svg?v1");
+        background-image: url("./Assets/images/store.svg?v1");
         background-repeat: no-repeat;
         background-position: center
     }
@@ -4060,7 +4060,7 @@ footer.dark-mode .footnote,
 @media screen and (min-width: 1024px) {
     .menu-header-main .header-store-button::before {
         opacity: 0;
-        background-image: url("./../public/images/store--white.svg");
+        background-image: url("./Assets/images/store--white.svg");
         position: absolute
     }
 }
@@ -4105,7 +4105,7 @@ footer.dark-mode .footnote,
         width: 24px;
         height: 24px;
         display: block;
-        background-image: url("./../public/images/store.svg?v1");
+        background-image: url("./Assets/images/store.svg?v1");
         background-repeat: no-repeat;
         background-position: center
     }
@@ -4114,7 +4114,7 @@ footer.dark-mode .footnote,
 @media screen and (min-width: 1024px) {
     .menu-header-main .menu-icon-link--store .menu-header-main__link::before {
         opacity: 0;
-        background-image: url("./../public/images/store--white.svg");
+        background-image: url("./Assets/images/store--white.svg");
         position: absolute
     }
 }

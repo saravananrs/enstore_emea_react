@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Grid,
   Typography,
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
   card: {
     maxWidth: 300,
     padding: "10px 20px",
-    height: "510px",
+    height: "540px",
     marginLeft: "20px",
     //   width:"50%",
     borderRadius: "16px !important",
@@ -86,6 +87,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 export default function CardModel(props) {
+  const navigate = useNavigate();
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -102,7 +104,7 @@ export default function CardModel(props) {
           params: { id: items.id },
         })
         .then((res) => {
-          setProducts(res.data.filter((resData)=> resData.status == 1));
+          setProducts(res.data.filter((resData)=> resData.status == 1 && resData.visibility == 4));
         })
         .catch((err) => {
           console.log(err);
@@ -112,19 +114,20 @@ export default function CardModel(props) {
   }, []);
 
   return (
-    <React.Fragment>
-      <Carousel breakPoints={breakPoints}>
+      <>
+      {products && <Carousel breakPoints={breakPoints}>
       {products.map((item) => {
-        let thumbnails = item.custom_attributes.filter((valu)=>{return(
-          valu.attribute_code === "thumbnail"
-        )})
+        let custome_attribute = {}
+        item.custom_attributes.map((attributes) => {
+          custome_attribute[attributes.attribute_code] = attributes.value
+        });
         return (
          <>
          <Card key={item.id} className={classes.card}>
             <CardMedia
               component="img"
               className={classes.cardimg}
-              image={`https://store-qa2.enphase.com/media/catalog/product${thumbnails[0]?.value}`}
+              image={custome_attribute.thumbnail ? `https://store-qa2.enphase.com/media/catalog/product${custome_attribute.thumbnail}` : ''}
               alt="products"
             />
             <CardContent className={classes.content}>
@@ -134,10 +137,10 @@ export default function CardModel(props) {
                 component="div"
                 className={classes.procode}
               >
-                {item.proCode}
+                SKU: {item.sku}
               </Typography>
               <Typography variant="h5" className={classes.title}>
-              SKU: {item.sku}
+              {item.name}
               </Typography>
               {item.price !== null ? (
                 <Typography className={classes.price}>
@@ -152,7 +155,7 @@ export default function CardModel(props) {
                 <>
                   {" "}
                   <Box className={classes.learnabs}>
-                    <Button className={classes.learnbtn}>Learn More</Button>
+                    <Button className={classes.learnbtn} onClick={() => navigate(`/product/${custome_attribute.url_key}`)}>Learn More</Button>
                   </Box>
                   <Box className={classes.cartabs}>
                     <Button className={classes.addbtn}>Add to Cart</Button>
@@ -168,7 +171,7 @@ export default function CardModel(props) {
           </>
         );
       })}
-      </Carousel>
-    </React.Fragment>
+      </Carousel> }
+      </>
   );
 }

@@ -51,7 +51,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
-export default function ProductDetailAccordian() {
+export default function ProductDetailAccordian(props) {
+  const product = props.productData;
+  let custome_attribute = {}
+  product.custom_attributes.map((attributes) => {
+    custome_attribute[attributes.attribute_code] = attributes.value
+  });
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [expandedTech, setExpandedTech] = React.useState(false);

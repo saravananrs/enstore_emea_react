@@ -1,6 +1,8 @@
+import React from "react";
 import { Provider } from "react-redux";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { Store } from "../src/redux/Store";
+import { BrowserRouter } from "react-router-dom";
+import { Store } from "./redux/Store";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import "./store-magento.css";
@@ -34,12 +36,14 @@ function App() {
     <div className="App">
       <Provider store={Store}>
         <ThemeProvider theme={theme}>
+        <BrowserRouter>
           <QueryClientProvider client={queryClient}>
             <Header />
             <Content />
             {/* <LearnMore /> */}
             <Footer />
           </QueryClientProvider>
+          </BrowserRouter>
         </ThemeProvider>
       </Provider>
     </div>
