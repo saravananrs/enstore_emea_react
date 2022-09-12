@@ -41,7 +41,7 @@ export default function Lifestyle() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Grid container className={classes.storageContainer}>
+      <Grid className={classes.storageContainer}>
         <Box className={classes.storageHeader}>
           <Typography variant="h3" className={classes.headTitle}>
             Enphase Lifestyle Products

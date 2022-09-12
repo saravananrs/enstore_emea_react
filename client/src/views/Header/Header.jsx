@@ -44,6 +44,7 @@ const Header = () => {
           height: "53px",
           position: "fixed",
           top: "0",
+          maxWidth:"100% !important",
           background: "black",
           zIndex: "999",
         }}

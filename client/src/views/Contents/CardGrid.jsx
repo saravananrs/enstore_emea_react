@@ -3,6 +3,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import CardModel from "./card/CardModel";
 import { useProducts } from "./API/useProduct.hook";
+import { useState } from "react";
+import Spinner from "../../Spinner/Spinner";
 const useStyles = makeStyles(() => ({
   storageContainer: {
     padding: "70px 0px",
@@ -29,8 +31,12 @@ const useStyles = makeStyles(() => ({
 export default function CardGrid() {
   
   const classes = useStyles();
+  const { categoryData ,isLoading} = useProducts();
 
-  const { categoryData, productCategories } = useProducts();
+  if (isLoading){
+    return <Spinner />
+  }
+
   return (
     <React.Fragment>
       {categoryData.map((pName) => {
@@ -46,15 +52,7 @@ export default function CardGrid() {
               </Typography> */}
             </Box>
             <Grid container className={classes.cardContainer}>
-              
-                {/* {cardContent.map((items) => {
-                  return (
-                    <> */}
                       <CardModel items={pName} />
-                    {/* </>
-                  );
-                })} */}
-              {/* </Carousel> */}
             </Grid>
           </Grid>
         );

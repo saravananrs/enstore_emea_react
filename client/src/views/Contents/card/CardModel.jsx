@@ -13,6 +13,8 @@ import axios from "axios";
 import Carousel from "react-elastic-carousel";
 
 import { makeStyles } from "@material-ui/styles";
+import { useState } from "react";
+import Spinner from "../../../Spinner/Spinner";
 const useStyles = makeStyles(() => ({
   cardimg: {
     width: "20%",
@@ -23,7 +25,6 @@ const useStyles = makeStyles(() => ({
     padding: "10px 20px",
     height: "540px",
     marginLeft: "20px",
-    //   width:"50%",
     borderRadius: "16px !important",
     transition: "0.3s",
     cursor: "pointer",
@@ -87,6 +88,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 export default function CardModel(props) {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -95,6 +97,7 @@ export default function CardModel(props) {
     { width: 1200, itemsToShow: 4 },
   ];
   const { items } = props;
+  console.log(items, "items");
   const classes = useStyles();
   const [products, setProducts] = React.useState([]);
   React.useEffect(() => {
@@ -104,7 +107,12 @@ export default function CardModel(props) {
           params: { id: items.id },
         })
         .then((res) => {
-          setProducts(res.data.filter((resData)=> resData.status == 1 && resData.visibility == 4));
+          setProducts(
+            res.data.filter(
+              (resData) => resData.status == 1 && resData.visibility == 4
+            )
+          );
+          setIsLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -112,66 +120,90 @@ export default function CardModel(props) {
     };
     fetchCategoryProducts();
   }, []);
-
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
-      <>
-      {products && <Carousel breakPoints={breakPoints}>
-      {products.map((item) => {
-        let custome_attribute = {}
-        item.custom_attributes.map((attributes) => {
-          custome_attribute[attributes.attribute_code] = attributes.value
-        });
-        return (
-         <>
-         <Card key={item.id} className={classes.card}>
-            <CardMedia
-              component="img"
-              className={classes.cardimg}
-              image={custome_attribute.thumbnail ? `https://store-qa2.enphase.com/media/catalog/product${custome_attribute.thumbnail}` : ''}
-              alt="products"
-            />
-            <CardContent className={classes.content}>
-              <Typography
-                gutterBottom
-                variant="subtitle2"
-                component="div"
-                className={classes.procode}
-              >
-                SKU: {item.sku}
-              </Typography>
-              <Typography variant="h5" className={classes.title}>
-              {item.name}
-              </Typography>
-              {item.price !== null ? (
-                <Typography className={classes.price}>
-                  $ {item.price.toFixed(2)}
-                </Typography>
-              ) : (
-                ""
-              )}
-            </CardContent>
-            <Grid container className={classes.buttonContainer}>
-              {items.price !== null ? (
-                <>
-                  {" "}
-                  <Box className={classes.learnabs}>
-                    <Button className={classes.learnbtn} onClick={() => navigate(`/product/${custome_attribute.url_key}`)}>Learn More</Button>
-                  </Box>
-                  <Box className={classes.cartabs}>
-                    <Button className={classes.addbtn}>Add to Cart</Button>
-                  </Box>
-                </>
-              ) : (
-                <Box>
-                  <Button className={classes.learnbtn}>Learn More</Button>
-                </Box>
-              )}
-            </Grid>
-          </Card>
-          </>
-        );
-      })}
-      </Carousel> }
-      </>
+    <>
+      {!isLoading && products && (
+        <Carousel breakPoints={breakPoints}>
+          {products.map((item) => {
+            let custome_attribute = {};
+            item.custom_attributes.map((attributes) => {
+              custome_attribute[attributes.attribute_code] = attributes.value;
+            });
+            return (
+              <>
+                <Card
+                  key={item.id}
+                  className={ classes.card }
+                >
+                  <CardMedia
+                    component="img"
+                    className={classes.cardimg}
+                    image={
+                      custome_attribute.thumbnail
+                        ? `https://store-qa2.enphase.com/media/catalog/product${custome_attribute.thumbnail}`
+                        : ""
+                    }
+                    alt="products"
+                  />
+                  <CardContent className={classes.content}>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle2"
+                      component="div"
+                      className={classes.procode}
+                    >
+                      SKU: {item.sku}
+                    </Typography>
+                    <Typography
+                      variant="h5"
+                      className={ classes.title
+                      }
+                    >
+                      {item.name}
+                    </Typography>
+                    {item.price !== null ? (
+                      <Typography className={classes.price}>
+                        $ {item.price.toFixed(2)}
+                      </Typography>
+                    ) : (
+                      ""
+                    )}
+                  </CardContent>
+                  <Grid container className={classes.buttonContainer}>
+                    {items.price !== null ? (
+                      <>
+                        {" "}
+                        <Box className={classes.learnabs}>
+                          <Button
+                            className={classes.learnbtn}
+                            onClick={() =>
+                              navigate(`/product/${custome_attribute.url_key}`)
+                            }
+                          >
+                            Learn More
+                          </Button>
+                        </Box>
+                        <Box className={classes.cartabs}>
+                          <Button className={classes.addbtn}>
+                            Add to Cart
+                          </Button>
+                        </Box>
+                      </>
+                    ) : (
+                      <Box>
+                        <Button className={classes.learnbtn}>Learn More</Button>
+                      </Box>
+                    )}
+                  </Grid>
+                </Card>
+              </>
+            );
+          })}
+        </Carousel>
+      )}
+    </>
   );
 }

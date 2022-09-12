@@ -16,9 +16,12 @@ body,
 }
 .lifestyleImg{
   background: linear-gradient(#97CDB4, #DDE0A5);
-  margin-left: 20px;
   border-radius: 20px;
   position: relative;
+  width: 100%;
+  margin: 0 auto;
+  float: none;
+  max-width: 96%;
 }
 .App-header .Logo {
   width: 8.125rem;
@@ -66,4 +69,15 @@ body,
 /* cartdropdown */
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
   border-radius: 28px !important;
+}
+
+/* MEDIA QUERY */
+/* lifestyle  */
+@media screen and (min-width: 1441px) and (max-width: 2000px) { 
+  .lifestyleImg{
+    width: 100%;
+    margin: 0 auto;
+    float: none;
+    max-width: 96%;
+  }
 }
