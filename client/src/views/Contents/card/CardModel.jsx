@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { addToCart } from './../../../redux/actions/EnstoreActions'
 import {
   Grid,
   Typography,
@@ -11,7 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Carousel from "react-elastic-carousel";
-
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles(() => ({
   cardimg: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(() => ({
   card: {
     maxWidth: 300,
     padding: "10px 20px",
-    height: "540px",
+    // height: "540px",
     marginLeft: "20px",
     //   width:"50%",
     borderRadius: "16px !important",
@@ -88,6 +89,9 @@ const useStyles = makeStyles(() => ({
 }));
 export default function CardModel(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [cardHeight, setCardHeight] = useState(540);
+  const { cartData } = useSelector(state => state.store)
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -104,7 +108,13 @@ export default function CardModel(props) {
           params: { id: items.id },
         })
         .then((res) => {
-          setProducts(res.data.filter((resData)=> resData.status == 1 && resData.visibility == 4));
+          let filteredRes = res.data.filter((resData)=> resData.status == 1 && resData.visibility == 4)
+          filteredRes.map((item) => {
+            if(item.name.length > 40 && cardHeight == 540) {
+              setCardHeight(640)
+            }
+          });
+          setProducts(filteredRes);
         })
         .catch((err) => {
           console.log(err);
@@ -123,7 +133,7 @@ export default function CardModel(props) {
         });
         return (
          <>
-         <Card key={item.id} className={classes.card}>
+         <Card key={item.id} className={classes.card} sx={{height: cardHeight}}>
             <CardMedia
               component="img"
               className={classes.cardimg}
@@ -158,7 +168,7 @@ export default function CardModel(props) {
                     <Button className={classes.learnbtn} onClick={() => navigate(`/product/${custome_attribute.url_key}`)}>Learn More</Button>
                   </Box>
                   <Box className={classes.cartabs}>
-                    <Button className={classes.addbtn}>Add to Cart</Button>
+                    <Button className={classes.addbtn} onClick={()=> dispatch(addToCart(item, 1))}>Add to Cart</Button>
                   </Box>
                 </>
               ) : (

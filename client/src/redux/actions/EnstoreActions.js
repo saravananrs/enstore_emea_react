@@ -1,5 +1,6 @@
 import axios from 'axios'
 export const POST_ADMIN_LOGIN = 'ADMIN_LOGIN'
+export const POST_Add_TO_CART = 'Add_TO_CART'
 
 export const adminLogin = (userName, password) => async dispatch => {
 	await axios.post('http://127.0.0.1/storefront/rest/V1/integration/admin/token', {
@@ -21,5 +22,13 @@ export const adminLogin = (userName, password) => async dispatch => {
 	  })
 	
 }
-
+export const addToCart = (cartData, qty) => async dispatch => {
+	// let localCartData = localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
+	cartData.cartQty = qty
+	// localStorage.setItem('cartData', localCartData.push(cartData))
+	dispatch({
+		type: POST_Add_TO_CART,
+		payload: cartData
+	})
+}
 
