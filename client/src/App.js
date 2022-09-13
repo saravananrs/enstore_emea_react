@@ -8,8 +8,7 @@ import "./App.css";
 import "./store-magento.css";
 import Header from "./views/Header/Header";
 import Footer from "./views/Footer/Footer";
-import Content from './views/Contents/Content';
-import LearnMore from "./views/Contents/LearnMore/LearnMore";
+import Content from "./views/Contents/Content";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,13 +35,12 @@ function App() {
     <div className="App">
       <Provider store={Store}>
         <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
-            <Header />
-            <Content />
-            {/* <LearnMore /> */}
-            <Footer />
-          </QueryClientProvider>
+          <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+              <Header />
+              <Content />
+              <Footer />
+            </QueryClientProvider>
           </BrowserRouter>
         </ThemeProvider>
       </Provider>

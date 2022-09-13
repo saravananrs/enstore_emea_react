@@ -69,6 +69,7 @@ body,
 /* cartdropdown */
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
   border-radius: 28px !important;
+  overflow-y: hidden !important;
 }
 
 /* MEDIA QUERY */

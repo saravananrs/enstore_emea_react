@@ -124,7 +124,7 @@ const Header = () => {
             }}
           >
             <div style={{ color: "white", marginRight: "48px" }}>
-              <a href="#">
+              <a href="/">
                 <svg class="fill-current svg svg-small" role="presentation">
                   <use xlinkHref={`${logo}?v=1.20#ep-logo-small`}></use>
                 </svg>

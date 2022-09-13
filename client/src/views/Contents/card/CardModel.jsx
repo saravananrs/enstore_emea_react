@@ -12,9 +12,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Carousel from "react-elastic-carousel";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { makeStyles } from "@material-ui/styles";
-import { useState } from "react";
 import Spinner from "../../../Spinner/Spinner";
 const useStyles = makeStyles(() => ({
   cardimg: {
@@ -93,7 +92,6 @@ export default function CardModel(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cardHeight, setCardHeight] = useState(540);
-  const { cartData } = useSelector(state => state.store)
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -101,7 +99,6 @@ export default function CardModel(props) {
     { width: 1200, itemsToShow: 4 },
   ];
   const { items } = props;
-  console.log(items, "items");
   const classes = useStyles();
   const [products, setProducts] = React.useState([]);
   React.useEffect(() => {
@@ -118,6 +115,7 @@ export default function CardModel(props) {
             }
           });
           setProducts(filteredRes);
+          setIsLoading(false)
         })
         .catch((err) => {
           console.log(err);
@@ -130,7 +128,7 @@ export default function CardModel(props) {
   }
   return (
       <>
-      {products && <Carousel breakPoints={breakPoints}>
+      {!isLoading &&  products && <Carousel breakPoints={breakPoints}>
       {products.map((item) => {
         let custome_attribute = {}
         item.custom_attributes.map((attributes) => {

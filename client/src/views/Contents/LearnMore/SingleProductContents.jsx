@@ -2,8 +2,9 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import upArrow from "../../../Assets/Header/spritemap.svg";
-import downArrow from "../../../Assets/Header/spritemap.svg";
 import { useState } from "react";
+import { addToCart } from "./../../../redux/actions/EnstoreActions";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles(() => ({
   contentContainer: {
     textAlign: "left",
@@ -100,10 +101,20 @@ export default function SingleProductContents(props) {
   const classes = useStyles();
   const [count, setCount] = useState(1);
   const [readMore, setReadMore] = useState(true);
-  let custome_attribute = {}
+  const dispatch = useDispatch();
+  let custome_attribute = {};
   product.custom_attributes.map((attributes) => {
-    custome_attribute[attributes.attribute_code] = attributes.value
+    custome_attribute[attributes.attribute_code] = attributes.value;
   });
+
+  function getText(html) {
+    let divContainer = document.createElement("div");
+    divContainer.innerHTML = html;
+    return divContainer.textContent || divContainer.innerText || "";
+  }
+
+  let descriptionData = custome_attribute.short_description;
+
   const handleReadClick = () => {
     setReadMore(!readMore);
   };
@@ -115,9 +126,9 @@ export default function SingleProductContents(props) {
       setCount(number - 1);
     }
   };
-  const handleCartbtnclk =() =>{
-    console.log(count)
-  }
+  const handleCartbtnclk = (count) => {
+    dispatch(addToCart(product, count));
+  };
   return (
     <React.Fragment>
       <Box className={classes.contentContainer}>
@@ -125,11 +136,12 @@ export default function SingleProductContents(props) {
           {product.name}
         </Typography>
         <Typography variant="body2" className={classes.price}>
-          {product.price} € <span className={classes.pCode}>SKU: {product.sku}</span>
+          {product.price} €{" "}
+          <span className={classes.pCode}>SKU: {product.sku}</span>
         </Typography>
         <Box>
           <Typography variant="h4" className={classes.pText}>
-            {custome_attribute.short_description.replace('"', '\\"')}
+            {getText(descriptionData)}
           </Typography>
           {readMore ? (
             <Typography
@@ -187,14 +199,19 @@ export default function SingleProductContents(props) {
                 onClick={() => handleDecrement(count)}
               >
                 <svg class="fill-current svg svg-xxsmall" role="presentation">
-                  <use xlinkHref={`${downArrow}?v=1.20#chevron_down`}></use>
+                  <use xlinkHref={`${upArrow}?v=1.20#chevron_down`}></use>
                 </svg>
               </Box>
             </Box>
           </Box>
         </Box>
         <Box>
-          <Button className={classes.cartBtn} onClick={handleCartbtnclk}>Add to Cart</Button>
+          <Button
+            className={classes.cartBtn}
+            onClick={() => handleCartbtnclk(count)}
+          >
+            Add to Cart
+          </Button>
         </Box>
       </Box>
     </React.Fragment>
