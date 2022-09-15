@@ -3,6 +3,7 @@ import { Box, Divider } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import upArrow from "../../Assets/Header/spritemap.svg";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(() => ({
   bagCartItem: {
@@ -90,21 +91,28 @@ const useStyles = makeStyles(() => ({
 
 export default function HeaderCartItem(props) {
   const classes = useStyles();
-  const { setBagCount, setSubTotal, subTotal ,item, bagCount ,key} = props;
+  const {  setSubTotal, subTotal, item, key } = props;
   const { cartData } = useSelector((state) => state.store);
-  const [count, setCount] = useState(1);
-  const handleIncrement = (number,id) => {
-    if(id === item.id){
-    setCount(number + 1);
-    setBagCount(cartData?.length + count);
-    setSubTotal(subTotal + item.price )
-}
+  const [count, setCount] = useState(item.cartQty);
+  useEffect(() => {
+    if(cartData.length === 1){
+    setSubTotal(item.cartQty * item.price)
+  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartData]);
+
+  const handleIncrement = (number, id) => {
+    if (id === item.id) {
+      setCount(number + 1);
+      // setBagCount(cartData?.length );
+      setSubTotal(subTotal + item.price);
+    }
   };
-  const handleDecrement = (number,id) => {
+  const handleDecrement = (number, id) => {
     if (number > 1 && id === item.id) {
       setCount(number - 1);
-      setBagCount(bagCount - 1);
-      setSubTotal(subTotal - item.price )
+      // setBagCount(bagCount - 1);
+      setSubTotal(subTotal - item.price);
     }
   };
   const smallImages = item.custom_attributes.filter(
@@ -121,7 +129,7 @@ export default function HeaderCartItem(props) {
         </Box>
         <Box className={classes.bagCartListDetails}>
           <Box className={classes.bagCartText}>{item.name}</Box>
-          <Box className={classes.bagCartText}>${item.price.toFixed(2)}</Box>
+          <Box className={classes.bagCartText}>€ {item.price.toFixed(2)}</Box>
           <Box className={classes.bagCartListUpdate}>
             <Box className={classes.bagCartListQuantiity}>
               <Box className={classes.inputContainer}>
@@ -134,7 +142,7 @@ export default function HeaderCartItem(props) {
                 />
                 <Box className={classes.arrowContainer}>
                   <Box
-                    onClick={() => handleIncrement(count,item.id)}
+                    onClick={() => handleIncrement(count, item.id)}
                     className={classes.upArrow}
                     sx={{ transform: "rotate(180deg)" }}
                   >
@@ -147,7 +155,7 @@ export default function HeaderCartItem(props) {
                   </Box>
                   <Box
                     className={classes.upArrow}
-                    onClick={() => handleDecrement(count,item.id)}
+                    onClick={() => handleDecrement(count, item.id)}
                   >
                     <svg
                       class="fill-current svg svg-xxsmall"
@@ -159,7 +167,7 @@ export default function HeaderCartItem(props) {
                 </Box>
               </Box>
             </Box>
-            <Box className={classes.remove}>Remove</Box>
+            <Box className={classes.remove} >Remove</Box>
           </Box>
         </Box>
       </li>

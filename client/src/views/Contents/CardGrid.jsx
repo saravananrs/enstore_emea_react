@@ -8,6 +8,9 @@ import Spinner from "../../Spinner/Spinner";
 const useStyles = makeStyles(() => ({
   storageContainer: {
     padding: "70px 0px",
+    '@media (max-width: 780px)':{
+      padding: "50px 0px",
+    },
   },
   storageHeader: {
     float: "none",
@@ -20,6 +23,9 @@ const useStyles = makeStyles(() => ({
   headTitle: {
     marginBottom: "15px !important",
     fontSize: "2.67rem !important",
+    '@media (max-width: 780px)':{
+      fontSize: "1.625rem !important",
+    },
   },
   headBody: {
     fontSize: "1.25rem !important",

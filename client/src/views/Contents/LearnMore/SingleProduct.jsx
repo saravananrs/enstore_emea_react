@@ -11,6 +11,14 @@ const useStyles = makeStyles(() => ({
     maxWidth: "98%",
     margin: "0 auto !important",
     padding: "20px 0px",
+    "@media (max-width: 500px)": {
+      display: "block !important",
+    },
+  },
+  column:{
+    "@media (max-width: 500px)": {
+      maxWidth:"100% !important"
+    }
   },
   imgSec: {
     boxShadow: "none !important",
@@ -22,6 +30,10 @@ const useStyles = makeStyles(() => ({
   },
   rightAllign: {
     paddingLeft: "100px !important",
+    "@media (max-width: 500px)": {
+      maxWidth:"100% !important",
+      padding :"10px !important"
+    }
   },
 }));
 const SingleProduct = (props) => {
@@ -38,7 +50,7 @@ const SingleProduct = (props) => {
 
   const handleThumbNail = (imgData) => {
     setProductImage(imgData);
-    window.scrollTo(0, 100)
+    window.scrollTo(0, 100);
   };
   const classes = useStyles();
   return (
@@ -48,7 +60,7 @@ const SingleProduct = (props) => {
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       className={classes.productContainer}
     >
-      <Grid item xs={6}>
+      <Grid item xs={6} className={classes.column}>
         {productImage && (
           <Paper className={classes.imgSec}>
             <img
@@ -57,7 +69,12 @@ const SingleProduct = (props) => {
             />
           </Paper>
         )}
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid
+          container
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}
+        >
           {mediaGallery &&
             mediaGallery.map((data) => {
               return (

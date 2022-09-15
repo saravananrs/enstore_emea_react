@@ -13,11 +13,17 @@ const useStyles = makeStyles(() => ({
     fontSize: "2.625rem !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     paddingBottom: "15px",
+    "@media (max-width: 800px)": {
+      fontSize: "1.625rem !important",
+    },
   },
   price: {
     fontSize: "1.5rem !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     paddingBottom: "15px",
+    "@media (max-width: 800px)": {
+      fontSize: "1.25rem !important",
+    }
   },
   pCode: {
     fontSize: "1.25rem !important",
@@ -30,6 +36,9 @@ const useStyles = makeStyles(() => ({
     lineHeight: "1.9rem !important",
     marginBottom: "25px !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    "@media (max-width: 800px)": {
+      fontSize: "1rem !important",
+    }
   },
   pTextRead: {
     fontSize: "1.25rem !important",
@@ -75,6 +84,14 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     cursor: " pointer",
+    "@media (max-width: 500px)": {
+    right: "71%",
+    width: "calc(14% - 6px)"
+    },
+    "@media screen and (min-width: 501px) and (max-width: 800px)":{
+      right: "65%",
+      width: "calc(19% - 6px)"
+    },
   },
   upArrow: {
     display: "flex",
@@ -94,6 +111,10 @@ const useStyles = makeStyles(() => ({
     borderRadius: "56px !important",
     padding: "26px 32px !important",
     margin: "30px 0px !important",
+    "@media (max-width: 800px)": {
+      fontSize: "0.875rem !important",
+      textTransform:"capitalize !important",
+    }
   },
 }));
 export default function SingleProductContents(props) {

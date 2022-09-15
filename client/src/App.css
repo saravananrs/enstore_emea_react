@@ -14,8 +14,8 @@ body,
   text-align: center;
   box-sizing: border-box;
 }
-.lifestyleImg{
-  background: linear-gradient(#97CDB4, #DDE0A5);
+.lifestyleImg {
+  background: linear-gradient(#97cdb4, #dde0a5);
   border-radius: 20px;
   position: relative;
   width: 100%;
@@ -32,11 +32,6 @@ body,
   box-sizing: border-box;
 }
 
-.app_footer {
-  position: relative;
-  border-top: 0.8px solid #dcdcd6;
-  padding: 87px 0px 30px 0px;
-}
 .lists {
   color: #3c3c3c;
   font-size: 0.75rem;
@@ -52,30 +47,48 @@ body,
   font-family: enphase-visuelt-medium;
   font-size: 1rem !important;
 }
-.slick-prev:before, .slick-next:before{
+.slick-prev:before,
+.slick-next:before {
   color: black !important;
   font-size: 30px !important;
-} 
+}
 
 /* react-elastic-carousel */
 
-.kdCslO{
+.kdCslO {
   display: none !important;
 }
 .eWjCzc {
-  background-color: rgba(0,0,0,.5) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 /* cartdropdown */
-.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
-  border-radius: 28px !important;
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+  /* border-radius: 28px !important; */
   overflow-y: hidden !important;
+}
+
+/* Tooltip */
+.css-ja5taz-MuiTooltip-tooltip {
+  padding: 10px !important;
+  margin-top: 11px;
+  margin-left: 61px;
+  background-color: rgb(182, 179, 179) !important;
+  font-family: enphase-visuelt-medium !important;
+  font-size: 0.875rem !important;
+}
+
+/* mobileview */
+.css-10hburv-MuiTypography-root {
+  color: #cecbcb !important;
+  font-family: enphase-visuelt-regular, sans-serif !important;
+  font-size: 16px !important;
 }
 
 /* MEDIA QUERY */
 /* lifestyle  */
-@media screen and (min-width: 1441px) and (max-width: 2000px) { 
-  .lifestyleImg{
+@media screen and (min-width: 1441px) and (max-width: 2000px) {
+  .lifestyleImg {
     width: 100%;
     margin: 0 auto;
     float: none;

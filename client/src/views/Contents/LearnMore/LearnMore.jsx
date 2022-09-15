@@ -14,6 +14,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     float: "none",
     maxWidth: "64%",
+    "@media (max-width:500px)":{
+    maxWidth: "88%",
+  },
+  "@media screen and (min-width: 501px) and (max-width: 800px)":{
+    maxWidth: "88%",
+  },
     margin: "0 auto",
     alignItems: "center",
   },
@@ -25,9 +31,19 @@ const useStyles = makeStyles(() => ({
   lHeading: {
     fontSize: "1.25rem !important",
     fontFamily: "enphase-visuelt-medium !important",
+    "@media (max-width:500px)":{
+      fontSize: "0.875rem !important",
+      fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    }
   },
   divider: {
     margin: "0.7em 15em !important",
+    "@media (max-width:500px)":{
+      margin:"10px 10px !important"
+    },
+    "@media screen and (min-width: 501px) and (max-width: 800px)":{
+      margin:"10px 40px !important"
+    },
   },
   storeAcc: {
     fontSize: "12px !important",
@@ -46,7 +62,6 @@ export default function LearnMore() {
         params: { id: urlKey },
       })
       .then((res) => {
-        console.log(res.data[0]);
         setProduct(res.data[0]);
         setIsLoading(false);
       })
@@ -61,7 +76,6 @@ export default function LearnMore() {
     <>
       {product && (
         <>
-          <Header />
           <Box className={classes.learMoreContainer}>
             <Typography variant="body1" className={classes.lHeading}>
               {product.name}
@@ -78,7 +92,6 @@ export default function LearnMore() {
           </Box>
           <SingleProduct productData={product} />
           <LifestyleParts />
-          <Footer />
         </>
       )}
     </>

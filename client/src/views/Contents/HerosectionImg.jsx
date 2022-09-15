@@ -8,6 +8,9 @@ const useStyles = makeStyles(() => ({
     margin: "0 auto",
     maxWidth: "95%",
     position: "relative",
+    "@media (max-width: 780px)": {
+      maxWidth: "90%",
+    },
     "&:hover": {
       boxShadow: "0px 20px 36px -8px rgb(0 0 0 / 10%)",
     },
@@ -15,6 +18,13 @@ const useStyles = makeStyles(() => ({
   homeImg: {
     width: "100%",
     borderRadius: "16px",
+    "@media (max-width: 780px)": {
+      objectPosition: "center center",
+      maxHeight: " 100vh",
+      objectFit: "cover",
+      height: "380px",
+      letterSpacing:"0 !important"
+    },
   },
   homeContent: {
     position: "absolute",
@@ -33,6 +43,11 @@ const useStyles = makeStyles(() => ({
     margin: "16px 0px 8px 0px !important",
     lineHeight: "3.3rem !important",
     marginBottom: "30px !important",
+    "@media (max-width: 780px)": {
+      fontSize: "1.625rem !important",
+      lineHeight: "1.3em !important",
+      fontWeightL:"normal !important"
+    },
   },
   homeButton: {
     border: "1px solid #3c3c3c !important",
@@ -48,6 +63,13 @@ const useStyles = makeStyles(() => ({
       color: "#fff !important",
       background: "#3c3c3c  !important",
     },
+    "@media (max-width: 780px)": {
+      padding:"8px 16px !important",
+      backgroundColor:' #3c3c3c !important',
+      border: '1px solid #3c3c3c !important',
+      color:'#fff !important',
+      fontSize: "0.7rem !important",
+  }
   },
 }));
 export default function HerosectionImg() {
@@ -61,15 +83,16 @@ export default function HerosectionImg() {
       />
       <Box className={classes.homeContent}>
         <Typography variant="body2" className={classes.homeText}>
-          FOR NEW HOMEOWNERS
+          FÜR NEUE HAUSBESITZER
         </Typography>
         <Typography variant="h3" className={classes.homeHeadings}>
           {" "}
-          Ready to purchase a new <br />
-          Enphase Energy System ?
+          Bereit, ein neues zu kaufen
+          <br />
+          Enphase Energiesystem ?
         </Typography>
         <Button className={classes.homeButton}>
-          Meet the Enphase Energy System
+          Lernen Sie das Energiesystem von Enphase kennen
         </Button>
       </Box>
     </Grid>

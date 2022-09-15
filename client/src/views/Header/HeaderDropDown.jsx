@@ -10,19 +10,21 @@ const useStyles = makeStyles((theme) => ({
     transition: "background .2s ease-out",
     minWidth: "unset",
     backgroundColor:"#F37321",
-    height:"31px"
+    height:"31px",
   },
   button:{
     color:"black",
     padding:"0",
     height:"31px",
     textTransform:"capitalize !important",
-    fontSize:"0.7rem !important",
-    fontWeight:"600 !important"
+    fontSize:"0.8rem !important",
+    // fontWeight:"600 !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
   Arrow:{
     // position:"absolute"
-    fontSize:"19px"
+    fontSize:"1.2rem !important",
+    marginTop:"-3px",
   }
 
 }))
@@ -39,6 +41,7 @@ export default function HeaderDropDown() {
   };
   return (
     <Box className={classes.container}>
+      
       <Button className={classes.button}
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -55,7 +58,15 @@ export default function HeaderDropDown() {
         onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
-        }}
+        }}    
+        sx={{
+          "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
+            top:{xs:'53px !important'},
+            left:{xs:'19px',md:"182px"},
+            width:{xs:'100%', md:"20%"}
+          }
+        }}   
+       
       >
         <MenuItem onClick={handleClose}>Home Energy System</MenuItem>
         <MenuItem onClick={handleClose}>Commercial Energy System</MenuItem>

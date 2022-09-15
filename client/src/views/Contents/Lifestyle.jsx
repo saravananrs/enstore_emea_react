@@ -6,6 +6,9 @@ import LifestyleParts from "./LifestyleParts";
 const useStyles = makeStyles(() => ({
   storageContainer: {
     padding: "70px 0px",
+    "@media (max-width: 780px)": {
+      padding: "10px 0px 50px 0px",
+    },
   },
   storageHeader: {
     float: "none",
@@ -22,6 +25,9 @@ const useStyles = makeStyles(() => ({
   headTitle: {
     marginBottom: "15px !important",
     fontSize: "2.67rem !important",
+    "@media (max-width: 780px)": {
+      fontSize: "1.625rem !important",
+    },
   },
   lifestyle: {
     textAlign: "center",
@@ -33,9 +39,12 @@ const useStyles = makeStyles(() => ({
     fontSize: "2.625rem !important",
     left: "28%",
     marginTop: "60px !important",
+    "@media (max-width: 780px)": {
+      left: "4%",
+      margin: "24px !important",
+      fontSize: "1.625rem !important",
+    },
   },
- 
- 
 }));
 export default function Lifestyle() {
   const classes = useStyles();
@@ -44,12 +53,12 @@ export default function Lifestyle() {
       <Grid className={classes.storageContainer}>
         <Box className={classes.storageHeader}>
           <Typography variant="h3" className={classes.headTitle}>
-            Enphase Lifestyle Products
+            Enphase Lifestyle-Produkte
           </Typography>
         </Box>
         <Box className={classes.lifestyle}>
           <Typography className={classes.lifeText}>
-            Jackets, hats, tools, and more
+            Jacken, Mützen, Werkzeuge und mehr
           </Typography>
           <img
             className="lifestyleImg"

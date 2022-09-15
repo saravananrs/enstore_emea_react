@@ -13,18 +13,33 @@ const useStyles = makeStyles(() => ({
   },
   helpGrid: {
     marginBottom: "20px",
+    "@media (max-width: 780px)": {
+      flexDirection:"column !important"
+    }
+  },
+  helpGridPart:{
+    "@media (max-width: 780px)": {
+      justifyContent:"flex-start",
+      marginBottom:"10px"
+    }
   },
   helpGridSection: {
     marginRight: "20px",
     color: "#3c3c3c",
     fontSize: "12px",
-    fontFamily: "enphase-visuelt-regular,sans-serif",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    "@media (max-width: 780px)": {
+      marginBottom:"10px"
+    }
   },
   content: {
     marginRight: "20px",
     color: "#3c3c3c",
     fontSize: "13px",
     fontFamily: "enphase-visuelt-regular,sans-serif",
+    "@media (max-width: 780px)": {
+      marginBottom:"13px",
+    }
   },
   payment: {
     display: "flex",
@@ -36,6 +51,11 @@ const useStyles = makeStyles(() => ({
   lifestyleFooterContainer: {
     backgroundColor: "#61C06A",
     padding: "20px 0px",
+    "@media (max-width: 780px)": {
+      borderRadius:"16px",
+      textAlign:"center",
+      padding:'0'
+    }
   },
   lifestyleFooter: {
     float: "none",
@@ -43,6 +63,10 @@ const useStyles = makeStyles(() => ({
     maxWidth: "90%",
     justifyContent: "space-between",
     alignItems: "center",
+    "@media (max-width: 780px)": {
+      flexDirection:"column !important",
+      padding:"30px"
+    }
   },
   btncontainer: {
     padding: "0px 20px",
@@ -56,7 +80,7 @@ const useStyles = makeStyles(() => ({
     color: "black",
     padding: "0",
     height: "44px",
-    fontFamily: "enphase-visuelt-medium,sans-serif",
+    fontFamily: "enphase-visuelt-medium,sans-serif !important",
     textTransform: "capitalize !important",
     fontSize: "0.875rem !important",
     cursor: "pointer",
@@ -65,6 +89,10 @@ const useStyles = makeStyles(() => ({
   questions: {
     fontFamily: "enphase-visuelt-regular,sans-serif",
     fontSize: "1.5rem !important",
+    "@media (max-width: 780px)": {
+      fontSize: "1.125rem !important",
+      marginBottom:"40px !important"
+    }
   },
 }));
 export default function LifestyleParts() {
@@ -73,7 +101,7 @@ export default function LifestyleParts() {
     <Grid container className={classes.lifestyleFooterContainer}>
         <Grid container className={classes.lifestyleFooter}>
           <Box className={classes.questions}>
-            Questions? Contact us. We'll help you build your system, today.
+          Fragen? Kontaktiere uns. Wir helfen Ihnen noch heute beim Aufbau Ihres Systems.
           </Box>
           <Box className={classes.btncontainer}>
             <Button className={classes.btn}>Get Enphase</Button>
@@ -83,17 +111,17 @@ export default function LifestyleParts() {
     <Grid container className={classes.helpContaier}>
       <Box>
         <Grid container className={classes.helpGrid}>
-          <Box className={classes.content}>Need help with the store?</Box>
+          <Box className={classes.content}>Benötigen Sie Hilfe beim Laden?</Box>
           <Box className={classes.content}>enphasestore@enphase.com</Box>
           <Box className={classes.content}>833-963-3820 Option 3</Box>
         </Grid>
-        <Grid container>
-          <Box className={classes.helpGridSection}>My account</Box>
-          <Box className={classes.helpGridSection}>Bag</Box>
-          <Box className={classes.helpGridSection}>Orders</Box>
-          <Box className={classes.helpGridSection}>Returns and exchanges</Box>
-          <Box className={classes.helpGridSection}>Terms of sale</Box>
-          <Box className={classes.helpGridSection}>Terms of shipping</Box>
+        <Grid container className={classes.helpGridPart}>
+          <Box className={classes.helpGridSection}>Mein Konto</Box>
+          <Box className={classes.helpGridSection}>Tasche</Box>
+          <Box className={classes.helpGridSection}>Aufträge</Box>
+          <Box className={classes.helpGridSection}>Rückgabe und Umtausch</Box>
+          <Box className={classes.helpGridSection}>Verkaufsbedingungen</Box>
+          <Box className={classes.helpGridSection}>Versandbedingungen</Box>
           <Box className={classes.helpGridSection}>
             Return process for Guest Users
           </Box>

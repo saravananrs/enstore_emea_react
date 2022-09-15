@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     paddingLeft: "30px !important",
     position: "relative",
+    "@media (max-width: 800px)": {
+    fontSize: "1.125rem !important",
+    },
   },
   accordianContent:{
     fontFamily: "enphase-visuelt-regular,sans-serif !important",

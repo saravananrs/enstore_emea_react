@@ -94,13 +94,15 @@ export default function HeaderCart() {
     return false;
   });
   // sub Total
-  let len = cartData.length - 1;
+  let len = unique.length - 1;
   let sum = 0;
   while (len >= 0) {
-    sum += cartData[len--].price;
+    sum += unique[len--].price;
   }
   useEffect(() => {
-    setSubTotal(sum);
+    if (unique.length > 1) {
+      setSubTotal(sum);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   const open = Boolean(cartdDown);
@@ -112,9 +114,10 @@ export default function HeaderCart() {
   };
   useEffect(() => {
     setBagCount(unique?.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   return (
-    <Box>
+    <Box sx={{marginLeft:{xs:"5px"},marginRight:{xs:"5px"}}}>
       <div onClick={handleClick} className={classes.bagIcon}>
         <svg class="fill-current svg svg-small" role="presentation">
           <use xlinkHref={`${cart}?v=1.20#store`}></use>
@@ -122,14 +125,21 @@ export default function HeaderCart() {
       </div>
       {unique?.length >= 1 && <Box className={classes.cartqty}>{bagCount}</Box>}
       <Menu
-        sx={{
-          marginTop: "20px",
-          marginLeft: "-80px",
-          borderRadius: "20px !important",
-        }}
+        // sx={{
+        //   marginTop: "20px",
+        //   marginLeft: "-80px",
+        //   borderRadius: "20px !important",
+        // }}
         anchorEl={cartdDown}
         open={open}
         onClose={handleClose}
+        sx={{
+          marginTop: "20px",
+           marginLeft: {xs:'10px',md:"-80px"},
+          "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
+            borderRadius:"28px !important"
+          }
+        }}
       >
         {unique?.length >= 1 ? (
           <>
@@ -139,7 +149,7 @@ export default function HeaderCart() {
                   Subtotal
                 </Typography>
                 <Typography variant="body2" className={classes.subtotal}>
-                  ${subTotal?.toFixed(2)}
+                € {subTotal?.toFixed(2)}
                 </Typography>
               </Box>
               <Button className={classes.checkoutBtn}>Check out</Button>

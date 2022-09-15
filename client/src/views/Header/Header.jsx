@@ -2,116 +2,48 @@ import React from "react";
 import {
   Box,
   Toolbar,
-  IconButton,
-  Typography,
-  Menu,
   Container,
   Button,
-  MenuItem,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
 import logo from "../../Assets/Header/spritemap.svg";
 import search from "../../Assets/Header/spritemap.svg";
 import HeaderDropDown from "./HeaderDropDown";
+import {makeStyles} from "@material-ui/styles"
 import HeaderCart from "./HeaderCart";
+import HeaderMobileView from "./HeaderMobileView";
 
 const pages = [
-  "Homeowners",
-  "Business Owners",
-  "Installers",
-  "store",
-  "support",
+  "Hausbesitzer",
+  "Unternehmer",
+  "Installateure",
+  "Laden",
+  "Unterstützung",
 ];
+const useStyles = makeStyles(()=>({
+headerContainer:{
+  display: "flex !important",
+  justifyContent: "space-evenly !important",
+  alignItems: "center !important",
+  height: "53px !important",
+  position: "fixed !important",
+  top: "0 !important",
+  maxWidth: "100% !important",
+  zIndex: "500 !important",
+  background:'#000'
+},
+}))
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const classes = useStyles()
 
   return (
-    <header className="App-header">
+    <header className="App-header">  
       <Container
         maxWidth="xl"
-        sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          height: "53px",
-          position: "fixed",
-          top: "0",
-          maxWidth:"100% !important",
-          background: "black",
-          zIndex: "999",
-        }}
+        className={classes.headerContainer}
       >
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-              color: "white",
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              sx={{ color: "white" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none", color: "white" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+        <Toolbar disableGutters>   
+        <HeaderMobileView />
           <Box
             sx={{
               flexGrow: 1,
@@ -133,12 +65,13 @@ const Header = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
                 sx={{
                   my: 2,
                   color: "#dcdcd6",
                   display: "block",
                   fontSize: "0.8rem !important",
+                  fontFamily: "enphase-visuelt-regular,sans-serif !important",
                   lineHeight: "1.14rem",
                   margin: "0px 24px 0px 1px",
                   textTransform: "capitalize",
@@ -147,11 +80,13 @@ const Header = () => {
                 {page}
               </Button>
             ))}
-            <HeaderDropDown />
+            <Box sx={{display:{xs:'none',md:'flex'}}}>
+              <HeaderDropDown />
+            </Box>
             <Box
               sx={{
                 flexGrow: 0,
-                display: "flex",
+                display: {xs:'none',md:'flex'},
                 margin: "0px 40px",
                 color: "#F0F0F0",
               }}
