@@ -68,6 +68,7 @@ export default function LearnMore() {
       .catch((err) => {
         console.log(err);
       });
+      window.scrollTo(0,0)
   }, []);
   if (isLoading) {
     return <Spinner />;

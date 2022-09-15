@@ -4,7 +4,7 @@ import React from "react";
 import HerosectionImg from "./HerosectionImg";
 const useStyles = makeStyles((theme) => ({
   storageContainer: {
-    paddingTop: '130px',
+    paddingTop: '90px',
     '@media (max-width: 780px)':{
       paddingTop: "55px",
     },

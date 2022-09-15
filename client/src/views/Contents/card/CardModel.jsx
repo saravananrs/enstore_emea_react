@@ -181,8 +181,8 @@ export default function CardModel(props) {
                     </Typography>
                     <Tooltip title={item.name} className={classes.toolTip}>
                       <Typography variant="h5" className={classes.title}>
-                        {item.name.length > 25
-                          ? item.name.substring(0, 25) + "..."
+                        {item.name.length > 26
+                          ? item.name.substring(0, 26) + "..."
                           : item.name}
                       </Typography>
                     </Tooltip>

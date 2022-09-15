@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import enphase from "../../Assets/Header/spritemap.svg";
 import FooterMobile from "./FooterMobile";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   logo: {
     paddingLeft: "57px !important",
     marginTop: "-17px !important",

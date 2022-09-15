@@ -66,6 +66,14 @@ const useStyles = makeStyles(() => ({
     borderRadius: "50%",
     color: "#000",
     fontSize: "8px",
+    "@media (max-width: 500px)": {
+      right: "10%",
+      bottom: "15%",
+    },
+    "@media screen and (min-width: 501px) and (max-width: 800px)":{
+      right: "5%",
+      bottom: "26%",
+    },
   },
   bagCartContainer: {
     display: "flex !important",
@@ -117,7 +125,7 @@ export default function HeaderCart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   return (
-    <Box sx={{marginLeft:{xs:"5px"},marginRight:{xs:"5px"}}}>
+    <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
         <svg class="fill-current svg svg-small" role="presentation">
           <use xlinkHref={`${cart}?v=1.20#store`}></use>
@@ -135,10 +143,11 @@ export default function HeaderCart() {
         onClose={handleClose}
         sx={{
           marginTop: "20px",
-           marginLeft: {xs:'10px',md:"-80px"},
-          "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
-            borderRadius:"28px !important"
-          }
+          marginLeft: { xs: "10px", md: "-80px" },
+          "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
+            {
+              borderRadius: "28px !important",
+            },
         }}
       >
         {unique?.length >= 1 ? (
@@ -149,7 +158,7 @@ export default function HeaderCart() {
                   Subtotal
                 </Typography>
                 <Typography variant="body2" className={classes.subtotal}>
-                € {subTotal?.toFixed(2)}
+                  € {subTotal?.toFixed(2)}
                 </Typography>
               </Box>
               <Button className={classes.checkoutBtn}>Check out</Button>
