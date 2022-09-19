@@ -119,7 +119,7 @@ export default function HeaderCartItem(props) {
     (value) => value.attribute_code === "small_image"
   );
   return (
-    <>
+    <div>
       <li className={classes.bagCartItem} key={key}>
         <Box className={classes.cartImgContainer}>
           <img
@@ -172,6 +172,6 @@ export default function HeaderCartItem(props) {
         </Box>
       </li>
       <Divider className={classes.divider} />
-    </>
+    </div>
   );
 }

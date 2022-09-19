@@ -5,15 +5,15 @@ body,
 #root,
 .loginContianer {
   scroll-behavior: smooth;
-  /* -ms-overflow-style: none; */
 }
 ::-webkit-scrollbar {
   display: none;
 }
+
+
 .App-header {
   top: 0;
   min-height: 4rem;
-  /* background-color: #000000; */
   position: relative;
   text-align: center;
   box-sizing: border-box;
@@ -68,7 +68,6 @@ body,
 
 /* cartdropdown */
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
-  /* border-radius: 28px !important; */
   overflow-y: hidden !important;
 }
 

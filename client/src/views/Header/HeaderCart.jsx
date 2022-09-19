@@ -124,6 +124,9 @@ export default function HeaderCart() {
     setBagCount(unique?.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
+  const handleCheckOutClick = () =>{
+    console.log("daa");
+  }
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
@@ -133,11 +136,6 @@ export default function HeaderCart() {
       </div>
       {unique?.length >= 1 && <Box className={classes.cartqty}>{bagCount}</Box>}
       <Menu
-        // sx={{
-        //   marginTop: "20px",
-        //   marginLeft: "-80px",
-        //   borderRadius: "20px !important",
-        // }}
         anchorEl={cartdDown}
         open={open}
         onClose={handleClose}
@@ -151,7 +149,7 @@ export default function HeaderCart() {
         }}
       >
         {unique?.length >= 1 ? (
-          <>
+          <div>
             <Grid className={classes.priceContainer}>
               <Box className={classes.priceItems}>
                 <Typography variant="h6" className={classes.subtotal}>
@@ -161,14 +159,14 @@ export default function HeaderCart() {
                   € {subTotal?.toFixed(2)}
                 </Typography>
               </Box>
-              <Button className={classes.checkoutBtn}>Check out</Button>
+              <Button className={classes.checkoutBtn} onClick={()=>handleCheckOutClick()}>Check out</Button>
             </Grid>
             <Divider />
             <Box className={classes.bagCartContainer}>
               <ul className={classes.bagCartList}>
                 {unique?.map((item) => {
                   return (
-                    <>
+                    <div>
                       {" "}
                       <HeaderCartItem
                         key={item.id}
@@ -178,12 +176,12 @@ export default function HeaderCart() {
                         bagCount={bagCount}
                         item={item}
                       />
-                    </>
+                    </div>
                   );
                 })}
               </ul>
             </Box>
-          </>
+          </div>
         ) : (
           <>
             <Box className={classes.bagPage}>Your Bag is empty</Box> <Divider />

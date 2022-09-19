@@ -34,7 +34,6 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
 }));
-const drawerWidth = 240;
 export default function HeaderMobileView(props) {
   const pages = [
     "Hausbesitzer",

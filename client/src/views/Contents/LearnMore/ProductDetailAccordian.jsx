@@ -8,9 +8,9 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/styles";
 import { Divider, Box, Grid } from "@mui/material";
 const useStyles = makeStyles(() => ({
-    accordianContainer:{
-        margin:"20px 0px",
-    },
+  accordianContainer: {
+    margin: "20px 0px",
+  },
   accTitle: {
     fontSize: "1.6rem !important",
     lineHeight: "1.3rem !important",
@@ -18,47 +18,47 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "30px !important",
     position: "relative",
     "@media (max-width: 800px)": {
-    fontSize: "1.125rem !important",
+      fontSize: "1.125rem !important",
     },
   },
-  accordianContent:{
+  accordianContent: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "1.25rem !important",
-    lineHeight:"1.6rem !important",
-    padding:"0 32px",
-    marginBottom:"17px"
+    lineHeight: "1.6rem !important",
+    padding: "0 32px",
+    marginBottom: "17px",
   },
-  acclists:{
+  acclists: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "1.25rem !important",
-    lineHeight:"1.6rem !important",
+    lineHeight: "1.6rem !important",
   },
-  acclistitems:{
-    marginTop:"32px"
+  acclistitems: {
+    marginTop: "32px",
   },
-  acclistTexts:{
-    paddingBottom:"12px",
-    listStyleType:"disc",
-    marginLeft:"14px",
-    textAlign:"left",
-    lineHeight:"2.5rem !important",
-    marginRight:"22px",
-    color:"#000"
+  acclistTexts: {
+    paddingBottom: "12px",
+    listStyleType: "disc",
+    marginLeft: "14px",
+    textAlign: "left",
+    lineHeight: "2.5rem !important",
+    marginRight: "22px",
+    color: "#000",
   },
-  accTable:{
-    borderCollapse: 'collapse',
-    borderColor: '#6e6e73',
+  accTable: {
+    borderCollapse: "collapse",
+    borderColor: "#6e6e73",
   },
-  accTableHead:{
-    padding: '6px 16px',
-    fontWeight: '400',
+  accTableHead: {
+    padding: "6px 16px",
+    fontWeight: "400",
   },
-  accTableContent:{
-    marginRight: '20px !important',
-    marginTop: '30px !important',
+  accTableContent: {
+    marginRight: "20px !important",
+    marginTop: "30px !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "1.25rem !important",
-    lineHeight:"1.6rem !important",
+    lineHeight: "1.6rem !important",
   },
 }));
 
@@ -90,25 +90,22 @@ const AccordionSummary = styled((props) => (
   border: "none",
 }));
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-   padding: theme.spacing(2),
+  padding: theme.spacing(2),
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 export default function ProductDetailAccordian(props) {
   const product = props.productData;
-  // console.log(product,"product");
-  let custome_attribute = {}
+  let custome_attribute = {};
   product.custom_attributes.map((attributes) => {
-    custome_attribute[attributes.attribute_code] = attributes.value
+    custome_attribute[attributes.attribute_code] = attributes.value;
   });
-  
-// function getText(html){
-//   let divContainer= document.createElement("div");
-//   divContainer.innerHTML = html;
-//   return divContainer.textContent || divContainer.innerText || "";
-// }
-// let detailsData = custome_attribute.description
-
-  // console.log(getText(detailsData),"custome_attribute");
+  // function getText(html) {
+  //   let divContainer = document.createElement("div");
+  //   divContainer.innerHTML = html;
+  //   return divContainer.textContent || divContainer.innerText || "";
+  // }
+  // let detailsData = custome_attribute.description;
+  // console.log(getText(detailsData), "custome_attribute");
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [expandedTech, setExpandedTech] = React.useState(false);
@@ -130,102 +127,176 @@ export default function ProductDetailAccordian(props) {
   return (
     <React.Fragment>
       <Box className={classes.accordianContainer}>
-      <Accordion expanded={expanded} onClick={handleDetailClick}>
-        <AccordionSummary>
-          <Typography variant="h3" className={classes.accTitle}>
-            Details
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid className={classes.accordianContent}>
-            <Box className={classes.acclists}>
-              <table className={classes.accTable}>
-                <tbody>
-                  <tr>
-                    <th className={classes.accTableHead}><Typography variant="body2" className={classes.accTableContent}>Product Name</Typography></th>
-                    <td ><Typography variant="body2"className={classes.accTableContent}>IQ Load Controller</Typography></td>
-                  </tr>
-                  <tr>
-                    <th className={classes.accTableHead}><Typography variant="body2" className={classes.accTableContent}>Product Name</Typography></th>
-                    <td ><Typography variant="body2"className={classes.accTableContent}>IQ Load Controller</Typography></td>
-                  </tr>
-                  <tr>
-                    <th className={classes.accTableHead}><Typography variant="body2" className={classes.accTableContent}>Product Name</Typography></th>
-                    <td ><Typography variant="body2"className={classes.accTableContent}>IQ Load Controller</Typography></td>
-                  </tr>
-                </tbody>
-              </table>
-              <ul className={classes.acclistitems}>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-                <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              </ul>
-            </Box>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-      <Divider sx={{ marginBottom: "25px" }} />
-      <Accordion expanded={expandedTech} onClick={handleTechClick}>
-        <AccordionSummary>
-          <Typography variant="h3" className={classes.accTitle}>
-            Technical Specifications
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-        <Grid className={classes.accordianContent}>
-            <Box className={classes.acclists}>
-              <ul className={classes.acclistitems}>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-                <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              </ul>
-            </Box>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-      <Divider sx={{ marginBottom: "25px" }} />
-      <Accordion expanded={expandedCompat} onClick={handleCompatClick}>
-        <AccordionSummary>
-          <Typography variant="h3" className={classes.accTitle}>
-            Compatibility
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-        <Grid className={classes.accordianContent}>
-            <Box className={classes.acclists}>
-              <ul className={classes.acclistitems}>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-                <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              </ul>
-            </Box>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-      <Divider sx={{ marginBottom: "25px" }} />
-      <Accordion expanded={expandedBox} onClick={handleBoxClick}>
-        <AccordionSummary>
-          <Typography variant="h3" className={classes.accTitle}>
-            What's in the Box
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-        <Grid className={classes.accordianContent}>
-            <Box className={classes.acclists}>
-              <ul className={classes.acclistitems}>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-                <li className={classes.acclistTexts}>Lighter weight than earlier M-Series Microinverters</li>
-              </ul>
-            </Box>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-      <Divider sx={{ marginBottom: "25px" }} />
+        <Accordion expanded={expanded} onClick={handleDetailClick}>
+          <AccordionSummary>
+            <Typography variant="h3" className={classes.accTitle}>
+              Details
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid className={classes.accordianContent}>
+              <Box className={classes.acclists}>
+                <table className={classes.accTable}>
+                  <tbody>
+                    <tr>
+                      <th className={classes.accTableHead}>
+                        <Typography
+                          variant="body2"
+                          className={classes.accTableContent}
+                        >
+                          Product Name
+                        </Typography>
+                      </th>
+                      <td>
+                        <Typography
+                          variant="body2"
+                          className={classes.accTableContent}
+                        >
+                          IQ Load Controller
+                        </Typography>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className={classes.accTableHead}>
+                        <Typography
+                          variant="body2"
+                          className={classes.accTableContent}
+                        >
+                          Product Name
+                        </Typography>
+                      </th>
+                      <td>
+                        <Typography
+                          variant="body2"
+                          className={classes.accTableContent}
+                        >
+                          IQ Load Controller
+                        </Typography>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className={classes.accTableHead}>
+                        <Typography
+                          variant="body2"
+                          className={classes.accTableContent}
+                        >
+                          Product Name
+                        </Typography>
+                      </th>
+                      <td>
+                        <Typography
+                          variant="body2"
+                          className={classes.accTableContent}
+                        >
+                          IQ Load Controller
+                        </Typography>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ul className={classes.acclistitems}>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                </ul>
+              </Box>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+        <Divider sx={{ marginBottom: "25px" }} />
+        <Accordion expanded={expandedTech} onClick={handleTechClick}>
+          <AccordionSummary>
+            <Typography variant="h3" className={classes.accTitle}>
+              Technical Specifications
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid className={classes.accordianContent}>
+              <Box className={classes.acclists}>
+                <ul className={classes.acclistitems}>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                </ul>
+              </Box>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+        <Divider sx={{ marginBottom: "25px" }} />
+        <Accordion expanded={expandedCompat} onClick={handleCompatClick}>
+          <AccordionSummary>
+            <Typography variant="h3" className={classes.accTitle}>
+              Compatibility
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid className={classes.accordianContent}>
+              <Box className={classes.acclists}>
+                <ul className={classes.acclistitems}>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                </ul>
+              </Box>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+        <Divider sx={{ marginBottom: "25px" }} />
+        <Accordion expanded={expandedBox} onClick={handleBoxClick}>
+          <AccordionSummary>
+            <Typography variant="h3" className={classes.accTitle}>
+              What's in the Box
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid className={classes.accordianContent}>
+              <Box className={classes.acclists}>
+                <ul className={classes.acclistitems}>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                  <li className={classes.acclistTexts}>
+                    Lighter weight than earlier M-Series Microinverters
+                  </li>
+                </ul>
+              </Box>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+        <Divider sx={{ marginBottom: "25px" }} />
       </Box>
     </React.Fragment>
   );

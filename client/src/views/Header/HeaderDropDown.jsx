@@ -1,33 +1,35 @@
-import { Box, Button, Menu, MenuItem } from "@mui/material";
+import { Box, Button, Divider, Menu, MenuItem } from "@mui/material";
 import React from "react";
-import { makeStyles } from '@material-ui/styles';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import { makeStyles } from "@material-ui/styles";
+import home from "../../Assets/Header/spritemap.svg";
+import commercial from "../../Assets/Header/spritemap.svg";
+import ev from "../../Assets/Header/spritemap.svg";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 const useStyles = makeStyles((theme) => ({
-  container:{
-    padding:"0px 10px",
-    borderRadius:"50px",
+  container: {
+    padding: "0px 10px",
+    borderRadius: "50px",
     transition: "background .2s ease-out",
     minWidth: "unset",
-    backgroundColor:"#F37321",
-    height:"31px",
+    backgroundColor: "#F37321",
+    height: "31px",
   },
-  button:{
-    color:"black",
-    padding:"0",
-    height:"31px",
-    textTransform:"capitalize !important",
-    fontSize:"0.8rem !important",
+  button: {
+    color: "black",
+    padding: "0",
+    height: "31px",
+    textTransform: "capitalize !important",
+    fontSize: "0.8rem !important",
     // fontWeight:"600 !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
-  Arrow:{
+  Arrow: {
     // position:"absolute"
-    fontSize:"1.2rem !important",
-    marginTop:"-3px",
-  }
-
-}))
+    fontSize: "1.2rem !important",
+    marginTop: "-3px",
+  },
+}));
 
 export default function HeaderDropDown() {
   const classes = useStyles();
@@ -41,15 +43,15 @@ export default function HeaderDropDown() {
   };
   return (
     <Box className={classes.container}>
-      
-      <Button className={classes.button}
+      <Button
+        className={classes.button}
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        Get Enphase <KeyboardArrowDownOutlinedIcon className={classes.Arrow}/>
+        Get Enphase <KeyboardArrowDownOutlinedIcon className={classes.Arrow} />
       </Button>
       <Menu
         id="basic-menu"
@@ -58,18 +60,20 @@ export default function HeaderDropDown() {
         onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
-        }}    
+        }}
         sx={{
-          "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
-            top:{xs:'53px !important'},
-            left:{xs:'19px',md:"182px"},
-            width:{xs:'100%', md:"20%"}
-          }
-        }}   
-       
+          "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
+            {
+              top: { xs: "53px !important" },
+              left: { xs: "19px", md: "182px" },
+              width: { xs: "100%", md: "20%" },
+            },
+        }}
       >
         <MenuItem onClick={handleClose}>Home Energy System</MenuItem>
+        <Divider />
         <MenuItem onClick={handleClose}>Commercial Energy System</MenuItem>
+        <Divider />
         <MenuItem onClick={handleClose}>Ev Chargers</MenuItem>
       </Menu>
     </Box>

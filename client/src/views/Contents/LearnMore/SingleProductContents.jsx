@@ -151,7 +151,7 @@ export default function SingleProductContents(props) {
     dispatch(addToCart(product, count));
   };
   return (
-    <React.Fragment>
+    <div>
       <Box className={classes.contentContainer}>
         <Typography variant="h4" className={classes.header}>
           {product.name}
@@ -235,6 +235,6 @@ export default function SingleProductContents(props) {
           </Button>
         </Box>
       </Box>
-    </React.Fragment>
+    </div>
   );
 }
