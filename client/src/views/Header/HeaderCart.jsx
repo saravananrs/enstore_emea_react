@@ -3,9 +3,14 @@ import cart from "../../Assets/Header/spritemap.svg";
 import { Box, Menu, Divider, Grid, Typography, Button } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import HeaderCartItem from "./HeaderCartItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
+import {
+  addCartFinalCheckOut,
+  addCartItemsCheckout,
+} from "../../redux/actions/EnstoreActions";
+import BoltCheckoutBtn from "./BoltCheckOut/BoltCheckout";
 const useStyles = makeStyles(() => ({
   bagPage: {
     textAlign: "center",
@@ -70,7 +75,7 @@ const useStyles = makeStyles(() => ({
       right: "10%",
       bottom: "15%",
     },
-    "@media screen and (min-width: 501px) and (max-width: 800px)":{
+    "@media screen and (min-width: 501px) and (max-width: 800px)": {
       right: "5%",
       bottom: "26%",
     },
@@ -89,9 +94,11 @@ const useStyles = makeStyles(() => ({
 export default function HeaderCart() {
   const classes = useStyles();
   const { cartData } = useSelector((state) => state.store);
+  const { checkout } = useSelector((state) => state.store);
   const [cartdDown, setCartdDown] = useState(null);
   const [bagCount, setBagCount] = useState(1);
   const [subTotal, setSubTotal] = useState();
+  const dispatch = useDispatch();
   //unique cart data
   const unique = [];
   cartData.filter((list) => {
@@ -107,6 +114,7 @@ export default function HeaderCart() {
   while (len >= 0) {
     sum += unique[len--].price;
   }
+  
   useEffect(() => {
     if (unique.length > 1) {
       setSubTotal(sum);
@@ -121,12 +129,25 @@ export default function HeaderCart() {
     setCartdDown(null);
   };
   useEffect(() => {
-    setBagCount(unique?.length);
+    setBagCount(unique.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
-  const handleCheckOutClick = () =>{
-    console.log("daa");
-  }
+  const handleCheckOutClick = async (items) => {
+    await dispatch(addCartItemsCheckout());
+    const quoteId = localStorage.getItem("tokenKey");
+    unique.map((items) => {
+      const reqBody = {
+        cartItem: {
+          sku: items.sku,
+          qty: items.cartQty,
+          quote_id: quoteId,
+        },
+        data: quoteId,
+      };
+
+      dispatch(addCartFinalCheckOut(reqBody));
+    });
+  };
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
@@ -134,7 +155,7 @@ export default function HeaderCart() {
           <use xlinkHref={`${cart}?v=1.20#store`}></use>
         </svg>
       </div>
-      {unique?.length >= 1 && <Box className={classes.cartqty}>{bagCount}</Box>}
+      {unique.length >= 1 && <Box className={classes.cartqty}>{bagCount}</Box>}
       <Menu
         anchorEl={cartdDown}
         open={open}
@@ -145,10 +166,11 @@ export default function HeaderCart() {
           "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
             {
               borderRadius: "28px !important",
+              width: { xs: "70%", sm: "50%", md: "25%" },
             },
         }}
       >
-        {unique?.length >= 1 ? (
+        {unique.length >= 1 ? (
           <div>
             <Grid className={classes.priceContainer}>
               <Box className={classes.priceItems}>
@@ -159,12 +181,18 @@ export default function HeaderCart() {
                   € {subTotal?.toFixed(2)}
                 </Typography>
               </Box>
-              <Button className={classes.checkoutBtn} onClick={()=>handleCheckOutClick()}>Check out</Button>
+              <Button
+                className={classes.checkoutBtn}
+                onClick={() => handleCheckOutClick()}
+              >
+                Check out
+              </Button>
+            <BoltCheckoutBtn />
             </Grid>
             <Divider />
             <Box className={classes.bagCartContainer}>
               <ul className={classes.bagCartList}>
-                {unique?.map((item) => {
+                {unique.map((item) => {
                   return (
                     <div>
                       {" "}

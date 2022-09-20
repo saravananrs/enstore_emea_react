@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Box, Divider } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import upArrow from "../../Assets/Header/spritemap.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-
+import { addToCart } from "../../redux/actions/EnstoreActions";
 const useStyles = makeStyles(() => ({
   bagCartItem: {
     display: "flex !important",
@@ -84,6 +84,12 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     zIndex: 1,
   },
+  update: {
+    color: "red",
+    cursor: "pointer",
+    position: "relative",
+    zIndex: 1,
+  },
   divider: {
     margin: "18px 0px !important",
   },
@@ -91,13 +97,14 @@ const useStyles = makeStyles(() => ({
 
 export default function HeaderCartItem(props) {
   const classes = useStyles();
-  const {  setSubTotal, subTotal, item, key } = props;
+  const { setSubTotal, subTotal, item, key } = props;
   const { cartData } = useSelector((state) => state.store);
   const [count, setCount] = useState(item.cartQty);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if(cartData.length === 1){
-    setSubTotal(item.cartQty * item.price)
-  }
+    if (cartData.length === 1) {
+      setSubTotal(item.cartQty * item.price);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
 
@@ -167,7 +174,22 @@ export default function HeaderCartItem(props) {
                 </Box>
               </Box>
             </Box>
-            <Box className={classes.remove} >Remove</Box>
+            {count > 1 ? (
+              <Box
+                className={classes.update}
+                onClick={() => dispatch(addToCart(item, count))}
+              >
+                Update
+              </Box>
+            ) : (
+              <Box
+                className={classes.remove}
+                onClick={() => dispatch(addToCart(item, count))}
+              >
+                Update
+              </Box>
+            )}
+            &nbsp;&nbsp;<Box className={classes.remove}>Remove</Box>
           </Box>
         </Box>
       </li>
