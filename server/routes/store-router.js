@@ -10,5 +10,6 @@ router.get('/productsByURLKey', storeCtrl.getProductByURLKey)
 router.get('/login', storeCtrl.enlightenOAuthLogin)
 router.get('/quoteId',storeCtrl.getQuoteId)
 router.post('/cartItems',storeCtrl.getCartDetailByQuoteId)
+router.post('/estimateShipping',storeCtrl.getShippingEstimation)
 
 module.exports = router

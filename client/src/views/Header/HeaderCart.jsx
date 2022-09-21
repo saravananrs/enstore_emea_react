@@ -10,7 +10,7 @@ import {
   addCartFinalCheckOut,
   addCartItemsCheckout,
 } from "../../redux/actions/EnstoreActions";
-import BoltCheckoutBtn from "./BoltCheckOut/BoltCheckout";
+import CheckoutContainer from "./Checkout/CheckoutContainer";
 const useStyles = makeStyles(() => ({
   bagPage: {
     textAlign: "center",
@@ -94,7 +94,7 @@ const useStyles = makeStyles(() => ({
 export default function HeaderCart() {
   const classes = useStyles();
   const { cartData } = useSelector((state) => state.store);
-  const { checkout } = useSelector((state) => state.store);
+  const [openDialog, setOpenDialog] = React.useState(false);
   const [cartdDown, setCartdDown] = useState(null);
   const [bagCount, setBagCount] = useState(1);
   const [subTotal, setSubTotal] = useState();
@@ -144,9 +144,9 @@ export default function HeaderCart() {
         },
         data: quoteId,
       };
-
       dispatch(addCartFinalCheckOut(reqBody));
     });
+    await setOpenDialog(true)
   };
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
@@ -187,7 +187,7 @@ export default function HeaderCart() {
               >
                 Check out
               </Button>
-            <BoltCheckoutBtn />
+              <CheckoutContainer setOpen={setOpenDialog} open={openDialog}/>
             </Grid>
             <Divider />
             <Box className={classes.bagCartContainer}>

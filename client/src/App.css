@@ -88,6 +88,51 @@ body,
   font-size: 16px !important;
 }
 
+/* modalbox input */
+.inputBox{
+  border-style: solid;
+  padding-top: 24px;
+  background-color: #f4f4f4;
+  border-color: transparent;
+  border-radius:  4px;
+  color:#181818;
+  font-size:  16px;
+  height:  48px;
+  width: 100%;
+  outline: none;
+}
+.inputBox:focus{
+ 
+  border-width: 2px;
+  border-color: #F37321;
+  background-color: #f4f4f4;
+}
+.floatlabel{
+  color: #707070;
+  height: 16px;
+  font-size: 12px;
+  left:  30px;
+  opacity: 1;
+  overflow:  hidden;
+  pointer-events: none;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 15px;
+  white-space: nowrap;
+  width: calc(100% - 20px);
+  transition: .2s ease all;
+}
+.floatlabel:focus{
+  color:#F37321;
+}
+.css-1w7e6fu-MuiSvgIcon-root-MuiStepIcon-root.Mui-active{
+  color:#F37321 !important;
+}
+/* .inputBox:not(:placeholder-shown)~ .floatlabel{
+  opacity: 1;
+} */
+
+
 /* MEDIA QUERY */
 /* lifestyle  */
 @media screen and (min-width: 1441px) and (max-width: 2000px) {

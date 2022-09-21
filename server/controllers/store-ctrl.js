@@ -61,7 +61,6 @@ getProductByURLKey = async (req, res) => {
       }
     )
     .then((response) => {
-      console.log("response", response.data);
       return res.send(JSON.stringify(response.data.items));
     })
     .catch((error) => {
@@ -81,7 +80,6 @@ getQuoteId = async (req, res) => {
       }
     )
     .then((response) => {
-      console.log("response", response.data);
       return res.send(JSON.stringify(response.data));
     })
     .catch((error) => {
@@ -101,7 +99,25 @@ getCartDetailByQuoteId = async (req, res) => {
       }
     )
     .then((response) => {
-      console.log("response", response.data);
+      return res.send(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(req);
+    });
+};
+getShippingEstimation = async (req, res) => {
+  await axios
+    .post(
+      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/estimate-shipping-methods`,
+      req.body,
+      {
+        headers: {
+          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+        },
+      }
+    )
+    .then((response) => {
       return res.send(JSON.stringify(response.data));
     })
     .catch((error) => {
@@ -110,6 +126,27 @@ getCartDetailByQuoteId = async (req, res) => {
     });
 };
 
+// getSandBoxCheckout = async (req, res) => {
+//   await axios
+//   .post(
+//     `https://api-sandbox.bolt.com/v2/checkout`,
+//     {
+//       headers: {
+//         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+//       },
+//       params:{
+//         publishable_key:'JMO9OVXaOifn.UT8x7JrS5pS2.1d7f8ec9a644998c1f49682601f40b024868d8e62c0f93d79b26a3ebbe2dc5f6'
+//       }
+//     }
+//   )
+//   .then((response) => {
+//     return res.send(JSON.stringify(response.data));
+//   })
+//   .catch((error) => {
+//     console.log(error,"err");
+//     console.log(req);
+//   });
+// };
 enlightenOAuthLogin = async function (req, res) {
   console.log("enlighten login method start");
   console.log("enlighten login method start");
@@ -279,4 +316,5 @@ module.exports = {
   getProductByURLKey,
   getQuoteId,
   getCartDetailByQuoteId,
+  getShippingEstimation,
 };
