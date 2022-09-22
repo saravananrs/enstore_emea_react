@@ -102,6 +102,9 @@ export default function HeaderCart() {
   const [bagCount, setBagCount] = useState(1);
   const [subTotal, setSubTotal] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const storedData = []
+  let createdCartData = localStorage.getItem("cartData")
+  storedData.push(JSON.parse(createdCartData))
   const dispatch = useDispatch();
   //unique cart data
   const unique = [];
@@ -136,10 +139,10 @@ export default function HeaderCart() {
     setBagCount(unique.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
-  const handleCheckOutClick = async (items) => {
+  const handleCheckOutClick = async () => {
     setToggle(false)
+    if(createdCartData === null){
     await dispatch(addCartItemsCheckout());
-    // setIsLoading(false)
     const quoteId = localStorage.getItem("tokenKey");
     unique.map((items) => {
       const reqBody = {
@@ -151,8 +154,7 @@ export default function HeaderCart() {
         data: quoteId,
       };
       dispatch(addCartFinalCheckOut(reqBody));
-      // setIsLoading(false)
-    });
+    })};
     await setOpenDialog(true);
     setIsLoading(false);
     setToggle(true)

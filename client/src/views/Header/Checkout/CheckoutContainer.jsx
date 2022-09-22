@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{useState} from "react";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/styles";
 import { Grid, Box } from "@mui/material";
 import CheckoutOrderSummary from "./CheckoutOrderSummary";
 import CheckoutStepper from "./Stepper/CheckoutStepper";
-import Spinner from "../../../Spinner/Spinner";
 
 const useStyles = makeStyles(() => ({
   dialogBox: {
@@ -56,13 +55,15 @@ const useStyles = makeStyles(() => ({
 export default function CheckoutContainer(props) {
   const classes = useStyles();
   const { open, setOpen } = props;
+  const[total,setTotal] = useState()
+  const[overAll,setOverall] = useState()
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClose = () => {
     setOpen(false);
   };
  
-
+console.log(overAll);
   return (
     <div>
       <Dialog
@@ -85,19 +86,14 @@ export default function CheckoutContainer(props) {
             </Box>
             <Box>
               <Box className={classes.stepperContainer}>
-                <CheckoutStepper />
+                <CheckoutStepper setTotal={setTotal}  overAll={overAll} handleClose={handleClose} />
               </Box>
             </Box>
           </Grid>
-          <CheckoutOrderSummary />
+          <CheckoutOrderSummary total={total} setOverall={setOverall}/>
         </Grid>
       </Dialog>
     </div>
   );
 }
 
-{
-  /* <Button autoFocus onClick={handleClose}>
-            Disagree
-          </Button> */
-}
