@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Grid, Box } from "@mui/material";
 import CheckoutOrderSummary from "./CheckoutOrderSummary";
 import CheckoutStepper from "./Stepper/CheckoutStepper";
+import Spinner from "../../../Spinner/Spinner";
 
 const useStyles = makeStyles(() => ({
   dialogBox: {
@@ -13,6 +14,9 @@ const useStyles = makeStyles(() => ({
       margin: "0 !important",
       maxWidth: "880px !important",
     },
+    "& .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop":{
+    backgroundColor: 'rgba(2, 6, 2, 0.8) !important',
+    }
   },
   modalContainer: {
     display: "flex",
@@ -54,10 +58,10 @@ export default function CheckoutContainer(props) {
   const { open, setOpen } = props;
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
   const handleClose = () => {
     setOpen(false);
   };
+ 
 
   return (
     <div>

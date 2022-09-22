@@ -62,7 +62,6 @@ export default function StepperShipping(props) {
   };
   const classes = useStyles();
   const [register, setRegister] = useState(IntialShippingRegister);
-  console.log(register,"register");
   const [userError, setUserError] = useState("");
   const {allStepsCompleted,isLastStep,completed,steps} = useStepper()
   const inputs = [

@@ -6,11 +6,13 @@ import HeaderCartItem from "./HeaderCartItem";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import LoadingButton from "@mui/lab/LoadingButton";
 import {
   addCartFinalCheckOut,
   addCartItemsCheckout,
 } from "../../redux/actions/EnstoreActions";
 import CheckoutContainer from "./Checkout/CheckoutContainer";
+import Spinner from "../../Spinner/Spinner";
 const useStyles = makeStyles(() => ({
   bagPage: {
     textAlign: "center",
@@ -94,10 +96,12 @@ const useStyles = makeStyles(() => ({
 export default function HeaderCart() {
   const classes = useStyles();
   const { cartData } = useSelector((state) => state.store);
-  const [openDialog, setOpenDialog] = React.useState(false);
+  const [openDialog, setOpenDialog] =useState(false);
+  const [toggle , setToggle] = useState(true)
   const [cartdDown, setCartdDown] = useState(null);
   const [bagCount, setBagCount] = useState(1);
   const [subTotal, setSubTotal] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   //unique cart data
   const unique = [];
@@ -114,7 +118,7 @@ export default function HeaderCart() {
   while (len >= 0) {
     sum += unique[len--].price;
   }
-  
+
   useEffect(() => {
     if (unique.length > 1) {
       setSubTotal(sum);
@@ -133,7 +137,9 @@ export default function HeaderCart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   const handleCheckOutClick = async (items) => {
+    setToggle(false)
     await dispatch(addCartItemsCheckout());
+    // setIsLoading(false)
     const quoteId = localStorage.getItem("tokenKey");
     unique.map((items) => {
       const reqBody = {
@@ -145,9 +151,13 @@ export default function HeaderCart() {
         data: quoteId,
       };
       dispatch(addCartFinalCheckOut(reqBody));
+      // setIsLoading(false)
     });
-    await setOpenDialog(true)
+    await setOpenDialog(true);
+    setIsLoading(false);
+    setToggle(true)
   };
+
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
@@ -181,13 +191,30 @@ export default function HeaderCart() {
                   € {subTotal?.toFixed(2)}
                 </Typography>
               </Box>
-              <Button
-                className={classes.checkoutBtn}
-                onClick={() => handleCheckOutClick()}
-              >
-                Check out
-              </Button>
-              <CheckoutContainer setOpen={setOpenDialog} open={openDialog}/>
+              {toggle ? (
+                <Button
+                  className={classes.checkoutBtn}
+                  onClick={() => handleCheckOutClick()}
+                >
+                  Check out
+                </Button>
+              ) : (
+                <LoadingButton
+                  size="small"
+                  loading={isLoading}
+                  className={classes.checkoutBtn}
+                  loadingPosition="start"
+                  variant="contained"
+                >
+                  Loading...
+                </LoadingButton>
+              )}
+              <CheckoutContainer
+                setOpen={setOpenDialog}
+                open={openDialog}
+                setIsLoading={setIsLoading}
+                isLoading={isLoading}
+              />
             </Grid>
             <Divider />
             <Box className={classes.bagCartContainer}>
