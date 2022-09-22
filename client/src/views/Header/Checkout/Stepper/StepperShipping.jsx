@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function StepperShipping(props) {
-    const {activeStep,setActiveStep} = props
+    const {activeStep,setActiveStep, setShippingMethod} = props
   const IntialShippingRegister = {
     email: "",
     phone: "",
@@ -155,26 +155,27 @@ export default function StepperShipping(props) {
   const handleShipmentClick = async() =>{
     const quoteId = localStorage.getItem("tokenKey");
     const reqBody ={
-        address: {
-          region: register.city,
-          country_id: "DE",
-          street: [
-            register.address
-          ],
-          postcode: register.postal,
-          city:register.city,
-          firstname: register.fname,
-          lastname: register.lname,
-          customer_id: null,
-          email: register.email,
-          telephone: register.phone,
-          same_as_billing: 1
-        },
+      "address": {
+        "region": "Greifswald",
+        "country_id": "DE",
+        "street": [
+          "123 Oak Ave"
+        ],
+        "postcode": "17461",
+        "city": "Greifswald",
+        "firstname": "Saravanan",
+        "lastname": "Vaithiyanathan",
+        "customer_id": null,
+        "email": "saravanan@riverstonetech.com",
+        "telephone": "4422531111",
+        "same_as_billing": 1
+      },
         data: quoteId,
       }
     await axios.post("http://localhost:8000/api/estimateShipping",reqBody)
     .then((response) => {
       console.log("response", response.data);
+      setShippingMethod(response.data)
     })
     .catch((error) => {
       console.log(error);

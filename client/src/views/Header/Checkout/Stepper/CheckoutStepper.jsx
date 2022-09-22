@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -12,7 +12,8 @@ import useStepper from "./useStepper.hook";
 const useStyles = makeStyles(() => ({}));
 
 export default function CheckoutStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [shippingMethod, setShippingMethod] = useState({});
   const {
       activeSteps,
     completed,
@@ -37,9 +38,9 @@ export default function CheckoutStepper() {
       <div>
         <React.Fragment>
           {activeStep === 0 ? (
-            <StepperShipping setActiveStep = {setActiveStep} activeStep={activeStep}/>
+            <StepperShipping setActiveStep = {setActiveStep} activeStep={activeStep} setShippingMethod= {setShippingMethod}/>
           ) : activeStep === 1 ? (
-            <StepperDelivery setActiveStep = {setActiveStep} activeStep={activeStep}/>
+            <StepperDelivery setActiveStep = {setActiveStep} activeStep={activeStep} shippingMethod={shippingMethod} setShippingMethod= {setShippingMethod}/>
           ) : (
             <StepperPayment />
           )}

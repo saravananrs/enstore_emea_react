@@ -11,5 +11,7 @@ router.get('/login', storeCtrl.enlightenOAuthLogin)
 router.get('/quoteId',storeCtrl.getQuoteId)
 router.post('/cartItems',storeCtrl.getCartDetailByQuoteId)
 router.post('/estimateShipping',storeCtrl.getShippingEstimation)
+router.post('/shippingInformation',storeCtrl.getShippingInformation)
+router.post('/createOrder',storeCtrl.createOrder)
 
 module.exports = router

@@ -125,6 +125,59 @@ getShippingEstimation = async (req, res) => {
       console.log(req);
     });
 };
+getShippingInformation  = async (req, res) => {
+  await axios
+    .post(
+      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/shipping-information`,
+      req.body,
+      {
+        headers: {
+          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+        },
+      }
+    )
+    .then((response) => {
+      return res.send(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(req);
+    });
+};
+createOrder = async (req, res) => {
+  await axios
+    .post(
+      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/payment-information`,
+      req.body,
+      {
+        headers: {
+          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+        },
+      }
+    )
+    .then(async(response) => {
+      await axios
+      .get(
+        `https://store-qa2.enphase.com/storefront/de-de/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+        {
+          headers: {
+            Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+          },
+        }
+      )
+      .then((orderResponse) => {
+        return res.send(JSON.stringify(orderResponse.data.items[0]));
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(req);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(req);
+    });
+};
 
 // getSandBoxCheckout = async (req, res) => {
 //   await axios
@@ -317,4 +370,6 @@ module.exports = {
   getQuoteId,
   getCartDetailByQuoteId,
   getShippingEstimation,
+  getShippingInformation,
+  createOrder
 };
