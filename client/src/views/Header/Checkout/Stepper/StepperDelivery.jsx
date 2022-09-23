@@ -12,6 +12,8 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
 import useStepper from "./useStepper.hook";
+import { orderData } from "../../../../redux/actions/EnstoreActions";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles(() => ({
   DeliveryContainer: {
     padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
@@ -100,6 +102,7 @@ export default function StepperDelivery(props) {
   } = props;
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(
     shippingMethod[0]
   );
@@ -145,6 +148,10 @@ export default function StepperDelivery(props) {
       .post("http://localhost:8000/api/shippingInformation", reqBody)
       .then((response) => {
         console.log("response", response.data);
+        dispatch(orderData({
+          "delivery":response.data.totals.shipping_amount,
+          "tax": response.data.totals.tax_amount,
+        }))
         setIsLoading(false);
         setToggle(true);
       })

@@ -3,6 +3,8 @@ export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
 export const POST_Add_TO_CART = "Add_TO_CART";
 export const POST_CheckOut_Click = "Checkout_Click";
 export const POST_Final_Checkout = "Final_Checkout";
+export const POST_ORDER_DATA = "ORDER_DATA"
+export const CLEAR_CART_ORDER_DATA = "CLEAR_CART_ORDER_DATA";
 
 export const adminLogin = (userName, password) => async (dispatch) => {
   await axios
@@ -66,4 +68,15 @@ export const addCartFinalCheckOut = (datas) => async (dispatch) => {
 		console.log(error);
 	  });
   };
-  
+  export const orderData = (orderData) => async (dispatch) => {
+    dispatch({
+		  type: POST_ORDER_DATA,
+		  payload: orderData
+		});
+  }
+  export const clearCartAndOrderData = () => async (dispatch) => {
+    dispatch({
+		  type: CLEAR_CART_ORDER_DATA,
+		  payload: [],
+		});
+  }

@@ -83,8 +83,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 export default function CheckoutOrderSummary(props) {
-  const { cartData } = useSelector((state) => state.store);
+  const { cartData, orderData } = useSelector((state) => state.store);
+  console.log("order data", orderData)
   const [subTotal, setSubTotal] = useState();
+  const [grandTotal, setGrandTotal] = useState();
   const { total,setOverall } = props;
   const unique = [];
   cartData.filter((list) => {
@@ -104,12 +106,11 @@ export default function CheckoutOrderSummary(props) {
     setSubTotal(sum);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
-  const overall = subTotal + (total === undefined ? 0 : total);
-  console.log(overall,"overall");
   useEffect(() => {
-    setOverall(overall);
+    const overall = Number(subTotal) + Number(orderData.delivery) + Number(orderData.tax);
+    setGrandTotal(overall);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [orderData]);
   const classes = useStyles();
   return (
     <Grid container className={classes.summaryContainer}>
@@ -154,18 +155,18 @@ export default function CheckoutOrderSummary(props) {
             </li>
             <li className={classes.subTotal}>
               <Box className={classes.subTotalName}> Delivery</Box>
-              <Box className={classes.subprice}> € </Box>
+              <Box className={classes.subprice}> € {orderData.delivery}</Box>
             </li>
             <li className={classes.subTotal}>
               <Box className={classes.subTotalName}> Taxes</Box>
-              <Box className={classes.subprice}> € {total}</Box>
+              <Box className={classes.subprice}> € {orderData.tax}</Box>
             </li>
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
               <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>
               <Box sx={{ color: "#000000", fontWeight: "600" }}>
                 {" "}
-                € {overall}
+                € {grandTotal}
               </Box>
             </li>
             <Divider sx={{ marginBottom: "10px" }} />

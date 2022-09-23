@@ -5,6 +5,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
+import './stripe.css'
+import { clearCartAndOrderData } from "./../../../redux/actions/EnstoreActions";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles(() => ({
   PaymentContainer: {
     padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
@@ -75,6 +78,7 @@ const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
+  const dispatch = useDispatch();
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -146,7 +150,8 @@ const CheckoutForm = (props) => {
           console.log("order Id", response.data.increment_id);
           handleClose()
           localStorage.removeItem('cartData')
-          navigate('/success')
+          dispatch(clearCartAndOrderData())
+          navigate('/success', { state: { order: response.data } })
         })
         .catch((error) => {
           console.log(error);

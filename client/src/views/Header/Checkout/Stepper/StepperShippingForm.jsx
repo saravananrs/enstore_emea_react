@@ -88,7 +88,7 @@ export default function StepperShippingForm(props) {
           id: 1,
           name: "email",
           type: "text",
-          text: "Email address",
+          text: "E-Mailadresse",
           value: register.email,
           validators:["required", "isEmail"]
         },
@@ -96,7 +96,7 @@ export default function StepperShippingForm(props) {
           id: 2,
           name: "phone",
           type: "number",
-          text: "Phone Number",
+          text: "Telefonnummer",
           value: register.phone,
           validators:["required"]
         },
@@ -104,7 +104,7 @@ export default function StepperShippingForm(props) {
           id: 3,
           name: "fname",
           type: "text",
-          text: "First Name",
+          text: "Vorname",
           value: register.fname,
           validators:["required"]
         },
@@ -112,7 +112,7 @@ export default function StepperShippingForm(props) {
           id: 4,
           name: "lname",
           type: "text",
-          text: "Last Name",
+          text: "Nachname",
           value: register.lname,
           validators:["required"]
         },
@@ -120,7 +120,7 @@ export default function StepperShippingForm(props) {
           id: 5,
           name: "address",
           type: "text",
-          text: "Address",
+          text: "Straße Adresse  ",
           value: register.address,
           validators:["required"]
         },
@@ -128,7 +128,7 @@ export default function StepperShippingForm(props) {
           id: 6,
           name: "country",
           type: "text",
-          text: "Country",
+          text: "Land",
           value: register.country,
           validators:["required"]
         },
@@ -138,7 +138,7 @@ export default function StepperShippingForm(props) {
           id: 1,
           name: "postal",
           type: "text",
-          text: "Postal",
+          text: "Postleitzahl",
           value: register.postal,
           validators:["required"]
         },
@@ -146,7 +146,7 @@ export default function StepperShippingForm(props) {
           id: 2,
           name: "city",
           type: "text",
-          text: "City",
+          text: "Stadt",
           value: register.city,
           validators:["required"]
         },
@@ -192,12 +192,13 @@ export default function StepperShippingForm(props) {
               onFocus={onEnqFocusEvent}
               errorMessages={["this field is required"]}
               label={datas.text}
+              onKeyDown={(event) => event.stopPropagation()}
               validators={datas.validators}
             />
             </Grid>
           );
         })}
-        <Grid item xs={12} className={classes.inputData}>
+        {/* <Grid item xs={12} className={classes.inputData}>
           {/* <input
             type="text"
             name="optional"
@@ -208,7 +209,7 @@ export default function StepperShippingForm(props) {
             onChange={onRegister}
             onFocus={onEnqFocusEvent}
           />
-          <label className="floatlabel">Apartment,building,floor</label> */}
+          <label className="floatlabel">Apartment,building,floor</label> 
           <TextField
               type="text"
               name="optional"
@@ -218,10 +219,10 @@ export default function StepperShippingForm(props) {
               errorMessages={["this field is required"]}
               label='Apartment,building,floor'
               onFocus={onEnqFocusEvent}
-
+              onKeyDown={(event) => event.stopPropagation()}
               validators={["required"]}
             />
-        </Grid>
+        </Grid> */}
         {finalInput.map((datas) => {
           return (
             <Grid item xs={4} className={classes.inputData}>
@@ -247,6 +248,7 @@ export default function StepperShippingForm(props) {
               errorMessages={["this field is required"]}
               label={datas.text}
               validators={datas.validators}
+              onKeyDown={(event) => event.stopPropagation()}
               onFocus={onEnqFocusEvent}
             />
             </Grid>
