@@ -96,15 +96,14 @@ const useStyles = makeStyles(() => ({
 export default function HeaderCart() {
   const classes = useStyles();
   const { cartData } = useSelector((state) => state.store);
-  const [openDialog, setOpenDialog] =useState(false);
-  const [toggle , setToggle] = useState(true)
+  const [openDialog, setOpenDialog] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const [cartdDown, setCartdDown] = useState(null);
   const [bagCount, setBagCount] = useState(1);
   const [subTotal, setSubTotal] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const storedData = []
-  let createdCartData = localStorage.getItem("cartData")
-  storedData.push(JSON.parse(createdCartData))
+  const storedData = [];
+  let createdCartData = localStorage.getItem("cartData");
+  storedData.push(JSON.parse(createdCartData));
   const dispatch = useDispatch();
   //unique cart data
   const unique = [];
@@ -140,24 +139,24 @@ export default function HeaderCart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   const handleCheckOutClick = async () => {
-    setToggle(false)
-    if(createdCartData === null){
-    await dispatch(addCartItemsCheckout());
-    const quoteId = localStorage.getItem("tokenKey");
-    unique.map((items) => {
-      const reqBody = {
-        cartItem: {
-          sku: items.sku,
-          qty: items.cartQty,
-          quote_id: quoteId,
-        },
-        data: quoteId,
-      };
-      dispatch(addCartFinalCheckOut(reqBody));
-    })};
+    setToggle(false);
+    if (createdCartData === null) {
+      await dispatch(addCartItemsCheckout());
+      const quoteId = localStorage.getItem("tokenKey");
+      unique.map((items) => {
+        const reqBody = {
+          cartItem: {
+            sku: items.sku,
+            qty: items.cartQty,
+            quote_id: quoteId,
+          },
+          data: quoteId,
+        };
+        dispatch(addCartFinalCheckOut(reqBody));
+      });
+    }
     await setOpenDialog(true);
-    setIsLoading(false);
-    setToggle(true)
+    setToggle(true);
   };
 
   return (
@@ -187,7 +186,7 @@ export default function HeaderCart() {
             <Grid className={classes.priceContainer}>
               <Box className={classes.priceItems}>
                 <Typography variant="h6" className={classes.subtotal}>
-                  Subtotal
+                  Zwischensumme
                 </Typography>
                 <Typography variant="body2" className={classes.subtotal}>
                   € {subTotal?.toFixed(2)}
@@ -203,7 +202,8 @@ export default function HeaderCart() {
               ) : (
                 <LoadingButton
                   size="small"
-                  loading={isLoading}
+                  // loading={isLoading}
+                  disabled={true}
                   className={classes.checkoutBtn}
                   loadingPosition="start"
                   variant="contained"
@@ -214,8 +214,8 @@ export default function HeaderCart() {
               <CheckoutContainer
                 setOpen={setOpenDialog}
                 open={openDialog}
-                setIsLoading={setIsLoading}
-                isLoading={isLoading}
+                subTotal={subTotal}
+                handleCloseMenu={handleClose}
               />
             </Grid>
             <Divider />

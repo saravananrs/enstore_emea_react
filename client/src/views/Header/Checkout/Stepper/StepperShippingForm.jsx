@@ -1,10 +1,4 @@
-import { Box,Checkbox,
-    FormControlLabel,
-    Grid,
-    Icon,
-    Radio,
-    RadioGroup,
-    styled, } from "@mui/material";
+import {Grid,styled,} from "@mui/material";
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
@@ -170,18 +164,6 @@ export default function StepperShippingForm(props) {
         {inputs.map((datas) => {
           return (
             <Grid item xs={6} className={classes.inputData}>
-              {/* <input
-                type={datas.type}
-                id={datas.id}
-                name={datas.name}
-                aria-label={datas.text}
-                value={datas.value}
-                // placeholder={datas.text}
-                className="inputBox"
-                onChange={onRegister}
-                onFocus={onEnqFocusEvent}
-              />
-              <label className="floatlabel">{datas.text}</label> */}
               <TextField
               type={datas.type}
               name={datas.name}
@@ -198,46 +180,9 @@ export default function StepperShippingForm(props) {
             </Grid>
           );
         })}
-        {/* <Grid item xs={12} className={classes.inputData}>
-          {/* <input
-            type="text"
-            name="optional"
-            aria-label="Apartment,building,floor"
-            value={register.optional}
-            //  placeholder='Apartment,building,floor'
-            className="inputBox"
-            onChange={onRegister}
-            onFocus={onEnqFocusEvent}
-          />
-          <label className="floatlabel">Apartment,building,floor</label> 
-          <TextField
-              type="text"
-              name="optional"
-              className={classes.inputBox}
-              value={register.optional}
-              onChange={onRegister}
-              errorMessages={["this field is required"]}
-              label='Apartment,building,floor'
-              onFocus={onEnqFocusEvent}
-              onKeyDown={(event) => event.stopPropagation()}
-              validators={["required"]}
-            />
-        </Grid> */}
         {finalInput.map((datas) => {
           return (
             <Grid item xs={4} className={classes.inputData}>
-              {/* <input
-                type={datas.type}
-                id={datas.id}
-                name={datas.name}
-                aria-label={datas.text}
-                value={datas.value}
-                // placeholder={datas.text}
-                className="inputBox"
-                onChange={onRegister}
-                onFocus={onEnqFocusEvent}
-              />
-              <label className="floatlabel">{datas.text}</label> */}
               <TextField
               type={datas.type}
               className={classes.inputBox}

@@ -4,30 +4,46 @@ import { Grid, Box, Typography, Divider } from "@mui/material";
 import { useSelector } from "react-redux";
 const useStyles = makeStyles(() => ({
   summaryContainer: {
-    display: "flex",
+    display: "flex !important",
     backgroundColor: "#f9f9f9",
-    flexDirection: "column",
+    flexDirection: "column !important",
     padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
-    width: "70% !important",
+    width: "90% !important",
+    "@media (max-width: 800px)": {
+      width: "100% !important",
+    },
   },
   headerName: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     lineHeight: "20px !important",
     fontSize: "16px !important",
     alignItems: "center !important",
+    fontWeight: "600 !important",
     textAlign: "left !important",
-    marginBottom: "16px !important",
-    position: "relative !important",
+    marginBottom: "25px !important",
   },
   alignment: {
-    position: "absolute !important",
-    top: "17%",
+    // position: "absolute !important",
+    // top: "17%",
+    marginTop: "10%",
+  },
+  cartItems: {
+    overflowY: "auto",
+    height: "95px",
+    "&::-webkit-scrollbar": {
+      width: "2px !important",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.2)",
+      outline: "1px solid slategrey",
+      borderRadius: 7,
+    },
   },
   listItems: {
     width: "100%",
     display: "flex",
     position: "relative",
-    marginBottom: "12px",
+    marginBottom: "10px",
     alignItems: "flex-start",
     textDecoration: "none",
   },
@@ -48,7 +64,7 @@ const useStyles = makeStyles(() => ({
   },
   itemName: {
     width: "auto",
-    maxWidth: "165px",
+    maxWidth: "175px",
     position: "relative",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "15px !important",
@@ -58,7 +74,7 @@ const useStyles = makeStyles(() => ({
   },
   itemPrice: {
     marginLeft: "auto",
-    marginRight: "0",
+    marginRight: "10px",
   },
   listQty: {
     overflowY: "hidden",
@@ -84,10 +100,8 @@ const useStyles = makeStyles(() => ({
 }));
 export default function CheckoutOrderSummary(props) {
   const { cartData, orderData } = useSelector((state) => state.store);
-  console.log("order data", orderData)
-  const [subTotal, setSubTotal] = useState();
-  const [grandTotal, setGrandTotal] = useState();
-  const { total,setOverall } = props;
+  // const [grandTotal, setGrandTotal] = useState();
+  const { subTotal } = props;
   const unique = [];
   cartData.filter((list) => {
     if (unique.find((i) => i.id === list.id && i.name === list.name)) {
@@ -97,26 +111,16 @@ export default function CheckoutOrderSummary(props) {
     return false;
   });
 
-  let len = unique.length - 1;
-  let sum = 0;
-  while (len >= 0) {
-    sum += unique[len--].price;
-  }
-  useEffect(() => {
-    setSubTotal(sum);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartData]);
-  useEffect(() => {
-    const overall = Number(subTotal) + Number(orderData.delivery) + Number(orderData.tax);
-    setGrandTotal(overall);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderData]);
+  // useEffect(() => {
+  const overall =
+    Number(subTotal) + Number(orderData?.delivery) + Number(orderData?.tax);
+  // setGrandTotal(overall);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [orderData]);
   const classes = useStyles();
   return (
     <Grid container className={classes.summaryContainer}>
-      <Typography variant="h3" className={classes.headerName}>
-        Order Summary
-      </Typography>
+      <Box className={classes.headerName}>Bestellübersicht</Box>
       <Box className={classes.alignment}>
         <Grid className={classes.cartItems}>
           {unique.map((items) => {
@@ -139,34 +143,34 @@ export default function CheckoutOrderSummary(props) {
                     <Box className={classes.itemPrice}>€ {items.price}</Box>
                   </Box>
                   <Box className={classes.listQty}>
-                    Quantity: &nbsp;{items.cartQty}
+                    Menge: &nbsp;{items.cartQty}
                   </Box>
                 </Grid>
               </Box>
             );
           })}
         </Grid>
-        <Box sx={{ width: "100%", marginTop: "17%" }}>
+        <Box sx={{ width: "100%", marginTop: "3%" }}>
           <ul className={classes.subList}>
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
-              <Box className={classes.subTotalName}> SubTotal</Box>
-              <Box className={classes.subprice}> € {subTotal}</Box>
+              <Box className={classes.subTotalName}> Zwischensumme</Box>
+              <Box className={classes.subprice}> € {subTotal?.toFixed(2)}</Box>
             </li>
             <li className={classes.subTotal}>
-              <Box className={classes.subTotalName}> Delivery</Box>
+              <Box className={classes.subTotalName}> Lieferung</Box>
               <Box className={classes.subprice}> € {orderData.delivery}</Box>
             </li>
             <li className={classes.subTotal}>
-              <Box className={classes.subTotalName}> Taxes</Box>
+              <Box className={classes.subTotalName}> Steuern</Box>
               <Box className={classes.subprice}> € {orderData.tax}</Box>
             </li>
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
-              <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>
+              <Box sx={{ color: "#000000", fontWeight: "600" }}> Gesamt</Box>
               <Box sx={{ color: "#000000", fontWeight: "600" }}>
                 {" "}
-                € {grandTotal}
+                € {overall?.toFixed(2)}
               </Box>
             </li>
             <Divider sx={{ marginBottom: "10px" }} />

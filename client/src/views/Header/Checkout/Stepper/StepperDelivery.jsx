@@ -96,9 +96,6 @@ export default function StepperDelivery(props) {
     activeStep,
     shippingMethod,
     register,
-    setTotal,
-    setIsLoading,
-    isLoading,
   } = props;
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
@@ -152,31 +149,17 @@ export default function StepperDelivery(props) {
           "delivery":response.data.totals.shipping_amount,
           "tax": response.data.totals.tax_amount,
         }))
-        setIsLoading(false);
         setToggle(true);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    await setActiveStep(newActiveStep);
+    await setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    
   };
   const handleChange = (event) => {
     setSelectedShippingMethod(event.target.value);
   };
-  let len = shippingMethod.length - 1;
-  let sum = 0;
-  while (len >= 0) {
-    sum += shippingMethod[len--].amount;
-  }
-  useEffect(() => {
-    setTotal(sum);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
       <Box className={classes.DeliveryContainer}>
@@ -222,8 +205,8 @@ export default function StepperDelivery(props) {
           ) : (
             <LoadingButton
               size="small"
-              loading={isLoading}
               className={classes.continuebtn}
+              disabled
               loadingPosition="start"
               variant="contained"
             >
@@ -231,7 +214,7 @@ export default function StepperDelivery(props) {
             </LoadingButton>
           )}
         </Box>
-        <Button onClick={handleBack}>Back</Button>
+        <Button onClick={handleBack}>←  Back</Button>
       </Box>
     </>
   );

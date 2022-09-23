@@ -208,7 +208,7 @@ export default function CardModel(props) {
                                 )
                               }
                             >
-                              Learn More
+                              Lern Mehr
                             </Button>
                           </Box>
                           <Box className={classes.cartabs}>

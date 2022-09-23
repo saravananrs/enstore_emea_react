@@ -50,9 +50,8 @@ export default function StepperShipping(props) {
     setActiveStep,
     setShippingMethod,
     register,
+    handleClose,
     setRegister,
-    setIsLoading,
-    isLoading,
   } = props;
   const classes = useStyles();
   const [toggle, setToggle] = useState(true);
@@ -82,18 +81,17 @@ export default function StepperShipping(props) {
       .then((response) => {
         console.log("response", response.data);
         setShippingMethod(response.data);
-        setIsLoading(false);
         setToggle(true);
       })
       .catch((error) => {
         console.log(error);
       });
 
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    await setActiveStep(newActiveStep);
+    // const newActiveStep =
+    //   isLastStep() && !allStepsCompleted()
+    //     ? steps.findIndex((step, i) => !(i in completed))
+    //     : activeStep + 1;
+    await setActiveStep((prevActiveStep) => prevActiveStep + 1)
   };
   return (
     <Box className={classes.shippingContainer}>
@@ -105,12 +103,12 @@ export default function StepperShipping(props) {
             onClick={handleShipmentClick}
             sx={{ mr: 1 }}
           >
-            Continue
+            Fortsetzen
           </Button>
         ) : (
           <LoadingButton
             size="small"
-            loading={isLoading}
+            disabled
             className={classes.continuebtn}
             loadingPosition="start"
             variant="contained"
@@ -120,7 +118,7 @@ export default function StepperShipping(props) {
         )}
       </Box>
       <Box>
-        <Button className={classes.exitbtn}>Exit Checkout</Button>
+        <Button className={classes.exitbtn} onClick={handleClose}>← Kasse verlassen</Button>
       </Box>
     </Box>
   );

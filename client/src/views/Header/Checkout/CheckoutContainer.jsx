@@ -15,10 +15,10 @@ const useStyles = makeStyles(() => ({
     },
     "& .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop":{
     backgroundColor: 'rgba(2, 6, 2, 0.8) !important',
-    }
+    },
+   
   },
   modalContainer: {
-    display: "flex",
     flexFlow: "row nowrap !important",
     position: "relative",
     background: "#ffffff",
@@ -54,26 +54,21 @@ const useStyles = makeStyles(() => ({
 
 export default function CheckoutContainer(props) {
   const classes = useStyles();
-  const { open, setOpen } = props;
-  const[total,setTotal] = useState()
-  const[overAll,setOverall] = useState()
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { open, setOpen,subTotal ,handleCloseMenu} = props;
+  // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClose = () => {
     setOpen(false);
   };
- 
-console.log(overAll);
   return (
     <div>
       <Dialog
-        fullScreen={fullScreen}
+        // fullScreen={fullScreen}
         className={classes.dialogBox}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <Grid container className={classes.modalContainer}>
+        <Grid container className={classes.modalContainer} sx={{display:{xs:"block",md:"flex"}}}>
           <Grid container className={classes.sippingContainer}>
             <Box>
               <Box className={classes.modalheader}>
@@ -86,11 +81,11 @@ console.log(overAll);
             </Box>
             <Box>
               <Box className={classes.stepperContainer}>
-                <CheckoutStepper setTotal={setTotal}  overAll={overAll} handleClose={handleClose} />
+                <CheckoutStepper  handleClose={handleClose} handleCloseMenu={handleCloseMenu} />
               </Box>
             </Box>
           </Grid>
-          <CheckoutOrderSummary total={total} setOverall={setOverall}/>
+          <CheckoutOrderSummary  subTotal={subTotal}/>
         </Grid>
       </Dialog>
     </div>
