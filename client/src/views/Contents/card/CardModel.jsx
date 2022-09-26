@@ -147,7 +147,7 @@ export default function CardModel(props) {
   return (
     <>
       {!isLoading && products && (
-        <Carousel breakPoints={breakPoints}>
+        <Carousel breakPoints={breakPoints} pagination={false}>
           {products.map((item) => {
             let custome_attribute = {};
             item.custom_attributes.map((attributes) => {

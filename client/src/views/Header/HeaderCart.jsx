@@ -5,14 +5,12 @@ import { makeStyles } from "@material-ui/styles";
 import HeaderCartItem from "./HeaderCartItem";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {
   addCartFinalCheckOut,
   addCartItemsCheckout,
 } from "../../redux/actions/EnstoreActions";
 import CheckoutContainer from "./Checkout/CheckoutContainer";
-import Spinner from "../../Spinner/Spinner";
 const useStyles = makeStyles(() => ({
   bagPage: {
     textAlign: "center",
@@ -101,33 +99,40 @@ export default function HeaderCart() {
   const [cartdDown, setCartdDown] = useState(null);
   const [bagCount, setBagCount] = useState(1);
   const [subTotal, setSubTotal] = useState();
+  const [quantitySetter,setQuantitySetter] =  useState(true)
+  const [con,setCon] =  useState(false)
+  const [unique,setUnique] =useState([])
   const storedData = [];
   let createdCartData = localStorage.getItem("cartData");
   storedData.push(JSON.parse(createdCartData));
   const dispatch = useDispatch();
   //unique cart data
-  const unique = [];
+  // const unique = [];
+
+  console.log(cartData,"cartData");
   cartData.filter((list) => {
     if (unique.find((i) => i.id === list.id && i.name === list.name)) {
-      return true;
+    return  true
     }
     unique.push(list);
     return false;
   });
+  console.log(unique,"unique");
   // sub Total
+
   let len = unique.length - 1;
   let sum = 0;
   while (len >= 0) {
     sum += unique[len--].price;
   }
-
+  const open = Boolean(cartdDown);
   useEffect(() => {
-    if (unique.length > 1) {
+    if (unique.length > 1 && quantitySetter) {
       setSubTotal(sum);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartData]);
-  const open = Boolean(cartdDown);
+  },[cartData]);
+
   const handleClick = (event) => {
     setCartdDown(event.currentTarget);
   };
@@ -140,7 +145,7 @@ export default function HeaderCart() {
   }, [cartData]);
   const handleCheckOutClick = async () => {
     setToggle(false);
-    if (createdCartData === null) {
+    if (createdCartData === null || con) {
       await dispatch(addCartItemsCheckout());
       const quoteId = localStorage.getItem("tokenKey");
       unique.map((items) => {
@@ -202,7 +207,6 @@ export default function HeaderCart() {
               ) : (
                 <LoadingButton
                   size="small"
-                  // loading={isLoading}
                   disabled={true}
                   className={classes.checkoutBtn}
                   loadingPosition="start"
@@ -230,6 +234,8 @@ export default function HeaderCart() {
                         setBagCount={setBagCount}
                         setSubTotal={setSubTotal}
                         subTotal={subTotal}
+                        setQuantitySetter={setQuantitySetter}
+                        setCon={setCon}
                         bagCount={bagCount}
                         item={item}
                       />

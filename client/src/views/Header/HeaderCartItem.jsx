@@ -97,7 +97,14 @@ const useStyles = makeStyles(() => ({
 
 export default function HeaderCartItem(props) {
   const classes = useStyles();
-  const { setSubTotal, subTotal, item, key } = props;
+  const {
+    setSubTotal,
+    subTotal,
+    setQuantitySetter,
+    setCon,
+    item,
+    key,
+  } = props;
   const { cartData } = useSelector((state) => state.store);
   const [count, setCount] = useState(item.cartQty);
   const dispatch = useDispatch();
@@ -106,19 +113,24 @@ export default function HeaderCartItem(props) {
       setSubTotal(item.cartQty * item.price);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartData]);
+  }, []);
 
   const handleIncrement = (number, id) => {
+    
+    setCon(true)
     if (id === item.id) {
+      setQuantitySetter(false);
       setCount(number + 1);
-      // setBagCount(cartData?.length );
+      dispatch(addToCart(item, count + 1));
       setSubTotal(subTotal + item.price);
     }
   };
   const handleDecrement = (number, id) => {
+    setQuantitySetter(false);
+    setCon(true)
     if (number > 1 && id === item.id) {
       setCount(number - 1);
-      // setBagCount(bagCount - 1);
+      dispatch(addToCart(item, count - 1));
       setSubTotal(subTotal - item.price);
     }
   };
@@ -174,7 +186,7 @@ export default function HeaderCartItem(props) {
                 </Box>
               </Box>
             </Box>
-            {count > 1 ? (
+            {/* {count > 1 ? (
               <Box
                 className={classes.update}
                 onClick={() => dispatch(addToCart(item, count))}
@@ -188,7 +200,7 @@ export default function HeaderCartItem(props) {
               >
                 Update
               </Box>
-            )}
+            )} */}
             &nbsp;&nbsp;<Box className={classes.remove}>Remove</Box>
           </Box>
         </Box>

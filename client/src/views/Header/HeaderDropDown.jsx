@@ -1,9 +1,6 @@
 import { Box, Button, Divider, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import home from "../../Assets/Header/spritemap.svg";
-import commercial from "../../Assets/Header/spritemap.svg";
-import ev from "../../Assets/Header/spritemap.svg";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 const useStyles = makeStyles((theme) => ({
