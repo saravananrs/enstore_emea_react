@@ -37,9 +37,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-              <Header />
-              <Content />
-              <Footer />
+                <Header />
+                <Content />
+                <Footer />
             </QueryClientProvider>
           </BrowserRouter>
         </ThemeProvider>

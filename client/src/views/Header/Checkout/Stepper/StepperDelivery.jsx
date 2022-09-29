@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import instance from "../../../../utils/axiosconfig";
 import { makeStyles } from "@material-ui/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
 import useStepper from "./useStepper.hook";
@@ -141,8 +142,8 @@ export default function StepperDelivery(props) {
       },
       data: quoteId,
     };
-    await axios
-      .post("http://localhost:8000/api/shippingInformation", reqBody)
+    await instance
+      .post("/shippingInformation", reqBody)
       .then((response) => {
         console.log("response", response.data);
         dispatch(orderData({

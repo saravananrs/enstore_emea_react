@@ -6,6 +6,7 @@ import {
   CardCvcElement,
   CardExpiryElement,
 } from "@stripe/react-stripe-js";
+import instance from "../../../utils/axiosconfig";
 import useResponsiveFontSize from "../../../useResponsiveFontSize";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -142,8 +143,8 @@ const CheckoutForm = (props) => {
       email: register.email,
       data: quoteId,
     };
-    await axios
-      .post("http://localhost:8000/api/createOrder", reqBody)
+    await instance
+      .post("/createOrder", reqBody)
       .then((response) => {
         console.log("response", response.data);
         console.log("order Id", response.data.increment_id);

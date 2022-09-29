@@ -132,7 +132,11 @@ body,
   opacity: 1;
 } */
 
+/* Stepper */
 
+.css-j5w0w9-MuiStepConnector-root {
+  width:76px !important;
+}
 /* MEDIA QUERY */
 /* lifestyle  */
 @media screen and (min-width: 1441px) and (max-width: 2000px) {

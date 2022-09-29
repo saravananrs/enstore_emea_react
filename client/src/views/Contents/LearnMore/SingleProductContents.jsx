@@ -5,11 +5,12 @@ import upArrow from "../../../Assets/Header/spritemap.svg";
 import { useState } from "react";
 import { addToCart } from "./../../../redux/actions/EnstoreActions";
 import { useDispatch } from "react-redux";
+import { useStyledComponent } from "../Styles/useStyles.hook";
 const useStyles = makeStyles(() => ({
-  contentContainer: {
+  spcontentContainer: {
     textAlign: "left",
   },
-  header: {
+  spheader: {
     fontSize: "2.625rem !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     paddingBottom: "15px",
@@ -17,7 +18,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "1.625rem !important",
     },
   },
-  price: {
+  spprice: {
     fontSize: "1.5rem !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     paddingBottom: "15px",
@@ -48,15 +49,15 @@ const useStyles = makeStyles(() => ({
     textDecoration: "underline",
     cursor: "pointer",
   },
-  qnty: {
+  spqnty: {
     fontSize: "1rem !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     marginBottom: "18px !important",
   },
-  inputContainer: {
+  spinputContainer: {
     position: "relative",
   },
-  inputBox: {
+  spinputBox: {
     position: "relative",
     outline: " none",
     width: "95px",
@@ -68,7 +69,7 @@ const useStyles = makeStyles(() => ({
     textAlign: " center",
     cursor: "pointer",
   },
-  arrowContainer: {
+  sparrowContainer: {
     opacity: 1,
     position: "absolute",
     backgroundColor: "#fff",
@@ -93,7 +94,7 @@ const useStyles = makeStyles(() => ({
       width: "calc(19% - 6px)"
     },
   },
-  upArrow: {
+  spupArrow: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -101,7 +102,7 @@ const useStyles = makeStyles(() => ({
     width: "16px",
     height: "16px",
   },
-  cartBtn: {
+  spcartBtn: {
     width: "95% !important",
     border: "1px solid #000 !important",
     backgroundColor: "#000 !important",
@@ -119,7 +120,7 @@ const useStyles = makeStyles(() => ({
 }));
 export default function SingleProductContents(props) {
   const product = props.productData;
-  const classes = useStyles();
+  const classes = useStyledComponent()
   const [count, setCount] = useState(1);
   const [readMore, setReadMore] = useState(true);
   const dispatch = useDispatch();
@@ -152,11 +153,11 @@ export default function SingleProductContents(props) {
   };
   return (
     <div>
-      <Box className={classes.contentContainer}>
-        <Typography variant="h4" className={classes.header}>
+      <Box className={classes.spcontentContainer}>
+        <Typography variant="h4" className={classes.spheader}>
           {product.name}
         </Typography>
-        <Typography variant="body2" className={classes.price}>
+        <Typography variant="body2" className={classes.spprice}>
           {product.price} €{" "}
           <span className={classes.pCode}>SKU: {product.sku}</span>
         </Typography>
@@ -194,21 +195,21 @@ export default function SingleProductContents(props) {
           )}
         </Box>
         <Box>
-          <Typography variant="body1" className={classes.qnty}>
+          <Typography variant="body1" className={classes.spqnty}>
             Quantity
           </Typography>
-          <Box className={classes.inputContainer}>
+          <Box className={classes.spinputContainer}>
             <input
-              className={classes.inputBox}
+              className={classes.spinputBox}
               type="text"
               pattern="[0-9]*"
               readOnly
               value={count}
             />
-            <Box className={classes.arrowContainer}>
+            <Box className={classes.sparrowContainer}>
               <Box
                 onClick={() => handleIncrement(count)}
-                className={classes.upArrow}
+                className={classes.spupArrow}
                 sx={{ transform: "rotate(180deg)" }}
               >
                 <svg class="fill-current svg svg-xxsmall" role="presentation">
@@ -216,7 +217,7 @@ export default function SingleProductContents(props) {
                 </svg>
               </Box>
               <Box
-                className={classes.upArrow}
+                className={classes.spupArrow}
                 onClick={() => handleDecrement(count)}
               >
                 <svg class="fill-current svg svg-xxsmall" role="presentation">
@@ -228,7 +229,7 @@ export default function SingleProductContents(props) {
         </Box>
         <Box>
           <Button
-            className={classes.cartBtn}
+            className={classes.spcartBtn}
             onClick={() => handleCartbtnclk(count)}
           >
             Add to Cart

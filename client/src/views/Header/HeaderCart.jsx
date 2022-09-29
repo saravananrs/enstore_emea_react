@@ -1,7 +1,6 @@
 import React from "react";
 import cart from "../../Assets/Header/spritemap.svg";
 import { Box, Menu, Divider, Grid, Typography, Button } from "@mui/material";
-import { makeStyles } from "@material-ui/styles";
 import HeaderCartItem from "./HeaderCartItem";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
@@ -11,136 +10,41 @@ import {
   addCartItemsCheckout,
 } from "../../redux/actions/EnstoreActions";
 import CheckoutContainer from "./Checkout/CheckoutContainer";
-const useStyles = makeStyles(() => ({
-  bagPage: {
-    textAlign: "center",
-    padding: "4rem 6rem 1rem 6rem",
-    color: "#3c3c3c",
-    fontFamily: "enphase-visuelt-regular,sans-serif",
-    fontSize: "16px",
-  },
-  items: {
-    padding: "12px 32px",
-    color: "#3c3c3c",
-    fontFamily: "enphase-visuelt-regular,sans-serif",
-    display: "flex",
-    alignItems: "center",
-  },
-  priceContainer: {
-    display: "flex !important",
-    flexDirection: "column !important",
-    padding: "24px 20px !important",
-  },
-  priceItems: {
-    display: "flex !important",
-    justifyContent: "space-between !important",
-  },
-  subtotal: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    textTransform: "capitalize !important",
-    fontSize: "1.125rem !important",
-  },
-  checkoutBtn: {
-    height: "44px !important",
-    border: "1px solid #000 !important",
-    color: "#fff !important",
-    background: "#000 !important",
-    padding: "12px 100px !important",
-    borderRadius: "36px !important",
-    fontFamily: "enphase-visuelt-medium !important",
-    fontSize: "0.875rem !important",
-    marginTop: "20px !important",
-    textTransform: "capitalize !important",
-  },
-  bagIcon: {
-    position: "relative",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cartqty: {
-    display: "flex",
-    position: "absolute",
-    bottom: "19px",
-    right: "107px",
-    width: "14px",
-    height: "14px",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: "50%",
-    color: "#000",
-    fontSize: "8px",
-    "@media (max-width: 500px)": {
-      right: "10%",
-      bottom: "15%",
-    },
-    "@media screen and (min-width: 501px) and (max-width: 800px)": {
-      right: "5%",
-      bottom: "26%",
-    },
-  },
-  bagCartContainer: {
-    display: "flex !important",
-    flexDirection: "column !important",
-    overflowY: "auto !important",
-  },
-  bagCartList: {
-    overflowY: "auto",
-    height: "124px !important",
-    padding: "20px !important",
-  },
-}));
+import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
+
 export default function HeaderCart() {
-  const classes = useStyles();
+  const classes = useStyledComponent();
   const { cartData } = useSelector((state) => state.store);
   const [openDialog, setOpenDialog] = useState(false);
   const [toggle, setToggle] = useState(true);
   const [cartdDown, setCartdDown] = useState(null);
   const [bagCount, setBagCount] = useState(1);
-  const [subTotal, setSubTotal] = useState();
-  const [quantitySetter,setQuantitySetter] =  useState(true)
-  const [con,setCon] =  useState(false)
-  const [unique,setUnique] =useState([])
+  const [subTotal, setSubTotal] = useState(0);
+  const [val, setVal] = useState();
+  const [quantitySetter, setQuantitySetter] = useState(true);
+  const [con, setCon] = useState(false);
   const storedData = [];
   let createdCartData = localStorage.getItem("cartData");
   storedData.push(JSON.parse(createdCartData));
   const dispatch = useDispatch();
-  //unique cart data
-  // const unique = [];
-
-  console.log(cartData,"cartData");
-  cartData.filter((list) => {
-    if (unique.find((i) => i.id === list.id && i.name === list.name)) {
-    return  true
-    }
-    unique.push(list);
-    return false;
-  });
-  console.log(unique,"unique");
-  // sub Total
-
-  let len = unique.length - 1;
-  let sum = 0;
-  while (len >= 0) {
-    sum += unique[len--].price;
-  }
   const open = Boolean(cartdDown);
+  const total = cartData.reduce((total,currPrice)=> total = total + (currPrice.price * currPrice.cartQty), 0)
   useEffect(() => {
-    if (unique.length > 1 && quantitySetter) {
-      setSubTotal(sum);
+    if (cartData.length > 1 && quantitySetter) {
+      setSubTotal(total);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[cartData]);
+  }, [cartData]);
 
   const handleClick = (event) => {
     setCartdDown(event.currentTarget);
   };
+
   const handleClose = () => {
     setCartdDown(null);
   };
   useEffect(() => {
-    setBagCount(unique.length);
+    setBagCount(cartData.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   const handleCheckOutClick = async () => {
@@ -148,7 +52,7 @@ export default function HeaderCart() {
     if (createdCartData === null || con) {
       await dispatch(addCartItemsCheckout());
       const quoteId = localStorage.getItem("tokenKey");
-      unique.map((items) => {
+      cartData.map((items) => {
         const reqBody = {
           cartItem: {
             sku: items.sku,
@@ -171,7 +75,9 @@ export default function HeaderCart() {
           <use xlinkHref={`${cart}?v=1.20#store`}></use>
         </svg>
       </div>
-      {unique.length >= 1 && <Box className={classes.cartqty}>{bagCount}</Box>}
+      {cartData.length >= 1 && (
+        <Box className={classes.cartqty}>{bagCount}</Box>
+      )}
       <Menu
         anchorEl={cartdDown}
         open={open}
@@ -186,7 +92,7 @@ export default function HeaderCart() {
             },
         }}
       >
-        {unique.length >= 1 ? (
+        {cartData.length >= 1 ? (
           <div>
             <Grid className={classes.priceContainer}>
               <Box className={classes.priceItems}>
@@ -225,17 +131,17 @@ export default function HeaderCart() {
             <Divider />
             <Box className={classes.bagCartContainer}>
               <ul className={classes.bagCartList}>
-                {unique.map((item) => {
+                {cartData.map((item) => {
                   return (
                     <div>
-                      {" "}
                       <HeaderCartItem
-                        key={item.id}
                         setBagCount={setBagCount}
                         setSubTotal={setSubTotal}
                         subTotal={subTotal}
                         setQuantitySetter={setQuantitySetter}
                         setCon={setCon}
+                        val={val}
+                        setVal={setVal}
                         bagCount={bagCount}
                         item={item}
                       />

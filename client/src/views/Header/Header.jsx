@@ -8,9 +8,9 @@ import {
 import logo from "../../Assets/Header/spritemap.svg";
 import search from "../../Assets/Header/spritemap.svg";
 import HeaderDropDown from "./HeaderDropDown";
-import {makeStyles} from "@material-ui/styles"
 import HeaderCart from "./HeaderCart";
 import HeaderMobileView from "./HeaderMobileView";
+import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
 const pages = [
   "Hausbesitzer",
@@ -19,22 +19,9 @@ const pages = [
   "Laden",
   "Unterstützung",
 ];
-const useStyles = makeStyles(()=>({
-headerContainer:{
-  display: "flex !important",
-  justifyContent: "space-evenly !important",
-  alignItems: "center !important",
-  height: "53px !important",
-  position: "fixed !important",
-  top: "0 !important",
-  maxWidth: "100% !important",
-  zIndex: "500 !important",
-  background:'#000'
-},
-}))
 
 const Header = () => {
-  const classes = useStyles()
+  const classes = useStyledComponent();
 
   return (
     <header className="App-header">  

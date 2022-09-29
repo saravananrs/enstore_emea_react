@@ -2,12 +2,12 @@ import { Divider, Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import SingleProduct from "./SingleProduct";
-import Header from "../../Header/Header";
 import LifestyleParts from "../LifestyleParts";
-import Footer from "../../Footer/Footer";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Spinner from "../../../Spinner/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleProduct } from "../../../redux/actions/EnstoreActions";
+import { useStyledComponent } from "../Styles/useStyles.hook";
 const useStyles = makeStyles(() => ({
   learMoreContainer: {
     display: "flex",
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
       fontFamily: "enphase-visuelt-regular,sans-serif !important",
     }
   },
-  divider: {
+  learnMoreDivider: {
     margin: "0.7em 15em !important",
     "@media (max-width:500px)":{
       margin:"10px 10px !important"
@@ -52,46 +52,50 @@ const useStyles = makeStyles(() => ({
 }));
 export default function LearnMore() {
   let { urlKey } = useParams();
-  const [product, setProduct] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-
-  const classes = useStyles();
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/productsByURLKey`, {
-        params: { id: urlKey },
-      })
-      .then((res) => {
-        setProduct(res.data[0]);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      window.scrollTo(0,0)
-  }, []);
-  if (isLoading) {
+  const {singleProduct} = useSelector((state)=> state.store)
+  const{isLoading} = useSelector((state)=> state.store )
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(getSingleProduct(urlKey))
+    window.scrollTo(0,0)
+  },[])
+  const classes = useStyledComponent();
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8000/api/productsByURLKey`, {
+  //       params: { id: urlKey },
+  //     })
+  //     .then((res) => {
+  //       setProduct(res.data[0]);
+  //       setIsLoadings(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //     window.scrollTo(0,0)
+  // }, []);
+  if (singleProduct === null) {
     return <Spinner />;
   }
   return (
     <>
-      {product && (
+      {singleProduct && (
         <>
           <Box className={classes.learMoreContainer}>
             <Typography variant="body1" className={classes.lHeading}>
-              {product.name}
+              {singleProduct.name}
             </Typography>
             <Typography variant="body2" className={classes.lSideText}>
               Documentation
             </Typography>
           </Box>
-          <Divider className={classes.divider} />
+          <Divider className={classes.learnMoreDivider} />
           <Box className={classes.learMoreContainer}>
             <Typography className={classes.storeAcc} variant="body2">
               Store {">"} Accessories
             </Typography>
           </Box>
-          <SingleProduct productData={product} />
+          <SingleProduct productData={singleProduct} />
           <LifestyleParts />
         </>
       )}

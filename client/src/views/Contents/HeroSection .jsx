@@ -1,69 +1,10 @@
 import { Grid, Typography, Box } from "@mui/material";
-import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import HerosectionImg from "./HerosectionImg";
-const useStyles = makeStyles((theme) => ({
-  storageContainer: {
-    paddingTop: '90px',
-    '@media (max-width: 780px)':{
-      paddingTop: "55px",
-    },
-  },
-  storageHeader: {
-    float: "none",
-    width: "100%",
-    margin: "0 auto",
-    maxWidth: "90%",
-    paddingBottom: "6%",
-    fontFamily: "enphase-visuelt-regular,sans-serif",
-  },
-  headTitle: {
-    marginBottom: "15px !important",
-    fontSize: "56px !important",
-    '@media (max-width: 780px)':{
-      fontSize: "32px !important",
-    },
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  productContainer: {
-    paddingBottom: "2%",
-    overflowY: "hidden",
-    marginBottom: "5%",
-  },
-  productList: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  pImages: {
-    position: "relative",
-    objectFit: "cover",
-    width: "100%",
-    height: "100%",
-  },
-  pName: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "1rem !important",
-    '@media (max-width: 780px)':{
-      fontSize: "0.875rem !important",
-    },
-    color: "#6e6e73",
-    textAlign: "center",
-  },
-  positions: {
-    objectPosition: "center",
-    height: " 130px",
-    width: "140px",
-    '@media (max-width: 780px)':{
-      height: "80px",
-      width:"80px"
-    },
-  },
-  listItems: {
-    marginLeft: "15px",
-  },
-}));
+import { useStyledComponent } from "./Styles/useStyles.hook";
+
 export default function HeroSection() {
-  const classes = useStyles();
+  const classes = useStyledComponent()
   const products = [
     {
       id: 1,

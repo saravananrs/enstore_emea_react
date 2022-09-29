@@ -1,64 +1,40 @@
 import { Grid, Typography, Box } from "@mui/material";
-import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
 import CardModel from "./card/CardModel";
-import { useProducts } from "./API/useProduct.hook";
-import { useState } from "react";
 import Spinner from "../../Spinner/Spinner";
-const useStyles = makeStyles(() => ({
-  storageContainer: {
-    padding: "70px 0px",
-    '@media (max-width: 780px)':{
-      padding: "50px 0px",
-    },
-  },
-  storageHeader: {
-    float: "none",
-    width: "100%",
-    margin: "0 auto",
-    maxWidth: "90%",
-    paddingBottom: "7%",
-    fontFamily: "enphase-visuelt-regular,sans-serif",
-  },
-  headTitle: {
-    marginBottom: "15px !important",
-    fontSize: "2.67rem !important",
-    '@media (max-width: 780px)':{
-      fontSize: "1.625rem !important",
-    },
-  },
-  headBody: {
-    fontSize: "1.25rem !important",
-    marginRight: "16% !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-}));
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getCategories } from "../../redux/actions/EnstoreActions";
+import { useStyledComponent } from "./Styles/useStyles.hook";
+
 
 export default function CardGrid() {
-  
-  const classes = useStyles();
-  const { categoryData ,isLoading} = useProducts();
+  const classes = useStyledComponent();
+  const { categoryData } = useSelector((state) => state.store);
+  const {isLoading}  = useSelector((state)=> state.store)
+  const dispatch = useDispatch();
 
-  if (isLoading){
-    return <Spinner />
+  useEffect(() => {
+    dispatch(getCategories());
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
   }
 
   return (
     <React.Fragment>
-      {categoryData.map((pName) => {
+      {categoryData?.map((pName) => {
         return (
-          <Grid container key={pName.id} className={classes.storageContainer}>
-            <Box className={classes.storageHeader}>
-              <Typography variant="h3" className={classes.headTitle}>
+          <Grid container key={pName.id} className={classes.cardGridContainer}>
+            <Box className={classes.cardGridHeader}>
+              <Typography variant="h3" className={classes.cardGridTitle}>
                 {pName.name}
               </Typography>
-              {/* <Typography variant="body1" className={classes.headBody}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                porta nunc ut massa pharetra facilisis sit amet eget augue.
-              </Typography> */}
             </Box>
             <Grid container className={classes.cardContainer}>
-                      <CardModel items={pName} />
+              <CardModel items={pName} />
             </Grid>
           </Grid>
         );

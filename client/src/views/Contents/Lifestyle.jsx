@@ -1,62 +1,20 @@
 import { Grid, Typography, Box } from "@mui/material";
-import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import LifestyleParts from "./LifestyleParts";
+import { useStyledComponent } from "./Styles/useStyles.hook";
 
-const useStyles = makeStyles(() => ({
-  storageContainer: {
-    padding: "70px 0px",
-    "@media (max-width: 780px)": {
-      padding: "10px 0px 50px 0px",
-    },
-  },
-  storageHeader: {
-    float: "none",
-    width: "100%",
-    margin: "0 auto",
-    maxWidth: "90%",
-    paddingBottom: "2%",
-    fontFamily: "enphase-visuelt-regular,sans-serif",
-    "&:active": {
-      transform: "translateY(1.5rem)",
-      opacity: "1",
-    },
-  },
-  headTitle: {
-    marginBottom: "15px !important",
-    fontSize: "2.67rem !important",
-    "@media (max-width: 780px)": {
-      fontSize: "1.625rem !important",
-    },
-  },
-  lifestyle: {
-    textAlign: "center",
-  },
-  lifeText: {
-    position: "absolute",
-    zIndex: "1",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "2.625rem !important",
-    left: "28%",
-    marginTop: "60px !important",
-    "@media (max-width: 780px)": {
-      left: "4%",
-      margin: "24px !important",
-      fontSize: "1.625rem !important",
-    },
-  },
-}));
+
 export default function Lifestyle() {
-  const classes = useStyles();
+  const classes = useStyledComponent()
   return (
     <React.Fragment>
-      <Grid className={classes.storageContainer}>
-        <Box className={classes.storageHeader}>
-          <Typography variant="h3" className={classes.headTitle}>
+      <Grid className={classes.lifeStyleContainer}>
+        <Box className={classes.lifeStyleHeader}>
+          <Typography variant="h3" className={classes.lifeStyleTitle}>
             Enphase Lifestyle-Produkte
           </Typography>
         </Box>
-        <Box className={classes.lifestyle}>
+        <Box className={classes.lifestyleHeadings}>
           <Typography className={classes.lifeText}>
             Jacken, Mützen, Werkzeuge und mehr
           </Typography>

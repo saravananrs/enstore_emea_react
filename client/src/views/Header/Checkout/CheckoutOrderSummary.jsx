@@ -100,7 +100,6 @@ const useStyles = makeStyles(() => ({
 }));
 export default function CheckoutOrderSummary(props) {
   const { cartData, orderData } = useSelector((state) => state.store);
-  // const [grandTotal, setGrandTotal] = useState();
   const { subTotal } = props;
   const unique = [];
   cartData.filter((list) => {
@@ -111,12 +110,8 @@ export default function CheckoutOrderSummary(props) {
     return false;
   });
 
-  // useEffect(() => {
   const overall =
     Number(subTotal) + Number(orderData?.delivery) + Number(orderData?.tax);
-  // setGrandTotal(overall);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [orderData]);
   const classes = useStyles();
   return (
     <Grid container className={classes.summaryContainer}>

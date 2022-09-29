@@ -1,67 +1,118 @@
 import {
-    POST_ADMIN_LOGIN,
-    POST_Add_TO_CART,
-    POST_CheckOut_Click,
-    POST_Final_Checkout,
-    POST_ORDER_DATA,
-    CLEAR_CART_ORDER_DATA
-} from '../actions/EnstoreActions'
+  POST_ADMIN_LOGIN,
+  POST_Add_TO_CART,
+  POST_CheckOut_Click,
+  POST_Final_Checkout,
+  POST_ORDER_DATA,
+  CLEAR_CART_ORDER_DATA,
+  CLEAR_CART_ITEM,
+  FETCH_CATEGORIES,
+  FETCH_PRODUCTS,
+  SPINNER,
+  SINGLE_PRODUCTS,
+} from "../actions/EnstoreActions";
 const initialState = {
-    loginData: localStorage.getItem('AdminData'),
-    cartData: [] ,//localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
-    quoteId: localStorage.getItem('tokenKey'),
-    checkout:[],
-    orderData: {
-        "delivery":0,
-        "tax": 0,
-      }
-}
+  isLoading:true,
+  loginData: localStorage.getItem("AdminData"),
+  cartData: [], //localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
+  quoteId: localStorage.getItem("tokenKey"),
+  checkout: [],
+  categoryData: [],
+  productData: [],
+  singleProduct:null,
+  orderData: {
+    delivery: 0,
+    tax: 0,
+  },
+};
 const EnstoreReducer = function (state = initialState, action) {
-    switch (action.type) {
-        case POST_ADMIN_LOGIN: {
-            return {
-                ...state,
-                loginData: [],
-            }
-        }
-        case POST_Add_TO_CART: {
-            return {
-                ...state,
-                cartData: [...state.cartData, action.payload],
-            }
-        }
-        case POST_CheckOut_Click: {
-            return {
-                ...state,
-                quoteId: [],
-            }
-        }
-        case POST_Final_Checkout: {
-            return {
-                ...state,
-                checkout: [...state.checkout, action.payload],
-            }
-        }
-        case POST_ORDER_DATA: {
-            return {
-                ...state,
-                orderData: action.payload,
-            }
-        }
-        case CLEAR_CART_ORDER_DATA: {
-            return {
-                ...state,
-                cartData: action.payload,
-                orderData: {
-                    "delivery":0,
-                    "tax": 0,
-                  }
-            }
-        }
-        default: {
-            return state
-        }
+  switch (action.type) {
+    case SPINNER:{
+      return{
+        ...state,
+        isLoading:action.payload
+      }
     }
-}
+    case POST_ADMIN_LOGIN: {
+      return {
+        ...state,
+        loginData: [],
+      };
+    }
+    case FETCH_CATEGORIES: {
+      return {
+        ...state,
+        categoryData: action.payload,
+      };
+    }
+    case FETCH_PRODUCTS: {
+      return {
+        ...state,
+        productData: action.payload,
+      };
+    }
+    case SINGLE_PRODUCTS: {
+      return {
+        ...state,
+        singleProduct: action.payload,
+      };
+    }
+    case POST_Add_TO_CART: {
+      const prodIndex = state.cartData.findIndex(
+        (cart) => cart.id === action.payload.id
+      );
+      return {
+        ...state,
+        cartData:
+          prodIndex > -1
+            ? state.cartData.map((item) =>
+                item.id === action.payload.id
+                  ? { ...item, cartQty: action.payload.cartQty + 1 }
+                  : item
+              )
+            : [...state.cartData, action.payload],
+      };
+    }
+    case POST_CheckOut_Click: {
+      return {
+        ...state,
+        quoteId: [],
+      };
+    }
+    case POST_Final_Checkout: {
+      return {
+        ...state,
+        checkout: [...state.checkout, action.payload],
+      };
+    }
+    case POST_ORDER_DATA: {
+      return {
+        ...state,
+        orderData: action.payload,
+      };
+    }
+    case CLEAR_CART_ORDER_DATA: {
+      return {
+        ...state,
+        cartData: action.payload,
+        orderData: {
+          delivery: 0,
+          tax: 0,
+        },
+      };
+    }
+    case CLEAR_CART_ITEM: {
+      return {
+        ...state,
+        cartData: state.cartData.filter(
+          (item) => item.id !== action.payload.id
+        ),
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
 
-export default EnstoreReducer
+export default EnstoreReducer;

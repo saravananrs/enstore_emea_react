@@ -1,41 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Paper } from "@mui/material";
-import { makeStyles } from "@material-ui/styles";
 import SingleProductContents from "./SingleProductContents";
 import ProductDetailAccordian from "./ProductDetailAccordian";
+import { useStyledComponent } from "../Styles/useStyles.hook";
 
-const useStyles = makeStyles(() => ({
-  productContainer: {
-    textAlign: "center",
-    float: "none",
-    maxWidth: "98%",
-    margin: "0 auto !important",
-    padding: "20px 0px",
-    "@media (max-width: 500px)": {
-      display: "block !important",
-    },
-  },
-  column:{
-    "@media (max-width: 500px)": {
-      maxWidth:"100% !important"
-    }
-  },
-  imgSec: {
-    boxShadow: "none !important",
-    borderRadius: "16px !important",
-    marginBottom: "15px !important",
-  },
-  imgSecChild: {
-    cursor: "pointer",
-  },
-  rightAllign: {
-    paddingLeft: "100px !important",
-    "@media (max-width: 500px)": {
-      maxWidth:"100% !important",
-      padding :"10px !important"
-    }
-  },
-}));
 const SingleProduct = (props) => {
   const product = props.productData;
   const [mediaGallery, setMediaGallery] = useState();
@@ -52,17 +20,17 @@ const SingleProduct = (props) => {
     setProductImage(imgData);
     window.scrollTo(0, 100);
   };
-  const classes = useStyles();
+  const classes = useStyledComponent();
   return (
     <Grid
       container
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      className={classes.productContainer}
+      className={classes.singleProductContainer}
     >
-      <Grid item xs={6} className={classes.column}>
+      <Grid item xs={6} className={classes.singleProductcolumn}>
         {productImage && (
-          <Paper className={classes.imgSec}>
+          <Paper className={classes.singleProductimgSec}>
             <img
               srcSet={`https://store-qa2.enphase.com/media/catalog/product${productImage.file}`}
               alt="single product"
@@ -79,9 +47,9 @@ const SingleProduct = (props) => {
             mediaGallery.map((data) => {
               return (
                 <Grid item xs={6}>
-                  <Paper className={classes.imgSec}>
+                  <Paper className={classes.singleProductimgSec}>
                     <img
-                      className={classes.imgSecChild}
+                      className={classes.singleProductimgSecChild}
                       srcSet={`https://store-qa2.enphase.com/media/catalog/product${data.file}`}
                       alt="single product"
                       onClick={() => handleThumbNail(data)}
@@ -92,7 +60,7 @@ const SingleProduct = (props) => {
             })}
         </Grid>
       </Grid>
-      <Grid item xs={6} className={classes.rightAllign}>
+      <Grid item xs={6} className={classes.singleProductrightAllign}>
         <SingleProductContents productData={product} />
         <ProductDetailAccordian productData={product} />
       </Grid>

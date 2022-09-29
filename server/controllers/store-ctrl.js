@@ -5,6 +5,8 @@ const crypto = require("crypto");
 var CryptoJS = require("crypto-js");
 const SUCCESS_STATUS = "OK";
 const jwt = require("jwt-simple");
+const { config } = require("process");
+
 getCategories = async (req, res) => {
   console.log("hellow");
   var config = {
@@ -28,6 +30,49 @@ getCategories = async (req, res) => {
       return res.send(JSON.stringify(selected_categories));
     })
     .catch(function (error) {
+      return res.send(error);
+    });
+};
+getAllData = async (req, res) => {
+  let overAllData = [];
+  await axios
+    .get(`https://store-qa2.enphase.com/storefront/de-de/rest/V1/categories`, {
+      headers: {
+        Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+      },
+    })
+    .then((response) => {
+      let selected_categories = response.data.children_data.filter((data) =>
+        [
+          "Mikro-Wechselrichter",
+          "Speicher",
+          "Energiemanagement",
+          "Kabel und Stecker",
+          "Zubehör",
+        ].includes(data.name)
+      );
+      selected_categories.map((item) => {
+        return  axios
+          .get(
+            `https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${item.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+            {
+              headers: {
+                Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+              },
+            }
+          )
+          .then((res) => {
+            console.log("response", res.data.items);
+            return overAllData.push(res.data.items)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+     
+      return res.send(JSON.stringify());
+    })
+    .catch((error) => {
       return res.send(error);
     });
 };
@@ -125,7 +170,7 @@ getShippingEstimation = async (req, res) => {
       console.log(req);
     });
 };
-getShippingInformation  = async (req, res) => {
+getShippingInformation = async (req, res) => {
   await axios
     .post(
       `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/shipping-information`,
@@ -155,23 +200,23 @@ createOrder = async (req, res) => {
         },
       }
     )
-    .then(async(response) => {
+    .then(async (response) => {
       await axios
-      .get(
-        `https://store-qa2.enphase.com/storefront/de-de/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
-        {
-          headers: {
-            Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-          },
-        }
-      )
-      .then((orderResponse) => {
-        return res.send(JSON.stringify(orderResponse.data.items[0]));
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(req);
-      });
+        .get(
+          `https://store-qa2.enphase.com/storefront/de-de/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+          {
+            headers: {
+              Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+            },
+          }
+        )
+        .then((orderResponse) => {
+          return res.send(JSON.stringify(orderResponse.data.items[0]));
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(req);
+        });
     })
     .catch((error) => {
       console.log(error);
@@ -371,5 +416,6 @@ module.exports = {
   getCartDetailByQuoteId,
   getShippingEstimation,
   getShippingInformation,
-  createOrder
+  createOrder,
+  getAllData,
 };

@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import React from "react";
+import instance from "../../../../utils/axiosconfig";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import useStepper from "./useStepper.hook";
@@ -76,8 +77,8 @@ export default function StepperShipping(props) {
       },
       data: quoteId,
     };
-    await axios
-      .post("http://localhost:8000/api/estimateShipping", reqBody)
+    await instance
+      .post("/estimateShipping", reqBody)
       .then((response) => {
         console.log("response", response.data);
         setShippingMethod(response.data);

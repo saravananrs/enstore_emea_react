@@ -1,5 +1,4 @@
 import React,{useState} from "react";
-import { makeStyles } from "@material-ui/styles";
 import {
   Box,
   IconButton,
@@ -14,26 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HeaderCart from "./HeaderCart";
 import CloseIcon from '@mui/icons-material/Close';
 import HeaderDropDown from "./HeaderDropDown";
-const useStyles = makeStyles(() => ({
-  rightSide: {
-    justifyContent: "end !important",
-    alignItems: "center !important",
-    "@media screen and (min-width: 300px) and (max-width: 324px)":{
-        marginLeft:"0 !important",
-      },
-      "@media screen and (min-width: 325px) and (max-width: 475px)":{
-        marginLeft:"80px !important",
-      },
-      "@media screen and (min-width: 476px) and (max-width: 800px)":{
-        marginLeft:"390px !important",
-      },
-  },
-  mobileContainer: {
-    display: "flex !important",
-    justifyContent: "space-between !important",
-    alignItems: "center",
-  },
-}));
+import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
+
 export default function HeaderMobileView(props) {
   const pages = [
     "Hausbesitzer",
@@ -42,7 +23,7 @@ export default function HeaderMobileView(props) {
     "Laden",
     "Unterstützung",
   ];
-  const classes = useStyles();
+  const classes = useStyledComponent();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [closeVisible, setCloseVisible] =useState(false)

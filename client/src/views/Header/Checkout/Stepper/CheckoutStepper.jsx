@@ -19,7 +19,10 @@ const useStyles = makeStyles(() => ({
     },
   },
   fixes: {
-    marginLeft: "30px",
+    // marginLeft: "30px",
+    // "& .css-j5w0w9-MuiStepConnector-root":{
+    //   width:"76px !important"
+    // }
   },
 }));
 const IntialShippingRegister = {
@@ -50,13 +53,7 @@ export default function CheckoutStepper(props) {
           const labelProps = {};
           return (
             <Step key={label} {...stepProps}>
-              {activeStep === 2 ? (
-                <StepLabel className={classes.fixes} {...labelProps}>
-                  {label}
-                </StepLabel>
-              ) : (
                 <StepLabel {...labelProps}>{label}</StepLabel>
-              )}
             </Step>
           );
         })}
