@@ -2,6 +2,7 @@
 import instance from "../../utils/axiosconfig";
 export const SPINNER = "SPINNER";
 export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
+export const ALL_DATA = 'ALL_DATA'
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
@@ -39,6 +40,24 @@ export const adminLogin = (userName, password) => async (dispatch) => {
       dispatch({
         type: POST_ADMIN_LOGIN,
         payload: error.response.data,
+      });
+    });
+};
+export const getAllData = () => async (dispatch) => {
+  await instance
+    .get("/allData")
+    .then((res) => {
+      dispatch({
+        type: ALL_DATA,
+        payload: res.data,
+      });
+      dispatch(setSpinner(false));
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: ALL_DATA,
+        payload: err.res.data,
       });
     });
 };

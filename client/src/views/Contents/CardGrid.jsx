@@ -1,42 +1,53 @@
 import { Grid, Typography, Box } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import CardModel from "./card/CardModel";
 import Spinner from "../../Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getCategories } from "../../redux/actions/EnstoreActions";
+import { getAllData } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "./Styles/useStyles.hook";
-
 
 export default function CardGrid() {
   const classes = useStyledComponent();
-  const { categoryData } = useSelector((state) => state.store);
-  const {isLoading}  = useSelector((state)=> state.store)
+  const { allData } = useSelector((state) => state.store);
+  const categories = allData?.selected_categories;
   const dispatch = useDispatch();
-
+  const productsReturn = allData?.productsToReturn?.map((item) => item.items);
   useEffect(() => {
-    dispatch(getCategories());
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(getAllData());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isLoading) {
+  if (categories === undefined) {
     return <Spinner />;
   }
 
   return (
     <React.Fragment>
-      {categoryData?.map((pName) => {
+      {categories?.map((pName, index) => {
         return (
-          <Grid container key={pName.id} className={classes.cardGridContainer}>
-            <Box className={classes.cardGridHeader}>
-              <Typography variant="h3" className={classes.cardGridTitle}>
-                {pName.name}
-              </Typography>
-            </Box>
-            <Grid container className={classes.cardContainer}>
-              <CardModel items={pName} />
+          <>
+            <Grid
+              container
+              key={pName.id}
+              className={classes.cardGridContainer}
+            >
+              <Box className={classes.cardGridHeader}>
+                <Typography variant="h3" className={classes.cardGridTitle}>
+                  {pName.name}
+                </Typography>
+              </Box>
             </Grid>
-          </Grid>
+            {productsReturn?.map((pdcts, proindex) => {
+                return (
+                  index === proindex && (
+                    <Grid container className={classes.cardContainer}>
+                      <CardModel items={pdcts} />
+                    </Grid>
+                  )
+                );
+            })}
+          </>
         );
       })}
     </React.Fragment>

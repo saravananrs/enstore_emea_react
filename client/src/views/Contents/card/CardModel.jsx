@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {  useNavigate } from "react-router-dom";
-import instance from "../../../utils/axiosconfig";
+import dummy from "../../../Assets/images/dummy.jpg"
 import {
   addToCart,
   getProducts,
@@ -15,21 +15,14 @@ import {
   Button,
   Tooltip,
 } from "@mui/material";
-import axios from "axios";
 import Carousel from "react-elastic-carousel";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
-import { useEffect } from "react";
 import { useStyledComponent } from "../Styles/useStyles.hook";
 
 export default function CardModel(props) {
-  const [isLoading, setIsLoading] = useState(true);
   const { items } = props;
-  const { productData } = useSelector((state) => state.store);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts(items.id));
-  }, []);
   const navigate = useNavigate();
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -38,34 +31,15 @@ export default function CardModel(props) {
     { width: 1200, itemsToShow: 4 },
   ];
   const classes = useStyledComponent();
-  const [products, setProducts] = React.useState([]);
-  React.useEffect(() => {
-    const fetchCategoryProducts = async () => {
-      await instance
-        .get(`/products`, {
-          params: { id: items.id },
-        })
-        .then((res) => {
-          let filteredRes = res.data.filter(
-            (resData) => resData.status == 1 && resData.visibility == 4
-          );
-          setProducts(filteredRes);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    fetchCategoryProducts();
-  }, []);
-  if (isLoading) {
+  if (items === undefined) {
     return <Spinner />;
   }
   return (
     <>
-      {!isLoading && products && (
+      {items && (
         <Carousel breakPoints={breakPoints} pagination={false}>
-          {products.map((item) => {
+          {items?.map((item) => {
+            console.log(item.custom_attributes,"item.custom_attributes");
             let custome_attribute = {};
             item.custom_attributes.map((attributes) => {
               custome_attribute[attributes.attribute_code] = attributes.value;
@@ -73,16 +47,17 @@ export default function CardModel(props) {
             return (
               <>
                 <Card key={item.id} className={classes.card}>
-                  <CardMedia
+                { custome_attribute.thumbnail  && custome_attribute.thumbnail !== undefined ?  <CardMedia
                     component="img"
                     className={classes.cardimg}
-                    image={
-                      custome_attribute.thumbnail
-                        ? `https://store-qa2.enphase.com/media/catalog/product${custome_attribute.thumbnail}`
-                        : ""
-                    }
+                    image={`https://store-qa2.enphase.com/media/catalog/product${custome_attribute.thumbnail}`}
                     alt="products"
-                  />
+                  /> :  <CardMedia
+                  component="img"
+                  className={classes.cardimg}
+                  image={dummy}
+                  alt="products"
+                />} 
                   <CardContent className={classes.content}>
                     <Typography
                       gutterBottom

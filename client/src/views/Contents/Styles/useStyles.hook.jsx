@@ -25,6 +25,7 @@ export const useStyledComponent = makeStyles(() => ({
   },
   items: {
     padding: "12px 32px",
+    cursor:"pointer",
     color: "#3c3c3c",
     fontFamily: "enphase-visuelt-regular,sans-serif",
     display: "flex",
@@ -358,7 +359,7 @@ export const useStyledComponent = makeStyles(() => ({
   //cardGrid.jsx
 
   cardGridContainer: {
-    padding: "70px 0px",
+    paddingTop: "70px",
     "@media (max-width: 780px)": {
       padding: "50px 0px",
     },
@@ -368,7 +369,7 @@ export const useStyledComponent = makeStyles(() => ({
     width: "100%",
     margin: "0 auto",
     maxWidth: "90%",
-    paddingBottom: "7%",
+    paddingBottom: "5%",
     fontFamily: "enphase-visuelt-regular,sans-serif",
   },
   cardGridTitle: {
@@ -392,6 +393,7 @@ cardimg: {
 
 card: {
   maxWidth: 300,
+  width:"300px",
   padding: "10px 20px",
   height: "540px",
   "@media (max-width: 780px)": {

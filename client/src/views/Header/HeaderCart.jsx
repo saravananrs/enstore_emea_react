@@ -11,6 +11,7 @@ import {
 } from "../../redux/actions/EnstoreActions";
 import CheckoutContainer from "./Checkout/CheckoutContainer";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
+import { Link } from "react-router-dom";
 
 export default function HeaderCart() {
   const classes = useStyledComponent();
@@ -207,8 +208,9 @@ export default function HeaderCart() {
           Bag
         </Box>
         <Divider />
+        <Link to='/signin'>
         <Box className={classes.items}>
-          <a href="#" className="navicon">
+          <a href="/signIn" className="navicon">
             <svg
               role="presentation"
               width="24"
@@ -235,6 +237,7 @@ export default function HeaderCart() {
           </a>
           Store sign in
         </Box>
+        </Link>
         <Divider />
         <Box className={classes.items}>
           <a href="#" className="navicon">

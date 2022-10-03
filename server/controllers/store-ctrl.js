@@ -34,7 +34,8 @@ getCategories = async (req, res) => {
     });
 };
 getAllData = async (req, res) => {
-  let overAllData = [];
+  var productsToReturn = []
+  
   await axios
     .get(`https://store-qa2.enphase.com/storefront/de-de/rest/V1/categories`, {
       headers: {
@@ -51,31 +52,32 @@ getAllData = async (req, res) => {
           "Zubehör",
         ].includes(data.name)
       );
-      selected_categories.map((item) => {
-        return  axios
-          .get(
-            `https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${item.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
-            {
+
+      let requests =selected_categories.map(id => {
+        return new Promise((resolve, reject) => {
+           request({
+              uri: `https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+              method: 'GET',
               headers: {
                 Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
               },
-            }
-          )
-          .then((res) => {
-            console.log("response", res.data.items);
-            return overAllData.push(res.data.items)
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      });
-     
-      return res.send(JSON.stringify());
-    })
-    .catch((error) => {
-      return res.send(error);
-    });
-};
+           },
+           (err, res, body) => {
+           if (err) { reject(err) }
+           resolve(body)
+           })
+        })
+     })
+     Promise.all(requests).then((body) => { 
+        body.forEach(res => {
+        if (res)
+         var allProducts = JSON.parse(res)
+           productsToReturn.push( allProducts)
+        })
+        res.send({selected_categories, productsToReturn})
+     }).catch(err => console.log(err))
+  })};
+
 getProducts = async (req, res) => {
   await axios
     .get(
