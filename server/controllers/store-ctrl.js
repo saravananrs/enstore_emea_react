@@ -250,6 +250,7 @@ createOrder = async (req, res) => {
 enlightenOAuthLogin = async function (req, res) {
   console.log("enlighten login method start");
   console.log("enlighten login method start");
+  console.log(req.body,"body");
   var bytes = CryptoJS.AES.decrypt(req.body.enlightenpassword, "enlighten");
   console.log("bytes", bytes);
   console.log(`user name ${req.body.enlightenusername}`);

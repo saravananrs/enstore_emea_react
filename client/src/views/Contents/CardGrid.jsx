@@ -42,7 +42,7 @@ export default function CardGrid() {
                 return (
                   index === proindex && (
                     <Grid container className={classes.cardContainer}>
-                      <CardModel items={pdcts} />
+                      <CardModel items={pdcts} category={pName}/>
                     </Grid>
                   )
                 );

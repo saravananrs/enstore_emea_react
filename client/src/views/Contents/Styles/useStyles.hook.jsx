@@ -409,6 +409,32 @@ card: {
     boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
   },
 },
+viewallbtn:{
+  fontSize: '1.5rem !important',
+    lineHeight: '1.3em !important',
+    fontWeight: 'normal !important',
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+},
+cardViewAll: {
+  maxWidth: 300,
+  width:"300px",
+  textAlign:"center !important",
+  padding: "10px 20px",
+  height: "540px",
+  "@media (max-width: 780px)": {
+    height: "500px",
+  },
+  position: "relative !important",
+  marginLeft: "20px",
+  borderRadius: "16px !important",
+  transition: "0.3s",
+  cursor: "pointer",
+  boxShadow: "none !important",
+  "&:hover": {
+    boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
+  },
+  background:"linear-gradient(180deg, #82c6b7 0%,#dfe0a2 100%) !important"
+},
 content: {
   textAlign: "center",
 },
@@ -793,5 +819,128 @@ spcartBtn: {
     fontSize: "0.875rem !important",
     textTransform:"capitalize !important",
   }
+},
+
+//StoreSignIn.jsx
+storeSignInContainer: {
+  padding: "40px 0px",
+},
+signInRegister: {
+  width: "400px !important",
+  margin: "0 auto",
+},
+storeLogin: {
+  backgroundColor: "#fff",
+  width: "100%",
+  background: "#faf6ef",
+  padding: "40px",
+  borderRadius: "16px",
+},
+blockTitle: {
+  marginBottom: "0",
+  paddingBottom: "8px",
+},
+blockTitleVariant: {
+  fontFamily: "enphase-visuelt-medium,sans-serif !important",
+  fontWeight: "normal !important",
+  fontSize: "1.8rem !important",
+},
+storeSignInContent: {
+  fontFamily: "enphase-visuelt-regular,sans-serif !important",
+},
+storeSignInBtn: {
+  border: "1px solid #000 !important",
+  backgroundColor: "#000 !important",
+  color: "#fff !important",
+  fontSize: "1rem !important",
+  fontFamily: "enphase-visuelt-medium !important",
+  borderRadius: "56px !important",
+  textTransform: "capitalize !important",
+  width: "100% !important",
+},
+storeSignUpBtn: {
+  "&:before": {
+    content: '"Not a Member Yet?" !important',
+    paddingRight: "10px !important",
+  },
+  marginTop: "25px !important",
+  fontSize: "12px !important !important",
+  fontFamily: "enphase-visuelt-regular,sans-serif  !important",
+  textTransform: "none !important",
+},
+frgtPassword: {
+  fontSize: "12px",
+  marginTop: "16px",
+  fontFamily: "enphase-visuelt-regular,sans-serif  !important",
+},
+
+//StoreSignInForm.jsx
+
+fieldNote: {
+  borderBottom: " 1px solid #7d7d7d",
+  marginBottom: "0",
+  paddingBottom: "24px",
+  fontSize: "13px !important",
+},
+storeInputContainer: {
+  marginTop: "40px",
+},
+storelabel: {
+  margin: " 0 0 8px !important",
+  display: " inline-block !important",
+  fontFamily: "T-Star Pro !important",
+  fontSize: "0.75rem !important",
+  fontWeight: "600 !important",
+  color: "#000 !important",
+  lineHeight: "1em !important",
+  letterSpacing: "0.05em !important",
+  textTransform: "uppercase !important",
+  "&:after": {
+    content: '"*" !important',
+    color: "#e02b27 !important",
+    fontSize: "1.2rem !important",
+    margin: "0 0 0 5px !important",
+  },
+},
+storeinputData: {
+  width: "100%",
+},
+
+signInBox: {
+  "& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
+    padding: "8px 9px !important",
+  },
+  "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+    borderColor: "#0a0802",
+  },
+  background: "#faf6ef !important",
+  borderRadius: "8px !important",
+ // border: "1px solid #7d7d7d !important",
+  width: "100% !important",
+},
+remeberMe: {
+  display: "flex !important",
+  margin: "0 0 20px",
+  position: "relative !important",
+},
+checkBox: {
+  padding: "0 !important",
+  "&.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.Mui-checked": {
+    color: "#0075FF !important",
+  },
+},
+rememberLabel: {
+  position: "absolute !important",
+  fontFamily: "T-Star Pro !important",
+  fontSize: " 0.75rem !important",
+  lineHeight: "1em !important",
+  color: "#000 !important",
+  letterSpacing: " 0.05em !important",
+  left: "9%",
+  top: "30%",
+},
+whatsThis: {
+  fontSize: "12px",
+  cursor: "help",
 },
 }))

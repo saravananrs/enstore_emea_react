@@ -10,11 +10,13 @@ import {
   FETCH_PRODUCTS,
   SPINNER,
   SINGLE_PRODUCTS,
-  ALL_DATA
+  ALL_DATA,
+  POST_STORE_LOGIN
 } from "../actions/EnstoreActions";
 const initialState = {
   isLoading:true,
   loginData: localStorage.getItem("AdminData"),
+  storeLoginData:[],
   cartData: [], //localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
   quoteId: localStorage.getItem("tokenKey"),
   checkout: [],
@@ -34,6 +36,12 @@ const EnstoreReducer = function (state = initialState, action) {
         ...state,
         isLoading:action.payload
       }
+    }
+    case POST_STORE_LOGIN: {
+      return {
+        ...state,
+        storeLoginData: action.payload,
+      };
     }
     case POST_ADMIN_LOGIN: {
       return {

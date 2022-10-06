@@ -4,6 +4,7 @@ import Success from "../Header/Checkout/Success/Success";
 import StoreSignin from "../Login/StoreSignin";
 import HomePage from "./HomePage";
 import LearnMore from "./LearnMore/LearnMore";
+import ViewAll from "./ViewAll/ViewAll";
 
 const Content = () => {
   return (
@@ -12,6 +13,7 @@ const Content = () => {
 				<Route path="/" element={<HomePage />} />
 				<Route path="/product/:urlKey" element={<LearnMore />}/>
 				<Route path="/success" element={<Success />}/>
+				<Route path="/viewall" element={<ViewAll />}/>
 				<Route path="/signin" element={<StoreSignin />}/>
       </Routes>
     </div>

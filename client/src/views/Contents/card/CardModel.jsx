@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {  useNavigate } from "react-router-dom";
-import dummy from "../../../Assets/images/dummy.jpg"
+import { useNavigate } from "react-router-dom";
+import dummy from "../../../Assets/images/dummy.jpg";
 import {
   addToCart,
   getProducts,
@@ -21,7 +21,7 @@ import Spinner from "../../../Spinner/Spinner";
 import { useStyledComponent } from "../Styles/useStyles.hook";
 
 export default function CardModel(props) {
-  const { items } = props;
+  const { items, category } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const breakPoints = [
@@ -38,8 +38,7 @@ export default function CardModel(props) {
     <>
       {items && (
         <Carousel breakPoints={breakPoints} pagination={false}>
-          {items?.map((item) => {
-            console.log(item.custom_attributes,"item.custom_attributes");
+          {items?.slice(0, 5).map((item) => {
             let custome_attribute = {};
             item.custom_attributes.map((attributes) => {
               custome_attribute[attributes.attribute_code] = attributes.value;
@@ -47,17 +46,22 @@ export default function CardModel(props) {
             return (
               <>
                 <Card key={item.id} className={classes.card}>
-                { custome_attribute.thumbnail  && custome_attribute.thumbnail !== undefined ?  <CardMedia
-                    component="img"
-                    className={classes.cardimg}
-                    image={`https://store-qa2.enphase.com/media/catalog/product${custome_attribute.thumbnail}`}
-                    alt="products"
-                  /> :  <CardMedia
-                  component="img"
-                  className={classes.cardimg}
-                  image={dummy}
-                  alt="products"
-                />} 
+                  {custome_attribute.thumbnail &&
+                  custome_attribute.thumbnail !== undefined ? (
+                    <CardMedia
+                      component="img"
+                      className={classes.cardimg}
+                      image={`https://media-store-stg.enphase.com/catalog/product${custome_attribute.thumbnail}`}
+                      alt="products"
+                    />
+                  ) : (
+                    <CardMedia
+                      component="img"
+                      className={classes.cardimg}
+                      image={dummy}
+                      alt="products"
+                    />
+                  )}
                   <CardContent className={classes.content}>
                     <Typography
                       gutterBottom
@@ -121,6 +125,24 @@ export default function CardModel(props) {
               </>
             );
           })}
+          <Card
+            className={classes.cardViewAll}
+            onClick={() =>
+              navigate("/viewall", {
+                state: { item: items, category: category },
+              })
+            }
+          >
+            <Typography variant="h5" className={classes.viewallbtn}>
+              View All
+            </Typography>
+            <CardMedia
+              component="img"
+              className={classes.cardimg}
+              image="https://store-d9.enphase.com/sites/default/files/styles/max_3840x3840/public/2022-07/store-categories-microinverters_1.png?itok=fZMQVqQa"
+              alt="products"
+            />
+          </Card>
         </Carousel>
       )}
     </>

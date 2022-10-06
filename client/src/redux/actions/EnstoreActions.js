@@ -1,6 +1,8 @@
  import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import instance from "../../utils/axiosconfig";
 export const SPINNER = "SPINNER";
+export const POST_STORE_LOGIN = "STORE_LOGIN";
 export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
 export const ALL_DATA = 'ALL_DATA'
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
@@ -19,6 +21,22 @@ export const setSpinner = (spinnerset) => async (dispatch) => {
     type: SPINNER,
     payload: spinnerset,
   });
+};
+
+export const storeLogin = (data) => async (dispatch) => {
+  await instance
+    .post("/login",data)
+    .then((response) => {
+      console.log("responseSTORE", response);
+      localStorage.setItem("storeSignIn",JSON.stringify(response.data))
+      dispatch({
+        type: POST_STORE_LOGIN,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const adminLogin = (userName, password) => async (dispatch) => {
