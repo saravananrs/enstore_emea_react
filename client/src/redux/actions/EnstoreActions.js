@@ -197,9 +197,9 @@ export const clearCartAndOrderData = () => async (dispatch) => {
     payload: [],
   });
 };
-export const clearCartItem = (id) => async (dispatch) => {
+export const clearCartItem = (item) => async (dispatch) => {
   dispatch({
     type: CLEAR_CART_ITEM,
-    payload: id,
+    payload: item,
   });
 };

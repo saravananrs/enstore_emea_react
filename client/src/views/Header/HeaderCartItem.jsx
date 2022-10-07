@@ -3,44 +3,45 @@ import { Box, Divider } from "@mui/material";
 import upArrow from "../../Assets/Header/spritemap.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addToCart, clearCartItem} from "../../redux/actions/EnstoreActions";
+import {  addToCart, clearCartItem } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
-;
-
+import useCartItems from "../Hooks/useCartItems.hook";
 export default function HeaderCartItem(props) {
   const classes = useStyledComponent();
-  const { setSubTotal, subTotal, setQuantitySetter, setCon, item, key } = props;
+  const {  item, key } = props;
   const { cartData } = useSelector((state) => state.store);
-  const [count, setCount] = useState( item.cartQty);
+  const { setSubTotal,count, setCount ,setCon,setQuantitySetter,subTotal} = useCartItems();
   const dispatch = useDispatch();
+  useEffect(() => {
+    setCount(item.cartQty);
+  }, []);
+
+  const handleIncrement = async (number, products) => {
+    setCon(true);
+    setQuantitySetter(false);
+    setCount(number + 1);
+    await dispatch(addToCart(products, count));
+    setSubTotal(subTotal + products.price);
+  };
+  const handleDecrement = async (number, products) => {
+    setCon(true);
+    if (number > 1) {
+      let setter = count - 1;
+      setQuantitySetter(false);
+      setCount(number - 1);
+      await dispatch(addToCart(products, setter - 1));
+      setSubTotal(subTotal - products.price);
+    }
+  };
   useEffect(() => {
     if (cartData.length === 1) {
       setSubTotal(item.price);
     }
-    if(cartData.length === 1 && item.cartQty>=2){
-      setSubTotal(item.price * item.cartQty)
+    if (cartData.length === 1 && item.cartQty >= 2) {
+      setSubTotal(item.price * item.cartQty);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleIncrement = async (number, id) => {
-    setCon(true);
-    if (id === item.id) {
-      setQuantitySetter(false);
-       setCount(number + 1);
-     await dispatch(addToCart(item,count));
-      setSubTotal(subTotal + item.price);
-    }
-  };
-  const handleDecrement =async (number, id) => {
-    setCon(true);
-    if (number > 1 && id === item.id) {
-      let setter = count-1
-      setQuantitySetter(false);
-      setCount(number - 1);
-     await dispatch(addToCart(item, setter-1));
-      setSubTotal(subTotal - item.price);
-    }
-  };
   const smallImages = item.custom_attributes.filter(
     (value) => value.attribute_code === "small_image"
   );
@@ -68,7 +69,7 @@ export default function HeaderCartItem(props) {
                 />
                 <Box className={classes.arrowContainer}>
                   <Box
-                    onClick={() => handleIncrement(count, item.id)}
+                    onClick={() => handleIncrement(count, item)}
                     className={classes.upArrow}
                     sx={{ transform: "rotate(180deg)" }}
                   >
@@ -81,7 +82,7 @@ export default function HeaderCartItem(props) {
                   </Box>
                   <Box
                     className={classes.upArrow}
-                    onClick={() => handleDecrement(count, item.id)}
+                    onClick={() => handleDecrement(count, item)}
                   >
                     <svg
                       class="fill-current svg svg-xxsmall"

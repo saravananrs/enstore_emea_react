@@ -11,27 +11,31 @@ import {
 } from "../../redux/actions/EnstoreActions";
 import CheckoutContainer from "./Checkout/CheckoutContainer";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useCartItems from "../Hooks/useCartItems.hook";
 
 export default function HeaderCart() {
   const classes = useStyledComponent();
   const { cartData } = useSelector((state) => state.store);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [toggle, setToggle] = useState(true);
-  const [cartdDown, setCartdDown] = useState(null);
-  const [bagCount, setBagCount] = useState(1);
-  const [subTotal, setSubTotal] = useState(0);
-  const [val, setVal] = useState();
-  const [quantitySetter, setQuantitySetter] = useState(true);
-  const [con, setCon] = useState(false);
-  const storedData = [];
-  let createdCartData = localStorage.getItem("cartData");
-  storedData.push(JSON.parse(createdCartData));
-  const dispatch = useDispatch();
-  const open = Boolean(cartdDown);
-  const total = cartData.reduce((total,currPrice)=> total = total + (currPrice.price * currPrice.cartQty), 0)
+  const{openDialog,
+    setOpenDialog,
+    toggle,
+    setToggle,
+    cartdDown,
+    setCartdDown,
+    bagCount,
+    setBagCount,
+    subTotal,
+    setSubTotal,
+    quantitySetter,
+    setQuantitySetter,
+    con,
+    setCon,
+    handleClose,
+    open} = useCartItems()
+  const navigate = useNavigate();
   useEffect(() => {
-    if (cartData.length > 1 && quantitySetter) {
+    if (cartData.length >= 1 && quantitySetter) {
       setSubTotal(total);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,35 +44,14 @@ export default function HeaderCart() {
   const handleClick = (event) => {
     setCartdDown(event.currentTarget);
   };
-
-  const handleClose = () => {
-    setCartdDown(null);
-  };
   useEffect(() => {
     setBagCount(cartData.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
-  const handleCheckOutClick = async () => {
-    setToggle(false);
-    if (createdCartData === null || con) {
-      await dispatch(addCartItemsCheckout());
-      const quoteId = localStorage.getItem("tokenKey");
-      cartData.map((items) => {
-        const reqBody = {
-          cartItem: {
-            sku: items.sku,
-            qty: items.cartQty,
-            quote_id: quoteId,
-          },
-          data: quoteId,
-        };
-        dispatch(addCartFinalCheckOut(reqBody));
-      });
-    }
-    await setOpenDialog(true);
-    setToggle(true);
-  };
-
+  const total = cartData.reduce(
+    (total, currPrice) => (total = total + currPrice.price * currPrice.cartQty),
+    0
+  );
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
@@ -107,7 +90,9 @@ export default function HeaderCart() {
               {toggle ? (
                 <Button
                   className={classes.checkoutBtn}
-                  onClick={() => handleCheckOutClick()}
+                  onClick={() =>
+                    navigate("/cart" )
+                  }
                 >
                   Check out
                 </Button>
@@ -141,8 +126,6 @@ export default function HeaderCart() {
                         subTotal={subTotal}
                         setQuantitySetter={setQuantitySetter}
                         setCon={setCon}
-                        val={val}
-                        setVal={setVal}
                         bagCount={bagCount}
                         item={item}
                       />
@@ -208,35 +191,35 @@ export default function HeaderCart() {
           Bag
         </Box>
         <Divider />
-        <Link to='/signin'>
-        <Box className={classes.items}>
-          <a href="/signIn" className="navicon">
-            <svg
-              role="presentation"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12.0498 12C14.2589 12 16.0498 9.98528 16.0498 7.5C16.0498 5.01472 14.2589 3 12.0498 3C9.84067 3 8.0498 5.01472 8.0498 7.5C8.0498 9.98528 9.84067 12 12.0498 12Z"
-                stroke="#3C3C3C"
-                stroke-miterlimit="10"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M8.5498 12.6912C5.03246 13.6443 4.2947 16.2416 3.8999 19.3999C3.8999 19.9999 4.2999 20.4999 4.8999 20.4999H19.0999C19.6999 20.4999 20.1999 19.9999 20.0999 19.3999C19.7051 16.2416 18.9673 13.6443 15.45 12.6912"
-                stroke="#3C3C3C"
-                stroke-miterlimit="10"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </svg>
-          </a>
-          Store sign in
-        </Box>
+        <Link to="/signin">
+          <Box className={classes.items}>
+            <a href="/signIn" className="navicon">
+              <svg
+                role="presentation"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.0498 12C14.2589 12 16.0498 9.98528 16.0498 7.5C16.0498 5.01472 14.2589 3 12.0498 3C9.84067 3 8.0498 5.01472 8.0498 7.5C8.0498 9.98528 9.84067 12 12.0498 12Z"
+                  stroke="#3C3C3C"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M8.5498 12.6912C5.03246 13.6443 4.2947 16.2416 3.8999 19.3999C3.8999 19.9999 4.2999 20.4999 4.8999 20.4999H19.0999C19.6999 20.4999 20.1999 19.9999 20.0999 19.3999C19.7051 16.2416 18.9673 13.6443 15.45 12.6912"
+                  stroke="#3C3C3C"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </a>
+            Store sign in
+          </Box>
         </Link>
         <Divider />
         <Box className={classes.items}>
