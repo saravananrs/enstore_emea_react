@@ -3,20 +3,19 @@ import React from "react";
 import LifestyleParts from "./LifestyleParts";
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
-
 export default function Lifestyle() {
-  const classes = useStyledComponent()
+  const classes = useStyledComponent();
   return (
     <React.Fragment>
       <Grid className={classes.lifeStyleContainer}>
         <Box className={classes.lifeStyleHeader}>
           <Typography variant="h3" className={classes.lifeStyleTitle}>
-            Enphase Lifestyle-Produkte
+            Enphase Lifestyle Products
           </Typography>
         </Box>
         <Box className={classes.lifestyleHeadings}>
           <Typography className={classes.lifeText}>
-            Jacken, Mützen, Werkzeuge und mehr
+            Jackets, hats, tools and more
           </Typography>
           <img
             className="lifestyleImg"

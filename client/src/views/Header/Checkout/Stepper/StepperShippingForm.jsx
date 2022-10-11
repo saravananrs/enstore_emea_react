@@ -82,7 +82,7 @@ export default function StepperShippingForm(props) {
           id: 1,
           name: "email",
           type: "text",
-          text: "E-Mailadresse",
+          text: "E-Mail address",
           value: register.email,
           validators:["required", "isEmail"]
         },
@@ -90,7 +90,7 @@ export default function StepperShippingForm(props) {
           id: 2,
           name: "phone",
           type: "number",
-          text: "Telefonnummer",
+          text: "Phone Number",
           value: register.phone,
           validators:["required"]
         },
@@ -98,7 +98,7 @@ export default function StepperShippingForm(props) {
           id: 3,
           name: "fname",
           type: "text",
-          text: "Vorname",
+          text: "First Name",
           value: register.fname,
           validators:["required"]
         },
@@ -106,7 +106,7 @@ export default function StepperShippingForm(props) {
           id: 4,
           name: "lname",
           type: "text",
-          text: "Nachname",
+          text: "Last Name",
           value: register.lname,
           validators:["required"]
         },
@@ -114,7 +114,7 @@ export default function StepperShippingForm(props) {
           id: 5,
           name: "address",
           type: "text",
-          text: "Straße Adresse  ",
+          text: "Street Address  ",
           value: register.address,
           validators:["required"]
         },
@@ -122,7 +122,7 @@ export default function StepperShippingForm(props) {
           id: 6,
           name: "country",
           type: "text",
-          text: "Land",
+          text: "Country",
           value: register.country,
           validators:["required"]
         },
@@ -132,7 +132,7 @@ export default function StepperShippingForm(props) {
           id: 1,
           name: "postal",
           type: "text",
-          text: "Postleitzahl",
+          text: "Postal",
           value: register.postal,
           validators:["required"]
         },
@@ -140,7 +140,7 @@ export default function StepperShippingForm(props) {
           id: 2,
           name: "city",
           type: "text",
-          text: "Stadt",
+          text: "City",
           value: register.city,
           validators:["required"]
         },

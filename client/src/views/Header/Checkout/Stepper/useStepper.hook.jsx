@@ -1,5 +1,5 @@
 import React from 'react'
-const steps = ["Versand", "Lieferung", "Zahlung",];
+const steps = ["Shipping", "Delivery", "Payment",];
 export default function useStepper() {
     const [activeSteps, setActiveSteps] = React.useState(0);
   const [completed, setCompleted] = React.useState({});

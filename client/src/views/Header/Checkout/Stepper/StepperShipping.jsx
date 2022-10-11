@@ -104,7 +104,7 @@ export default function StepperShipping(props) {
             onClick={handleShipmentClick}
             sx={{ mr: 1 }}
           >
-            Fortsetzen
+            Continue
           </Button>
         ) : (
           <LoadingButton
@@ -119,7 +119,7 @@ export default function StepperShipping(props) {
         )}
       </Box>
       <Box>
-        <Button className={classes.exitbtn} onClick={handleClose}>← Kasse verlassen</Button>
+        <Button className={classes.exitbtn} onClick={handleClose}>← Exit Checkout</Button>
       </Box>
     </Box>
   );

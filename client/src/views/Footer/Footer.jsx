@@ -26,63 +26,63 @@ const useStyles = makeStyles(() => ({
 const Footer = () => {
   const classes = useStyles();
   const houseOwners = [
-    "Enphase Energiesystem",
-    "Enphase-App",
-    "IQ-Mikrowechselrichter",
-    "IQ-Batterien",
-    "Ladegeräte für Elektrofahrzeuge",
-    "Finden Sie einen Installateur",
-    "Entwerfen Sie mein System",
-    "Energie 101",
-    "Energiegeschichten",
-    "Installateur-Netzwerk",
-    "Aktualisieren Sie mein System",
-    "Login aufklären",
-    "Die Unterstützung",
+    "Enphase Energy System",
+    "Enphase App",
+    "IQ Microinverters",
+    "IQ Batteries",
+    "EV chargers",
+    "Find an installer",
+    "Design my system",
+    "Energy 101",
+    "Energy stories",
+    "Installer network",
+    "Upgrade my system",
+    "Enlighten login",
+    "Support",
   ];
   const businessOwner = [
-    "Solar für Unternehmen",
-    "Ein Angebot bekommen",
-    "Fallstudien",
-    "Die Unterstützung",
+    "Solar for business",
+    "Get a quote",
+    "Case studies",
+    "Support",
   ];
 
   const installers = [
-    "Systeme",
-    "Mikrowechselrichter",
-    "Lagerung",
-    "Kommunikation",
-    "AC-Module",
-    "Zubehör",
-    "Dokumentation",
-    "Anwendungen",
-    "Grid-Dienste",
-    "Plattform",
-    "Ressourcen",
-    "Lösungen",
-    "O&M-Dienstleistungen",
-    "Wie kauft man",
-    "Enphase-API",
-    "Die Unterstützung",
+    "Systems",
+    "Microinverters",
+    "Storage",
+    "Communication",
+    "AC Modules",
+    "Accessories",
+    "Documentation",
+    "Apps",
+    "Grid Services",
+    "Platform",
+    "Resources",
+    "Solutions",
+    "O&M services",
+    "How to buy",
+    "Enphase API",
+    "Support",
   ];
   const support = [
-    "Systembesitzer",
-    "Solarinstallateure",
-    "Enphase-Community",
-    "Schulungen und Veranstaltungen",
-    "Garantie und Arbeit",
-    "Kontaktieren Sie Support",
+    "System owners",
+    "Solar installers",
+    "Enphase Community",
+    "Training and events",
+    "Warranty and labor",
+    "Contact support",
   ];
   const company = [
-    "Über uns",
+    "About us",
     "ESG",
-    "Nachrichtenredaktion",
-    "Patente",
-    "Führung",
-    "Investoren",
-    "Karriere",
-    "Bloggen",
-    "Kontaktiere uns",
+    "Newsroom",
+    "Patents",
+    "Leadership",
+    "Investors",
+    "Careers",
+    "Blog",
+    "Contact us",
   ];
 
   return (
@@ -109,7 +109,7 @@ const Footer = () => {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid item xs={2}>
-              <span className="headings">Hausbesitzer</span>
+              <span className="headings">Homeowners</span>
               <Box className={classes.listItems}>
                 <ul>
                   {houseOwners.map((items) => {
@@ -119,7 +119,7 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={2} className={classes.headings}>
-              <span className="headings"> Unternehmer</span>
+              <span className="headings"> Business owners</span>
               <Box className={classes.listItems}>
                 <ul>
                   {businessOwner.map((items) => {
@@ -129,7 +129,7 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={2} className={classes.headings}>
-              <span className="headings"> Installateure</span>
+              <span className="headings"> Installers</span>
               <Box className={classes.listItems}>
                 <ul>
                   {installers.map((items) => {
@@ -139,7 +139,7 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={2} className={classes.headings}>
-              <span className="headings">Unterstützung</span>
+              <span className="headings">Support</span>
               <Box className={classes.listItems}>
                 <ul>
                   {support.map((items) => {
@@ -149,7 +149,7 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={2} className={classes.headings}>
-              <span className="headings"> Gesellschaft</span>
+              <span className="headings"> Company</span>
               <Box className={classes.listItems}>
                 <ul>
                   {company.map((items) => {

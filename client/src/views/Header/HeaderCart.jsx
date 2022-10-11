@@ -17,7 +17,8 @@ import useCartItems from "../Hooks/useCartItems.hook";
 export default function HeaderCart() {
   const classes = useStyledComponent();
   const { cartData } = useSelector((state) => state.store);
-  const{openDialog,
+  const {
+    openDialog,
     setOpenDialog,
     toggle,
     setToggle,
@@ -32,7 +33,9 @@ export default function HeaderCart() {
     con,
     setCon,
     handleClose,
-    open} = useCartItems()
+    open,
+  } = useCartItems();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     if (cartData.length >= 1 && quantitySetter) {
@@ -52,6 +55,34 @@ export default function HeaderCart() {
     (total, currPrice) => (total = total + currPrice.price * currPrice.cartQty),
     0
   );
+  const storedData = [];
+  let createdCartData = localStorage.getItem("cartData");
+  storedData.push(JSON.parse(createdCartData));
+
+  const handleCheckOutClick = async () => {
+    console.log(con,"erwer");
+    setToggle(false);
+    if (createdCartData === null || con === true) {
+      await dispatch(addCartItemsCheckout());
+      const quoteId = localStorage.getItem("tokenKey");
+      cartData.map((items) => {
+        const reqBody = {
+          cartItem: {
+            sku: items.sku,
+            qty: items.cartQty,
+            quote_id: quoteId,
+          },
+          data: quoteId,
+        };
+        dispatch(addCartFinalCheckOut(reqBody));
+      });
+    }
+    await setOpenDialog(true);
+    setToggle(true);
+  };
+
+  const storeSignIn = localStorage.getItem("storeSignIn");
+  const storeUserData =  JSON.parse(storeSignIn)
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
@@ -84,15 +115,13 @@ export default function HeaderCart() {
                   Zwischensumme
                 </Typography>
                 <Typography variant="body2" className={classes.subtotal}>
-                  € {subTotal?.toFixed(2)}
+                  ₹ {subTotal?.toFixed(2)}
                 </Typography>
               </Box>
               {toggle ? (
                 <Button
                   className={classes.checkoutBtn}
-                  onClick={() =>
-                    navigate("/cart" )
-                  }
+                  onClick={() => handleCheckOutClick()}
                 >
                   Check out
                 </Button>
@@ -166,7 +195,7 @@ export default function HeaderCart() {
           Store
         </Box>
         <Divider />
-        <Box className={classes.items}>
+    <Box className={classes.items} onClick={() => navigate("/cart")}>
           <a href="#" className="navicon">
             <svg
               role="presentation"
@@ -188,11 +217,11 @@ export default function HeaderCart() {
               ></path>
             </svg>
           </a>
-          Bag
+        {cartData?.length >= 1 ? <span className={classes.bagPulse}>Bag</span> : 'Bag'}  
         </Box>
         <Divider />
         <Link to="/signin">
-          <Box className={classes.items}>
+          <Box className={classes.items} onClick={()=> localStorage.removeItem("storeSignIn")}>
             <a href="/signIn" className="navicon">
               <svg
                 role="presentation"
@@ -218,7 +247,7 @@ export default function HeaderCart() {
                 ></path>
               </svg>
             </a>
-            Store sign in
+          { storeUserData?.active ?   'Sign Out' : 'Store sign in'}  
           </Box>
         </Link>
         <Divider />

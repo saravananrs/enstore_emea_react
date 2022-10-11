@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
   cartPageDivider: {
     borderBottom: "1px solid #7D7D7D !important",
     margin: "0 56px !important",
+    // 58px 56px 0px 56px !important
   },
   cartPageImg: {
     width: "100px !important",
@@ -160,12 +161,12 @@ export default function CartPageTable(props) {
         <Box className={classes.cartPageImageContainer}>
           <img
             className={classes.cartPageImg}
-            src={`https://store-qa2.enphase.com/media/catalog/product${smallImages[0].value}`}
+            src={`https://media-store-stg.enphase.com/catalog/product${smallImages[0].value}`}
             alt="cartimg"
           />
         </Box>
         <Box className={classes.cartProductName}>{products.name}</Box>
-        <Box className={classes.cartProductPrice}>€{products.price}</Box>
+        <Box className={classes.cartProductPrice}>₹{products.price}</Box>
         <Box className={classes.cartPageQuantity}>
           <Box className={classes.cartPageinputContainer}>
             <input

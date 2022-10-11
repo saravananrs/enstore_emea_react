@@ -21,7 +21,7 @@ import Spinner from "../../../Spinner/Spinner";
 import { useStyledComponent } from "../Styles/useStyles.hook";
 
 export default function CardModel(props) {
-  const { items, category } = props;
+  const { items, category,categoryIndex } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const breakPoints = [
@@ -47,7 +47,7 @@ export default function CardModel(props) {
               <>
                 <Card key={item.id} className={classes.card}>
                   {custome_attribute.thumbnail &&
-                  custome_attribute.thumbnail !== undefined ? (
+                  custome_attribute.thumbnail !== undefined && item.price !== 0 ? (
                     <CardMedia
                       component="img"
                       className={classes.cardimg}
@@ -80,7 +80,7 @@ export default function CardModel(props) {
                     </Tooltip>
                     {item.price !== null ? (
                       <Typography className={classes.price}>
-                        € {item.price.toFixed(2)}
+                        ₹ {item.price.toFixed(2)}
                       </Typography>
                     ) : (
                       ""
@@ -88,7 +88,7 @@ export default function CardModel(props) {
                   </CardContent>
                   <footer className={classes.cardFooter}>
                     <Grid container className={classes.buttonContainer}>
-                      {items.price !== null ? (
+                      {item.price !== 0 ? (
                         <>
                           {" "}
                           <Box className={classes.learnabs}>
@@ -100,7 +100,7 @@ export default function CardModel(props) {
                                 )
                               }
                             >
-                              Lern Mehr
+                              Learn More
                             </Button>
                           </Box>
                           <Box className={classes.cartabs}>
@@ -114,7 +114,14 @@ export default function CardModel(props) {
                         </>
                       ) : (
                         <Box>
-                          <Button className={classes.learnbtn}>
+                          <Button className={classes.learnbtn} 
+                           onClick={() =>
+                            navigate(
+                              `/product/${custome_attribute.url_key}`
+                            )
+                          }
+                          sx={{marginLeft:"56%"}}
+                          >
                             Learn More
                           </Button>
                         </Box>
@@ -129,7 +136,7 @@ export default function CardModel(props) {
             className={classes.cardViewAll}
             onClick={() =>
               navigate("/viewall", {
-                state: { item: items, category: category },
+                state: { item: categoryIndex, category: category },
               })
             }
           >

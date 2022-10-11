@@ -32,7 +32,7 @@ const SingleProduct = (props) => {
         {productImage && (
           <Paper className={classes.singleProductimgSec}>
             <img
-              srcSet={`https://store-qa2.enphase.com/media/catalog/product${productImage.file}`}
+              srcSet={`https://media-store-stg.enphase.com/catalog/product${productImage.file}`}
               alt="single product"
             />
           </Paper>
@@ -50,7 +50,7 @@ const SingleProduct = (props) => {
                   <Paper className={classes.singleProductimgSec}>
                     <img
                       className={classes.singleProductimgSecChild}
-                      srcSet={`https://store-qa2.enphase.com/media/catalog/product${data.file}`}
+                      srcSet={`https://media-store-stg.enphase.com/catalog/product${data.file}`}
                       alt="single product"
                       onClick={() => handleThumbNail(data)}
                     />

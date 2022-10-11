@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Divider } from "@mui/material";
 import upArrow from "../../Assets/Header/spritemap.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,16 +8,17 @@ import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 import useCartItems from "../Hooks/useCartItems.hook";
 export default function HeaderCartItem(props) {
   const classes = useStyledComponent();
-  const {  item, key } = props;
+  const {  item, key,setCon } = props;
   const { cartData } = useSelector((state) => state.store);
-  const { setSubTotal,count, setCount ,setCon,setQuantitySetter,subTotal} = useCartItems();
+  const { setSubTotal,count, setCount ,setQuantitySetter,subTotal} = useCartItems();
   const dispatch = useDispatch();
   useEffect(() => {
     setCount(item.cartQty);
+   // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, []);
 
   const handleIncrement = async (number, products) => {
-    setCon(true);
+      setCon(true);
     setQuantitySetter(false);
     setCount(number + 1);
     await dispatch(addToCart(products, count));
@@ -50,13 +51,13 @@ export default function HeaderCartItem(props) {
       <li className={classes.bagCartItem} key={key}>
         <Box className={classes.cartImgContainer}>
           <img
-            src={`https://store-qa2.enphase.com/media/catalog/product${smallImages[0].value}`}
+            src={`https://media-store-stg.enphase.com/catalog/product${smallImages[0].value}`}
             alt="cartimg"
           />
         </Box>
         <Box className={classes.bagCartListDetails}>
           <Box className={classes.bagCartText}>{item.name}</Box>
-          <Box className={classes.bagCartText}>€ {item.price.toFixed(2)}</Box>
+          <Box className={classes.bagCartText}>₹ {item.price.toFixed(2)}</Box>
           <Box className={classes.bagCartListUpdate}>
             <Box className={classes.bagCartListQuantiity}>
               <Box className={classes.inputContainer}>

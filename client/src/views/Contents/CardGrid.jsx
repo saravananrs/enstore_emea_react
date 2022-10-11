@@ -18,9 +18,9 @@ export default function CardGrid() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (categories === undefined) {
-    return <Spinner />;
-  }
+  // if (categories === undefined) {
+  //   return <Spinner />;
+  // }
 
   return (
     <React.Fragment>
@@ -42,7 +42,7 @@ export default function CardGrid() {
                 return (
                   index === proindex && (
                     <Grid container className={classes.cardContainer}>
-                      <CardModel items={pdcts} category={pName}/>
+                      <CardModel items={pdcts} category={pName} categoryIndex={index}/>
                     </Grid>
                   )
                 );

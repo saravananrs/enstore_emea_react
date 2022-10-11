@@ -51,7 +51,7 @@ export default function CartPageSummary(props) {
       <Box className={classes.cpSub}>
         <Typography className={classes.cpSubTotl}>Subtotal</Typography>
         <Typography className={classes.cpPrice}>
-          € {subTotal?.toFixed(2)}
+          ₹ {subTotal?.toFixed(2)}
         </Typography>
       </Box>
       <Divider sx={{ marginTop: "10px" }} />

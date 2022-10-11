@@ -23,6 +23,19 @@ export const useStyledComponent = makeStyles(() => ({
     fontFamily: "enphase-visuelt-regular,sans-serif",
     fontSize: "16px",
   },
+  bagPulse:{
+    color:"green",
+    animation: '$pulse-animation 2s infinite',
+  },
+    '@keyframes pulse-animation':{
+      "0%" :{
+        boxShadow: '0 0 0 0px rgba(0, 0, 0, 0.2)',
+      },
+     " 100% ":{
+        boxShadow: '0 0 0 20px rgba(0, 0, 0, 0)',
+      }
+    },
+  
   items: {
     padding: "12px 32px",
     cursor:"pointer",

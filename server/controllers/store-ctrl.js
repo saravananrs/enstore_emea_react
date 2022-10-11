@@ -11,7 +11,7 @@ getCategories = async (req, res) => {
   console.log("hellow");
   var config = {
     method: "get",
-    url: "https://store-qa2.enphase.com/storefront/de-de/rest/V1/categories",
+    url: "https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories",
     headers: {
       Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
     },
@@ -37,7 +37,7 @@ getAllData = async (req, res) => {
   var productsToReturn = []
   
   await axios
-    .get(`https://store-qa2.enphase.com/storefront/de-de/rest/V1/categories`, {
+    .get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories`, {
       headers: {
         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
       },
@@ -45,18 +45,18 @@ getAllData = async (req, res) => {
     .then((response) => {
       let selected_categories = response.data.children_data.filter((data) =>
         [
-          "Mikro-Wechselrichter",
-          "Speicher",
-          "Energiemanagement",
-          "Kabel und Stecker",
-          "Zubehör",
+          "Complete Solar Solution",
+          "Solar Microkits",
+          "Communication",
+          "Cables and Connectors",
+          "Accessories",
         ].includes(data.name)
       );
 
       let requests =selected_categories.map(id => {
         return new Promise((resolve, reject) => {
            request({
-              uri: `https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+              uri: `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
               method: 'GET',
               headers: {
                 Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -100,7 +100,7 @@ getProducts = async (req, res) => {
 getProductByURLKey = async (req, res) => {
   await axios
     .get(
-      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=url_key&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=url_key&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -119,7 +119,7 @@ getProductByURLKey = async (req, res) => {
 getQuoteId = async (req, res) => {
   await axios
     .post(
-      "https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/",
+      "https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/",
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -137,7 +137,7 @@ getQuoteId = async (req, res) => {
 getCartDetailByQuoteId = async (req, res) => {
   await axios
     .post(
-      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/items`,
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/items`,
       req.body,
       {
         headers: {
@@ -156,7 +156,7 @@ getCartDetailByQuoteId = async (req, res) => {
 getShippingEstimation = async (req, res) => {
   await axios
     .post(
-      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/estimate-shipping-methods`,
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/estimate-shipping-methods`,
       req.body,
       {
         headers: {
@@ -175,7 +175,7 @@ getShippingEstimation = async (req, res) => {
 getShippingInformation = async (req, res) => {
   await axios
     .post(
-      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/shipping-information`,
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/shipping-information`,
       req.body,
       {
         headers: {
@@ -194,7 +194,7 @@ getShippingInformation = async (req, res) => {
 createOrder = async (req, res) => {
   await axios
     .post(
-      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/guest-carts/${req.body.data}/payment-information`,
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/payment-information`,
       req.body,
       {
         headers: {

@@ -3,7 +3,7 @@ import { Button, Grid, Typography, Box } from "@mui/material";
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function HerosectionImg() {
-  const classes = useStyledComponent()
+  const classes = useStyledComponent();
   return (
     <Grid className={classes.homeContainer}>
       <img
@@ -13,16 +13,16 @@ export default function HerosectionImg() {
       />
       <Box className={classes.homeContent}>
         <Typography variant="body2" className={classes.homeText}>
-          FÜR NEUE HAUSBESITZER
+          FOR NEW HOMEOWNERS
         </Typography>
         <Typography variant="h3" className={classes.homeHeadings}>
           {" "}
-          Bereit, ein neues zu kaufen
+          Ready to buy a new one
           <br />
-          Enphase Energiesystem ?
+          Enphase energy system ?
         </Typography>
         <Button className={classes.homeButton}>
-          Lernen Sie das Energiesystem von Enphase kennen
+          Learn about Enphase's power system
         </Button>
       </Box>
     </Grid>

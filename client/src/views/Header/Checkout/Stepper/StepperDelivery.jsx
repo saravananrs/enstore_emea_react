@@ -8,7 +8,6 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import instance from "../../../../utils/axiosconfig";
 import { makeStyles } from "@material-ui/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -188,7 +187,7 @@ export default function StepperDelivery(props) {
                       label={method.method_title}
                     />
                   </Box>
-                  <Box className={classes.shippingCost}>€ {method.amount}</Box>
+                  <Box className={classes.shippingCost}>₹ {method.amount}</Box>
                 </>
               ))}
             </Box>

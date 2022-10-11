@@ -1,5 +1,6 @@
 import { Grid, Typography, Box } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import HerosectionImg from "./HerosectionImg";
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
@@ -9,56 +10,56 @@ export default function HeroSection() {
     {
       id: 1,
       imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Microinverters%402x.png?itok=kTHajjMP",
-      pName: "Mikrowechselrichter",
+        "https://media-store-stg.enphase.com/catalog/product/d/s/dsc_4049_full_res_3_1.png",
+      name: "Complete Solar Solution",
     },
     {
       id: 2,
       imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Batteries%402x.png?itok=FcoJaRRV",
-      pName: "Lagerung",
+        "https://media-store-stg.enphase.com/catalog/product/a/c/acm-em-72-1_1_1.png",
+      name: "Solar Microkits",
     },
     {
       id: 3,
       imgUrl:
         "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Communication%402x.png?itok=yVbrNoOz",
-      pName: "Kommunikation",
+      name: "Communication",
     },
     {
       id: 4,
       imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Accessories%402x.png?itok=PH31WBsZ",
-      pName: "Zubehör",
+        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Cable%402x.png?itok=XI5ES6fd",
+      name: "Cables and Connectors",
     },
     {
       id: 5,
       imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Cable%402x.png?itok=XI5ES6fd",
-      pName: "Kabel",
+        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Accessories%402x.png?itok=PH31WBsZ",
+      name: "Accesories",
     },
+    // {
+    //   id: 6,
+    //   imgUrl:
+    //     "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2022-07/ACM.png?itok=Ae52gNyN",
+    //   name: "AC modules",
+    // },
+    // {
+    //   id: 7,
+    //   imgUrl:
+    //     "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2022-02/Category%20icon.png?itok=FIuRERb3",
+    //   name: "EV chargers",
+    // },
     {
       id: 6,
       imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2022-07/ACM.png?itok=Ae52gNyN",
-      pName: "AC-Module",
+        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Services%402x.png?itok=PS8hPjqS",
+      name: "Services",
     },
     {
       id: 7,
       imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2022-02/Category%20icon.png?itok=FIuRERb3",
-      pName: "Ev-Ladegeräte",
-    },
-    {
-      id: 8,
-      imgUrl:
-        "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Services%402x.png?itok=PS8hPjqS",
-      pName: "Dienstleistungen",
-    },
-    {
-      id: 9,
-      imgUrl:
         "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Lifestyle%402x.png?itok=UTI6SsbP",
-      pName: "Lebensstil",
+      name: "Lifestyle",
     },
   ];
   return (
@@ -66,15 +67,15 @@ export default function HeroSection() {
       <Grid className={classes.storageContainer}>
         <Box className={classes.storageHeader}>
           <Typography variant="h3" className={classes.headTitle}>
-            Enphase-Shop
+            Enphase Store
           </Typography>
         </Box>
       </Grid>
       <Grid className={classes.productContainer}>
         <ul className={classes.productList}>
-          {products.map((item) => {
+          {products.map((item,index) => {
             return (
-              <li className={classes.listItems}>
+            <Link to='/viewall' state={{item: index, category: item}}> <li className={classes.listItems}>
                 <Box className={classes.positions}>
                   <img
                     className={classes.pImages}
@@ -82,8 +83,8 @@ export default function HeroSection() {
                     alt="product"
                   />
                 </Box>
-                <p className={classes.pName}>{item.pName}</p>
-              </li>
+                <p className={classes.pName}>{item.name}</p>
+              </li></Link>
             );
           })}
         </ul>

@@ -115,7 +115,7 @@ export default function CheckoutOrderSummary(props) {
   const classes = useStyles();
   return (
     <Grid container className={classes.summaryContainer}>
-      <Box className={classes.headerName}>Bestellübersicht</Box>
+      <Box className={classes.headerName}>Order Summary</Box>
       <Box className={classes.alignment}>
         <Grid className={classes.cartItems}>
           {unique.map((items) => {
@@ -126,7 +126,7 @@ export default function CheckoutOrderSummary(props) {
               <Box className={classes.listItems}>
                 <Box className={classes.listImg}>
                   <img
-                    src={`https://store-qa2.enphase.com/media/catalog/product${smallImages[0].value}`}
+                    src={`https://media-store-stg.enphase.com/catalog/product${smallImages[0].value}`}
                     alt="cartimg"
                   />
                 </Box>
@@ -135,10 +135,10 @@ export default function CheckoutOrderSummary(props) {
                     <Typography variant="h4" className={classes.itemName}>
                       {items.name}
                     </Typography>
-                    <Box className={classes.itemPrice}>€ {items.price}</Box>
+                    <Box className={classes.itemPrice}>₹ {items.price}</Box>
                   </Box>
                   <Box className={classes.listQty}>
-                    Menge: &nbsp;{items.cartQty}
+                  Quantity: &nbsp;{items.cartQty}
                   </Box>
                 </Grid>
               </Box>
@@ -149,23 +149,23 @@ export default function CheckoutOrderSummary(props) {
           <ul className={classes.subList}>
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
-              <Box className={classes.subTotalName}> Zwischensumme</Box>
-              <Box className={classes.subprice}> € {subTotal?.toFixed(2)}</Box>
+              <Box className={classes.subTotalName}> Subtotal</Box>
+              <Box className={classes.subprice}> ₹ {subTotal?.toFixed(2)}</Box>
             </li>
             <li className={classes.subTotal}>
-              <Box className={classes.subTotalName}> Lieferung</Box>
-              <Box className={classes.subprice}> € {orderData.delivery}</Box>
+              <Box className={classes.subTotalName}> Delivery</Box>
+              <Box className={classes.subprice}> ₹ {orderData.delivery}</Box>
             </li>
             <li className={classes.subTotal}>
-              <Box className={classes.subTotalName}> Steuern</Box>
-              <Box className={classes.subprice}> € {orderData.tax}</Box>
+              <Box className={classes.subTotalName}> Taxes</Box>
+              <Box className={classes.subprice}> ₹ {orderData.tax}</Box>
             </li>
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
-              <Box sx={{ color: "#000000", fontWeight: "600" }}> Gesamt</Box>
+              <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>
               <Box sx={{ color: "#000000", fontWeight: "600" }}>
                 {" "}
-                € {overall?.toFixed(2)}
+                ₹ {overall?.toFixed(2)}
               </Box>
             </li>
             <Divider sx={{ marginBottom: "10px" }} />

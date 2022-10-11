@@ -13,11 +13,11 @@ import HeaderMobileView from "./HeaderMobileView";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
 const pages = [
-  "Hausbesitzer",
-  "Unternehmer",
-  "Installateure",
-  "Laden",
-  "Unterstützung",
+  "Homeowner",
+  "Entrepreneur",
+  "Installers",
+  "Store",
+  "Support",
 ];
 
 const Header = () => {

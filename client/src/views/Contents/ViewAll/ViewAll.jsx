@@ -5,6 +5,10 @@ import { Divider, Box, Typography, Grid } from "@mui/material";
 import ViewAllCard from "./ViewAllCard";
 import cart from "../../../Assets/Header/spritemap.svg";
 import { useEffect } from "react";
+import ViewAllCategory from "./ViewAllCategory";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllData } from "../../../redux/actions/EnstoreActions";
+import ViewAllMobile from "./ViewAllMobile";
 
 const useStyles = makeStyles(() => ({
   viewAllHeader: {
@@ -59,10 +63,11 @@ const useStyles = makeStyles(() => ({
     float: "none",
     width: "100%",
     margin: "0 auto",
-    maxWidth: "80%",
+    maxWidth: "97%",
   },
   viewAllItemHeader: {
     fontSize: "2rem !important",
+    marginBottom:"20px !important",
     fontWeight: "normal !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
@@ -85,6 +90,13 @@ const useStyles = makeStyles(() => ({
 export default function ViewAll() {
   const { state } = useLocation();
   const { item, category } = state;
+  const { allData } = useSelector((state) => state.store);
+  const dispatch = useDispatch();
+  const productsReturn = allData?.productsToReturn?.map((item) => item.items);
+  useEffect(() => {
+    dispatch(getAllData());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const classes = useStyles();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -109,30 +121,24 @@ export default function ViewAll() {
       </Box>
       <Divider className={classes.viewAllDivider} />
       <Grid className={classes.viewallContent}>
-        <Typography variant="h4" className={classes.viewAllItemHeader}>
-          {category.name}
-        </Typography>
-        {/* <Box>
-          <Typography variant="h3" className={classes.viewAllItemHeaderSub}>
-            Powerful technology at the heart of the Enphase system.
-          </Typography>
-          <Typography variant="body1" className={classes.viewAllItemHeaderpara}>
-            Solar panels may be on top, but it's the inverter that does all the
-            real work. Choosing an inverter technology is the most critical
-            decision you'll make when going solar. Enphase Microinverters offer
-            the most advanced inverter technology on the market, which means
-            higher production, greater reliability, and unmatched intelligence.{" "}
-          </Typography>
-        </Box> */}
         <Grid
           container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 12, md: 12 }}
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           className={classes.viewAllCardContainer}
         >
-          {item.map((product) => {
-            return <ViewAllCard product={product} />;
-          })}
+          <Grid item sx={{ display: { xs: "none", sm: "none", md: "flex" } }} md={2.5}>
+            <ViewAllCategory />
+          </Grid>
+          <Grid item xs={12} md={9.5}>
+            <ViewAllMobile category={category} />
+            <Typography sx={{ display: { xs: "none", sm: "none", md: "flex" } }} variant="h4" className={classes.viewAllItemHeader}>
+              {category.name}
+            </Typography>
+            {productsReturn?.map((product, proIndex) => {
+              return item === proIndex && <ViewAllCard product={product} />;
+            })}
+          </Grid>
         </Grid>
       </Grid>
     </>

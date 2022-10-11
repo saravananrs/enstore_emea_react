@@ -158,7 +158,7 @@ export default function SingleProductContents(props) {
           {product.name}
         </Typography>
         <Typography variant="body2" className={classes.spprice}>
-          {product.price} €{" "}
+          {product.price} ₹{" "}
           <span className={classes.pCode}>SKU: {product.sku}</span>
         </Typography>
         <Box>

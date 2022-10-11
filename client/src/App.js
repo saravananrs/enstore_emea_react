@@ -6,8 +6,6 @@ import { Store } from "./redux/Store";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import "./store-magento.css";
-import Header from "./views/Header/Header";
-import Footer from "./views/Footer/Footer";
 import Content from "./views/Contents/Content";
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,9 +35,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-                <Header />
-                <Content />
-                <Footer />
+              {/* <Header /> */}
+              <Content />
+              {/* <Footer /> */}
             </QueryClientProvider>
           </BrowserRouter>
         </ThemeProvider>
