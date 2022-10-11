@@ -93,7 +93,7 @@ const CheckoutForm = (props) => {
       billing_details: {
         address: {
           city: register.city,
-          country: "DE",
+          country: "IN",
           line1: register.address,
           line2: null,
           postal_code: register.postal,
@@ -111,7 +111,7 @@ const CheckoutForm = (props) => {
     const reqBody = {
       cartId: quoteId,
       billingAddress: {
-        countryId: "DE",
+        countryId: "IN",
         regionId: "82",
         regionCode: "BER",
         region: register.city,

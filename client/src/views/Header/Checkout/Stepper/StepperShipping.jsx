@@ -64,7 +64,7 @@ export default function StepperShipping(props) {
     const reqBody = {
       address: {
         region: register.city,
-        country_id: "DE",
+        country_id: "IN",
         street: [register.address],
         postcode: register.postal,
         city: register.city,
