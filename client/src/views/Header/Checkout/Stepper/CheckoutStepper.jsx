@@ -45,6 +45,15 @@ export default function CheckoutStepper(props) {
   const { handleClose, handleCloseMenu } = props;
   const { handleStep, steps } = useStepper();
   const classes = useStyles();
+  const savedAddress = localStorage.getItem("savedAddress");
+  const storeSavedAddress = JSON.parse(savedAddress);
+  const getAddress = storeSavedAddress?.map((i) => {
+    return i.addresses;
+  });
+   const selectAddress = getAddress?.flat() 
+  let indAddress = selectAddress?.filter((item) => {
+    return item.country_id === "IN";
+  });
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -58,18 +67,11 @@ export default function CheckoutStepper(props) {
           );
         })}
       </Stepper>
-      {/* <MobileStepper
-        variant="progress"
-        className={classes.mobileStepper}
-        steps={3}
-        position="static"
-        activeStep={activeStep}
-        sx={{ width: "100%" }}
-      /> */}
       <div>
         <React.Fragment>
           {activeStep === 0 ? (
             <StepperShipping
+            indAddress={indAddress}
               setActiveStep={setActiveStep}
               activeStep={activeStep}
               handleClose={handleClose}
@@ -80,11 +82,13 @@ export default function CheckoutStepper(props) {
           ) : activeStep === 2 ? (
             <StepperPayment
               register={register}
+              indAddress={indAddress}
               handleClose={handleClose}
               handleCloseMenu={handleCloseMenu}
             />
           ) : (
             <StepperDelivery
+            indAddress={indAddress}
               setActiveStep={setActiveStep}
               activeStep={activeStep}
               shippingMethod={shippingMethod}

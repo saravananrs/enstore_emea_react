@@ -13,13 +13,14 @@ const useStyles = makeStyles(()=>({
 }))
 export default function StepperPayment(props) {
   const classes = useStyles()
-  const { register, handleClose ,handleCloseMenu} = props;
+  const { register, handleClose ,handleCloseMenu, indAddress} = props;
   const stripePromise = loadStripe("pk_test_6BLf1Fr5B4QZi5O0qo91H6u9");
 
   return (
   <Box className={classes.PaymentContainer}>
     <Elements stripe={stripePromise}>
       <CheckoutForm
+       indAddress={indAddress}
         register={register}
         handleClose={handleClose}
         handleCloseMenu={handleCloseMenu}

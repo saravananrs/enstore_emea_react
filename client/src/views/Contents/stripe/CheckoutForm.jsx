@@ -71,12 +71,14 @@ const useOptions = () => {
 };
 
 const CheckoutForm = (props) => {
-  const { register, handleClose ,handleCloseMenu} = props;
+  const { register, handleClose ,handleCloseMenu, indAddress} = props;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
+  const storeSignIn = localStorage.getItem("storeSignIn");
+  const registeData = JSON.parse(storeSignIn);
   const dispatch = useDispatch();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -92,16 +94,24 @@ const CheckoutForm = (props) => {
       card: elements.getElement(CardNumberElement),
       billing_details: {
         address: {
-          city: register.city,
-          country: "DE",
+          city: indAddress && indAddress !== undefined ? indAddress[0]?.city : register.city,
+          country:indAddress && indAddress !== undefined
+          ? indAddress[0]?.country_id
+          : register.country,
           line1: register.address,
           line2: null,
-          postal_code: register.postal,
-          state: "Tamil Nadu",
+          postal_code:indAddress && indAddress !== undefined
+          ? indAddress[0]?.postcode
+          : register.postal,
+          state: indAddress && indAddress !== undefined ? indAddress[0]?.region?.region : "Tamil Nadu"
         },
-        name: register.fname + register.lname,
-        email: register.email,
-        phone: register.phone,
+        name: indAddress && indAddress !== undefined
+        ? indAddress[0]?.firstname
+        : register.fname + register.lname,
+        email: registeData?.email ? registeData?.email : register.email,
+        phone: indAddress && indAddress !== undefined
+        ? indAddress[0]?.telephone
+        : register.phone,
       },
     });
 
@@ -111,17 +121,27 @@ const CheckoutForm = (props) => {
     const reqBody = {
       cartId: quoteId,
       billingAddress: {
-        countryId: "DE",
-        regionId: "82",
-        regionCode: "BER",
-        region: register.city,
+        countryId: indAddress && indAddress !== undefined
+        ? indAddress[0]?.country_id
+        : register.country,
+        regionId: indAddress && indAddress !== undefined ? indAddress[0]?.region?.region_id : "82",
+        regionCode: indAddress && indAddress !== undefined ? indAddress[0]?.region?.region_code : "BER",
+        region: indAddress && indAddress !== undefined ? indAddress[0]?.city : register.city,
         street: [register.address],
         company: "",
-        telephone: register.phone,
-        postcode: register.postal,
-        city: register.city,
-        firstname: register.fname,
-        lastname: register.lname,
+        telephone: indAddress && indAddress !== undefined
+        ? indAddress[0]?.telephone
+        : register.phone,
+        postcode: indAddress && indAddress !== undefined
+        ? indAddress[0]?.postcode
+        : register.postal,
+        city: indAddress && indAddress !== undefined ? indAddress[0]?.city : register.city,
+        firstname: indAddress && indAddress !== undefined
+        ? indAddress[0]?.firstname
+        : register.fname,
+      lastname: indAddress && indAddress !== undefined
+        ? indAddress[0]?.lastname
+        : register.lname,
         saveInAddressBook: null,
       },
       paymentMethod: {
@@ -140,7 +160,7 @@ const CheckoutForm = (props) => {
           agreement_ids: ["25"],
         },
       },
-      email: register.email,
+      email: registeData?.email ? registeData?.email : register.email,
       data: quoteId,
     };
     await instance
@@ -163,7 +183,7 @@ const CheckoutForm = (props) => {
   return (
     <form onSubmit={handleSubmit} >
       <label>
-        KARTENNUMMER
+      CARD NUMBER
         <CardNumberElement
           className={classes.label}
           options={options}
@@ -182,7 +202,7 @@ const CheckoutForm = (props) => {
         />
       </label>
       <label>
-        Verfallsdatum
+      EXPIRY DATE
         <CardExpiryElement
           options={options}
           onReady={() => {

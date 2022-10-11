@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import StoreSignInForm from "./StoreSignInForm";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { storeLogin } from "../../redux/actions/EnstoreActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getSavedAddress, storeLogin } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
 const IntialStoreSignInRegister = {
@@ -12,7 +12,7 @@ const IntialStoreSignInRegister = {
 };
 export default function StoreSignin() {
   const classes = useStyledComponent()
-  // const {storeLoginData}  = useSelector((state)=> state.store)
+  //  const {savedAddress}  = useSelector((state)=> state.store)
   const storeSignIn = localStorage.getItem("storeSignIn");
   const [isLoading, setIsLoading] = useState(true);
   const loginData = JSON.parse(storeSignIn);
@@ -28,7 +28,11 @@ export default function StoreSignin() {
       enlightenpassword: register.password,
     };
     await dispatch(storeLogin(data));
+    const emailData = {
+        email: register.email
+    }
     await navigate("/");
+    await dispatch(getSavedAddress(emailData))
     setIsLoading(true)
   };
   return (

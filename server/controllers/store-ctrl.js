@@ -191,6 +191,24 @@ getShippingInformation = async (req, res) => {
       console.log(req);
     });
 };
+getSavedShippingAddress= async (req, res) => {
+  await axios
+    .get(
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=${req.body.email}&searchCriteria[filterGroups][0][filters][0][condition_type]=eq`,
+      {
+        headers: {
+          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+        },
+      }
+    )
+    .then((response) => {
+      return res.send(JSON.stringify(response.data.items));
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(req);
+    });
+};
 createOrder = async (req, res) => {
   await axios
     .post(
@@ -421,4 +439,5 @@ module.exports = {
   getShippingInformation,
   createOrder,
   getAllData,
+  getSavedShippingAddress,
 };

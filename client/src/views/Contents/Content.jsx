@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getAllData } from "../../redux/actions/EnstoreActions";
+import {makeStyles}  from '@material-ui/styles'
 import Spinner from "../../Spinner/Spinner";
 import Footer from "../Footer/Footer";
 import Success from "../Header/Checkout/Success/Success";
@@ -11,8 +12,23 @@ import CartPage from "./CartPage/CartPage";
 import HomePage from "./HomePage";
 import LearnMore from "./LearnMore/LearnMore";
 import ViewAll from "./ViewAll/ViewAll";
-
+import CircularProgress from '@mui/material/CircularProgress';
+import { Box } from "@mui/material";
+const useStyles = makeStyles(()=>({
+  spinnerBox:{
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f9f9fa'
+  },
+  spinner:{
+    color:"#f37321 !important"
+  }
+}))
 const Content = () => {
+  const classes =  useStyles()
   const { allData } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,7 +37,7 @@ const Content = () => {
   }, []);
   const categories = allData?.selected_categories;
   if (categories === undefined) {
-    return <Spinner />;
+    return <Box  className={classes.spinnerBox}> <CircularProgress className={classes.spinner}/></Box>;
   }
   return (
     <div>

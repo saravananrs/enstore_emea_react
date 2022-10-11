@@ -11,7 +11,8 @@ import {
   SPINNER,
   SINGLE_PRODUCTS,
   ALL_DATA,
-  POST_STORE_LOGIN
+  POST_STORE_LOGIN,
+  SHIIPING_ADDRESS
 } from "../actions/EnstoreActions";
 const initialState = {
   isLoading:true,
@@ -23,6 +24,7 @@ const initialState = {
   allData:[],
   categoryData: [],
   productData: [],
+  savedAddress:[],
   singleProduct:null,
   orderData: {
     delivery: 0,
@@ -93,6 +95,12 @@ const EnstoreReducer = function (state = initialState, action) {
       return {
         ...state,
         quoteId: [],
+      };
+    }
+    case POST_CheckOut_Click: {
+      return {
+        ...state,
+        savedAddress: [...state.savedAddress, action.payload],
       };
     }
     case POST_Final_Checkout: {

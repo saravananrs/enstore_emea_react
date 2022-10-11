@@ -11,6 +11,7 @@ export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
 export const POST_Add_TO_CART = "Add_TO_CART";
 export const POST_CheckOut_Click = "Checkout_Click";
 export const POST_Final_Checkout = "Final_Checkout";
+export const SHIIPING_ADDRESS = "SHIIPING_ADDRESS";
 export const POST_ORDER_DATA = "ORDER_DATA";
 export const CLEAR_CART_ORDER_DATA = "CLEAR_CART_ORDER_DATA";
 export const CLEAR_CART_ITEM = "CLEAR_CART_ITEM";
@@ -27,7 +28,6 @@ export const storeLogin = (data) => async (dispatch) => {
   await instance
     .post("/login",data)
     .then((response) => {
-      console.log("responseSTORE", response);
       localStorage.setItem("storeSignIn",JSON.stringify(response.data))
       dispatch({
         type: POST_STORE_LOGIN,
@@ -36,6 +36,24 @@ export const storeLogin = (data) => async (dispatch) => {
     })
     .catch((error) => {
       console.log(error);
+    });
+};
+export const getSavedAddress = (email) => async (dispatch) => {
+  await instance
+    .post("/savedAddress",email)
+    .then((res) => {
+      localStorage.setItem("savedAddress",JSON.stringify(res.data))
+      dispatch({
+        type:  SHIIPING_ADDRESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: SHIIPING_ADDRESS,
+        payload: err.res.data,
+      });
     });
 };
 

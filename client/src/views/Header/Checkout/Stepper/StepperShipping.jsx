@@ -53,26 +53,48 @@ export default function StepperShipping(props) {
     register,
     handleClose,
     setRegister,
+    indAddress,
   } = props;
   const classes = useStyles();
   const [toggle, setToggle] = useState(true);
-  const { allStepsCompleted, isLastStep, completed, steps } = useStepper();
-
+  const storeSignIn = localStorage.getItem("storeSignIn");
+  const registeData = JSON.parse(storeSignIn);
   const handleShipmentClick = async () => {
     setToggle(false);
     const quoteId = localStorage.getItem("tokenKey");
     const reqBody = {
       address: {
-        region: register.city,
-        country_id: "DE",
+        region:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.city
+            : register.city,
+        country_id:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.country_id
+            : register.country,
         street: [register.address],
-        postcode: register.postal,
-        city: register.city,
-        firstname: register.fname,
-        lastname: register.lname,
+        postcode:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.postcode
+            : register.postal,
+        city:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.city
+            : register.city,
+        firstname:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.firstname
+            : register.fname,
+        lastname:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.lastname
+            : register.lname,
         customer_id: null,
-        email: register.email,
-        telephone: register.phone,
+        email: registeData?.email ? registeData?.email : register.email,
+        telephone:
+          indAddress && indAddress !== undefined
+            ? indAddress[0]?.telephone
+            : register.phone,
         same_as_billing: 1,
       },
       data: quoteId,
@@ -88,15 +110,16 @@ export default function StepperShipping(props) {
         console.log(error);
       });
 
-    // const newActiveStep =
-    //   isLastStep() && !allStepsCompleted()
-    //     ? steps.findIndex((step, i) => !(i in completed))
-    //     : activeStep + 1;
-    await setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    await setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
+
   return (
     <Box className={classes.shippingContainer}>
-      <StepperShippingForm register={register} setRegister={setRegister}/>
+      <StepperShippingForm
+        register={register}
+        setRegister={setRegister}
+        indAddress={indAddress}
+      />
       <Box className={classes.nextstep}>
         {toggle ? (
           <Button
@@ -119,7 +142,9 @@ export default function StepperShipping(props) {
         )}
       </Box>
       <Box>
-        <Button className={classes.exitbtn} onClick={handleClose}>← Exit Checkout</Button>
+        <Button className={classes.exitbtn} onClick={handleClose}>
+          ← Exit Checkout
+        </Button>
       </Box>
     </Box>
   );

@@ -60,6 +60,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: " #fff",
     marginBottom: "16px",
     outline: "none",
+    width: "100%",
   },
   shippingMethod: {
     padding: "12px",
@@ -81,6 +82,7 @@ const useStyles = makeStyles(() => ({
   shippingCost: {
     display: "flex",
     fontSize: "16px",
+    marginTop: "10px",
     paddingLeft: "32px",
     flexDirection: "column",
     alignSelf: "flex-start",
@@ -91,18 +93,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function StepperDelivery(props) {
-  const {
-    setActiveStep,
-    activeStep,
-    shippingMethod,
-    register,
-  } = props;
+  const { setActiveStep, activeStep, shippingMethod, register, indAddress } =
+    props;
+  console.log(shippingMethod.length, "shippingMethod");
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(
     shippingMethod[0]
   );
+  const storeSignIn = localStorage.getItem("storeSignIn");
+  const registeData = JSON.parse(storeSignIn);
   const { allStepsCompleted, isLastStep, completed, steps } = useStepper();
   const handleBack = () => {
     setActiveStep(activeStep - 1);
@@ -113,28 +114,70 @@ export default function StepperDelivery(props) {
     const reqBody = {
       addressInformation: {
         shipping_address: {
-          region: register.city,
-          country_id: "DE",
+          region:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.city
+              : register.city,
+          country_id:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.country_id
+              : register.country,
           street: [register.address],
-          postcode: register.postal,
-          city: register.city,
-          firstname: register.fname,
-          lastname: register.lname,
+          postcode:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.postcode
+              : register.postal,
+          city:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.city
+              : register.city,
+          firstname:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.firstname
+              : register.fname,
+          lastname:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.lastname
+              : register.lname,
           customer_id: null,
-          email: register.email,
-          telephone: register.phone,
+          email: registeData?.email ? registeData?.email : register.email,
+          telephone:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.telephone
+              : register.phone,
         },
         billing_address: {
-          region: register.city,
-          country_id: "DE",
+          region:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.city
+              : register.city,
+          country_id:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.country_id
+              : register.country,
           street: [register.address],
-          postcode: register.postal,
-          city: register.city,
-          firstname: register.fname,
-          lastname: register.lname,
+          postcode:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.postcode
+              : register.postal,
+          city:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.city
+              : register.city,
+          firstname:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.firstname
+              : register.fname,
+          lastname:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.lastname
+              : register.lname,
           customer_id: null,
-          email: register.email,
-          telephone: register.phone,
+          email: registeData?.email ? registeData?.email : register.email,
+          telephone:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.telephone
+              : register.phone,
         },
         shipping_carrier_code: selectedShippingMethod.carrier_code,
         shipping_method_code: selectedShippingMethod.method_code,
@@ -145,17 +188,18 @@ export default function StepperDelivery(props) {
       .post("/shippingInformation", reqBody)
       .then((response) => {
         console.log("response", response.data);
-        dispatch(orderData({
-          "delivery":response.data.totals.shipping_amount,
-          "tax": response.data.totals.tax_amount,
-        }))
+        dispatch(
+          orderData({
+            delivery: response.data.totals.shipping_amount,
+            tax: response.data.totals.tax_amount,
+          })
+        );
         setToggle(true);
       })
       .catch((error) => {
         console.log(error);
       });
     await setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    
   };
   const handleChange = (event) => {
     setSelectedShippingMethod(event.target.value);
@@ -166,41 +210,65 @@ export default function StepperDelivery(props) {
         <Box className={classes.shipDetails}>
           <Typography variant="h3" className={classes.shipTo}>
             Ship to &nbsp;
-            <span className={classes.nameDet}>{register.fname},</span>&nbsp;
-            <span className={classes.nameDet}> {register.postal}</span>
+            <span className={classes.nameDet}>
+              {indAddress && indAddress !== undefined
+                ? indAddress[0]?.firstname
+                : register.fname}
+              ,
+            </span>
+            &nbsp;
+            <span className={classes.nameDet}>
+              {" "}
+              {indAddress && indAddress !== undefined
+                ? indAddress[0]?.postcode
+                : register.postal}
+            </span>
           </Typography>
         </Box>
         <FormControl className={classes.formSet}>
-          <RadioGroup
-            aria-labelledby="demo-controlled-radio-buttons-group"
-            name="controlled-radio-buttons-group"
-            value={selectedShippingMethod}
-            onChange={handleChange}
-          >
-            <Box className={classes.shippingMethod}>
-              {shippingMethod.map((method) => (
-                <>
-                  <Box className={classes.shippingAssigne}>
-                    <FormControlLabel
-                      value={method}
-                      control={<Radio />}
-                      label={method.method_title}
-                    />
-                  </Box>
-                  <Box className={classes.shippingCost}>₹ {method.amount}</Box>
-                </>
-              ))}
+          {shippingMethod.length > 0 ? (
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+              value={selectedShippingMethod}
+              onChange={handleChange}
+            >
+              <Box className={classes.shippingMethod}>
+                {shippingMethod.map((method) => (
+                  <>
+                    <Box className={classes.shippingAssigne}>
+                      <FormControlLabel
+                        value={method}
+                        control={<Radio />}
+                        label={method.method_title}
+                      />
+                    </Box>
+                    <Box className={classes.shippingCost}>
+                      ₹ {method.amount}
+                    </Box>
+                  </>
+                ))}
+              </Box>
+            </RadioGroup>
+          ) : (
+            <Box className={classes.shippingMethod} sx={{ color: "red" }}>
+              Shipping Not Available
             </Box>
-          </RadioGroup>
+          )}
         </FormControl>
         <Box className={classes.nextstep}>
           {toggle ? (
-            <Button
-              className={classes.continuebtn}
-              onClick={handleShipmentClick}
-              sx={{ mr: 1 }}
-            >
-              Continue
+            <Button className={classes.continuebtn} sx={{ mr: 1 }}>
+              {shippingMethod.length > 0 ? (
+                <span
+                  style={{ padding: "10px 135px" }}
+                  onClick={handleShipmentClick}
+                >
+                  Continue
+                </span>
+              ) : (
+                <span>Continue</span>
+              )}
             </Button>
           ) : (
             <LoadingButton
@@ -214,7 +282,7 @@ export default function StepperDelivery(props) {
             </LoadingButton>
           )}
         </Box>
-        <Button onClick={handleBack}>←  Back</Button>
+        <Button onClick={handleBack}>← Back</Button>
       </Box>
     </>
   );

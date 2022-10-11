@@ -60,7 +60,7 @@ export default function HeaderCart() {
   storedData.push(JSON.parse(createdCartData));
 
   const handleCheckOutClick = async () => {
-    console.log(con,"erwer");
+    console.log(con, "erwer");
     setToggle(false);
     if (createdCartData === null || con === true) {
       await dispatch(addCartItemsCheckout());
@@ -82,7 +82,7 @@ export default function HeaderCart() {
   };
 
   const storeSignIn = localStorage.getItem("storeSignIn");
-  const storeUserData =  JSON.parse(storeSignIn)
+  const storeUserData = JSON.parse(storeSignIn);
   return (
     <Box sx={{ marginLeft: { xs: "5px" }, marginRight: { xs: "5px" } }}>
       <div onClick={handleClick} className={classes.bagIcon}>
@@ -195,7 +195,7 @@ export default function HeaderCart() {
           Store
         </Box>
         <Divider />
-    <Box className={classes.items} onClick={() => navigate("/cart")}>
+        <Box className={classes.items} onClick={() => navigate("/cart")}>
           <a href="#" className="navicon">
             <svg
               role="presentation"
@@ -217,11 +217,14 @@ export default function HeaderCart() {
               ></path>
             </svg>
           </a>
-        {cartData?.length >= 1 ? <span className={classes.bagPulse}>Bag</span> : 'Bag'}  
+          Bag
         </Box>
         <Divider />
         <Link to="/signin">
-          <Box className={classes.items} onClick={()=> localStorage.removeItem("storeSignIn")}>
+          <Box
+            className={classes.items}
+            onClick={() => localStorage.removeItem("storeSignIn")}
+          >
             <a href="/signIn" className="navicon">
               <svg
                 role="presentation"
@@ -247,7 +250,7 @@ export default function HeaderCart() {
                 ></path>
               </svg>
             </a>
-          { storeUserData?.active ?   'Sign Out' : 'Store sign in'}  
+            {storeUserData?.active ? "Sign Out" : "Store sign in"}
           </Box>
         </Link>
         <Divider />
