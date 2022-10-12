@@ -13,6 +13,7 @@ export default function CardGrid() {
   const categories = allData?.selected_categories;
   const dispatch = useDispatch();
   const productsReturn = allData?.productsToReturn?.map((item) => item.items);
+ 
   useEffect(() => {
     dispatch(getAllData());
     // eslint-disable-next-line react-hooks/exhaustive-deps

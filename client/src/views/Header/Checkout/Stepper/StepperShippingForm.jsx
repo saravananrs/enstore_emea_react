@@ -55,9 +55,6 @@ const useStyles = makeStyles(() => ({
   },
   selectBox: {
     marginTop: "3px",
-    // "& .css-1in441m>span": {
-    //   opacity: "1 !important",
-    // },
     "& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon": {
       display: "none !important",
     },

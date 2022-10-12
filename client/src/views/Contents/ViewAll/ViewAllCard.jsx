@@ -132,6 +132,7 @@ const useStyles = makeStyles(() => ({
 
 export default function ViewAllCard(props) {
   const { product } = props;
+  const filterPro = product.filter((i)=>i.status === 1)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -142,7 +143,7 @@ export default function ViewAllCard(props) {
     columnSpacing={{ xs: 1, sm: 2, md: 3 }}
     className={classes.viewAllCardContainer}
   >
-    {product.map((item)=>{
+    {filterPro.map((item)=>{
        let custome_attribute = {};
        item.custom_attributes?.map((attributes) => {
          custome_attribute[attributes.attribute_code] = attributes.value;

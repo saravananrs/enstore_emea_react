@@ -22,6 +22,7 @@ import { useStyledComponent } from "../Styles/useStyles.hook";
 
 export default function CardModel(props) {
   const { items, category,categoryIndex } = props;
+  const filteredProducts = items?.filter((i)=>i.status === 1)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const breakPoints = [
@@ -38,7 +39,7 @@ export default function CardModel(props) {
     <>
       {items && (
         <Carousel breakPoints={breakPoints} pagination={false}>
-          {items?.slice(0, 5).map((item) => {
+          {filteredProducts?.slice(0, 5).map((item) => {
             let custome_attribute = {};
             item.custom_attributes.map((attributes) => {
               custome_attribute[attributes.attribute_code] = attributes.value;

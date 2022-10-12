@@ -149,8 +149,7 @@ getCartDetailByQuoteId = async (req, res) => {
       return res.send(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
-      console.log(req);
+       console.log(error,"xfg");
     });
 };
 getShippingEstimation = async (req, res) => {
