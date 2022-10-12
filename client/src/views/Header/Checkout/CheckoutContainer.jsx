@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -13,10 +13,23 @@ const useStyles = makeStyles(() => ({
       margin: "0 !important",
       maxWidth: "880px !important",
     },
-    "& .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop":{
-    backgroundColor: 'rgba(2, 6, 2, 0.8) !important',
+    "& .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop": {
+      backgroundColor: "rgba(2, 6, 2, 0.8) !important",
     },
-   
+  },
+  summaryContainer: {
+    display: "flex !important",
+    backgroundColor: "#f9f9f9",
+    flexDirection: "column !important",
+    padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
+    width: "90% !important",
+    "@media (max-width: 480px)": {
+      width: "100% !important",
+      //  padding: "0",
+    },
+    "@media screen and (min-width: 481px) and (max-width: 1024px)":{
+      width: "100% !important",
+    },
   },
   modalContainer: {
     flexFlow: "row nowrap !important",
@@ -33,7 +46,10 @@ const useStyles = makeStyles(() => ({
     maxWidth: "700px",
     width: " 100%",
     display: "flex",
-    padding:"10px",
+    padding: "10px",
+    "@media (max-width: 480px)": {
+      padding: "0 !important",
+    },
   },
   modalheader: {
     padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
@@ -54,21 +70,23 @@ const useStyles = makeStyles(() => ({
 
 export default function CheckoutContainer(props) {
   const classes = useStyles();
-  const { open, setOpen,subTotal ,handleCloseMenu} = props;
-  // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { open, setOpen, subTotal, handleCloseMenu } = props;
   const handleClose = () => {
     setOpen(false);
   };
   return (
     <div>
       <Dialog
-        // fullScreen={fullScreen}
         className={classes.dialogBox}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <Grid container className={classes.modalContainer} sx={{display:{xs:"block",md:"flex"}}}>
+        <Grid
+          container
+          className={classes.modalContainer}
+          sx={{ display: { xs: "block", md: "flex" } }}
+        >
           <Grid container className={classes.sippingContainer}>
             <Box>
               <Box className={classes.modalheader}>
@@ -80,15 +98,33 @@ export default function CheckoutContainer(props) {
               </Box>
             </Box>
             <Box>
+              <Grid
+                container
+                className={classes.summaryContainer}
+                sx={{
+                  display: { xs: "flex !important", md: "none !important"},
+                  marginBottom:"30px"
+                }}
+              >
+                <CheckoutOrderSummary subTotal={subTotal} />
+              </Grid>
               <Box className={classes.stepperContainer}>
-                <CheckoutStepper  handleClose={handleClose} handleCloseMenu={handleCloseMenu} />
+                <CheckoutStepper
+                  handleClose={handleClose}
+                  handleCloseMenu={handleCloseMenu}
+                />
               </Box>
             </Box>
           </Grid>
-          <CheckoutOrderSummary  subTotal={subTotal}/>
+          <Grid
+            container
+            className={classes.summaryContainer}
+            sx={{ display: { xs: "none !important", md: "flex !important" } }}
+          >
+            <CheckoutOrderSummary subTotal={subTotal} />
+          </Grid>
         </Grid>
       </Dialog>
     </div>
   );
 }
-

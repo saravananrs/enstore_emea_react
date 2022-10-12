@@ -3,16 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Grid, Box, Typography, Divider } from "@mui/material";
 import { useSelector } from "react-redux";
 const useStyles = makeStyles(() => ({
-  summaryContainer: {
-    display: "flex !important",
-    backgroundColor: "#f9f9f9",
-    flexDirection: "column !important",
-    padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
-    width: "90% !important",
-    "@media (max-width: 800px)": {
-      width: "100% !important",
-    },
-  },
+ 
   headerName: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     lineHeight: "20px !important",
@@ -114,7 +105,7 @@ export default function CheckoutOrderSummary(props) {
     Number(subTotal) + Number(orderData?.delivery) + Number(orderData?.tax);
   const classes = useStyles();
   return (
-    <Grid container className={classes.summaryContainer}>
+   <>
       <Box className={classes.headerName}>Order Summary</Box>
       <Box className={classes.alignment}>
         <Grid className={classes.cartItems}>
@@ -163,7 +154,7 @@ export default function CheckoutOrderSummary(props) {
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
               <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>
-              <Box sx={{ color: "#000000", fontWeight: "600" }}>
+              <Box sx={{ color: "#000000", fontWeight: "600" }} className={classes.overAllPrice}>
                 {" "}
                 ₹ {overall?.toFixed(2)}
               </Box>
@@ -172,6 +163,6 @@ export default function CheckoutOrderSummary(props) {
           </ul>
         </Box>
       </Box>
-    </Grid>
+    </>
   );
 }

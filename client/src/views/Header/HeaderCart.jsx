@@ -3,7 +3,7 @@ import cart from "../../Assets/Header/spritemap.svg";
 import { Box, Menu, Divider, Grid, Typography, Button } from "@mui/material";
 import HeaderCartItem from "./HeaderCartItem";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {
   addCartFinalCheckOut,
@@ -60,7 +60,6 @@ export default function HeaderCart() {
   storedData.push(JSON.parse(createdCartData));
 
   const handleCheckOutClick = async () => {
-    console.log(con, "erwer");
     setToggle(false);
     if (createdCartData === null || con === true) {
       await dispatch(addCartItemsCheckout());
@@ -112,7 +111,7 @@ export default function HeaderCart() {
             <Grid className={classes.priceContainer}>
               <Box className={classes.priceItems}>
                 <Typography variant="h6" className={classes.subtotal}>
-                  Zwischensumme
+                  Subtotal
                 </Typography>
                 <Typography variant="body2" className={classes.subtotal}>
                   ₹ {subTotal?.toFixed(2)}

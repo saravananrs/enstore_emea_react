@@ -1,4 +1,11 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select, styled } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+} from "@mui/material";
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
@@ -40,10 +47,10 @@ const useStyles = makeStyles(() => ({
       padding: "0 !important",
     },
   },
-  selectLabel:{
+  selectLabel: {
     "& .css-q0aqjl-MuiFormLabel-root-MuiInputLabel-root": {
-      fontSize:"14px !important",
-      top:"6px !important"
+      fontSize: "14px !important",
+      top: "6px !important",
     },
   },
   selectBox: {
@@ -54,7 +61,7 @@ const useStyles = makeStyles(() => ({
     "& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon": {
       display: "none !important",
     },
-    " & .css-bpeome-MuiSvgIcon-root-MuiSelect-icon":{
+    " & .css-bpeome-MuiSvgIcon-root-MuiSelect-icon": {
       display: "none !important",
     },
     "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
@@ -67,7 +74,10 @@ const useStyles = makeStyles(() => ({
 export default function StepperShippingForm(props) {
   const classes = useStyles();
   const [userError, setUserError] = useState("");
+  const [street, setStreet] = useState(false);
+  console.log(street, "street");
   const { register, setRegister, indAddress } = props;
+  console.log(indAddress, "indAddress");
   const storeSignIn = localStorage.getItem("storeSignIn");
   const registeData = JSON.parse(storeSignIn);
 
@@ -136,25 +146,6 @@ export default function StepperShippingForm(props) {
           : register.lname,
       validators: ["required"],
     },
-    // {
-    //   id: 5,
-    //   name: "address",
-    //   type: "text",
-    //   text: "Street Address  ",
-    //   value: register.address,
-    //   validators: ["required"],
-    // },
-    {
-      id: 5,
-      name: "country",
-      type: "text",
-      text: "Country",
-      value:
-        indAddress && indAddress !== undefined
-          ? indAddress[0]?.country_id
-          : register.country,
-      validators: ["required","value:IN"],
-    },
   ];
   const finalInput = [
     {
@@ -163,7 +154,7 @@ export default function StepperShippingForm(props) {
       type: "text",
       text: "Postal",
       value:
-        indAddress && indAddress !== undefined
+        indAddress && indAddress !== undefined && street
           ? indAddress[0]?.postcode
           : register.postal,
       validators: ["required"],
@@ -174,23 +165,33 @@ export default function StepperShippingForm(props) {
       type: "text",
       text: "City",
       value:
-        indAddress && indAddress !== undefined
+        indAddress && indAddress !== undefined && street
           ? indAddress[0]?.city
           : register.city,
       validators: ["required"],
     },
     {
       id: 3,
-      name: "province",
+      name: "country",
       type: "text",
-      text: "Province",
+      text: "Country",
       value:
-        indAddress && indAddress !== undefined
-          ? indAddress[0]?.province
-          : register.province,
+        indAddress && indAddress !== undefined && street
+          ? indAddress[0]?.country_id
+          : register.country,
       validators: ["required"],
     },
   ];
+  const streetData =
+    indAddress &&
+    indAddress !== undefined &&
+    indAddress[0]?.street[0] +
+      "," +
+      indAddress[0]?.country_id +
+      "," +
+      indAddress[0]?.postcode +
+      "," +
+      indAddress[0]?.city;
   return (
     <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
       <Grid
@@ -220,24 +221,28 @@ export default function StepperShippingForm(props) {
         })}
         <Grid item xs={6} className={classes.inputData}>
           {indAddress && indAddress !== undefined ? (
-             <FormControl className={classes.selectLabel}fullWidth>
-               <InputLabel >Street Address</InputLabel>
-            <Select
-              sx={{ width: "100%" }}
-              name="address"
-              className={classes.selectBox}
-              // id={datas.id}
-              placeholder="Street Address"
-              value={register.address}
-              onChange={onRegister}
-              onFocus={onEnqFocusEvent}
-              label="Street Address"
-              onKeyDown={(event) => event.stopPropagation()}
-            >
-              {indAddress[0]?.street?.map((item) => {
-                return <MenuItem value={item}>{item}</MenuItem>;
-              })}
-            </Select>
+            <FormControl className={classes.selectLabel} fullWidth>
+              <InputLabel>Street Address</InputLabel>
+              <Select
+                sx={{ width: "100%" }}
+                name="address"
+                className={classes.selectBox}
+                placeholder="Street Address"
+                value={register.address}
+                onChange={onRegister}
+                onFocus={onEnqFocusEvent}
+                label="Street Address"
+                onKeyDown={(event) => event.stopPropagation()}
+              >
+                <MenuItem
+                  value={indAddress[0]?.street[0]}
+                  onClick={() => setStreet(true)}
+                >
+                  {" "}
+                  {street ? indAddress[0]?.street[0] : streetData}
+                </MenuItem>
+                ;
+              </Select>
             </FormControl>
           ) : (
             <TextField
@@ -257,7 +262,7 @@ export default function StepperShippingForm(props) {
         </Grid>
         {finalInput.map((datas) => {
           return (
-            <Grid item xs={4} className={classes.inputData}>
+            <Grid item xs={6} className={classes.inputData}>
               <TextField
                 type={datas.type}
                 className={classes.inputBox}

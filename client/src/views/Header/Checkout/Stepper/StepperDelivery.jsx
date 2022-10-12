@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   Button,
   Radio,
@@ -93,9 +93,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function StepperDelivery(props) {
-  const { setActiveStep, activeStep, shippingMethod, register, indAddress } =
-    props;
-  console.log(shippingMethod.length, "shippingMethod");
+  const { setActiveStep, activeStep, shippingMethod, register, indAddress } = props;
+  console.log(shippingMethod,"shippingMethod");
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -104,7 +103,6 @@ export default function StepperDelivery(props) {
   );
   const storeSignIn = localStorage.getItem("storeSignIn");
   const registeData = JSON.parse(storeSignIn);
-  const { allStepsCompleted, isLastStep, completed, steps } = useStepper();
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };

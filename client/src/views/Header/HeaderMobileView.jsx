@@ -17,11 +17,11 @@ import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
 export default function HeaderMobileView(props) {
   const pages = [
-    "Hausbesitzer",
-    "Unternehmer",
-    "Installateure",
-    "Laden",
-    "Unterstützung",
+    "Homeowner",
+    "Entrepreneur",
+    "Installers",
+    "Store",
+    "Support",
   ];
   const classes = useStyledComponent();
   const { window } = props;

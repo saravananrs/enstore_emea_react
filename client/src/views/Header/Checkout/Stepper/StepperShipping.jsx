@@ -47,7 +47,6 @@ const useStyles = makeStyles(() => ({
 
 export default function StepperShipping(props) {
   const {
-    activeStep,
     setActiveStep,
     setShippingMethod,
     register,

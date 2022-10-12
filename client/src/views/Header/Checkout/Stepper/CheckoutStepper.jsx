@@ -5,26 +5,9 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepperShipping from "./StepperShipping";
 import StepperDelivery from "./StepperDelivery";
-// import MobileStepper from "@mui/material/MobileStepper";
 import StepperPayment from "./StepperPayment";
 import { makeStyles } from "@material-ui/styles";
 import useStepper from "./useStepper.hook";
-const useStyles = makeStyles(() => ({
-  mobileStepper: {
-    "& .css-1kpn1p9-MuiLinearProgress-root-MuiMobileStepper-progress": {
-      width: "100% !important",
-    },
-    "& .css-1d4g1jy-MuiLinearProgress-bar1": {
-      backgroundColor: "#F37321 !important",
-    },
-  },
-  fixes: {
-    // marginLeft: "30px",
-    // "& .css-j5w0w9-MuiStepConnector-root":{
-    //   width:"76px !important"
-    // }
-  },
-}));
 const IntialShippingRegister = {
   email: "",
   phone: "",
@@ -43,10 +26,10 @@ export default function CheckoutStepper(props) {
   const [register, setRegister] = useState(IntialShippingRegister);
   const [shippingMethod, setShippingMethod] = useState({});
   const { handleClose, handleCloseMenu } = props;
-  const { handleStep, steps } = useStepper();
-  const classes = useStyles();
+  const {  steps } = useStepper();
   const savedAddress = localStorage.getItem("savedAddress");
   const storeSavedAddress = JSON.parse(savedAddress);
+  console.log(storeSavedAddress,"storeSavedAddress");
   const getAddress = storeSavedAddress?.map((i) => {
     return i.addresses;
   });
