@@ -29,7 +29,6 @@ export default function CheckoutStepper(props) {
   const {  steps } = useStepper();
   const savedAddress = localStorage.getItem("savedAddress");
   const storeSavedAddress = JSON.parse(savedAddress);
-  console.log(storeSavedAddress,"storeSavedAddress");
   const getAddress = storeSavedAddress?.map((i) => {
     return i.addresses;
   });

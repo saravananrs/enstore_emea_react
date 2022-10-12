@@ -81,7 +81,7 @@ export default function CardModel(props) {
                     </Tooltip>
                     {item.price !== null ? (
                       <Typography className={classes.price}>
-                        ₹ {item.price.toFixed(2)}
+                        ₹ {item.price.toLocaleString()}
                       </Typography>
                     ) : (
                       ""

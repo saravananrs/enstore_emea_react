@@ -18,7 +18,7 @@ const initialState = {
   isLoading:true,
   loginData: localStorage.getItem("AdminData"),
   storeLoginData:[],
-  cartData: [], //localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
+  cartData:  [], // JSON.parse(localStorage.getItem('cartProducts')) != null ? [JSON.parse(localStorage.getItem('cartProducts'))]  : [],
   quoteId: localStorage.getItem("tokenKey"),
   checkout: [],
   allData:[],

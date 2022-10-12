@@ -5,7 +5,7 @@ import HerosectionImg from "./HerosectionImg";
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function HeroSection() {
-  const classes = useStyledComponent()
+  const classes = useStyledComponent();
   const products = [
     {
       id: 1,
@@ -73,18 +73,21 @@ export default function HeroSection() {
       </Grid>
       <Grid className={classes.productContainer}>
         <ul className={classes.productList}>
-          {products.map((item,index) => {
+          {products.map((item, index) => {
             return (
-            <Link to='/viewall' state={{item: index, category: item}}> <li className={classes.listItems}>
-                <Box className={classes.positions}>
-                  <img
-                    className={classes.pImages}
-                    src={item.imgUrl}
-                    alt="product"
-                  />
-                </Box>
-                <p className={classes.pName}>{item.name}</p>
-              </li></Link>
+              <Link to="/viewall" state={{ item: index, category: item }}>
+                {" "}
+                <li className={classes.listItems}>
+                  <Box className={classes.positions}>
+                    <img
+                      className={classes.pImages}
+                      src={item.imgUrl}
+                      alt="product"
+                    />
+                  </Box>
+                  <p className={classes.pName}>{item.name}</p>
+                </li>
+              </Link>
             );
           })}
         </ul>

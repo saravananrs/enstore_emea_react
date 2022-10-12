@@ -234,7 +234,7 @@ export default function StepperDelivery(props) {
               <Box className={classes.shippingMethod}>
                 {shippingMethod.map((method) => (
                   <>
-                    <Box className={classes.shippingAssigne}>
+                    <Box className={classes.shippingAssigne} key={method}>
                       <FormControlLabel
                         value={method}
                         control={<Radio />}

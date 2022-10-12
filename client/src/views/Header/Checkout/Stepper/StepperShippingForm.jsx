@@ -72,12 +72,9 @@ export default function StepperShippingForm(props) {
   const classes = useStyles();
   const [userError, setUserError] = useState("");
   const [street, setStreet] = useState(false);
-  console.log(street, "street");
   const { register, setRegister, indAddress } = props;
-  console.log(indAddress, "indAddress");
   const storeSignIn = localStorage.getItem("storeSignIn");
   const registeData = JSON.parse(storeSignIn);
-
   const handleSubmit = (event) => {
     console.log(event);
   };
@@ -216,10 +213,10 @@ export default function StepperShippingForm(props) {
             </Grid>
           );
         })}
-        <Grid item xs={6} className={classes.inputData}>
+        <Grid item xs={12} className={classes.inputData}>
           {indAddress && indAddress !== undefined ? (
             <FormControl className={classes.selectLabel} fullWidth>
-              <InputLabel>Street Address</InputLabel>
+              <InputLabel sx={{fontSize:"14px !important"}}>Street Address</InputLabel>
               <Select
                 sx={{ width: "100%" }}
                 name="address"
@@ -257,9 +254,26 @@ export default function StepperShippingForm(props) {
             />
           )}
         </Grid>
+        <Grid item xs={12} className={classes.inputData}>
+        <TextField
+              type="text"
+              name="state"
+              className={classes.inputBox}
+              // id={datas.id}
+              value={ indAddress && indAddress !== undefined 
+                ? indAddress[0]?.region.region
+                : register.provinve}
+              onChange={onRegister}
+              onFocus={onEnqFocusEvent}
+              errorMessages={["this field is required"]}
+              label="State"
+              onKeyDown={(event) => event.stopPropagation()}
+              validators={["required"]}
+            />
+        </Grid>
         {finalInput.map((datas) => {
           return (
-            <Grid item xs={6} className={classes.inputData}>
+            <Grid item xs={4} className={classes.inputData}>
               <TextField
                 type={datas.type}
                 className={classes.inputBox}

@@ -1,10 +1,10 @@
- import axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import instance from "../../utils/axiosconfig";
 export const SPINNER = "SPINNER";
 export const POST_STORE_LOGIN = "STORE_LOGIN";
 export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
-export const ALL_DATA = 'ALL_DATA'
+export const ALL_DATA = "ALL_DATA";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
@@ -26,9 +26,9 @@ export const setSpinner = (spinnerset) => async (dispatch) => {
 
 export const storeLogin = (data) => async (dispatch) => {
   await instance
-    .post("/login",data)
+    .post("/login", data)
     .then((response) => {
-      localStorage.setItem("storeSignIn",JSON.stringify(response.data))
+      localStorage.setItem("storeSignIn", JSON.stringify(response.data));
       dispatch({
         type: POST_STORE_LOGIN,
         payload: response.data,
@@ -40,11 +40,11 @@ export const storeLogin = (data) => async (dispatch) => {
 };
 export const getSavedAddress = (email) => async (dispatch) => {
   await instance
-    .post("/savedAddress",email)
+    .post("/savedAddress", email)
     .then((res) => {
-      localStorage.setItem("savedAddress",JSON.stringify(res.data))
+      localStorage.setItem("savedAddress", JSON.stringify(res.data));
       dispatch({
-        type:  SHIIPING_ADDRESS,
+        type: SHIIPING_ADDRESS,
         payload: res.data,
       });
     })
@@ -166,8 +166,7 @@ export const getSingleProduct = (id) => {
 export const addToCart = (cartData, qty) => async (dispatch) => {
   // let localCartData = localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
   cartData.cartQty = qty;
-  // localStorage.setItem('cartData', localCartData.push(cartData))
-
+  localStorage.setItem("cartProducts", JSON.stringify(cartData));
   dispatch({
     type: POST_Add_TO_CART,
     payload: cartData,
