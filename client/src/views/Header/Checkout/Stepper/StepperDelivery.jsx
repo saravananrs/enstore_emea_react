@@ -93,7 +93,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function StepperDelivery(props) {
-  const { setActiveStep, activeStep, shippingMethod, register, indAddress } = props;
+  const { setActiveStep, activeStep, shippingMethod, register, indAddress, setRazorpayOrderIdResponse } = props;
   console.log(shippingMethod,"shippingMethod");
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
@@ -109,13 +109,12 @@ export default function StepperDelivery(props) {
   const handleShipmentClick = async () => {
     setToggle(false);
     const quoteId = localStorage.getItem("tokenKey");
+    const cartData = localStorage.getItem("cartData");
     const reqBody = {
       addressInformation: {
         shipping_address: {
-          region:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.city
-              : register.city,
+          region: "Tamil Nadu",
+          region_id: "563",
           country_id:
             indAddress && indAddress !== undefined
               ? indAddress[0]?.country_id
@@ -145,10 +144,8 @@ export default function StepperDelivery(props) {
               : register.phone,
         },
         billing_address: {
-          region:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.city
-              : register.city,
+          region: "Tamil Nadu",
+          region_id: "563",
           country_id:
             indAddress && indAddress !== undefined
               ? indAddress[0]?.country_id
@@ -182,6 +179,11 @@ export default function StepperDelivery(props) {
       },
       data: quoteId,
     };
+    let obj = {
+      currency: "INR",
+      receipt: cartData.quote_id,
+      payment_capture : 1
+    }
     await instance
       .post("/shippingInformation", reqBody)
       .then((response) => {
@@ -192,7 +194,14 @@ export default function StepperDelivery(props) {
             tax: response.data.totals.tax_amount,
           })
         );
+        obj.amount= Math.round(Number(response.data.totals.base_grand_total) * 100);
+        instance
+        .post("/createRazorpayOrderID", obj)
+        .then((response) => {
+          console.log("razor pay esponse", );
+          setRazorpayOrderIdResponse(response.data)
         setToggle(true);
+        })
       })
       .catch((error) => {
         console.log(error);

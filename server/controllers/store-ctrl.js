@@ -6,6 +6,7 @@ var CryptoJS = require("crypto-js");
 const SUCCESS_STATUS = "OK";
 const jwt = require("jwt-simple");
 const { config } = require("process");
+const Razorpay = require('razorpay'),
 
 getCategories = async (req, res) => {
   console.log("hellow");
@@ -222,7 +223,7 @@ createOrder = async (req, res) => {
     .then(async (response) => {
       await axios
         .get(
-          `https://store-qa2.enphase.com/storefront/de-de/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+          `https://store-qa2.enphase.com/storefront/en-in/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
           {
             headers: {
               Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -234,12 +235,10 @@ createOrder = async (req, res) => {
         })
         .catch((error) => {
           console.log(error);
-          console.log(req);
         });
     })
     .catch((error) => {
       console.log(error);
-      console.log(req);
     });
 };
 
@@ -427,6 +426,29 @@ async function authenticationOAuth() {
   }
   return oauth;
 }
+razorPayCreateOrderId = async function (req, res) { 
+  console.log('initating razor pay')
+  var body = req.body
+  var instance = new Razorpay({
+    key_id: 'rzp_test_OwiTuxcL7pfjE3',
+    key_secret: '6pfUJeDBFlj64Nr8SsY90hA3'
+  })
+
+  console.log('creating the order')
+
+  instance.orders.create(body, function (err, order) {
+    if (err) {
+      console.log('error in creating the payment');
+      console.log(err)
+      return res.status(500).send({
+        message: err.message
+      });
+    }
+    order.key_id = instance.key_id;
+    res.send(order)
+    return;
+  });
+}
 module.exports = {
   getCategories,
   getProducts,
@@ -439,4 +461,5 @@ module.exports = {
   createOrder,
   getAllData,
   getSavedShippingAddress,
+  razorPayCreateOrderId
 };

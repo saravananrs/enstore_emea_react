@@ -14,5 +14,6 @@ router.post('/estimateShipping',storeCtrl.getShippingEstimation)
 router.post('/shippingInformation',storeCtrl.getShippingInformation)
 router.post('/createOrder',storeCtrl.createOrder)
 router.post('/savedAddress',storeCtrl.getSavedShippingAddress)
+router.post('/createRazorpayOrderID',storeCtrl.razorPayCreateOrderId)
 
 module.exports = router
