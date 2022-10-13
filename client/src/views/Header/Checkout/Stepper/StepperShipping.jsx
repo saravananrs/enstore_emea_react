@@ -63,10 +63,8 @@ export default function StepperShipping(props) {
     const quoteId = localStorage.getItem("tokenKey");
     const reqBody = {
       address: {
-        region:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.city
-            : register.city,
+        region: "Tamil Nadu",
+        region_id: "563",
         country_id:
           indAddress && indAddress !== undefined
             ? indAddress[0]?.country_id

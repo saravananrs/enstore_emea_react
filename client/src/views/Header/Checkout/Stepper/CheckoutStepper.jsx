@@ -25,6 +25,7 @@ export default function CheckoutStepper(props) {
   const [activeStep, setActiveStep] = useState(0);
   const [register, setRegister] = useState(IntialShippingRegister);
   const [shippingMethod, setShippingMethod] = useState({});
+  const [razorpayOrderIdResponse, setRazorpayOrderIdResponse] = useState({});
   const { handleClose, handleCloseMenu } = props;
   const {  steps } = useStepper();
   const savedAddress = localStorage.getItem("savedAddress");
@@ -67,6 +68,7 @@ export default function CheckoutStepper(props) {
               indAddress={indAddress}
               handleClose={handleClose}
               handleCloseMenu={handleCloseMenu}
+              razorpayOrderIdResponse={razorpayOrderIdResponse}
             />
           ) : (
             <StepperDelivery
@@ -75,6 +77,7 @@ export default function CheckoutStepper(props) {
               activeStep={activeStep}
               shippingMethod={shippingMethod}
               register={register}
+              setRazorpayOrderIdResponse={setRazorpayOrderIdResponse}
             />
           )}
         </React.Fragment>

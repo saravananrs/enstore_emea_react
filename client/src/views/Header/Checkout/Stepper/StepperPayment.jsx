@@ -1,31 +1,141 @@
 import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../../Contents/stripe/CheckoutForm";
 import {makeStyles} from "@material-ui/styles"
+import $ from 'jquery'; 
+import instance from "../../../../utils/axiosconfig";
+import { clearCartAndOrderData } from "../../../../redux/actions/EnstoreActions";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const useStyles = makeStyles(()=>({
   PaymentContainer: {
     padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
     position: "relative",
     width: "100%",
   },
+  continuebtn: {
+    margin: "calc(3 * 8px) 0 calc(2 * 8px) !important",
+    alignItems: "center !important",
+    background: "#F37321 !important",
+    borderRadius: "4px !important",
+    padding: "1px 16px !important",
+    cursor: "pointer !important",
+    color: "#fff !important",
+    display: "flex !important",
+    fontSize: "16px !important",
+    height: "48px !important",
+    justifyContent: "center !important",
+    position: "relative !important",
+    width: "100% !important",
+  },
 }))
 export default function StepperPayment(props) {
   const classes = useStyles()
-  const { register, handleClose ,handleCloseMenu, indAddress} = props;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { register, handleClose ,handleCloseMenu, razorpayOrderIdResponse} = props;
   const stripePromise = loadStripe("pk_test_6BLf1Fr5B4QZi5O0qo91H6u9");
+  console.log('razorpayOrderIdResponse', razorpayOrderIdResponse)
+  const handleSubmit = () => {
+    console.log("enter submit")
+    var options = {
+      "key": razorpayOrderIdResponse.key_id, // Enter the Key ID generated from the Dashboard
+      "amount": razorpayOrderIdResponse.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": razorpayOrderIdResponse.currency,
+      "name": "Enstore",
+      "description": "Enstore order",
+      //"image": "https://example.com/your_logo",
+      "order_id": razorpayOrderIdResponse.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": async function (response) {
+        // redirect to status page
+        console.log(response);
+        const quoteId = localStorage.getItem("tokenKey");
 
+        const reqBody = {
+          cartId: quoteId,
+          billingAddress: {
+            countryId: "IN",
+            regionId: "563",
+            regionCode: "TN",
+            region: "Tamil Nadu",
+            street: [register.address],
+            company: "",
+            telephone: register.phone,
+            postcode: register.postal,
+            city: register.city,
+            firstname: register.fname,
+            lastname: register.lname,
+            saveInAddressBook: null,
+          },
+          paymentMethod: {
+            method: "razorpay",
+            additional_data:{
+              rzp_payment_id: response.razorpay_payment_id, 
+              order_id: response.razorpay_order_id, 
+              rzp_signature: response.razorpay_signature
+            },
+            extension_attributes: {
+              agreement_ids: ["20"],
+            },
+          },
+          email: register.email,
+          data: quoteId,
+        };
+        await instance
+          .post("/createOrder", reqBody)
+          .then((response) => {
+            console.log("response", response.data);
+            console.log("order Id", response.data.increment_id);
+            handleClose();
+            localStorage.removeItem("cartData");
+            dispatch(clearCartAndOrderData());
+            handleCloseMenu()
+            navigate("/success", { state: { order: response.data } });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+      "prefill": {
+        "name": register.fname + "" + register.lname,
+        "email": register.email,
+        "contact": register.phone
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    console.log("enter submit 1")
+
+    $.getScript('https://checkout.razorpay.com/v1/checkout.js', function () {
+    console.log("enter submit 2")
+
+      var rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed', function (response){
+        console.log('failed response');
+        console.log(response)
+    });
+      rzp1.open();
+
+    });
+  }
   return (
   <Box className={classes.PaymentContainer}>
-    <Elements stripe={stripePromise}>
+      <Button className={classes.continuebtn} onClick={handleSubmit} variant="contained">Pay With Razorpay</Button>
+      {/* <Elements stripe={stripePromise}>
       <CheckoutForm
        indAddress={indAddress}
         register={register}
         handleClose={handleClose}
         handleCloseMenu={handleCloseMenu}
       />
-    </Elements>
+    </Elements> */}
     </Box>
   );
 }
