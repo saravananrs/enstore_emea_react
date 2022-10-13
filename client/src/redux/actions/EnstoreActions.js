@@ -166,7 +166,6 @@ export const getSingleProduct = (id) => {
 export const addToCart = (cartData, qty) => async (dispatch) => {
   // let localCartData = localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
   cartData.cartQty = qty;
-  localStorage.setItem("cartProducts", JSON.stringify(cartData));
   dispatch({
     type: POST_Add_TO_CART,
     payload: cartData,

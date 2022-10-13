@@ -3,25 +3,26 @@ import { Box, Divider } from "@mui/material";
 import upArrow from "../../Assets/Header/spritemap.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {  addToCart, clearCartItem } from "../../redux/actions/EnstoreActions";
+import { addToCart, clearCartItem } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 import useCartItems from "../Hooks/useCartItems.hook";
 export default function HeaderCartItem(props) {
   const classes = useStyledComponent();
-  const {  item, key,setCon } = props;
+  const { item, key, setCon } = props;
   const { cartData } = useSelector((state) => state.store);
-  const { setSubTotal,count, setCount ,setQuantitySetter,subTotal} = useCartItems();
+  const { setSubTotal, count, setCount, setQuantitySetter, subTotal } =
+    useCartItems();
   const dispatch = useDispatch();
   useEffect(() => {
     setCount(item.cartQty);
-   // eslint-disable-next-line react-hooks/exhaustive-deps  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleIncrement = async (number, products) => {
-      setCon(true);
+    setCon(true);
     setQuantitySetter(false);
     setCount(number + 1);
-    await dispatch(addToCart(products, count));
+    dispatch(addToCart(products, count ));
     setSubTotal(subTotal + products.price);
   };
   const handleDecrement = async (number, products) => {
@@ -30,7 +31,7 @@ export default function HeaderCartItem(props) {
       let setter = count - 1;
       setQuantitySetter(false);
       setCount(number - 1);
-      await dispatch(addToCart(products, setter - 1));
+      await dispatch(addToCart(products, setter -1));
       setSubTotal(subTotal - products.price);
     }
   };
@@ -43,7 +44,7 @@ export default function HeaderCartItem(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const smallImages = item.custom_attributes.filter(
+  const smallImages = item?.custom_attributes?.filter(
     (value) => value.attribute_code === "small_image"
   );
   return (

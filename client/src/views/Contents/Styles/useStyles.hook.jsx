@@ -446,7 +446,7 @@ cardViewAll: {
   "&:hover": {
     boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
   },
-  background:"linear-gradient(180deg, #82c6b7 0%,#dfe0a2 100%) !important"
+  background:"linear-gradient(180deg, #FF8B49 0%,#F7D9A9 100%) !important"
 },
 content: {
   textAlign: "center",

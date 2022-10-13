@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import dummy from "../../../Assets/images/dummy.jpg";
 import {
   addToCart,
-  getProducts,
 } from "./../../../redux/actions/EnstoreActions";
 import {
   Grid,
@@ -19,7 +18,7 @@ import Carousel from "react-elastic-carousel";
 import { useDispatch } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
 import { useStyledComponent } from "../Styles/useStyles.hook";
-
+import viewArrow from "../../../Assets/images/linkarrow.svg"
 export default function CardModel(props) {
   const { items, category,categoryIndex } = props;
   const filteredProducts = items?.filter((i)=>i.status === 1)
@@ -146,7 +145,9 @@ export default function CardModel(props) {
             </Typography>
             <CardMedia
               component="img"
+              sx={{marginTop:"100px"}}
               className={classes.cardimg}
+             // image={viewArrow}
               image="https://store-d9.enphase.com/sites/default/files/styles/max_3840x3840/public/2022-07/store-categories-microinverters_1.png?itok=fZMQVqQa"
               alt="products"
             />

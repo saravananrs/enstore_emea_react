@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Divider, Box, Typography, Grid } from "@mui/material";
+import { Divider, Box, Typography, Grid, AccordionDetails } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllData } from "../../../redux/actions/EnstoreActions";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -72,15 +72,15 @@ export default function ViewAllCategory() {
       <ul className={classes.catList}>
         <li className={classes.catListLi}>Featured Products</li>
         <Divider sx={{ margin: "10px 0px" }} />
-        <Accordion expanded={expanded} onClick={handleDetailClick}>
-          <AccordionSummary 
+        <Accordion expanded={expanded} >
+          <AccordionSummary onClick={handleDetailClick}
            expandIcon={expanded ? <RemoveIcon sx={{ fontSize: "0.9rem", color: "#6e6e73",}}/> : <AddIcon sx={{ fontSize: "0.9rem", color: "#6e6e73",}} />}
           >
             <li className={classes.catListLi}>Popular Products</li>
           </AccordionSummary>
           <Box >
             <ul>
-              <li className={classes.accListItems}>For homeowners</li>
+              <li className={classes.accListItems} onClick={()=>console.log("askdgkj")}>For homeowners</li>
               <li  className={classes.accListItems}>For Installers</li>
             </ul>
           </Box>

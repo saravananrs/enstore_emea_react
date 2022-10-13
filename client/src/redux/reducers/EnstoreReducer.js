@@ -12,20 +12,23 @@ import {
   SINGLE_PRODUCTS,
   ALL_DATA,
   POST_STORE_LOGIN,
-  SHIIPING_ADDRESS
+  SHIIPING_ADDRESS,
 } from "../actions/EnstoreActions";
 const initialState = {
-  isLoading:true,
+  isLoading: true,
   loginData: localStorage.getItem("AdminData"),
-  storeLoginData:[],
-  cartData:  [], // JSON.parse(localStorage.getItem('cartProducts')) != null ? [JSON.parse(localStorage.getItem('cartProducts'))]  : [],
+  storeLoginData: [],
+  cartData:
+    localStorage.getItem("cartProducts") === null
+      ? []
+      : JSON.parse(localStorage.getItem("cartProducts")),
   quoteId: localStorage.getItem("tokenKey"),
   checkout: [],
-  allData:[],
+  allData: [],
   categoryData: [],
   productData: [],
-  savedAddress:[],
-  singleProduct:null,
+  savedAddress: [],
+  singleProduct: null,
   orderData: {
     delivery: 0,
     tax: 0,
@@ -33,11 +36,11 @@ const initialState = {
 };
 const EnstoreReducer = function (state = initialState, action) {
   switch (action.type) {
-    case SPINNER:{
-      return{
+    case SPINNER: {
+      return {
         ...state,
-        isLoading:action.payload
-      }
+        isLoading: action.payload,
+      };
     }
     case POST_STORE_LOGIN: {
       return {
@@ -51,11 +54,11 @@ const EnstoreReducer = function (state = initialState, action) {
         loginData: [],
       };
     }
-    case ALL_DATA:{
-      return{
+    case ALL_DATA: {
+      return {
         ...state,
-        allData:action.payload
-      }
+        allData: action.payload,
+      };
     }
     case FETCH_CATEGORIES: {
       return {
@@ -76,19 +79,35 @@ const EnstoreReducer = function (state = initialState, action) {
       };
     }
     case POST_Add_TO_CART: {
-      const prodIndex = state.cartData.findIndex(
+      const cartValues = state.cartData;
+      let tempArr =
+        localStorage.getItem("cartProducts") === null
+          ? []
+          : JSON.parse(localStorage.getItem("cartProducts"));
+      const prodIndex = cartValues.findIndex(
         (cart) => cart.id === action.payload.id
       );
+      const withoutDupe = cartValues.some(
+        (obj) => obj.id === action.payload.id
+      );
+      if (!withoutDupe) {
+        if (localStorage.getItem("cartProducts") === null) {
+          tempArr.push(action.payload);
+        } else {
+          tempArr = [...tempArr, action.payload];
+        }
+        localStorage.setItem("cartProducts", JSON.stringify(tempArr));
+      }
       return {
         ...state,
         cartData:
           prodIndex > -1
-            ? state.cartData.map((item) =>
+            ? cartValues.map((item) =>
                 item.id === action.payload.id
                   ? { ...item, cartQty: action.payload.cartQty + 1 }
                   : item
               )
-            : [...state.cartData, action.payload],
+            : [...cartValues, action.payload],
       };
     }
     case POST_CheckOut_Click: {
@@ -126,6 +145,12 @@ const EnstoreReducer = function (state = initialState, action) {
       };
     }
     case CLEAR_CART_ITEM: {
+      const clearValues = JSON.parse(localStorage.getItem("cartProducts"));
+      const rempoveCartItem = clearValues?.filter(
+        (item) => item.id !== action.payload.id
+      );
+      localStorage.setItem("cartProducts", JSON.stringify(rempoveCartItem));
+      console.log(rempoveCartItem, "clearValuesclearValues");
       return {
         ...state,
         cartData: state.cartData.filter(

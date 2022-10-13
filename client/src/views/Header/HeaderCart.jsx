@@ -38,7 +38,7 @@ export default function HeaderCart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (cartData.length >= 1 && quantitySetter) {
+    if (cartData?.length >= 1 && quantitySetter) {
       setSubTotal(total);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,11 +47,12 @@ export default function HeaderCart() {
   const handleClick = (event) => {
     setCartdDown(event.currentTarget);
   };
+  
   useEffect(() => {
-    setBagCount(cartData.length);
+    setBagCount(cartData?.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
-  const total = cartData.reduce(
+  const total = cartData?.reduce(
     (total, currPrice) => (total = total + currPrice.price * currPrice.cartQty),
     0
   );
@@ -89,7 +90,7 @@ export default function HeaderCart() {
           <use xlinkHref={`${cart}?v=1.20#store`}></use>
         </svg>
       </div>
-      {cartData.length >= 1 && (
+      {cartData?.length >= 1 && (
         <Box className={classes.cartqty}>{bagCount}</Box>
       )}
       <Menu
@@ -106,7 +107,7 @@ export default function HeaderCart() {
             },
         }}
       >
-        {cartData.length >= 1 ? (
+        {cartData?.length >= 1 ? (
           <div>
             <Grid className={classes.priceContainer}>
               <Box className={classes.priceItems}>
@@ -114,7 +115,7 @@ export default function HeaderCart() {
                   Subtotal
                 </Typography>
                 <Typography variant="body2" className={classes.subtotal}>
-                  ₹ {subTotal?.toFixed(2)}
+                  ₹ {subTotal?.toLocaleString()}
                 </Typography>
               </Box>
               {toggle ? (
@@ -145,7 +146,7 @@ export default function HeaderCart() {
             <Divider />
             <Box className={classes.bagCartContainer}>
               <ul className={classes.bagCartList}>
-                {cartData.map((item) => {
+                {cartData?.map((item) => {
                   return (
                     <div>
                       <HeaderCartItem

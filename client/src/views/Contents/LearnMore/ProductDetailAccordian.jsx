@@ -127,8 +127,8 @@ export default function ProductDetailAccordian(props) {
   return (
     <React.Fragment>
       <Box className={classes.accordianContainer}>
-        <Accordion expanded={expanded} onClick={handleDetailClick}>
-          <AccordionSummary>
+        <Accordion expanded={expanded} >
+          <AccordionSummary onClick={handleDetailClick}>
             <Typography variant="h3" className={classes.accTitle}>
               Details
             </Typography>
@@ -213,8 +213,8 @@ export default function ProductDetailAccordian(props) {
           </AccordionDetails>
         </Accordion>
         <Divider sx={{ marginBottom: "25px" }} />
-        <Accordion expanded={expandedTech} onClick={handleTechClick}>
-          <AccordionSummary>
+        <Accordion expanded={expandedTech} >
+          <AccordionSummary onClick={handleTechClick}>
             <Typography variant="h3" className={classes.accTitle}>
               Technical Specifications
             </Typography>
@@ -242,7 +242,7 @@ export default function ProductDetailAccordian(props) {
         </Accordion>
         <Divider sx={{ marginBottom: "25px" }} />
         <Accordion expanded={expandedCompat} onClick={handleCompatClick}>
-          <AccordionSummary>
+          <AccordionSummary onClick={handleCompatClick}>
             <Typography variant="h3" className={classes.accTitle}>
               Compatibility
             </Typography>
@@ -269,8 +269,8 @@ export default function ProductDetailAccordian(props) {
           </AccordionDetails>
         </Accordion>
         <Divider sx={{ marginBottom: "25px" }} />
-        <Accordion expanded={expandedBox} onClick={handleBoxClick}>
-          <AccordionSummary>
+        <Accordion expanded={expandedBox} >
+          <AccordionSummary onClick={handleBoxClick}>
             <Typography variant="h3" className={classes.accTitle}>
               What's in the Box
             </Typography>
