@@ -1,4 +1,6 @@
 const axios = require("axios");
+const fs = require("fs");
+// const a = require("../")
 const request = require("request");
 const OAuth = require("oauth-1.0a");
 const crypto = require("crypto");
@@ -6,37 +8,37 @@ var CryptoJS = require("crypto-js");
 const SUCCESS_STATUS = "OK";
 const jwt = require("jwt-simple");
 const { config } = require("process");
-const Razorpay = require('razorpay'),
-
-getCategories = async (req, res) => {
-  console.log("hellow");
-  var config = {
-    method: "get",
-    url: "https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories",
-    headers: {
-      Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-    },
+const Razorpay = require("razorpay"),
+  getCategories = async (req, res) => {
+    console.log("hellow");
+    var config = {
+      method: "get",
+      url: "https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories",
+      headers: {
+        Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        let selected_categories = response.data.children_data.filter((data) =>
+          [
+            "Mikro-Wechselrichter",
+            "Speicher",
+            "Energiemanagement",
+            "Kabel und Stecker",
+            "Zubehör",
+          ].includes(data.name)
+        );
+        return res.send(JSON.stringify(selected_categories));
+      })
+      .catch(function (error) {
+        return res.send(error);
+      });
   };
-  axios(config)
-    .then(function (response) {
-      let selected_categories = response.data.children_data.filter((data) =>
-        [
-          "Mikro-Wechselrichter",
-          "Speicher",
-          "Energiemanagement",
-          "Kabel und Stecker",
-          "Zubehör",
-        ].includes(data.name)
-      );
-      return res.send(JSON.stringify(selected_categories));
-    })
-    .catch(function (error) {
-      return res.send(error);
-    });
-};
 getAllData = async (req, res) => {
-  var productsToReturn = []
-  
+  console.log("hiiii");
+  var productsToReturn = [];
+
   await axios
     .get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories`, {
       headers: {
@@ -54,35 +56,65 @@ getAllData = async (req, res) => {
         ].includes(data.name)
       );
 
-      let requests =selected_categories.map(id => {
+      let requests = selected_categories.map((id) => {
         return new Promise((resolve, reject) => {
-           request({
+          request(
+            {
               uri: `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
-              method: 'GET',
+              method: "GET",
               headers: {
                 Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
               },
-           },
-           (err, res, body) => {
-           if (err) { reject(err) }
-           resolve(body)
-           })
+            },
+            (err, res, body) => {
+              if (err) {
+                reject(err);
+              }
+              resolve(body);
+            }
+          );
+        });
+      });
+      Promise.all(requests)
+        .then((body) => {
+          body.forEach((res) => {
+            if (res) var allProducts = JSON.parse(res);
+            productsToReturn.push(allProducts);
+          });
+          res.send({ selected_categories, productsToReturn });
+          fs.writeFile(
+            "../datas.json",
+            JSON.stringify({ selected_categories, productsToReturn }),
+            (err) => {
+              if (err) console.log("Error writing file:", err);
+            }
+          );
         })
-     })
-     Promise.all(requests).then((body) => { 
-        body.forEach(res => {
-        if (res)
-         var allProducts = JSON.parse(res)
-           productsToReturn.push( allProducts)
-        })
-        res.send({selected_categories, productsToReturn})
-     }).catch(err => console.log(err))
-  })};
+        .catch((err) => console.log(err));
+    });
+};
+
+getAllDataFromLocal = async (req, res) => {
+  fs.readFile("../datas.json", function read(err, data) {
+    if (err) {
+      throw err;
+    }
+    const content = data;
+    console.log(content);
+    processFile(content);
+  });
+
+  function processFile(content) {
+    const allLocData = JSON.parse(content);
+    console.log(allLocData, "allLocData");
+    res.send(allLocData);
+  }
+};
 
 getProducts = async (req, res) => {
   await axios
     .get(
-      `https://store-qa2.enphase.com/storefront/de-de/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -150,7 +182,7 @@ getCartDetailByQuoteId = async (req, res) => {
       return res.send(JSON.stringify(response.data));
     })
     .catch((error) => {
-       console.log(error,"xfg");
+      console.log(error, "xfg");
     });
 };
 getShippingEstimation = async (req, res) => {
@@ -191,7 +223,7 @@ getShippingInformation = async (req, res) => {
       console.log(req);
     });
 };
-getSavedShippingAddress= async (req, res) => {
+getSavedShippingAddress = async (req, res) => {
   await axios
     .get(
       `https://store-qa2.enphase.com/storefront/en-in/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=${req.body.email}&searchCriteria[filterGroups][0][filters][0][condition_type]=eq`,
@@ -266,7 +298,7 @@ createOrder = async (req, res) => {
 enlightenOAuthLogin = async function (req, res) {
   console.log("enlighten login method start");
   console.log("enlighten login method start");
-  console.log(req.body,"body");
+  console.log(req.body, "body");
   var bytes = CryptoJS.AES.decrypt(req.body.enlightenpassword, "enlighten");
   console.log("bytes", bytes);
   console.log(`user name ${req.body.enlightenusername}`);
@@ -426,31 +458,32 @@ async function authenticationOAuth() {
   }
   return oauth;
 }
-razorPayCreateOrderId = async function (req, res) { 
-  console.log('initating razor pay')
-  var body = req.body
+razorPayCreateOrderId = async function (req, res) {
+  console.log("initating razor pay");
+  var body = req.body;
   var instance = new Razorpay({
-    key_id: 'rzp_test_OwiTuxcL7pfjE3',
-    key_secret: '6pfUJeDBFlj64Nr8SsY90hA3'
-  })
+    key_id: "rzp_test_OwiTuxcL7pfjE3",
+    key_secret: "6pfUJeDBFlj64Nr8SsY90hA3",
+  });
 
-  console.log('creating the order')
+  console.log("creating the order");
 
   instance.orders.create(body, function (err, order) {
     if (err) {
-      console.log('error in creating the payment');
-      console.log(err)
+      console.log("error in creating the payment");
+      console.log(err);
       return res.status(500).send({
-        message: err.message
+        message: err.message,
       });
     }
     order.key_id = instance.key_id;
-    res.send(order)
+    res.send(order);
     return;
   });
-}
+};
 module.exports = {
   getCategories,
+  getAllDataFromLocal,
   getProducts,
   enlightenOAuthLogin,
   getProductByURLKey,
@@ -461,5 +494,5 @@ module.exports = {
   createOrder,
   getAllData,
   getSavedShippingAddress,
-  razorPayCreateOrderId
+  razorPayCreateOrderId,
 };

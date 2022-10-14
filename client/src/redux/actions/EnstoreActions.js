@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import instance from "../../utils/axiosconfig";
 export const SPINNER = "SPINNER";
 export const POST_STORE_LOGIN = "STORE_LOGIN";
 export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
 export const ALL_DATA = "ALL_DATA";
+export const ALL_LOCAL_DATA = "ALL_LOCAL_DATA";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
@@ -15,6 +15,7 @@ export const SHIIPING_ADDRESS = "SHIIPING_ADDRESS";
 export const POST_ORDER_DATA = "ORDER_DATA";
 export const CLEAR_CART_ORDER_DATA = "CLEAR_CART_ORDER_DATA";
 export const CLEAR_CART_ITEM = "CLEAR_CART_ITEM";
+export const CREATE_ORDER = "CREATE_ORDER"
 
 export const setSpinner = (spinnerset) => async (dispatch) => {
   console.log(spinnerset, "spinnerset");
@@ -93,6 +94,23 @@ export const getAllData = () => async (dispatch) => {
       console.log(err);
       dispatch({
         type: ALL_DATA,
+        payload: err.res.data,
+      });
+    });
+};
+export const getAllLocalData = () => async (dispatch) => {
+  await instance
+    .get("/allLocalData")
+    .then((res) => {
+      dispatch({
+        type: ALL_LOCAL_DATA,
+        payload: res.data,
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: ALL_LOCAL_DATA,
         payload: err.res.data,
       });
     });
@@ -194,6 +212,23 @@ export const addCartFinalCheckOut = (datas) => async (dispatch) => {
       localStorage.setItem("cartData", JSON.stringify(response.data));
       dispatch({
         type: POST_Final_Checkout,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+export const createOrder = (datas) => async (dispatch) => {
+  await instance
+    .post("/createOrder", datas)
+    .then((response) => {
+      console.log("response", response.data);
+      console.log("order Id", response.data.increment_id);
+      localStorage.removeItem("cartData");
+      localStorage.removeItem("cartProducts");
+      dispatch({
+        type: CREATE_ORDER,
         payload: response.data,
       });
     })

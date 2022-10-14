@@ -4,21 +4,32 @@ import CardModel from "./card/CardModel";
 import Spinner from "../../Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllData } from "../../redux/actions/EnstoreActions";
+import { getAllData, getAllLocalData } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function CardGrid() {
   const classes = useStyledComponent();
-  const { allData } = useSelector((state) => state.store);
-  const categories = allData?.selected_categories;
+  const { allData,allLocalData } = useSelector((state) => state.store);
+  console.log(allLocalData,"allLocalData");
+  const categories = allLocalData === undefined ?  allData?.selected_categories :  allLocalData?.selected_categories
   const dispatch = useDispatch();
-  const productsReturn = allData?.productsToReturn?.map((item) => item.items);
+  const productsReturn = allLocalData === undefined ? allData?.productsToReturn?.map((item) => item.items):  allLocalData?.productsToReturn?.map((item) => item.items);
  
   useEffect(() => {
-    dispatch(getAllData());
+    if(allLocalData === undefined){
+      dispatch(getAllData());
+    }
+    setInterval(()=>{
+      dispatch(getAllLocalData())
+    },120000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(()=>{
+      setInterval(()=>{
+        dispatch(getAllData());
+      },100000)
+  },[allData])
   // if (categories === undefined) {
   //   return <Spinner />;
   // }

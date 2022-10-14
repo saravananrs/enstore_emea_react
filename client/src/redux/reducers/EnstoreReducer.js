@@ -13,6 +13,8 @@ import {
   ALL_DATA,
   POST_STORE_LOGIN,
   SHIIPING_ADDRESS,
+  ALL_LOCAL_DATA,
+  CREATE_ORDER,
 } from "../actions/EnstoreActions";
 const initialState = {
   isLoading: true,
@@ -25,9 +27,11 @@ const initialState = {
   quoteId: localStorage.getItem("tokenKey"),
   checkout: [],
   allData: [],
+  allLocalData: [],
   categoryData: [],
   productData: [],
   savedAddress: [],
+  createOrderData:null,
   singleProduct: null,
   orderData: {
     delivery: 0,
@@ -52,6 +56,12 @@ const EnstoreReducer = function (state = initialState, action) {
       return {
         ...state,
         loginData: [],
+      };
+    }
+    case ALL_LOCAL_DATA: {
+      return {
+        ...state,
+        allLocalData: action.payload,
       };
     }
     case ALL_DATA: {
@@ -156,6 +166,12 @@ const EnstoreReducer = function (state = initialState, action) {
         cartData: state.cartData.filter(
           (item) => item.id !== action.payload.id
         ),
+      };
+    }
+    case CREATE_ORDER:{
+      return {
+        ...state,
+        createOrderData: action.payload,
       };
     }
     default: {
