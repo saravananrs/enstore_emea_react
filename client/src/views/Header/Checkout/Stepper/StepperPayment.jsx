@@ -77,90 +77,90 @@ export default function StepperPayment(props) {
   console.log("razorpayOrderIdResponse", razorpayOrderIdResponse);
   const handleSubmit = () => {
     console.log("enter submit");
-    // setIsLoading(true);
-    // var options = {
-    //   key: razorpayOrderIdResponse.key_id, // Enter the Key ID generated from the Dashboard
-    //   amount: razorpayOrderIdResponse.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    //   currency: razorpayOrderIdResponse.currency,
-    //   name: "Enstore",
-    //   description: "Enstore order",
-    //   //"image": "https://example.com/your_logo",
-    //   order_id: razorpayOrderIdResponse.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //   handler: async function (response) {
-    //     // redirect to status page
-    //     console.log(response);
-    //     const quoteId = localStorage.getItem("tokenKey");
+    setIsLoading(true);
+    var options = {
+      key: razorpayOrderIdResponse.key_id, // Enter the Key ID generated from the Dashboard
+      amount: razorpayOrderIdResponse.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: razorpayOrderIdResponse.currency,
+      name: "Enstore",
+      description: "Enstore order",
+      //"image": "https://example.com/your_logo",
+      order_id: razorpayOrderIdResponse.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      handler: async function (response) {
+        // redirect to status page
+        console.log(response);
+        const quoteId = localStorage.getItem("tokenKey");
 
-    //     const reqBody = {
-    //       cartId: quoteId,
-    //       billingAddress: {
-    //         countryId: "IN",
-    //         regionId: "563",
-    //         regionCode: "TN",
-    //         region: "Tamil Nadu",
-    //         street: [register.address],
-    //         company: "",
-    //         telephone: register.phone,
-    //         postcode: register.postal,
-    //         city: register.city,
-    //         firstname: register.fname,
-    //         lastname: register.lname,
-    //         saveInAddressBook: null,
-    //       },
-    //       paymentMethod: {
-    //         method: "razorpay",
-    //         additional_data: {
-    //           rzp_payment_id: response.razorpay_payment_id,
-    //           order_id: response.razorpay_order_id,
-    //           rzp_signature: response.razorpay_signature,
-    //         },
-    //         extension_attributes: {
-    //           agreement_ids: ["20"],
-    //         },
-    //       },
-    //       email: register.email,
-    //       data: quoteId,
-    //     };
-    //     await instance
-    //       .post("/createOrder", reqBody)
-    //       .then((response) => {
-    //         console.log("response", response.data);
-    //         console.log("order Id", response.data.increment_id);
-    //         handleClose();
-    //         localStorage.removeItem("cartData");
-    //         dispatch(clearCartAndOrderData());
-    //         handleCloseMenu();
-    //         navigate("/success", { state: { order: response.data } });
-    //         localStorage.removeItem("cartProducts");
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   },
-    //   prefill: {
-    //     name: register.fname + "" + register.lname,
-    //     email: register.email,
-    //     contact: register.phone,
-    //   },
-    //   notes: {
-    //     address: "Razorpay Corporate Office",
-    //   },
-    //   theme: {
-    //     color: "#3399cc",
-    //   },
-    // };
-    // console.log("enter submit 1");
+        const reqBody = {
+          cartId: quoteId,
+          billingAddress: {
+            countryId: "IN",
+            regionId: "563",
+            regionCode: "TN",
+            region: "Tamil Nadu",
+            street: [register.address],
+            company: "",
+            telephone: register.phone,
+            postcode: register.postal,
+            city: register.city,
+            firstname: register.fname,
+            lastname: register.lname,
+            saveInAddressBook: null,
+          },
+          paymentMethod: {
+            method: "razorpay",
+            additional_data: {
+              rzp_payment_id: response.razorpay_payment_id,
+              order_id: response.razorpay_order_id,
+              rzp_signature: response.razorpay_signature,
+            },
+            extension_attributes: {
+              agreement_ids: ["20"],
+            },
+          },
+          email: register.email,
+          data: quoteId,
+        };
+        await instance
+          .post("/createOrder", reqBody)
+          .then((response) => {
+            console.log("response", response.data);
+            console.log("order Id", response.data.increment_id);
+            handleClose();
+            localStorage.removeItem("cartData");
+            dispatch(clearCartAndOrderData());
+            handleCloseMenu();
+            navigate("/success", { state: { order: response.data } });
+            localStorage.removeItem("cartProducts");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+      prefill: {
+        name: register.fname + "" + register.lname,
+        email: register.email,
+        contact: register.phone,
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    console.log("enter submit 1");
 
-    // $.getScript("https://checkout.razorpay.com/v1/checkout.js", function () {
-    //   console.log("enter submit 2");
+    $.getScript("https://checkout.razorpay.com/v1/checkout.js", function () {
+      console.log("enter submit 2");
 
-    //   var rzp1 = new Razorpay(options);
-    //   rzp1.on("payment.failed", function (response) {
-    //     console.log("failed response");
-    //     console.log(response);
-    //   });
-    //   rzp1.open();
-    // });
+      var rzp1 = new Razorpay(options);
+      rzp1.on("payment.failed", function (response) {
+        console.log("failed response");
+        console.log(response);
+      });
+      rzp1.open();
+    });
   };
   return (
     <Box className={classes.PaymentContainer}>
