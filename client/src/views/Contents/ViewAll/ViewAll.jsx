@@ -7,7 +7,10 @@ import cart from "../../../Assets/Header/spritemap.svg";
 import { useEffect } from "react";
 import ViewAllCategory from "./ViewAllCategory";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllData } from "../../../redux/actions/EnstoreActions";
+import {
+  getAllData,
+  getAllLocalData,
+} from "../../../redux/actions/EnstoreActions";
 import ViewAllMobile from "./ViewAllMobile";
 
 const useStyles = makeStyles(() => ({
@@ -67,7 +70,7 @@ const useStyles = makeStyles(() => ({
   },
   viewAllItemHeader: {
     fontSize: "2rem !important",
-    marginBottom:"20px !important",
+    marginBottom: "20px !important",
     fontWeight: "normal !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
@@ -90,11 +93,17 @@ const useStyles = makeStyles(() => ({
 export default function ViewAll() {
   const { state } = useLocation();
   const { item, category } = state;
-  const { allData } = useSelector((state) => state.store);
+  const { allData, allLocalData } = useSelector((state) => state.store);
   const dispatch = useDispatch();
-  const productsReturn = allData?.productsToReturn?.map((item) => item.items);
+  const productsReturn =
+    allLocalData === undefined
+      ? allData?.productsToReturn?.map((item) => item.items)
+      : allLocalData?.productsToReturn?.map((item) => item.items);
   useEffect(() => {
-    dispatch(getAllData());
+    if (allLocalData === undefined) {
+      dispatch(getAllData());
+    }
+    dispatch(getAllLocalData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const classes = useStyles();
@@ -127,12 +136,20 @@ export default function ViewAll() {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           className={classes.viewAllCardContainer}
         >
-          <Grid item sx={{ display: { xs: "none", sm: "none", md: "flex" } }} md={2.5}>
+          <Grid
+            item
+            sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
+            md={2.5}
+          >
             <ViewAllCategory />
           </Grid>
           <Grid item xs={12} md={9.5}>
             <ViewAllMobile category={category} />
-            <Typography sx={{ display: { xs: "none", sm: "none", md: "flex" } }} variant="h4" className={classes.viewAllItemHeader}>
+            <Typography
+              sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
+              variant="h4"
+              className={classes.viewAllItemHeader}
+            >
               {category.name}
             </Typography>
             {productsReturn?.map((product, proIndex) => {

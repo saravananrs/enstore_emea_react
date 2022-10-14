@@ -38,8 +38,9 @@ const Content = () => {
     dispatch(getAllLocalData())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
   const categories = allLocalData === undefined ?  allData?.selected_categories :  allLocalData?.selected_categories
-  console.log(categories,"categoriescategories");
   if (categories === undefined ) {
     return (
       <Box className={classes.spinnerBox}>

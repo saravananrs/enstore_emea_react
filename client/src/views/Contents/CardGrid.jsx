@@ -1,35 +1,42 @@
 import { Grid, Typography, Box } from "@mui/material";
 import React from "react";
 import CardModel from "./card/CardModel";
-import Spinner from "../../Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllData, getAllLocalData } from "../../redux/actions/EnstoreActions";
+import {
+  getAllData,
+  getAllLocalData,
+} from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function CardGrid() {
   const classes = useStyledComponent();
-  const { allData,allLocalData } = useSelector((state) => state.store);
-  console.log(allLocalData,"allLocalData");
-  const categories = allLocalData === undefined ?  allData?.selected_categories :  allLocalData?.selected_categories
+  const { allData, allLocalData } = useSelector((state) => state.store);
+  const categories =
+    allLocalData === undefined
+      ? allData?.selected_categories
+      : allLocalData?.selected_categories;
   const dispatch = useDispatch();
-  const productsReturn = allLocalData === undefined ? allData?.productsToReturn?.map((item) => item.items):  allLocalData?.productsToReturn?.map((item) => item.items);
- 
+  const productsReturn =
+    allLocalData === undefined
+      ? allData?.productsToReturn?.map((item) => item.items)
+      : allLocalData?.productsToReturn?.map((item) => item.items);
+
   useEffect(() => {
-    if(allLocalData === undefined){
+    if (allLocalData === undefined) {
       dispatch(getAllData());
     }
-    setInterval(()=>{
-      dispatch(getAllLocalData())
-    },120000)
+    setInterval(() => {
+      dispatch(getAllLocalData());
+    }, 360000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(()=>{
-      setInterval(()=>{
-        dispatch(getAllData());
-      },100000)
-  },[allData])
+  useEffect(() => {
+    setInterval(() => {
+      dispatch(getAllData());
+    }, 300000);
+  }, [allData]);
   // if (categories === undefined) {
   //   return <Spinner />;
   // }
@@ -51,13 +58,17 @@ export default function CardGrid() {
               </Box>
             </Grid>
             {productsReturn?.map((pdcts, proindex) => {
-                return (
-                  index === proindex && (
-                    <Grid container className={classes.cardContainer}>
-                      <CardModel items={pdcts} category={pName} categoryIndex={index}/>
-                    </Grid>
-                  )
-                );
+              return (
+                index === proindex && (
+                  <Grid container className={classes.cardContainer}>
+                    <CardModel
+                      items={pdcts}
+                      category={pName}
+                      categoryIndex={index}
+                    />
+                  </Grid>
+                )
+              );
             })}
           </>
         );

@@ -94,7 +94,7 @@ export const useStyledComponent = makeStyles(() => ({
       right: "10%",
       bottom: "15%",
     },
-    "@media screen and (min-width: 501px) and (max-width: 800px)": {
+    "@media screen and (min-width: 501px) and (max-width: 1023px)": {
       right: "5%",
       bottom: "26%",
     },
@@ -231,7 +231,7 @@ export const useStyledComponent = makeStyles(() => ({
       "@media screen and (min-width: 325px) and (max-width: 475px)":{
         marginLeft:"80px !important",
       },
-      "@media screen and (min-width: 476px) and (max-width: 800px)":{
+      "@media screen and (min-width: 476px) and (max-width: 1023px)":{
         marginLeft:"390px !important",
       },
   },
@@ -486,6 +486,10 @@ learnbtn: {
     padding: "4px 15px 0 15px !important",
     height: "30px",
   },
+  "@media screen and (min-width: 880px) and (max-width: 996px)": {
+    fontSize: "12px !important",
+    padding: "4px 16px 0 12px !important",
+  }
 },
 addbtn: {
   border: "1px solid #3c3c3c  !important",
@@ -502,6 +506,10 @@ addbtn: {
     padding: "4px 15px 0 15px !important",
     height: "30px",
   },
+  "@media screen and (min-width: 880px) and (max-width: 996px)": {
+    fontSize: "12px !important",
+    padding: "4px 16px 0 12px !important",
+  }
 },
 buttonContainer: {
   fontSize: "0.875rem  !important",

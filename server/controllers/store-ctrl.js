@@ -36,7 +36,6 @@ const Razorpay = require("razorpay"),
       });
   };
 getAllData = async (req, res) => {
-  console.log("hiiii");
   var productsToReturn = [];
 
   await axios
@@ -106,7 +105,6 @@ getAllDataFromLocal = async (req, res) => {
 
   function processFile(content) {
     const allLocData = JSON.parse(content);
-    console.log(allLocData, "allLocData");
     res.send(allLocData);
   }
 };

@@ -53,27 +53,13 @@ const useStyles = makeStyles(() => ({
 export default function LearnMore() {
   let { urlKey } = useParams();
   const {singleProduct} = useSelector((state)=> state.store)
-  const{isLoading} = useSelector((state)=> state.store )
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getSingleProduct(urlKey))
     window.scrollTo(0,0)
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   const classes = useStyledComponent();
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8000/api/productsByURLKey`, {
-  //       params: { id: urlKey },
-  //     })
-  //     .then((res) => {
-  //       setProduct(res.data[0]);
-  //       setIsLoadings(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //     window.scrollTo(0,0)
-  // }, []);
   if (singleProduct === null) {
     return <Spinner />;
   }
