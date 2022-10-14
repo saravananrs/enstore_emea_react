@@ -1,20 +1,35 @@
 import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Checkbox, InputLabel } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../../Contents/stripe/CheckoutForm";
-import {makeStyles} from "@material-ui/styles"
-import $ from 'jquery'; 
+import { makeStyles } from "@material-ui/styles";
+import $ from "jquery";
 import instance from "../../../../utils/axiosconfig";
 import { clearCartAndOrderData } from "../../../../redux/actions/EnstoreActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const useStyles = makeStyles(()=>({
+const useStyles = makeStyles(() => ({
   PaymentContainer: {
     padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
     position: "relative",
     width: "100%",
+  },
+  TermsandCondition:{
+    color: '#333',
+    fontFamily: 'Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: '1.42857143',
+    fontSize: '14px',
+  },
+  reqField:{
+    fontFamily: 'Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif',
+    fontStyle: 'normal',
+    fontSize: '12px',
+    color :"red",
   },
   continuebtn: {
     margin: "calc(3 * 8px) 0 calc(2 * 8px) !important",
@@ -31,25 +46,34 @@ const useStyles = makeStyles(()=>({
     position: "relative !important",
     width: "100% !important",
   },
-}))
+  checkBox: {
+    padding: "0 !important",
+    // "& .css-i4bv87-MuiSvgIcon-root":{
+    //     color:"#0075FF !important"  
+    // },
+  },
+}));
 export default function StepperPayment(props) {
-  const classes = useStyles()
+  const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { register, handleClose ,handleCloseMenu, razorpayOrderIdResponse} = props;
+  const [terms ,setTerms] =  useState(false)
+  const [condition, setCondition] =  useState(false)
+  const { register, handleClose, handleCloseMenu, razorpayOrderIdResponse } =
+    props;
   const stripePromise = loadStripe("pk_test_6BLf1Fr5B4QZi5O0qo91H6u9");
-  console.log('razorpayOrderIdResponse', razorpayOrderIdResponse)
+  console.log("razorpayOrderIdResponse", razorpayOrderIdResponse);
   const handleSubmit = () => {
-    console.log("enter submit")
+    console.log("enter submit");
     var options = {
-      "key": razorpayOrderIdResponse.key_id, // Enter the Key ID generated from the Dashboard
-      "amount": razorpayOrderIdResponse.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      "currency": razorpayOrderIdResponse.currency,
-      "name": "Enstore",
-      "description": "Enstore order",
+      key: razorpayOrderIdResponse.key_id, // Enter the Key ID generated from the Dashboard
+      amount: razorpayOrderIdResponse.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: razorpayOrderIdResponse.currency,
+      name: "Enstore",
+      description: "Enstore order",
       //"image": "https://example.com/your_logo",
-      "order_id": razorpayOrderIdResponse.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      "handler": async function (response) {
+      order_id: razorpayOrderIdResponse.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      handler: async function (response) {
         // redirect to status page
         console.log(response);
         const quoteId = localStorage.getItem("tokenKey");
@@ -72,10 +96,10 @@ export default function StepperPayment(props) {
           },
           paymentMethod: {
             method: "razorpay",
-            additional_data:{
-              rzp_payment_id: response.razorpay_payment_id, 
-              order_id: response.razorpay_order_id, 
-              rzp_signature: response.razorpay_signature
+            additional_data: {
+              rzp_payment_id: response.razorpay_payment_id,
+              order_id: response.razorpay_order_id,
+              rzp_signature: response.razorpay_signature,
             },
             extension_attributes: {
               agreement_ids: ["20"],
@@ -92,42 +116,65 @@ export default function StepperPayment(props) {
             handleClose();
             localStorage.removeItem("cartData");
             dispatch(clearCartAndOrderData());
-            handleCloseMenu()
+            handleCloseMenu();
             navigate("/success", { state: { order: response.data } });
+            localStorage.removeItem("cartProducts");
           })
           .catch((error) => {
             console.log(error);
           });
       },
-      "prefill": {
-        "name": register.fname + "" + register.lname,
-        "email": register.email,
-        "contact": register.phone
+      prefill: {
+        name: register.fname + "" + register.lname,
+        email: register.email,
+        contact: register.phone,
       },
-      "notes": {
-        "address": "Razorpay Corporate Office"
+      notes: {
+        address: "Razorpay Corporate Office",
       },
-      "theme": {
-        "color": "#3399cc"
-      }
+      theme: {
+        color: "#3399cc",
+      },
     };
-    console.log("enter submit 1")
+    console.log("enter submit 1");
 
-    $.getScript('https://checkout.razorpay.com/v1/checkout.js', function () {
-    console.log("enter submit 2")
+    $.getScript("https://checkout.razorpay.com/v1/checkout.js", function () {
+      console.log("enter submit 2");
 
       var rzp1 = new Razorpay(options);
-      rzp1.on('payment.failed', function (response){
-        console.log('failed response');
-        console.log(response)
-    });
+      rzp1.on("payment.failed", function (response) {
+        console.log("failed response");
+        console.log(response);
+      });
       rzp1.open();
-
     });
-  }
+  };
   return (
-  <Box className={classes.PaymentContainer}>
-      <Button className={classes.continuebtn} onClick={handleSubmit} variant="contained">Pay With Razorpay</Button>
+    <Box className={classes.PaymentContainer}>
+      <Box className={classes.TermsandCondition} sx={{marginBottom:"20px"}}>
+        All payments made on the Enphase Store are enabled by our Payments
+        partner Razorpay. Any payments you make may be subject to Razorpay's
+        terms and conditions as well (available here), to the extent applicable.
+      </Box>
+      <Box className={classes.TermsandCondition}>
+        <Checkbox color="primary" className={classes.checkBox} onClick={()=> setTerms(!terms)}/>I have read Enphase’s <span style={{color:"blue"}}>Privacy
+        Policy</span> and agree to provide my information, and I agree to Enphase’s
+        <span style={{color:"blue"}}> terms and conditions</span> of sale.
+      </Box>
+      {condition && !terms && <Box className={classes.reqField}>This field is required*</Box>}
+     {terms ? <Button
+        className={classes.continuebtn}
+        onClick={handleSubmit}
+        variant="contained"
+      >
+        Pay With Razorpay
+      </Button> : <Button
+        className={classes.continuebtn}
+        onClick={()=>setCondition(true)}
+        variant="contained"
+      >
+        Pay With Razorpay
+      </Button> } 
       {/* <Elements stripe={stripePromise}>
       <CheckoutForm
        indAddress={indAddress}

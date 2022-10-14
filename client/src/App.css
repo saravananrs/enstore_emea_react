@@ -131,7 +131,9 @@ body,
 /* .inputBox:not(:placeholder-shown)~ .floatlabel{
   opacity: 1;
 } */
-
+.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate{
+  color:#0075FF !important  ;
+}
 /* Stepper */
 
 .css-j5w0w9-MuiStepConnector-root {
