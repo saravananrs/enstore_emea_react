@@ -107,18 +107,9 @@ export default function StepperPayment(props) {
               indAddress && indAddress !== undefined
                 ? indAddress[0]?.country_id
                 : register.country,
-            regionId:
-              indAddress && indAddress !== undefined
-                ? indAddress[0]?.region.region_id
-                : regGuest[0].region_id,
-            regionCode:
-              indAddress && indAddress !== undefined
-                ? indAddress[0]?.region.region_code
-                : regGuest[0].code,
-            region:
-              indAddress && indAddress !== undefined
-                ? indAddress[0]?.region.region
-                : register.province,
+            regionId: regGuest[0].region_id,
+            regionCode: regGuest[0].code,
+            region: register.province,
             street: [register.address],
             company: "",
             telephone: register.phone,

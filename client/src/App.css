@@ -69,7 +69,7 @@ body,
 /* cartdropdown */
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
   overflow-y: auto !important;
-  height: 490px;
+  /* height: 490px; */
 }
 
 /* Tooltip */
