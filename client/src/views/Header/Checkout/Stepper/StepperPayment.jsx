@@ -1,8 +1,8 @@
 import React from "react";
-import { Elements } from "@stripe/react-stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
 import { Box, Button, Checkbox } from "@mui/material";
-import { loadStripe } from "@stripe/stripe-js";
-import CheckoutForm from "../../../Contents/stripe/CheckoutForm";
+// import { loadStripe } from "@stripe/stripe-js";
+// import CheckoutForm from "../../../Contents/stripe/CheckoutForm";
 import { makeStyles } from "@material-ui/styles";
 import $ from "jquery";
 import instance from "../../../../utils/axiosconfig";
@@ -10,7 +10,7 @@ import { clearCartAndOrderData } from "../../../../redux/actions/EnstoreActions"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+// import CircularProgress from "@mui/material/CircularProgress";
 const useStyles = makeStyles(() => ({
   spinnerBox: {
     width: "100%",
@@ -30,14 +30,14 @@ const useStyles = makeStyles(() => ({
   },
   TermsandCondition: {
     color: "#333",
-    fontFamily: "Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontStyle: "normal",
     fontWeight: "400",
     lineHeight: "1.42857143",
     fontSize: "14px",
   },
   reqField: {
-    fontFamily: "Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontStyle: "normal",
     fontSize: "12px",
     color: "red",
@@ -71,10 +71,19 @@ export default function StepperPayment(props) {
   const navigate = useNavigate();
   const [terms, setTerms] = useState(false);
   const [condition, setCondition] = useState(false);
-  const { register, handleClose, handleCloseMenu, razorpayOrderIdResponse } =
-    props;
-  const stripePromise = loadStripe("pk_test_6BLf1Fr5B4QZi5O0qo91H6u9");
+  const {
+    register,
+    handleClose,
+    handleCloseMenu,
+    razorpayOrderIdResponse,
+    indAddress,
+    filteredIndReg,
+  } = props;
+  // const stripePromise = loadStripe("pk_test_6BLf1Fr5B4QZi5O0qo91H6u9");
   console.log("razorpayOrderIdResponse", razorpayOrderIdResponse);
+  const regGuest = filteredIndReg.filter(
+    (reg) => reg.default_name === register.province
+  );
   const handleSubmit = () => {
     console.log("enter submit");
     setIsLoading(true);
@@ -94,15 +103,33 @@ export default function StepperPayment(props) {
         const reqBody = {
           cartId: quoteId,
           billingAddress: {
-            countryId: "IN",
-            regionId: "563",
-            regionCode: "TN",
-            region: "Tamil Nadu",
+            countryId:
+              indAddress && indAddress !== undefined
+                ? indAddress[0]?.country_id
+                : register.country,
+            regionId:
+              indAddress && indAddress !== undefined
+                ? indAddress[0]?.region.region_id
+                : regGuest[0].region_id,
+            regionCode:
+              indAddress && indAddress !== undefined
+                ? indAddress[0]?.region.region_code
+                : regGuest[0].code,
+            region:
+              indAddress && indAddress !== undefined
+                ? indAddress[0]?.region.region
+                : register.province,
             street: [register.address],
             company: "",
             telephone: register.phone,
-            postcode: register.postal,
-            city: register.city,
+            postcode:
+              indAddress && indAddress !== undefined
+                ? indAddress[0]?.postcode
+                : register.postal,
+            city:
+              indAddress && indAddress !== undefined
+                ? indAddress[0]?.city
+                : register.city,
             firstname: register.fname,
             lastname: register.lname,
             saveInAddressBook: null,

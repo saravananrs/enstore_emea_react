@@ -18,7 +18,6 @@ export const CLEAR_CART_ITEM = "CLEAR_CART_ITEM";
 export const CREATE_ORDER = "CREATE_ORDER"
 
 export const setSpinner = (spinnerset) => async (dispatch) => {
-  console.log(spinnerset, "spinnerset");
   dispatch({
     type: SPINNER,
     payload: spinnerset,

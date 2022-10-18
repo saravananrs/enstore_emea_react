@@ -11,7 +11,6 @@ import {
 import instance from "../../../../utils/axiosconfig";
 import { makeStyles } from "@material-ui/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
-import useStepper from "./useStepper.hook";
 import { orderData } from "../../../../redux/actions/EnstoreActions";
 import { useDispatch } from "react-redux";
 const useStyles = makeStyles(() => ({
@@ -93,19 +92,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function StepperDelivery(props) {
-  const { setActiveStep, activeStep, shippingMethod, register, indAddress, setRazorpayOrderIdResponse } = props;
-  console.log(shippingMethod,"shippingMethod");
+  const { setActiveStep, activeStep, shippingMethod, register, indAddress, setRazorpayOrderIdResponse ,filteredIndReg} = props;
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(
     shippingMethod[0]
   );
-  const storeSignIn = localStorage.getItem("storeSignIn");
-  const registeData = JSON.parse(storeSignIn);
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  const regGuest = filteredIndReg.filter((reg)=>reg.default_name === register.province)
   const handleShipmentClick = async () => {
     setToggle(false);
     const quoteId = localStorage.getItem("tokenKey");
@@ -113,8 +110,8 @@ export default function StepperDelivery(props) {
     const reqBody = {
       addressInformation: {
         shipping_address: {
-          region: "Tamil Nadu",
-          region_id: "563",
+          region: indAddress && indAddress !== undefined ? indAddress[0]?.region.region : register.province,
+          region_id:indAddress && indAddress !== undefined ? indAddress[0]?.region.region_id : regGuest[0].region_id,
           country_id:
             indAddress && indAddress !== undefined
               ? indAddress[0]?.country_id
@@ -128,24 +125,15 @@ export default function StepperDelivery(props) {
             indAddress && indAddress !== undefined
               ? indAddress[0]?.city
               : register.city,
-          firstname:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.firstname
-              : register.fname,
-          lastname:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.lastname
-              : register.lname,
+          firstname: register.fname,
+          lastname: register.lname,
           customer_id: null,
-          email: registeData?.email ? registeData?.email : register.email,
-          telephone:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.telephone
-              : register.phone,
+          email:  register.email,
+          telephone:register.phone,
         },
         billing_address: {
-          region: "Tamil Nadu",
-          region_id: "563",
+          region: indAddress && indAddress !== undefined ? indAddress[0]?.region.region :"Tamil Nadu",
+        region_id:indAddress && indAddress !== undefined ? indAddress[0]?.region.region_id : "563",
           country_id:
             indAddress && indAddress !== undefined
               ? indAddress[0]?.country_id
@@ -159,20 +147,11 @@ export default function StepperDelivery(props) {
             indAddress && indAddress !== undefined
               ? indAddress[0]?.city
               : register.city,
-          firstname:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.firstname
-              : register.fname,
-          lastname:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.lastname
-              : register.lname,
+          firstname: register.fname,
+          lastname: register.lname,
           customer_id: null,
-          email: registeData?.email ? registeData?.email : register.email,
-          telephone:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.telephone
-              : register.phone,
+          email: register.email,
+          telephone:register.phone,
         },
         shipping_carrier_code: selectedShippingMethod.carrier_code,
         shipping_method_code: selectedShippingMethod.method_code,

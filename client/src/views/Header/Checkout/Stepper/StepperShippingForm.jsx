@@ -1,4 +1,6 @@
 import {
+  Autocomplete,
+  createFilterOptions,
   FormControl,
   Grid,
   InputLabel,
@@ -10,6 +12,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { Box } from "@mui/system";
 
 const TextField = styled(TextValidator)(() => ({
   width: "100%",
@@ -48,33 +51,62 @@ const useStyles = makeStyles(() => ({
     },
   },
   selectLabel: {
-    "& .css-q0aqjl-MuiFormLabel-root-MuiInputLabel-root": {
+    "& .css-1i705n7-MuiFormLabel-root-MuiInputLabel-root": {
       fontSize: "14px !important",
-      top: "6px !important",
+      top: "3px !important",
     },
   },
-  selectBox: {
-    marginTop: "3px",
-    "& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon": {
-      display: "none !important",
-    },
-    " & .css-bpeome-MuiSvgIcon-root-MuiSelect-icon": {
-      display: "none !important",
+  stateSelect: {
+    "& .css-6hp17o-MuiList-root-MuiMenu-list":{
+      height:"100px !important"
     },
     "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
       {
-        padding: "9.5px 14px !important",
+        padding: "12.5px 14px !important",
       },
+      "& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
+        height:'100px !important'
+      },
+  },
+
+  selectBox: {
+    marginTop: "3px",
+    "& .css-q0aqjl-MuiFormLabel-root-MuiInputLabel-root": {
+      fontSize: "14px !important",
+      top: "3px !important",
+      left: "-7px !important",
+    },
+    "& .css-i4bv87-MuiSvgIcon-root": {
+      display: "none !important",
+    },
+    " & .css-1q60rmi-MuiAutocomplete-endAdornment": {
+      display: "none !important",
+    },
+    "& .css-rmuk7y-MuiFormLabel-root-MuiInputLabel-root": {
+      fontSize: "14px !important",
+    },
+    "& .css-1aetoos-MuiInputBase-root-MuiOutlinedInput-root": {
+      padding: "6px 10px !important",
+    },
+    "& .css-wq0uzk-MuiFormControl-root-MuiTextField-root": {
+      marginBottom: "0 !important",
+    },
   },
 }));
 
 export default function StepperShippingForm(props) {
   const classes = useStyles();
+  const [value, setValue] = React.useState(null);
+  const filter = createFilterOptions();
   const [userError, setUserError] = useState("");
-  const [street, setStreet] = useState(false);
-  const { register, setRegister, indAddress } = props;
-  const storeSignIn = localStorage.getItem("storeSignIn");
-  const registeData = JSON.parse(storeSignIn);
+  const {
+    register,
+    setRegister,
+    indAddress,
+    setStreet,
+    street,
+    filteredIndReg,
+  } = props;
   const handleSubmit = (event) => {
     console.log(event);
   };
@@ -84,7 +116,10 @@ export default function StepperShippingForm(props) {
     const value = e.target.value;
     setRegister({ ...register, [name]: value });
   };
-
+  const onHandleStreetChange = (e, newValue) => {
+    e.preventDefault();
+    setRegister({ ...register, address: newValue.label });
+  };
   const onEnqFocusEvent = () => {
     setUserError("");
   };
@@ -104,7 +139,7 @@ export default function StepperShippingForm(props) {
       name: "email",
       type: "text",
       text: "E-Mail address",
-      value: registeData?.email ? registeData?.email : register.email,
+      value: register.email,
       validators: ["required", "isEmail"],
     },
     {
@@ -112,10 +147,7 @@ export default function StepperShippingForm(props) {
       name: "phone",
       type: "number",
       text: "Phone Number",
-      value:
-        indAddress && indAddress !== undefined
-          ? indAddress[0]?.telephone
-          : register.phone,
+      value: register.phone,
       validators: ["required"],
     },
     {
@@ -123,10 +155,7 @@ export default function StepperShippingForm(props) {
       name: "fname",
       type: "text",
       text: "First Name",
-      value:
-        indAddress && indAddress !== undefined
-          ? indAddress[0]?.firstname
-          : register.fname,
+      value: register.fname,
       validators: ["required"],
     },
     {
@@ -134,10 +163,7 @@ export default function StepperShippingForm(props) {
       name: "lname",
       type: "text",
       text: "Last Name",
-      value:
-        indAddress && indAddress !== undefined
-          ? indAddress[0]?.lastname
-          : register.lname,
+      value: register.lname,
       validators: ["required"],
     },
   ];
@@ -176,18 +202,28 @@ export default function StepperShippingForm(props) {
       validators: ["required"],
     },
   ];
-  const streetData =
-    indAddress &&
-    indAddress !== undefined &&
-    indAddress[0]?.street[0] +
-      "," +
-      indAddress[0]?.country_id +
-      "," +
-      indAddress[0]?.postcode +
-      "," +
-      indAddress[0]?.city;
+  const streetData = [
+    {
+      label: indAddress && indAddress !== undefined && indAddress[0]?.street[0],
+      country_id:
+        indAddress && indAddress !== undefined && indAddress[0]?.country_id,
+      postcode:
+        indAddress && indAddress !== undefined && indAddress[0]?.postcode,
+      city: indAddress && indAddress !== undefined && indAddress[0]?.city,
+    },
+  ];
+  // const streetData =
+  //   indAddress &&
+  //   indAddress !== undefined &&
+  //   indAddress[0]?.street[0] +
+  //     "," +
+  //     indAddress[0]?.country_id +
+  //     "," +
+  //     indAddress[0]?.postcode +
+  //     "," +
+  //     indAddress[0]?.city;
   return (
-    <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
+    <ValidatorForm onSubmit={handleSubmit} onError={() => null} id="shiipingFormValid">
       <Grid
         container
         rowSpacing={1}
@@ -215,29 +251,63 @@ export default function StepperShippingForm(props) {
         })}
         <Grid item xs={12} className={classes.inputData}>
           {indAddress && indAddress !== undefined ? (
-            <FormControl className={classes.selectLabel} fullWidth>
-              <InputLabel sx={{fontSize:"14px !important"}}>Street Address</InputLabel>
-              <Select
-                sx={{ width: "100%" }}
-                name="address"
+            <form onSubmit={handleSubmit}>
+              <Autocomplete
                 className={classes.selectBox}
-                placeholder="Street Address"
                 value={register.address}
-                onChange={onRegister}
+                onChange={(e, newValue) => {
+                  onHandleStreetChange(e, newValue);
+                }}
+                freeSolo
+                selectOnFocus
                 onFocus={onEnqFocusEvent}
-                label="Street Address"
-                onKeyDown={(event) => event.stopPropagation()}
-              >
-                <MenuItem
-                  value={indAddress[0]?.street[0]}
-                  onClick={() => setStreet(true)}
-                >
-                  {" "}
-                  {street ? indAddress[0]?.street[0] : streetData}
-                </MenuItem>
-                ;
-              </Select>
-            </FormControl>
+                filterOptions={(options, params) => {
+                  const filtered = filter(options, params);
+                  const { inputValue } = params;
+                  const isExisting = options.some(
+                    (option) => inputValue === option.label
+                  );
+                  if (inputValue !== "" && !isExisting) {
+                    filtered.push({
+                      inputValue,
+                      label: inputValue,
+                      country_id: options[0].country_id,
+                      postcode: options[0].postcode,
+                      city: options[0].city,
+                    });
+                  }
+
+                  return filtered;
+                }}
+                handleHomeEndKeys
+                options={streetData}
+                getOptionLabel={(option) => {
+                  if (typeof option === "string") {
+                    return option;
+                  }
+                  if (option.inputValue) {
+                    return option.inputValue;
+                  }
+                  return option.label;
+                }}
+                renderOption={(props, option) => (
+                  <div onClick={() => setStreet(true)}>
+                    <li {...props}>
+                      {option.label +
+                        "," +
+                        option.country_id +
+                        "," +
+                        option.postcode +
+                        "," +
+                        option.city}{" "}
+                    </li>
+                  </div>
+                )}
+                renderInput={(params) => (
+                  <TextField {...params} label="Street Address" />
+                )}
+              />
+            </form>
           ) : (
             <TextField
               type="text"
@@ -255,21 +325,31 @@ export default function StepperShippingForm(props) {
           )}
         </Grid>
         <Grid item xs={12} className={classes.inputData}>
-        <TextField
-              type="text"
-              name="state"
-              className={classes.inputBox}
-              // id={datas.id}
-              value={ indAddress && indAddress !== undefined 
-                ? indAddress[0]?.region.region
-                : register.provinve}
+          <FormControl className={classes.selectLabel} fullWidth>
+            <InputLabel sx={{ fontSize: "14px !important" }}>State</InputLabel>
+            <Select
+              sx={{ width: "100%" }}
+              name="province"
+              className={classes.stateSelect}
+              placeholder="State"
+              value={register.province}
               onChange={onRegister}
               onFocus={onEnqFocusEvent}
-              errorMessages={["this field is required"]}
               label="State"
               onKeyDown={(event) => event.stopPropagation()}
-              validators={["required"]}
-            />
+            >
+              {/* <Box sx={{height:"200px !important"}}> */}
+              {filteredIndReg.map((item) => (
+                <MenuItem
+                  value={item.default_name}
+                  className={classes.menuSelect}
+                >
+                  {item.default_name}
+                </MenuItem>
+              ))}
+              {/* </Box> */}
+            </Select>
+          </FormControl>
         </Grid>
         {finalInput.map((datas) => {
           return (

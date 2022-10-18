@@ -1,8 +1,12 @@
 import React from 'react'
+import instance from '../../../../utils/axiosconfig';
+
 const steps = ["Shipping", "Delivery", "Payment",];
+
 export default function useStepper() {
     const [activeSteps, setActiveSteps] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+  const [regiondata,setRegionData] = React.useState([])
   const totalSteps = () => {
     return steps.length;
   };
@@ -18,16 +22,6 @@ export default function useStepper() {
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
   };
-
-  // const handleNext = () => {
-  //   const newActiveStep =
-  //     isLastStep() && !allStepsCompleted()
-  //       ? // It's the last step, but not all steps have been completed,
-  //         // find the first step that has been completed
-  //         steps.findIndex((step, i) => !(i in completed))
-  //       : activeSteps + 1;
-  //   setActiveSteps(newActiveStep);
-  // };
   const [skipped, setSkipped] = React.useState(new Set());
 
   const isStepOptional = (step) => {
@@ -58,7 +52,20 @@ export default function useStepper() {
     setActiveSteps(step);
   };
 
-  
+  React.useEffect(()=>{
+      const fetchAllRegData = async() =>{
+          await instance.get('/allReg')
+          .then((res)=>{
+              setRegionData(res.data)
+          })
+          .catch((err)=>{
+              console.log(err);
+          })
+      }
+      fetchAllRegData()
+  },[])
+
+
   return{
     setActiveSteps,
     handleStep,
@@ -70,6 +77,7 @@ export default function useStepper() {
     isStepSkipped,
     isLastStep,
     isStepOptional,
+    regiondata,
     allStepsCompleted
   }
 }

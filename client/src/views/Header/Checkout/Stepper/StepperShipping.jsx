@@ -1,12 +1,10 @@
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import React from "react";
 import instance from "../../../../utils/axiosconfig";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
-import useStepper from "./useStepper.hook";
 import LoadingButton from "@mui/lab/LoadingButton";
-import axios from "axios";
 import StepperShippingForm from "./StepperShippingForm";
 const useStyles = makeStyles(() => ({
   shippingContainer: {
@@ -53,18 +51,20 @@ export default function StepperShipping(props) {
     handleClose,
     setRegister,
     indAddress,
+    setStreet,
+    street,
+    filteredIndReg
   } = props;
   const classes = useStyles();
   const [toggle, setToggle] = useState(true);
-  const storeSignIn = localStorage.getItem("storeSignIn");
-  const registeData = JSON.parse(storeSignIn);
+  const regGuest = filteredIndReg.filter((reg)=>reg.default_name === register.province)
   const handleShipmentClick = async () => {
     setToggle(false);
     const quoteId = localStorage.getItem("tokenKey");
     const reqBody = {
       address: {
-        region: "Tamil Nadu",
-        region_id: "563",
+        region: indAddress && indAddress !== undefined ? indAddress[0]?.region.region : register.province,
+        region_id:indAddress && indAddress !== undefined ? indAddress[0]?.region.region_id : regGuest[0].region_id,
         country_id:
           indAddress && indAddress !== undefined
             ? indAddress[0]?.country_id
@@ -78,20 +78,11 @@ export default function StepperShipping(props) {
           indAddress && indAddress !== undefined
             ? indAddress[0]?.city
             : register.city,
-        firstname:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.firstname
-            : register.fname,
-        lastname:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.lastname
-            : register.lname,
+        firstname: register.fname,
+        lastname: register.lname,
         customer_id: null,
-        email: registeData?.email ? registeData?.email : register.email,
-        telephone:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.telephone
-            : register.phone,
+        email: register.email,
+        telephone: register.phone,
         same_as_billing: 1,
       },
       data: quoteId,
@@ -114,6 +105,9 @@ export default function StepperShipping(props) {
     <Box className={classes.shippingContainer}>
       <StepperShippingForm
         register={register}
+        street={street}
+        filteredIndReg={filteredIndReg}
+        setStreet={setStreet}
         setRegister={setRegister}
         indAddress={indAddress}
       />

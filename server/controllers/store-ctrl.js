@@ -1,6 +1,7 @@
 const axios = require("axios");
+const serverInstance =  require("../config/axiosConfig")
 const fs = require("fs");
-// const a = require("../")
+// const t = require('../../')
 const request = require("request");
 const OAuth = require("oauth-1.0a");
 const crypto = require("crypto");
@@ -8,12 +9,13 @@ var CryptoJS = require("crypto-js");
 const SUCCESS_STATUS = "OK";
 const jwt = require("jwt-simple");
 const { config } = require("process");
+const serverBaseUrl = require("../config/serverConfig");
 const Razorpay = require("razorpay"),
   getCategories = async (req, res) => {
     console.log("hellow");
     var config = {
       method: "get",
-      url: "https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories",
+      url: `${serverBaseUrl}/rest/V1/categories`,
       headers: {
         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
       },
@@ -38,8 +40,8 @@ const Razorpay = require("razorpay"),
 getAllData = async (req, res) => {
   var productsToReturn = [];
 
-  await axios
-    .get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories`, {
+  await serverInstance
+    .get(`/rest/V1/categories`, {
       headers: {
         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
       },
@@ -57,9 +59,10 @@ getAllData = async (req, res) => {
 
       let requests = selected_categories.map((id) => {
         return new Promise((resolve, reject) => {
+          let url =  serverInstance()
           request(
             {
-              uri: `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+              uri: `${serverBaseUrl}/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
               method: "GET",
               headers: {
                 Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -99,7 +102,6 @@ getAllDataFromLocal = async (req, res) => {
       throw err;
     }
     const content = data;
-    console.log(content);
     processFile(content);
   });
 
@@ -110,9 +112,9 @@ getAllDataFromLocal = async (req, res) => {
 };
 
 getProducts = async (req, res) => {
-  await axios
+  await serverInstance
     .get(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+      `/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -129,9 +131,9 @@ getProducts = async (req, res) => {
     });
 };
 getProductByURLKey = async (req, res) => {
-  await axios
+  await serverInstance
     .get(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=url_key&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+      `/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=url_key&searchCriteria[filter_groups][0][filters][0][value]=${req.query.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -148,9 +150,9 @@ getProductByURLKey = async (req, res) => {
 };
 
 getQuoteId = async (req, res) => {
-  await axios
+  await serverInstance
     .post(
-      "https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/",
+      "/rest/V1/guest-carts/",
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -166,9 +168,9 @@ getQuoteId = async (req, res) => {
     });
 };
 getCartDetailByQuoteId = async (req, res) => {
-  await axios
+  await serverInstance
     .post(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/items`,
+      `/rest/V1/guest-carts/${req.body.data}/items`,
       req.body,
       {
         headers: {
@@ -184,9 +186,9 @@ getCartDetailByQuoteId = async (req, res) => {
     });
 };
 getShippingEstimation = async (req, res) => {
-  await axios
+  await serverInstance
     .post(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/estimate-shipping-methods`,
+      `/rest/V1/guest-carts/${req.body.data}/estimate-shipping-methods`,
       req.body,
       {
         headers: {
@@ -203,9 +205,9 @@ getShippingEstimation = async (req, res) => {
     });
 };
 getShippingInformation = async (req, res) => {
-  await axios
+  await serverInstance
     .post(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/shipping-information`,
+      `/rest/V1/guest-carts/${req.body.data}/shipping-information`,
       req.body,
       {
         headers: {
@@ -222,9 +224,9 @@ getShippingInformation = async (req, res) => {
     });
 };
 getSavedShippingAddress = async (req, res) => {
-  await axios
+  await serverInstance
     .get(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=${req.body.email}&searchCriteria[filterGroups][0][filters][0][condition_type]=eq`,
+      `/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=${req.body.email}&searchCriteria[filterGroups][0][filters][0][condition_type]=eq`,
       {
         headers: {
           Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -240,9 +242,9 @@ getSavedShippingAddress = async (req, res) => {
     });
 };
 createOrder = async (req, res) => {
-  await axios
+  await serverInstance
     .post(
-      `https://store-qa2.enphase.com/storefront/en-in/rest/V1/guest-carts/${req.body.data}/payment-information`,
+      `/rest/V1/guest-carts/${req.body.data}/payment-information`,
       req.body,
       {
         headers: {
@@ -251,9 +253,9 @@ createOrder = async (req, res) => {
       }
     )
     .then(async (response) => {
-      await axios
+      await serverInstance
         .get(
-          `https://store-qa2.enphase.com/storefront/en-in/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
+          `/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
           {
             headers: {
               Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
@@ -273,7 +275,7 @@ createOrder = async (req, res) => {
 };
 
 // getSandBoxCheckout = async (req, res) => {
-//   await axios
+//   await serverInstance
 //   .post(
 //     `https://api-sandbox.bolt.com/v2/checkout`,
 //     {
@@ -293,6 +295,21 @@ createOrder = async (req, res) => {
 //     console.log(req);
 //   });
 // };
+
+getAlRegionData = async (req, res) => {
+  fs.readFile("./region.json", function read(err, data) {
+    if (err) {
+      throw err;
+    }
+    const content = data;
+    processFile(content);
+  });
+
+  function processFile(content) {
+    const allRegData = JSON.parse(content);
+    res.send(allRegData);
+  }
+};
 enlightenOAuthLogin = async function (req, res) {
   console.log("enlighten login method start");
   console.log("enlighten login method start");
@@ -491,6 +508,7 @@ module.exports = {
   getShippingInformation,
   createOrder,
   getAllData,
+  getAlRegionData,
   getSavedShippingAddress,
   razorPayCreateOrderId,
 };
