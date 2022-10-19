@@ -6,10 +6,11 @@ import { Box, Button, Checkbox } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import $ from "jquery";
 import instance from "../../../../utils/axiosconfig";
-import { clearCartAndOrderData } from "../../../../redux/actions/EnstoreActions";
-import { useDispatch } from "react-redux";
+import { clearCartAndOrderData, orderData } from "../../../../redux/actions/EnstoreActions";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
 // import CircularProgress from "@mui/material/CircularProgress";
 const useStyles = makeStyles(() => ({
   spinnerBox: {
@@ -66,6 +67,7 @@ const useStyles = makeStyles(() => ({
 }));
 export default function StepperPayment(props) {
   const classes = useStyles();
+  const {  discountInfo } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -78,12 +80,105 @@ export default function StepperPayment(props) {
     razorpayOrderIdResponse,
     indAddress,
     filteredIndReg,
+    setRazorpayOrderIdResponse,
+    shippingMethod
   } = props;
+  console.log(discountInfo,"discountInfo");
   // const stripePromise = loadStripe("pk_test_6BLf1Fr5B4QZi5O0qo91H6u9");
   console.log("razorpayOrderIdResponse", razorpayOrderIdResponse);
   const regGuest = filteredIndReg.filter(
     (reg) => reg.default_name === register.province
   );
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState(
+    shippingMethod[0]
+  );
+  const reInitialize = async () =>{
+    const quoteId = localStorage.getItem("tokenKey");
+    const cartData = localStorage.getItem("cartData");
+    const reqBody = {
+      addressInformation: {
+        shipping_address: {
+          region: register.province,
+          region_id: regGuest[0].region_id,
+          country_id:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.country_id
+              : register.country,
+          street: [register.address],
+          postcode:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.postcode
+              : register.postal,
+          city:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.city
+              : register.city,
+          firstname: register.fname,
+          lastname: register.lname,
+          customer_id: null,
+          email:  register.email,
+          telephone:register.phone,
+        },
+        billing_address: {
+          region: register.province,
+          region_id: regGuest[0].region_id,
+          country_id:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.country_id
+              : register.country,
+          street: [register.address],
+          postcode:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.postcode
+              : register.postal,
+          city:
+            indAddress && indAddress !== undefined
+              ? indAddress[0]?.city
+              : register.city,
+          firstname: register.fname,
+          lastname: register.lname,
+          customer_id: null,
+          email: register.email,
+          telephone:register.phone,
+        },
+        shipping_carrier_code: selectedShippingMethod.carrier_code,
+        shipping_method_code: selectedShippingMethod.method_code,
+      },
+      data: quoteId,
+    };
+    let obj = {
+      currency: "INR",
+      receipt: cartData.quote_id,
+      payment_capture : 1
+    }
+    await instance
+      .post("/shippingInformation", reqBody)
+      .then((response) => {
+        console.log("response", response.data);
+        dispatch(
+          orderData({
+            delivery: response.data.totals.shipping_amount,
+            tax: response.data.totals.tax_amount,
+          })
+        );
+        obj.amount= Math.round(Number(response.data.totals.base_grand_total) * 100);
+        instance
+        .post("/createRazorpayOrderID", obj)
+        .then((response) => {
+          console.log("razor pay esponse", );
+          setRazorpayOrderIdResponse(response.data)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+}
+useEffect(()=>{
+  if(discountInfo===true){
+    reInitialize()
+  }
+},[discountInfo])
+ 
   const handleSubmit = () => {
     console.log("enter submit");
     setIsLoading(true);

@@ -92,7 +92,8 @@ const useStyles = makeStyles(() => ({
 }));
 export default function ViewAll() {
   const { state } = useLocation();
-  const { item, category } = state;
+  const { item, category, searchBox, name } = state;
+  console.log(name, "searchBoxsearchBox");
   const { allData, allLocalData } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const productsReturn =
@@ -144,17 +145,31 @@ export default function ViewAll() {
             <ViewAllCategory />
           </Grid>
           <Grid item xs={12} md={9.5}>
-            <ViewAllMobile category={category} />
+            {name !== undefined ? (
+              <ViewAllMobile name={name} />
+            ) : (
+              <ViewAllMobile category={category} />
+            )}
             <Typography
               sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
               variant="h4"
               className={classes.viewAllItemHeader}
             >
-              {category.name}
+              {name !== undefined ? (
+                <span>Search results for: {name}</span>
+              ) : (
+                category.name
+              )}
             </Typography>
-            {productsReturn?.map((product, proIndex) => {
-              return item === proIndex && <ViewAllCard product={product} />;
-            })}
+            {searchBox !== undefined
+              ? searchBox?.map((product, proIndex) => {
+                  return (
+                    <ViewAllCard product={product} searchBox={searchBox} />
+                  );
+                })
+              : productsReturn?.map((product, proIndex) => {
+                  return item === proIndex && <ViewAllCard product={product} />;
+                })}
           </Grid>
         </Grid>
       </Grid>

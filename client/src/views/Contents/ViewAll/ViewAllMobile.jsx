@@ -56,7 +56,8 @@ const Accordion = styled((props) => (
   }));
 
 export default function ViewAllMobile(props) {
-    const{category} = props;
+    const{category,name} = props;
+    console.log(name,"categorycategory");
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const { allData } = useSelector((state) => state.store);
@@ -75,7 +76,12 @@ export default function ViewAllMobile(props) {
           <Accordion expanded={expanded} onClick={handleDetailClick}>
           <AccordionSummary 
           >
-            <li className={classes.viewAllItemHeader}>{category.name}</li>
+            <li className={classes.viewAllItemHeader}>
+            {name !== undefined ? (
+                <span>Search results for: {name}</span>
+              ) : (
+                category.name
+              )} </li>
           </AccordionSummary>
           <Box >
             <ul  style={{width:"100%",margin:"0 auto",float:"none",maxWidth:"90%",marginTop:"10px"}}>

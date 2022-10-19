@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   Box,
   IconButton,
@@ -11,28 +11,26 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import HeaderCart from "./HeaderCart";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import HeaderDropDown from "./HeaderDropDown";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
+import HeaderSearch from "./HeaderSearch";
 
 export default function HeaderMobileView(props) {
-  const pages = [
-    "Homeowner",
-    "Entrepreneur",
-    "Installers",
-    "Store",
-    "Support",
-  ];
+  const pages = ["Homeowner", "Entrepreneur", "Installers", "Store", "Support"];
   const classes = useStyledComponent();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [closeVisible, setCloseVisible] =useState(false)
+  const [closeVisible, setCloseVisible] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-    setCloseVisible(!closeVisible)
+    setCloseVisible(!closeVisible);
   };
 
-  const drawer = (
+  const drawer = (<>
+    <Box>
+    <HeaderSearch />
+  </Box>
     <Box
       onClick={handleDrawerToggle}
       sx={{
@@ -43,12 +41,12 @@ export default function HeaderMobileView(props) {
         {pages.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText  primary={item} />
+              <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-    </Box>
+    </Box></>
   );
 
   const container =
@@ -59,12 +57,14 @@ export default function HeaderMobileView(props) {
         sx={{ display: { xs: "flex", md: "none" } }}
         className={classes.imgContain}
       >
-     <a href='/'><img
-          src="https://store-d9.enphase.com/themes/custom/smalcode/dist/images/logo-white.svg"
-          alt="logo"
-          height="20px"
-          width="110px"
-        /></a>
+        <a href="/">
+          <img
+            src="https://store-d9.enphase.com/themes/custom/smalcode/dist/images/logo-white.svg"
+            alt="logo"
+            height="20px"
+            width="110px"
+          />
+        </a>
       </Box>
 
       <Box
@@ -83,7 +83,7 @@ export default function HeaderMobileView(props) {
           onClick={handleDrawerToggle}
           sx={{ color: "white" }}
         >
-         {closeVisible ?<CloseIcon/>:<MenuIcon /> } 
+          {closeVisible ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
         <Box component="nav">
           <Drawer
@@ -98,12 +98,12 @@ export default function HeaderMobileView(props) {
               display: { xs: "block", sm: "block" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
-                width: {xs:240,sm:500},
+                width: { xs: 240, sm: 500 },
                 background: "#000",
                 color: "#dcdcd6 !important",
                 fontFamily: "enphase-visuelt-regular,sans-serif !important",
                 fontSize: "16px !important",
-                top:'53px'
+                top: "53px",
               },
             }}
           >

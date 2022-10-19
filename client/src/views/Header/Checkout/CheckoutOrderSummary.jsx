@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Box, Typography, Divider } from "@mui/material";
-import { useSelector } from "react-redux";
+import { Grid, Box, Typography, Divider, Button, styled } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+
+import CheckoutOrderDisc from "./CheckoutOrderDisc";
+
 const useStyles = makeStyles(() => ({
- 
   headerName: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     lineHeight: "20px !important",
@@ -89,10 +91,17 @@ const useStyles = makeStyles(() => ({
     lineHeight: "22px",
   },
 }));
+
 export default function CheckoutOrderSummary(props) {
-  const { cartData, orderData } = useSelector((state) => state.store);
+  const { cartData, orderData, discountInfo } = useSelector(
+    (state) => state.store
+  );
+  console.log(discountInfo, "discountInfo");
+  const dispatch = useDispatch();
+  const [discountCode, setDiscountCode] = useState("");
   const { subTotal } = props;
   const unique = [];
+  
   cartData.filter((list) => {
     if (unique.find((i) => i.id === list.id && i.name === list.name)) {
       return true;
@@ -105,7 +114,7 @@ export default function CheckoutOrderSummary(props) {
     Number(subTotal) + Number(orderData?.delivery) + Number(orderData?.tax);
   const classes = useStyles();
   return (
-   <>
+    <>
       <Box className={classes.headerName}>Order Summary</Box>
       <Box className={classes.alignment}>
         <Grid className={classes.cartItems}>
@@ -129,13 +138,15 @@ export default function CheckoutOrderSummary(props) {
                     <Box className={classes.itemPrice}>₹ {items.price}</Box>
                   </Box>
                   <Box className={classes.listQty}>
-                  Quantity: &nbsp;{items.cartQty}
+                    Quantity: &nbsp;{items.cartQty}
                   </Box>
                 </Grid>
               </Box>
             );
           })}
         </Grid>
+        <Divider />
+        <CheckoutOrderDisc setDiscountCode={setDiscountCode} discountCode={discountCode}/>
         <Box sx={{ width: "100%", marginTop: "3%" }}>
           <ul className={classes.subList}>
             <Divider sx={{ marginBottom: "10px" }} />
@@ -154,7 +165,10 @@ export default function CheckoutOrderSummary(props) {
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.subTotal}>
               <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>
-              <Box sx={{ color: "#000000", fontWeight: "600" }} className={classes.overAllPrice}>
+              <Box
+                sx={{ color: "#000000", fontWeight: "600" }}
+                className={classes.overAllPrice}
+              >
                 {" "}
                 ₹ {overall?.toFixed(2)}
               </Box>

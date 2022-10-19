@@ -14,6 +14,7 @@ import {
   POST_STORE_LOGIN,
   SHIIPING_ADDRESS,
   ALL_LOCAL_DATA,
+  DISCOUNT_INFO,
   CREATE_ORDER,
 } from "../actions/EnstoreActions";
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   savedAddress: [],
   createOrderData:null,
   singleProduct: null,
+  discountInfo: null,
   orderData: {
     delivery: 0,
     tax: 0,
@@ -135,13 +137,19 @@ const EnstoreReducer = function (state = initialState, action) {
     case POST_Final_Checkout: {
       return {
         ...state,
-        checkout: [...state.checkout, action.payload],
+        checkout: action.payload
       };
     }
     case POST_ORDER_DATA: {
       return {
         ...state,
         orderData: action.payload,
+      };
+    }
+    case DISCOUNT_INFO: {
+      return {
+        ...state,
+        discountInfo: action.payload,
       };
     }
     case CLEAR_CART_ORDER_DATA: {

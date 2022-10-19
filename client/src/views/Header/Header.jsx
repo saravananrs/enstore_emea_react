@@ -1,36 +1,23 @@
 import React from "react";
-import {
-  Box,
-  Toolbar,
-  Container,
-  Button,
-} from "@mui/material";
+import { Box, Toolbar, Container, Button } from "@mui/material";
 import logo from "../../Assets/Header/spritemap.svg";
 import search from "../../Assets/Header/spritemap.svg";
 import HeaderDropDown from "./HeaderDropDown";
 import HeaderCart from "./HeaderCart";
 import HeaderMobileView from "./HeaderMobileView";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
+import HeaderSearch from "./HeaderSearch";
 
-const pages = [
-  "Homeowner",
-  "Entrepreneur",
-  "Installers",
-  "Store",
-  "Support",
-];
+const pages = ["Homeowner", "Entrepreneur", "Installers", "Store", "Support"];
 
 const Header = () => {
   const classes = useStyledComponent();
 
   return (
-    <header className="App-header">  
-      <Container
-        maxWidth="xl"
-        className={classes.headerContainer}
-      >
-        <Toolbar disableGutters>   
-        <HeaderMobileView />
+    <header className="App-header">
+      <Container maxWidth="xl" className={classes.headerContainer}>
+        <Toolbar disableGutters>
+          <HeaderMobileView />
           <Box
             sx={{
               flexGrow: 1,
@@ -67,23 +54,20 @@ const Header = () => {
                 {page}
               </Button>
             ))}
-            <Box sx={{display:{xs:'none',md:'flex'}}}>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <HeaderDropDown />
             </Box>
             <Box
               sx={{
                 flexGrow: 0,
-                display: {xs:'none',md:'flex'},
+                display: { xs: "none", md: "flex" },
                 margin: "0px 40px",
                 color: "#F0F0F0",
+                alignItems: "center",
               }}
             >
               <HeaderCart />
-              <a href="#" className="navicon">
-                <svg class="fill-current svg svg-small" role="presentation">
-                  <use xlinkHref={`${search}?v=1.20#search`}></use>
-                </svg>
-              </a>
+              <HeaderSearch />
             </Box>
           </Box>
         </Toolbar>

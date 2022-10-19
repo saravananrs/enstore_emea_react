@@ -132,8 +132,8 @@ export default function StepperDelivery(props) {
           telephone:register.phone,
         },
         billing_address: {
-          region: indAddress && indAddress !== undefined ? indAddress[0]?.region.region :"Tamil Nadu",
-        region_id:indAddress && indAddress !== undefined ? indAddress[0]?.region.region_id : "563",
+          region: register.province,
+          region_id: regGuest[0].region_id,
           country_id:
             indAddress && indAddress !== undefined
               ? indAddress[0]?.country_id

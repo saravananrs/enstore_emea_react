@@ -5,6 +5,7 @@ export const POST_STORE_LOGIN = "STORE_LOGIN";
 export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
 export const ALL_DATA = "ALL_DATA";
 export const ALL_LOCAL_DATA = "ALL_LOCAL_DATA";
+export const DISCOUNT_INFO = "DISCOUNT_INFO";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
@@ -233,6 +234,24 @@ export const createOrder = (datas) => async (dispatch) => {
     })
     .catch((error) => {
       console.log(error);
+    });
+};
+export const getDiscountInfo = (info) => async (dispatch) => {
+  
+  await instance
+    .post("/discount",info)
+    .then((res) => {
+      dispatch({
+        type: DISCOUNT_INFO,
+        payload: res.data,
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: DISCOUNT_INFO,
+        payload: err.res.data,
+      });
     });
 };
 export const orderData = (orderData) => async (dispatch) => {

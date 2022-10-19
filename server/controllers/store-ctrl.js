@@ -15,7 +15,7 @@ const Razorpay = require("razorpay"),
     console.log("hellow");
     var config = {
       method: "get",
-      url: `${serverBaseUrl}/rest/V1/categories`,
+      url: `https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories`,
       headers: {
         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
       },
@@ -40,8 +40,8 @@ const Razorpay = require("razorpay"),
 getAllData = async (req, res) => {
   var productsToReturn = [];
 
-  await serverInstance
-    .get(`/rest/V1/categories`, {
+  await axios
+    .get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories`, {
       headers: {
         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
       },
@@ -57,30 +57,46 @@ getAllData = async (req, res) => {
         ].includes(data.name)
       );
 
-      let requests = selected_categories.map((id) => {
-        return new Promise((resolve, reject) => {
-          let url =  serverInstance()
-          request(
-            {
-              uri: `${serverBaseUrl}/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
-              method: "GET",
-              headers: {
-                Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-              },
-            },
-            (err, res, body) => {
-              if (err) {
-                reject(err);
-              }
-              resolve(body);
-            }
-          );
-        });
-      });
+      let requests = selected_categories.map((id) => 
+       
+       new Promise((resolve,reject)=>{
+        axios.get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`, {
+          headers: {
+            Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+          },
+        }).then((res)=>{
+          resolve(res.data)
+        //  productsToReturn.push(res.data)
+        })
+        .catch((err)=>{
+          reject(err)
+        })
+       })
+        // let url = `https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`
+        // return new Promise((resolve, reject) => {
+        //   request(
+        //     {
+        //       uri: url,
+        //       method: "GET",
+        //       headers: {
+        //         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+        //       },
+        //     },
+        //     (err, res, body) => {
+        //       console.log(res.data,'resres');
+        //       console.log(body,'resbbb');
+        //       if (err) {
+        //         reject(err);
+        //       }
+        //       resolve(body);
+        //     }
+        //   );
+        // });
+      );
       Promise.all(requests)
         .then((body) => {
           body.forEach((res) => {
-            if (res) var allProducts = JSON.parse(res);
+            if (res) var allProducts = res;
             productsToReturn.push(allProducts);
           });
           res.send({ selected_categories, productsToReturn });
@@ -106,7 +122,8 @@ getAllDataFromLocal = async (req, res) => {
   });
 
   function processFile(content) {
-    const allLocData = JSON.parse(content);
+    const allLoc = content
+    const allLocData = JSON.parse(allLoc);
     res.send(allLocData);
   }
 };
@@ -222,6 +239,26 @@ getShippingInformation = async (req, res) => {
       console.log(error);
       console.log(req);
     });
+};
+getDiscountInformation = async (req, res) => {
+  var config = {
+    method: 'put',
+    url: `${serverBaseUrl}/rest/V1/carts/${req.body.data}/coupons/${req.body.coupon}`,
+    headers: {  
+      'Authorization': 'Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b', 
+      'Content-Type': 'application/json', 
+    },
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    res.send(response.data)
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
 };
 getSavedShippingAddress = async (req, res) => {
   await serverInstance
@@ -509,6 +546,7 @@ module.exports = {
   createOrder,
   getAllData,
   getAlRegionData,
+  getDiscountInformation,
   getSavedShippingAddress,
   razorPayCreateOrderId,
 };

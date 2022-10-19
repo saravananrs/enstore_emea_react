@@ -83,6 +83,8 @@ export default function CheckoutStepper(props) {
               filteredIndReg={filteredIndReg}
               handleCloseMenu={handleCloseMenu}
               razorpayOrderIdResponse={razorpayOrderIdResponse}
+              shippingMethod={shippingMethod}
+              setRazorpayOrderIdResponse={setRazorpayOrderIdResponse}
             />
           ) : (
             <StepperDelivery

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Divider, Box, Typography, Grid, AccordionDetails } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllData } from "../../../redux/actions/EnstoreActions";
+import { getAllData, getAllLocalData } from "../../../redux/actions/EnstoreActions";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -55,13 +55,12 @@ const AccordionSummary = styled((props) => (
 export default function ViewAllCategory() {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const { allData } = useSelector((state) => state.store);
-  const categories = allData?.selected_categories;
+  const { allLocalData } = useSelector((state) => state.store);
+  const categories = allLocalData?.selected_categories;
   const dispatch = useDispatch();
   const navigate =  useNavigate()
-  const productsReturn = allData?.productsToReturn?.map((item) => item.items);
   useEffect(() => {
-    dispatch(getAllData());
+    dispatch(getAllLocalData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleDetailClick = () => {

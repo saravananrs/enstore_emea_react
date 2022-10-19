@@ -119,7 +119,7 @@ export default function CheckoutContainer(props) {
           <Grid
             container
             className={classes.summaryContainer}
-            sx={{ display: { xs: "none !important", md: "flex !important" } }}
+            sx={{ display: { xs: "none !important", md: "block !important" } }}
           >
             <CheckoutOrderSummary subTotal={subTotal} />
           </Grid>
