@@ -100,19 +100,10 @@ export default function StepperPayment(props) {
         shipping_address: {
           region: register.province,
           region_id: regGuest[0].region_id,
-          country_id:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.country_id
-              : register.country,
+          country_id: register.country,
           street: [register.address],
-          postcode:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.postcode
-              : register.postal,
-          city:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.city
-              : register.city,
+          postcode: register.postal,
+          city:register.city,
           firstname: register.fname,
           lastname: register.lname,
           customer_id: null,
@@ -122,19 +113,10 @@ export default function StepperPayment(props) {
         billing_address: {
           region: register.province,
           region_id: regGuest[0].region_id,
-          country_id:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.country_id
-              : register.country,
+          country_id: register.country,
           street: [register.address],
-          postcode:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.postcode
-              : register.postal,
-          city:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.city
-              : register.city,
+          postcode:register.postal,
+          city: register.city,
           firstname: register.fname,
           lastname: register.lname,
           customer_id: null,
@@ -198,24 +180,15 @@ useEffect(()=>{
         const reqBody = {
           cartId: quoteId,
           billingAddress: {
-            countryId:
-              indAddress && indAddress !== undefined
-                ? indAddress[0]?.country_id
-                : register.country,
+            countryId: register.country,
             regionId: regGuest[0].region_id,
             regionCode: regGuest[0].code,
             region: register.province,
             street: [register.address],
             company: "",
             telephone: register.phone,
-            postcode:
-              indAddress && indAddress !== undefined
-                ? indAddress[0]?.postcode
-                : register.postal,
-            city:
-              indAddress && indAddress !== undefined
-                ? indAddress[0]?.city
-                : register.city,
+            postcode: register.postal,
+            city: register.city,
             firstname: register.fname,
             lastname: register.lname,
             saveInAddressBook: null,

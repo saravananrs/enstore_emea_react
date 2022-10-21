@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Box, Typography, Divider, Button, styled } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { Grid, Box, Typography, Divider } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import CheckoutOrderDisc from "./CheckoutOrderDisc";
 
@@ -93,15 +93,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function CheckoutOrderSummary(props) {
-  const { cartData, orderData, discountInfo } = useSelector(
-    (state) => state.store
-  );
-  console.log(discountInfo, "discountInfo");
-  const dispatch = useDispatch();
+  const { cartData, orderData } = useSelector((state) => state.store);
   const [discountCode, setDiscountCode] = useState("");
   const { subTotal } = props;
   const unique = [];
-  
+
   cartData.filter((list) => {
     if (unique.find((i) => i.id === list.id && i.name === list.name)) {
       return true;
@@ -146,7 +142,10 @@ export default function CheckoutOrderSummary(props) {
           })}
         </Grid>
         <Divider />
-        <CheckoutOrderDisc setDiscountCode={setDiscountCode} discountCode={discountCode}/>
+        <CheckoutOrderDisc
+          setDiscountCode={setDiscountCode}
+          discountCode={discountCode}
+        />
         <Box sx={{ width: "100%", marginTop: "3%" }}>
           <ul className={classes.subList}>
             <Divider sx={{ marginBottom: "10px" }} />

@@ -65,19 +65,10 @@ export default function StepperShipping(props) {
       address: {
         region:  register.province,
         region_id:regGuest[0].region_id,
-        country_id:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.country_id
-            : register.country,
+        country_id: register.country,
         street: [register.address],
-        postcode:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.postcode
-            : register.postal,
-        city:
-          indAddress && indAddress !== undefined
-            ? indAddress[0]?.city
-            : register.city,
+        postcode:register.postal,
+        city: register.city,
         firstname: register.fname,
         lastname: register.lname,
         customer_id: null,

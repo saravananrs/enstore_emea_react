@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import cart from "../../Assets/Header/spritemap.svg";
 import { Box, Menu, Divider, Grid, Typography, Button } from "@mui/material";
 import HeaderCartItem from "./HeaderCartItem";
@@ -17,6 +17,7 @@ import useCartItems from "../Hooks/useCartItems.hook";
 export default function HeaderCart() {
   const classes = useStyledComponent();
   const { cartData } = useSelector((state) => state.store);
+  const [bagLoad , setBagLoad] =  useState(true)
   const {
     openDialog,
     setOpenDialog,
@@ -47,7 +48,7 @@ export default function HeaderCart() {
   const handleClick = (event) => {
     setCartdDown(event.currentTarget);
   };
-  
+
   useEffect(() => {
     setBagCount(cartData?.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +60,24 @@ export default function HeaderCart() {
   const storedData = [];
   let createdCartData = localStorage.getItem("cartData");
   storedData.push(JSON.parse(createdCartData));
-
+  const handleCartPageClick = async () => {
+    setBagLoad(false);
+    await dispatch(addCartItemsCheckout());
+    const quoteId = localStorage.getItem("tokenKey");
+    cartData.map((items) => {
+      const reqBody = {
+        cartItem: {
+          sku: items.sku,
+          qty: items.cartQty,
+          quote_id: quoteId,
+        },
+        data: quoteId,
+      };
+      dispatch(addCartFinalCheckOut(reqBody));
+    });
+    await navigate("/cart");
+    setBagLoad(true);
+  };
   const handleCheckOutClick = async () => {
     setToggle(false);
     if (createdCartData === null || con === true) {
@@ -195,7 +213,7 @@ export default function HeaderCart() {
           Store
         </Box>
         <Divider />
-        <Box className={classes.items} onClick={() => navigate("/cart")}>
+        <Box className={classes.items} onClick={handleCartPageClick}>
           <a href="#" className="navicon">
             <svg
               role="presentation"
@@ -217,7 +235,7 @@ export default function HeaderCart() {
               ></path>
             </svg>
           </a>
-          Bag
+      {bagLoad ? "Bag":"Redirecting"}    
         </Box>
         <Divider />
         <Link to="/signin">

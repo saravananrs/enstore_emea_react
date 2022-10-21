@@ -8,48 +8,6 @@ import Spinner from "../../../Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "../Styles/useStyles.hook";
-const useStyles = makeStyles(() => ({
-  learMoreContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    float: "none",
-    maxWidth: "64%",
-    "@media (max-width:500px)":{
-    maxWidth: "88%",
-  },
-  "@media screen and (min-width: 501px) and (max-width: 800px)":{
-    maxWidth: "88%",
-  },
-    margin: "0 auto",
-    alignItems: "center",
-  },
-  lSideText: {
-    color: "#6e6e73 !important",
-    fontSize: "0.875rem !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  lHeading: {
-    fontSize: "1.25rem !important",
-    fontFamily: "enphase-visuelt-medium !important",
-    "@media (max-width:500px)":{
-      fontSize: "0.875rem !important",
-      fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    }
-  },
-  learnMoreDivider: {
-    margin: "0.7em 15em !important",
-    "@media (max-width:500px)":{
-      margin:"10px 10px !important"
-    },
-    "@media screen and (min-width: 501px) and (max-width: 800px)":{
-      margin:"10px 40px !important"
-    },
-  },
-  storeAcc: {
-    fontSize: "12px !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-}));
 export default function LearnMore() {
   let { urlKey } = useParams();
   const {singleProduct} = useSelector((state)=> state.store)

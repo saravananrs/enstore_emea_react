@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import {
   Button,
   Radio,
@@ -92,7 +92,15 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function StepperDelivery(props) {
-  const { setActiveStep, activeStep, shippingMethod, register, indAddress, setRazorpayOrderIdResponse ,filteredIndReg} = props;
+  const {
+    setActiveStep,
+    activeStep,
+    shippingMethod,
+    register,
+    indAddress,
+    setRazorpayOrderIdResponse,
+    filteredIndReg,
+  } = props;
   const [toggle, setToggle] = useState(true);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -102,7 +110,9 @@ export default function StepperDelivery(props) {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  const regGuest = filteredIndReg.filter((reg)=>reg.default_name === register.province)
+  const regGuest = filteredIndReg.filter(
+    (reg) => reg.default_name === register.province
+  );
   const handleShipmentClick = async () => {
     setToggle(false);
     const quoteId = localStorage.getItem("tokenKey");
@@ -112,46 +122,28 @@ export default function StepperDelivery(props) {
         shipping_address: {
           region: register.province,
           region_id: regGuest[0].region_id,
-          country_id:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.country_id
-              : register.country,
+          country_id: register.country,
           street: [register.address],
-          postcode:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.postcode
-              : register.postal,
-          city:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.city
-              : register.city,
-          firstname: register.fname,
-          lastname: register.lname,
-          customer_id: null,
-          email:  register.email,
-          telephone:register.phone,
-        },
-        billing_address: {
-          region: register.province,
-          region_id: regGuest[0].region_id,
-          country_id:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.country_id
-              : register.country,
-          street: [register.address],
-          postcode:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.postcode
-              : register.postal,
-          city:
-            indAddress && indAddress !== undefined
-              ? indAddress[0]?.city
-              : register.city,
+          postcode: register.postal,
+          city: register.city,
           firstname: register.fname,
           lastname: register.lname,
           customer_id: null,
           email: register.email,
-          telephone:register.phone,
+          telephone: register.phone,
+        },
+        billing_address: {
+          region: register.province,
+          region_id: regGuest[0].region_id,
+          country_id: register.country,
+          street: [register.address],
+          postcode: register.postal,
+          city: register.city,
+          firstname: register.fname,
+          lastname: register.lname,
+          customer_id: null,
+          email: register.email,
+          telephone: register.phone,
         },
         shipping_carrier_code: selectedShippingMethod.carrier_code,
         shipping_method_code: selectedShippingMethod.method_code,
@@ -161,8 +153,8 @@ export default function StepperDelivery(props) {
     let obj = {
       currency: "INR",
       receipt: cartData.quote_id,
-      payment_capture : 1
-    }
+      payment_capture: 1,
+    };
     await instance
       .post("/shippingInformation", reqBody)
       .then((response) => {
@@ -173,14 +165,14 @@ export default function StepperDelivery(props) {
             tax: response.data.totals.tax_amount,
           })
         );
-        obj.amount= Math.round(Number(response.data.totals.base_grand_total) * 100);
-        instance
-        .post("/createRazorpayOrderID", obj)
-        .then((response) => {
-          console.log("razor pay esponse", );
-          setRazorpayOrderIdResponse(response.data)
-        setToggle(true);
-        })
+        obj.amount = Math.round(
+          Number(response.data.totals.base_grand_total) * 100
+        );
+        instance.post("/createRazorpayOrderID", obj).then((response) => {
+          console.log("razor pay esponse");
+          setRazorpayOrderIdResponse(response.data);
+          setToggle(true);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -204,7 +196,6 @@ export default function StepperDelivery(props) {
             </span>
             &nbsp;
             <span className={classes.nameDet}>
-              {" "}
               {indAddress && indAddress !== undefined
                 ? indAddress[0]?.postcode
                 : register.postal}

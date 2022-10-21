@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Toolbar, Container, Button } from "@mui/material";
 import logo from "../../Assets/Header/spritemap.svg";
-import search from "../../Assets/Header/spritemap.svg";
 import HeaderDropDown from "./HeaderDropDown";
 import HeaderCart from "./HeaderCart";
 import HeaderMobileView from "./HeaderMobileView";
@@ -39,7 +38,6 @@ const Header = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                // onClick={handleCloseNavMenu}
                 sx={{
                   my: 2,
                   color: "#dcdcd6",

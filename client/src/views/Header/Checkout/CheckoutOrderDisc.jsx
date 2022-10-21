@@ -1,12 +1,12 @@
 import React from "react";
-import { styled, useThemeProps } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { makeStyles } from "@material-ui/styles";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import {ValidatorForm } from "react-material-ui-form-validator";
 import { getDiscountInfo } from "../../../redux/actions/EnstoreActions";
-import { Divider, Box, Grid, Typography, Button, CircularProgress } from "@mui/material";
+import {  Box, Typography, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 const useStyles = makeStyles(() => ({
@@ -33,28 +33,6 @@ const useStyles = makeStyles(() => ({
         background:"#F9F9F9 !important",
     },
     padding:"5px"
-
-    // "& .css-y1786z-MuiInputBase-root-MuiInput-root:hover:before": {
-    //   border: "none !important",
-    // },
-    // "& .css-1x51dt5-MuiInputBase-input-MuiInput-input:active": {
-    //   backgroundColor: "transparent !important",
-    //   background: "transparent !important",
-    // },
-    // "& .css-y1786z-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled):before":
-    //   {
-    //     border: "none !important",
-    //   },
-    // "& .css-y1786z-MuiInputBase-root-MuiInput-root:before": {
-    //   borderColor: "transparent !important",
-    //   borderBottom: "0.1px solid transparent !important",
-    // },
-    // "& .css-y1786z-MuiInputBase-root-MuiInput-root:after": {
-    //   borderColor: "transparent !important",
-    //   borderBottom: "0.1px solid transparent !important",
-    // },
-    // width: "100% !important",
-    // marginBottom: "0px !important",
   },
   discApplyBtn: {
     color: "#F37321 !important",
@@ -64,7 +42,7 @@ const useStyles = makeStyles(() => ({
   couponMsg: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "15px !important",
-    color: "#de1124",
+    // color: "#de1124",
     marginTop: "10px",
   },
 }));
@@ -83,10 +61,6 @@ const AccordionSummary = styled((props) => <MuiAccordionSummary {...props} />)(
   })
 );
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({}));
-const TextField = styled(TextValidator)(() => ({
-  width: "100%",
-  marginBottom: "16px",
-}));
 export default function CheckoutOrderDisc(props) {
   const classes = useStyles();
   const [isLoading , setIsLoading] = useState(false)
@@ -125,19 +99,6 @@ export default function CheckoutOrderDisc(props) {
         <AccordionDetails>
           <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
             <Box className={classes.cartPageDiscounContainer}>
-              {/* <TextField
-                type="text"
-                name="discount"
-                variant="standard"
-                className={classes.discBox}
-                value={discountCode}
-                placeholder="Enter discount code"
-                inputStyle={"#000"}
-                onChange={handleDiscount}
-                //   onFocus={onFocusEvent}
-                errorMessages={["this field is required"]}
-                onKeyDown={(event) => event.stopPropagation()}
-              /> */}
               <input 
               type="text"
               name="discount"
@@ -158,8 +119,8 @@ export default function CheckoutOrderDisc(props) {
           {discountInfo !== null && (
             <Box className={classes.couponMsg}>
               {discountInfo === true
-                ? "Coupon Applied"
-                : "Coupon does not exist"}
+                ? <span style={{color:"#4BB543"}}>Coupon Applied</span>
+                : <span style={{color:"#de1124"}}>Coupon does not exist</span>}
             </Box>
           )}
         </AccordionDetails>

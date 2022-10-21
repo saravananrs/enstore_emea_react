@@ -27,26 +27,33 @@ export default function HeaderMobileView(props) {
     setCloseVisible(!closeVisible);
   };
 
-  const drawer = (<>
-    <Box>
-    <HeaderSearch />
-  </Box>
-    <Box
-      onClick={handleDrawerToggle}
-      sx={{
-        textAlign: "center",
-      }}
-    >
-      <List>
-        {pages.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box></>
+  const drawer = (
+    <>
+      <Box>
+        <HeaderSearch
+          setMobileOpen={setMobileOpen}
+          mobileOpen={mobileOpen}
+          setCloseVisible={setCloseVisible}
+          closeVisible={closeVisible}
+        />
+      </Box>
+      <Box
+        onClick={handleDrawerToggle}
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        <List>
+          {pages.map((item) => (
+            <ListItem key={item} disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary={item} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </>
   );
 
   const container =
@@ -61,8 +68,7 @@ export default function HeaderMobileView(props) {
           <img
             src="https://store-d9.enphase.com/themes/custom/smalcode/dist/images/logo-white.svg"
             alt="logo"
-            height="20px"
-            width="110px"
+            className={classes.headerMobLogo}
           />
         </a>
       </Box>

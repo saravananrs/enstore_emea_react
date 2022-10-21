@@ -20,6 +20,7 @@ import {
   addCartFinalCheckOut,
   addCartItemsCheckout,
   clearCartAndOrderData,
+  getDiscountInfo,
 } from "../../../redux/actions/EnstoreActions";
 import CheckoutContainer from "../../Header/Checkout/CheckoutContainer";
 import useCartItems from "../../Hooks/useCartItems.hook";
@@ -76,6 +77,12 @@ const useStyles = makeStyles(() => ({
     width: "40% !important",
     marginTop: "5px !important",
   },
+  couponMsg: {
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    fontSize: "15px !important",
+    // color: "#de1124",
+    marginTop: "10px",
+  },
   cartTableWrapper: {
     marginBottom: "20px",
   },
@@ -115,7 +122,9 @@ const TextField = styled(TextValidator)(() => ({
 }));
 export default function CartPage() {
   const classes = useStyles();
-  const { cartData } = useSelector((state) => state.store);
+  const [isLoading,setIsLoading] = useState(false)
+  const { cartData ,checkout, discountInfo} = useSelector((state) => state.store);
+  const [discountCode,setDiscountCode] =  useState('')
   const {
     openDialog,
     setOpenDialog,
@@ -139,6 +148,20 @@ export default function CartPage() {
     console.log(event);
   };
  
+  const handleDiscount = (e) => {
+    e.preventDefault();
+    setDiscountCode(e.target.value);
+  };
+  const handleApplyClick = async(e) => {
+    setIsLoading(true)
+    e.preventDefault();
+    const data = {
+      data: checkout.quote_id,
+      coupon: discountCode,
+    };
+  await  dispatch(getDiscountInfo(data));
+  setIsLoading(false)
+  };
   const storedData = [];
   let createdCartData = localStorage.getItem("cartData");
   storedData.push(JSON.parse(createdCartData))
@@ -181,6 +204,7 @@ export default function CartPage() {
     await dispatch(clearCartAndOrderData());
     // navigate("/");
   };
+  console.log(checkout,"checkoutcheckout");
   return (
     <Container maxWidth="xl" className={classes.cartPageContainer}>
       <Link to="/" className={classes.cpContinue}>
@@ -230,17 +254,24 @@ export default function CartPage() {
                   type="text"
                   name="discount"
                   className={classes.cartPagesignInBox}
-                  value=""
+                  value={discountCode}
                   placeholder="Enter discount code"
                   inputStyle={'#000'}
-                  //   onChange={onRegister}
-                  //   onFocus={onFocusEvent}
+                  onChange={handleDiscount}
                   errorMessages={["this field is required"]}
                   onKeyDown={(event) => event.stopPropagation()}
                 />
               </ValidatorForm>
-              <Button className={classes.cartPageApplyBtn}>Apply</Button>
+              <Button className={classes.cartPageApplyBtn} onClick={handleApplyClick}>
+                {isLoading ? "Loading..." : "Apply"}</Button>
             </Box>
+            {discountInfo !== null && (
+            <Box className={classes.couponMsg}>
+              {discountInfo === true
+                ? <span style={{color:"#4BB543"}}>Coupon Applied</span>
+                : <span style={{color:"#de1124"}}>Coupon does not exist</span>}
+            </Box>
+          )}
           </Grid>
           <Grid item xs={3}>
             <CartPageSummary subTotal={subTotal} />

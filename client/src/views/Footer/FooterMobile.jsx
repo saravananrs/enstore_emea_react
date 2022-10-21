@@ -57,8 +57,6 @@ const AccordionSummary = styled((props) => (
   border: "none",
 }));
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  //   padding: theme.spacing(2),
-  //   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 export default function FooterMobile() {
   const classes = useStyles();

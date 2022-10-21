@@ -132,7 +132,7 @@ const useStyles = makeStyles(() => ({
 
 export default function ViewAllCard(props) {
   const { product,searchBox } = props;
-  const filterPro = searchBox!== undefined ? [product] : product.filter((i)=>i.status === 1)
+  const filterPro = searchBox!== undefined ? searchBox : product.filter((i)=>i.status === 1 && i.visibility == 4)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();

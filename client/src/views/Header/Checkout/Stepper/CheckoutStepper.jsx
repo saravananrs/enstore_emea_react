@@ -31,11 +31,17 @@ export default function CheckoutStepper(props) {
       indAddress && indAddress !== undefined ? indAddress[0]?.firstname : "",
     lname:
       indAddress && indAddress !== undefined ? indAddress[0]?.lastname : "",
-    country: "",
+    country:  indAddress && indAddress !== undefined 
+    ? indAddress[0]?.country_id
+    :"",
     address: "",
     optional: "",
-    postal: "",
-    city: "",
+    postal: indAddress && indAddress !== undefined 
+    ? indAddress[0]?.postcode
+    : "",
+    city:indAddress && indAddress !== undefined 
+    ? indAddress[0]?.city
+    :  "",
     province:
       indAddress && indAddress !== undefined
         ? indAddress[0]?.region.region
@@ -46,7 +52,6 @@ export default function CheckoutStepper(props) {
   const [shippingMethod, setShippingMethod] = useState({});
   const [razorpayOrderIdResponse, setRazorpayOrderIdResponse] = useState({});
   const { handleClose, handleCloseMenu } = props;
-
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>

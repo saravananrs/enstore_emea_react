@@ -40,8 +40,8 @@ const Razorpay = require("razorpay"),
 getAllData = async (req, res) => {
   var productsToReturn = [];
 
-  await axios
-    .get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/categories`, {
+  await serverInstance
+    .get(`/rest/V1/categories`, {
       headers: {
         Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
       },
@@ -60,13 +60,12 @@ getAllData = async (req, res) => {
       let requests = selected_categories.map((id) => 
        
        new Promise((resolve,reject)=>{
-        axios.get(`https://store-qa2.enphase.com/storefront/en-in/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`, {
+        serverInstance.get(`/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${id.id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`, {
           headers: {
             Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
           },
         }).then((res)=>{
           resolve(res.data)
-        //  productsToReturn.push(res.data)
         })
         .catch((err)=>{
           reject(err)
@@ -256,7 +255,8 @@ getDiscountInformation = async (req, res) => {
     res.send(response.data)
   })
   .catch(function (error) {
-    console.log(error);
+    console.log(error.response.data,"data");
+    res.send(error.response.data)
   });
   
 };

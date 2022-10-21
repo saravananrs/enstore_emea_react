@@ -12,7 +12,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { Box } from "@mui/system";
 
 const TextField = styled(TextValidator)(() => ({
   width: "100%",
@@ -57,15 +56,16 @@ const useStyles = makeStyles(() => ({
     },
   },
   stateSelect: {
-    "& .css-6hp17o-MuiList-root-MuiMenu-list":{
-      height:"100px !important"
+    "& .css-6hp17o-MuiList-root-MuiMenu-list": {
+      height: "100px !important",
     },
     "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
       {
         padding: "12.5px 14px !important",
       },
-      "& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
-        height:'100px !important'
+    "& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
+      {
+        height: "100px !important",
       },
   },
 
@@ -96,7 +96,6 @@ const useStyles = makeStyles(() => ({
 
 export default function StepperShippingForm(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(null);
   const filter = createFilterOptions();
   const [userError, setUserError] = useState("");
   const {
@@ -174,9 +173,7 @@ export default function StepperShippingForm(props) {
       type: "text",
       text: "Postal",
       value:
-        indAddress && indAddress !== undefined && street
-          ? indAddress[0]?.postcode
-          : register.postal,
+        indAddress !== undefined && street === false ? " " : register.postal,
       validators: ["required"],
     },
     {
@@ -184,10 +181,7 @@ export default function StepperShippingForm(props) {
       name: "city",
       type: "text",
       text: "City",
-      value:
-        indAddress && indAddress !== undefined && street
-          ? indAddress[0]?.city
-          : register.city,
+      value: indAddress !== undefined && street === false ? " " : register.city,
       validators: ["required"],
     },
     {
@@ -196,9 +190,7 @@ export default function StepperShippingForm(props) {
       type: "text",
       text: "Country",
       value:
-        indAddress && indAddress !== undefined && street
-          ? indAddress[0]?.country_id
-          : register.country,
+        indAddress !== undefined && street === false ? " " : register.country,
       validators: ["required"],
     },
   ];
@@ -212,18 +204,12 @@ export default function StepperShippingForm(props) {
       city: indAddress && indAddress !== undefined && indAddress[0]?.city,
     },
   ];
-  // const streetData =
-  //   indAddress &&
-  //   indAddress !== undefined &&
-  //   indAddress[0]?.street[0] +
-  //     "," +
-  //     indAddress[0]?.country_id +
-  //     "," +
-  //     indAddress[0]?.postcode +
-  //     "," +
-  //     indAddress[0]?.city;
   return (
-    <ValidatorForm onSubmit={handleSubmit} onError={() => null} id="shiipingFormValid">
+    <ValidatorForm
+      onSubmit={handleSubmit}
+      onError={() => null}
+      id="shiipingFormValid"
+    >
       <Grid
         container
         rowSpacing={1}
@@ -338,7 +324,6 @@ export default function StepperShippingForm(props) {
               label="State"
               onKeyDown={(event) => event.stopPropagation()}
             >
-              {/* <Box sx={{height:"200px !important"}}> */}
               {filteredIndReg.map((item) => (
                 <MenuItem
                   value={item.default_name}
@@ -347,7 +332,6 @@ export default function StepperShippingForm(props) {
                   {item.default_name}
                 </MenuItem>
               ))}
-              {/* </Box> */}
             </Select>
           </FormControl>
         </Grid>

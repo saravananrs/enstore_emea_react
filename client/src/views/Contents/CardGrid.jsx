@@ -21,7 +21,7 @@ export default function CardGrid() {
     allLocalData === undefined
       ? allData?.productsToReturn?.map((item) => item.items)
       : allLocalData?.productsToReturn?.map((item) => item.items);
-
+  
   useEffect(() => {
     if (allLocalData === undefined) {
       dispatch(getAllData());
@@ -64,6 +64,7 @@ export default function CardGrid() {
                     <CardModel
                       items={pdcts}
                       category={pName}
+                      selectiveIndex={proindex}
                       categoryIndex={index}
                     />
                   </Grid>

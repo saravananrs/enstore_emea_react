@@ -115,7 +115,10 @@ export default function ViewAll() {
     <>
       <Box className={classes.viewAllHeader}>
         <Typography variant="body1" className={classes.viewAllHeading}>
-          Enphase Store
+          <Link to="/" style={{ textDecoration: "none" }}>
+            {" "}
+            Enphase Store
+          </Link>
         </Typography>
         <Typography variant="body2" className={classes.viewAllSideText}>
           <span className={classes.viewAllBagIcon}>
@@ -161,15 +164,13 @@ export default function ViewAll() {
                 category.name
               )}
             </Typography>
-            {searchBox !== undefined
-              ? searchBox?.map((product, proIndex) => {
-                  return (
-                    <ViewAllCard product={product} searchBox={searchBox} />
-                  );
-                })
-              : productsReturn?.map((product, proIndex) => {
-                  return item === proIndex && <ViewAllCard product={product} />;
-                })}
+            {searchBox !== undefined ? (
+              <ViewAllCard searchBox={searchBox} />
+            ) : (
+              productsReturn?.map((product, proIndex) => {
+                return item === proIndex && <ViewAllCard product={product} />;
+              })
+            )}
           </Grid>
         </Grid>
       </Grid>

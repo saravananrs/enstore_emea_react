@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyledComponent = makeStyles(() => ({
   //Header.jsx
-  headerContainer:{
+  headerContainer: {
     display: "flex !important",
     justifyContent: "space-evenly !important",
     alignItems: "center !important",
@@ -11,7 +11,7 @@ export const useStyledComponent = makeStyles(() => ({
     top: "0 !important",
     maxWidth: "100% !important",
     zIndex: "500 !important",
-    background:'#000'
+    background: "#000",
   },
 
   //HeaderCart.jsx
@@ -23,22 +23,22 @@ export const useStyledComponent = makeStyles(() => ({
     fontFamily: "enphase-visuelt-regular,sans-serif",
     fontSize: "16px",
   },
-  bagPulse:{
-    color:"green",
-    animation: '$pulse-animation 2s infinite',
+  bagPulse: {
+    color: "green",
+    animation: "$pulse-animation 2s infinite",
   },
-    '@keyframes pulse-animation':{
-      "0%" :{
-        boxShadow: '0 0 0 0px rgba(0, 0, 0, 0.2)',
-      },
-     " 100% ":{
-        boxShadow: '0 0 0 20px rgba(0, 0, 0, 0)',
-      }
+  "@keyframes pulse-animation": {
+    "0%": {
+      boxShadow: "0 0 0 0px rgba(0, 0, 0, 0.2)",
     },
-  
+    " 100% ": {
+      boxShadow: "0 0 0 20px rgba(0, 0, 0, 0)",
+    },
+  },
+
   items: {
     padding: "12px 32px",
-    cursor:"pointer",
+    cursor: "pointer",
     color: "#3c3c3c",
     fontFamily: "enphase-visuelt-regular,sans-serif",
     display: "flex",
@@ -94,7 +94,11 @@ export const useStyledComponent = makeStyles(() => ({
       right: "10%",
       bottom: "15%",
     },
-    "@media screen and (min-width: 501px) and (max-width: 1023px)": {
+    "@media screen and (min-width: 476px) and (max-width: 650px)": {
+      right: "7%",
+      bottom: "26%",
+    },
+    "@media screen and (min-width: 651px) and (max-width: 1023px)": {
       right: "5%",
       bottom: "26%",
     },
@@ -225,25 +229,36 @@ export const useStyledComponent = makeStyles(() => ({
   rightSide: {
     justifyContent: "end !important",
     alignItems: "center !important",
-    "@media screen and (min-width: 300px) and (max-width: 324px)":{
-        marginLeft:"0 !important",
-      },
-      "@media screen and (min-width: 325px) and (max-width: 475px)":{
-        marginLeft:"80px !important",
-      },
-      "@media screen and (min-width: 476px) and (max-width: 1023px)":{
-        marginLeft:"390px !important",
-      },
+    "@media screen and (min-width: 300px) and (max-width: 324px)": {
+      marginLeft: "0 !important",
+    },
+    "@media screen and (min-width: 325px) and (max-width: 475px)": {
+      marginLeft: "80px !important",
+    },
+    "@media screen and (min-width: 476px) and (max-width: 650px)": {
+      marginLeft: "185px !important",
+    },
+    "@media screen and (min-width: 651px) and (max-width: 1023px)": {
+      marginLeft: "390px !important",
+    },
   },
   mobileContainer: {
     display: "flex !important",
     justifyContent: "space-between !important",
     alignItems: "center",
   },
+  headerMobLogo: {
+    height: "20px",
+    width: "110px",
+  },
+    imgContain:{
+    width: '95px',
+    marginLeft: '19px',
+  },
   //HeroSection.jsx
   storageContainer: {
-    paddingTop: '90px',
-    '@media (max-width: 780px)':{
+    paddingTop: "90px",
+    "@media (max-width: 780px)": {
       paddingTop: "55px",
     },
   },
@@ -258,7 +273,7 @@ export const useStyledComponent = makeStyles(() => ({
   headTitle: {
     marginBottom: "15px !important",
     fontSize: "56px !important",
-    '@media (max-width: 780px)':{
+    "@media (max-width: 780px)": {
       fontSize: "32px !important",
     },
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
@@ -281,7 +296,7 @@ export const useStyledComponent = makeStyles(() => ({
   pName: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "1rem !important",
-    '@media (max-width: 780px)':{
+    "@media (max-width: 780px)": {
       fontSize: "0.875rem !important",
     },
     color: "#6e6e73",
@@ -291,9 +306,9 @@ export const useStyledComponent = makeStyles(() => ({
     objectPosition: "center",
     height: " 130px",
     width: "140px",
-    '@media (max-width: 780px)':{
+    "@media (max-width: 780px)": {
       height: "80px",
-      width:"80px"
+      width: "80px",
     },
   },
   listItems: {
@@ -320,7 +335,7 @@ export const useStyledComponent = makeStyles(() => ({
       maxHeight: " 100vh",
       objectFit: "cover",
       height: "380px",
-      letterSpacing:"0 !important"
+      letterSpacing: "0 !important",
     },
   },
   homeContent: {
@@ -343,7 +358,7 @@ export const useStyledComponent = makeStyles(() => ({
     "@media (max-width: 780px)": {
       fontSize: "1.625rem !important",
       lineHeight: "1.3em !important",
-      fontWeightL:"normal !important"
+      fontWeightL: "normal !important",
     },
   },
   homeButton: {
@@ -361,12 +376,12 @@ export const useStyledComponent = makeStyles(() => ({
       background: "#3c3c3c  !important",
     },
     "@media (max-width: 780px)": {
-      padding:"8px 16px !important",
-      backgroundColor:' #3c3c3c !important',
-      border: '1px solid #3c3c3c !important',
-      color:'#fff !important',
+      padding: "8px 16px !important",
+      backgroundColor: " #3c3c3c !important",
+      border: "1px solid #3c3c3c !important",
+      color: "#fff !important",
       fontSize: "0.7rem !important",
-  }
+    },
   },
 
   //cardGrid.jsx
@@ -398,570 +413,569 @@ export const useStyledComponent = makeStyles(() => ({
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
 
-//cardModel.jsx
+  //cardModel.jsx
 
-cardimg: {
-  width: "20%",
-},
+  cardimg: {
+    width: "20%",
+  },
 
-card: {
-  maxWidth: 300,
-  width:"300px",
-  padding: "10px 20px",
-  height: "540px",
-  "@media (max-width: 780px)": {
-    height: "500px",
+  card: {
+    maxWidth: 300,
+    width: "300px",
+    padding: "10px 20px",
+    height: "540px",
+    "@media (max-width: 780px)": {
+      height: "500px",
+    },
+    position: "relative !important",
+    marginLeft: "20px",
+    borderRadius: "16px !important",
+    transition: "0.3s",
+    cursor: "pointer",
+    boxShadow: "none !important",
+    "&:hover": {
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
+    },
   },
-  position: "relative !important",
-  marginLeft: "20px",
-  borderRadius: "16px !important",
-  transition: "0.3s",
-  cursor: "pointer",
-  boxShadow: "none !important",
-  "&:hover": {
-    boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
-  },
-},
-viewallbtn:{
-  fontSize: '1.5rem !important',
-    lineHeight: '1.3em !important',
-    fontWeight: 'normal !important',
+  viewallbtn: {
+    fontSize: "1.5rem !important",
+    lineHeight: "1.3em !important",
+    fontWeight: "normal !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
-},
-cardViewAll: {
-  maxWidth: 300,
-  width:"300px",
-  textAlign:"center !important",
-  padding: "10px 20px",
-  height: "540px",
-  "@media (max-width: 780px)": {
-    height: "500px",
   },
-  position: "relative !important",
-  marginLeft: "20px",
-  borderRadius: "16px !important",
-  transition: "0.3s",
-  cursor: "pointer",
-  boxShadow: "none !important",
-  "&:hover": {
-    boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
+  cardViewAll: {
+    maxWidth: 300,
+    width: "300px",
+    textAlign: "center !important",
+    padding: "10px 20px",
+    height: "540px",
+    "@media (max-width: 780px)": {
+      height: "500px",
+    },
+    position: "relative !important",
+    marginLeft: "20px",
+    borderRadius: "16px !important",
+    transition: "0.3s",
+    cursor: "pointer",
+    boxShadow: "none !important",
+    "&:hover": {
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
+    },
   },
-  background:"linear-gradient(180deg, #FF8B49 0%,#F7D9A9 100%) !important"
-},
-content: {
-  textAlign: "center",
-},
-procode: {
-  fontFamily: " T-Star Pro",
-  fontSize: " 0.7rem !important",
-  lineHeight: "1em",
-  letterSpacing: "0.05em",
-},
-title: {
-  textAlign: "center",
-  fontSize: " 1.5rem !important",
-  lineHeight: "1.3em",
-  cursor: "default !important",
-  "@media (max-width: 780px)": {
-    fontSize: "1.125rem !important",
+  content: {
+    textAlign: "center",
   },
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-},
-price: {
-  fontFamily: "enphase-visuelt-medium !important",
-  fontSize: "1rem ",
-  padding: "20px 0px !important",
-},
-learnbtn: {
-  border: " 1px solid #000 !important",
-  backgroundColor: "#000  !important",
-  color: " #fff  !important",
-  textTransform: "capitalize !important",
-  fontFamily: "enphase-visuelt-medium !important",
-  borderRadius: "25px !important",
-  padding: "4px 20px 0 20px !important",
-  height: "36px",
-  "@media screen and (min-width: 300px) and (max-width: 376px)": {
-    fontSize: "12px !important",
-    padding: "4px 15px 0 15px !important",
-    height: "30px",
+  procode: {
+    fontFamily: " T-Star Pro",
+    fontSize: " 0.7rem !important",
+    lineHeight: "1em",
+    letterSpacing: "0.05em",
   },
-  "@media screen and (min-width: 880px) and (max-width: 996px)": {
-    fontSize: "12px !important",
-    padding: "4px 16px 0 12px !important",
-  }
-},
-addbtn: {
-  border: "1px solid #3c3c3c  !important",
-  color: "#3c3c3c  !important",
-  marginLeft: "10px !important",
-  backgroundColor: "transparent  !important",
-  borderRadius: "25px !important",
-  padding: "4px 20px 0 20px !important",
-  height: "36px",
-  textTransform: "capitalize !important",
-  fontFamily: "enphase-visuelt-medium !important",
-  "@media screen and (min-width: 300px) and (max-width: 376px)": {
-    fontSize: "12px !important",
-    padding: "4px 15px 0 15px !important",
-    height: "30px",
+  title: {
+    textAlign: "center",
+    fontSize: " 1.5rem !important",
+    lineHeight: "1.3em",
+    cursor: "default !important",
+    "@media (max-width: 780px)": {
+      fontSize: "1.125rem !important",
+    },
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
-  "@media screen and (min-width: 880px) and (max-width: 996px)": {
-    fontSize: "12px !important",
-    padding: "4px 16px 0 12px !important",
-  }
-},
-buttonContainer: {
-  fontSize: "0.875rem  !important",
-  justifyContent: "center",
-  position: "relative !important",
-},
-cardFooter: {
-  position: "absolute",
-  bottom: "7%",
-},
+  price: {
+    fontFamily: "enphase-visuelt-medium !important",
+    fontSize: "1rem ",
+    padding: "20px 0px !important",
+  },
+  learnbtn: {
+    border: " 1px solid #000 !important",
+    backgroundColor: "#000  !important",
+    color: " #fff  !important",
+    textTransform: "capitalize !important",
+    fontFamily: "enphase-visuelt-medium !important",
+    borderRadius: "25px !important",
+    padding: "4px 20px 0 20px !important",
+    height: "36px",
+    "@media screen and (min-width: 300px) and (max-width: 376px)": {
+      fontSize: "12px !important",
+      padding: "4px 15px 0 15px !important",
+      height: "30px",
+    },
+    "@media screen and (min-width: 880px) and (max-width: 996px)": {
+      fontSize: "12px !important",
+      padding: "4px 16px 0 12px !important",
+    },
+  },
+  addbtn: {
+    border: "1px solid #3c3c3c  !important",
+    color: "#3c3c3c  !important",
+    marginLeft: "10px !important",
+    backgroundColor: "transparent  !important",
+    borderRadius: "25px !important",
+    padding: "4px 20px 0 20px !important",
+    height: "36px",
+    textTransform: "capitalize !important",
+    fontFamily: "enphase-visuelt-medium !important",
+    "@media screen and (min-width: 300px) and (max-width: 376px)": {
+      fontSize: "12px !important",
+      padding: "4px 15px 0 15px !important",
+      height: "30px",
+    },
+    "@media screen and (min-width: 880px) and (max-width: 996px)": {
+      fontSize: "12px !important",
+      padding: "4px 16px 0 12px !important",
+    },
+  },
+  buttonContainer: {
+    fontSize: "0.875rem  !important",
+    justifyContent: "center",
+    position: "relative !important",
+  },
+  cardFooter: {
+    position: "absolute",
+    bottom: "7%",
+  },
 
-//lifeStyle.jsx
-lifeStyleContainer: {
-  padding: "70px 0px",
-  "@media (max-width: 780px)": {
-    padding: "10px 0px 50px 0px",
+  //lifeStyle.jsx
+  lifeStyleContainer: {
+    padding: "70px 0px",
+    "@media (max-width: 780px)": {
+      padding: "10px 0px 50px 0px",
+    },
   },
-},
-lifeStyleHeader: {
-  float: "none",
-  width: "100%",
-  margin: "0 auto",
-  maxWidth: "90%",
-  paddingBottom: "2%",
-  fontFamily: "enphase-visuelt-regular,sans-serif",
-  "&:active": {
-    transform: "translateY(1.5rem)",
-    opacity: "1",
+  lifeStyleHeader: {
+    float: "none",
+    width: "100%",
+    margin: "0 auto",
+    maxWidth: "90%",
+    paddingBottom: "2%",
+    fontFamily: "enphase-visuelt-regular,sans-serif",
+    "&:active": {
+      transform: "translateY(1.5rem)",
+      opacity: "1",
+    },
   },
-},
-lifeStyleTitle: {
-  marginBottom: "15px !important",
-  fontSize: "2.67rem !important",
-  "@media (max-width: 780px)": {
-    fontSize: "1.625rem !important",
+  lifeStyleTitle: {
+    marginBottom: "15px !important",
+    fontSize: "2.67rem !important",
+    "@media (max-width: 780px)": {
+      fontSize: "1.625rem !important",
+    },
   },
-},
-lifestyleHeadings: {
-  textAlign: "center",
-},
-lifeText: {
-  position: "absolute",
-  zIndex: "1",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  fontSize: "2.625rem !important",
-  left: "28%",
-  marginTop: "60px !important",
-  "@media (max-width: 780px)": {
-    left: "4%",
-    margin: "24px !important",
-    fontSize: "1.625rem !important",
+  lifestyleHeadings: {
+    textAlign: "center",
   },
-},
-//lifeStyleParts.jsx
-helpContaier: {
-  float: "none",
-  width: "100%",
-  margin: "0 auto",
-  maxWidth: "90%",
-  justifyContent: "space-between",
-  padding: "24px 0px",
-},
-helpGrid: {
-  marginBottom: "20px",
-  "@media (max-width: 780px)": {
-    flexDirection:"column !important"
-  }
-},
-helpGridPart:{
-  "@media (max-width: 780px)": {
-    justifyContent:"flex-start",
-    marginBottom:"10px"
-  }
-},
-helpGridSection: {
-  marginRight: "20px",
-  color: "#3c3c3c",
-  fontSize: "12px",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  "@media (max-width: 780px)": {
-    marginBottom:"10px"
-  }
-},
-helpGridcontent: {
-  marginRight: "20px",
-  color: "#3c3c3c",
-  fontSize: "13px",
-  fontFamily: "enphase-visuelt-regular,sans-serif",
-  "@media (max-width: 780px)": {
-    marginBottom:"13px",
-  }
-},
-lifeStylePartspayment: {
-  display: "flex",
-},
-payImg: {
-  height: "32px",
-  marginRight: "20px",
-},
-lifestyleFooterContainer: {
-  backgroundColor: "#61C06A",
-  padding: "20px 0px",
-  "@media (max-width: 780px)": {
-    borderRadius:"16px",
-    textAlign:"center",
-    padding:'0'
-  }
-},
-lifestyleFooter: {
-  float: "none",
-  margin: "0 auto",
-  maxWidth: "90%",
-  justifyContent: "space-between",
-  alignItems: "center",
-  "@media (max-width: 780px)": {
-    flexDirection:"column !important",
-    padding:"30px"
-  }
-},
-lifeStylebtncontainer: {
-  padding: "0px 20px",
-  borderRadius: "50px",
-  transition: "background .2s ease-out",
-  minWidth: "unset",
-  backgroundColor: "#ffffff",
-  height: "44px",
-},
-lifeStylebtn: {
-  color: "black",
-  padding: "0",
-  height: "44px",
-  fontFamily: "enphase-visuelt-medium,sans-serif !important",
-  textTransform: "capitalize !important",
-  fontSize: "0.875rem !important",
-  cursor: "pointer",
-  fontWeight: "550 !important",
-},
-lifeStylequestions: {
-  fontFamily: "enphase-visuelt-regular,sans-serif",
-  fontSize: "1.5rem !important",
-  "@media (max-width: 780px)": {
-    fontSize: "1.125rem !important",
-    marginBottom:"40px !important"
-  }
-},
-//learnMore.jsx
+  lifeText: {
+    position: "absolute",
+    zIndex: "1",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    fontSize: "2.625rem !important",
+    left: "28%",
+    marginTop: "60px !important",
+    "@media (max-width: 780px)": {
+      left: "4%",
+      margin: "24px !important",
+      fontSize: "1.625rem !important",
+    },
+  },
+  //lifeStyleParts.jsx
+  helpContaier: {
+    float: "none",
+    width: "100%",
+    margin: "0 auto",
+    maxWidth: "90%",
+    justifyContent: "space-between",
+    padding: "24px 0px",
+  },
+  helpGrid: {
+    marginBottom: "20px",
+    "@media (max-width: 780px)": {
+      flexDirection: "column !important",
+    },
+  },
+  helpGridPart: {
+    "@media (max-width: 780px)": {
+      justifyContent: "flex-start",
+      marginBottom: "10px",
+    },
+  },
+  helpGridSection: {
+    marginRight: "20px",
+    color: "#3c3c3c",
+    fontSize: "12px",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    "@media (max-width: 780px)": {
+      marginBottom: "10px",
+    },
+  },
+  helpGridcontent: {
+    marginRight: "20px",
+    color: "#3c3c3c",
+    fontSize: "13px",
+    fontFamily: "enphase-visuelt-regular,sans-serif",
+    "@media (max-width: 780px)": {
+      marginBottom: "13px",
+    },
+  },
+  lifeStylePartspayment: {
+    display: "flex",
+  },
+  payImg: {
+    height: "32px",
+    marginRight: "20px",
+  },
+  lifestyleFooterContainer: {
+    backgroundColor: "#61C06A",
+    padding: "20px 0px",
+    "@media (max-width: 780px)": {
+      borderRadius: "16px",
+      textAlign: "center",
+      padding: "0",
+    },
+  },
+  lifestyleFooter: {
+    float: "none",
+    margin: "0 auto",
+    maxWidth: "90%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "@media (max-width: 780px)": {
+      flexDirection: "column !important",
+      padding: "30px",
+    },
+  },
+  lifeStylebtncontainer: {
+    padding: "0px 20px",
+    borderRadius: "50px",
+    transition: "background .2s ease-out",
+    minWidth: "unset",
+    backgroundColor: "#ffffff",
+    height: "44px",
+  },
+  lifeStylebtn: {
+    color: "black",
+    padding: "0",
+    height: "44px",
+    fontFamily: "enphase-visuelt-medium,sans-serif !important",
+    textTransform: "capitalize !important",
+    fontSize: "0.875rem !important",
+    cursor: "pointer",
+    fontWeight: "550 !important",
+  },
+  lifeStylequestions: {
+    fontFamily: "enphase-visuelt-regular,sans-serif",
+    fontSize: "1.5rem !important",
+    "@media (max-width: 780px)": {
+      fontSize: "1.125rem !important",
+      marginBottom: "40px !important",
+    },
+  },
+  //learnMore.jsx
 
-learMoreContainer: {
-  display: "flex",
-  justifyContent: "space-between",
-  float: "none",
-  maxWidth: "64%",
-  "@media (max-width:500px)":{
-  maxWidth: "88%",
-},
-"@media screen and (min-width: 501px) and (max-width: 800px)":{
-  maxWidth: "88%",
-},
-  margin: "0 auto",
-  alignItems: "center",
-},
-lSideText: {
-  color: "#6e6e73 !important",
-  fontSize: "0.875rem !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-},
-lHeading: {
-  fontSize: "1.25rem !important",
-  fontFamily: "enphase-visuelt-medium !important",
-  "@media (max-width:500px)":{
+  learMoreContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    float: "none",
+    maxWidth: "64%",
+    "@media (max-width:500px)": {
+      maxWidth: "88%",
+    },
+    "@media screen and (min-width: 501px) and (max-width: 800px)": {
+      maxWidth: "88%",
+    },
+    margin: "0 auto",
+    alignItems: "center",
+  },
+  lSideText: {
+    color: "#6e6e73 !important",
     fontSize: "0.875rem !important",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  }
-},
-learnMoreDivider: {
-  margin: "0.7em 15em !important",
-  "@media (max-width:500px)":{
-    margin:"10px 10px !important"
   },
-  "@media screen and (min-width: 501px) and (max-width: 800px)":{
-    margin:"10px 40px !important"
-  },
-},
-storeAcc: {
-  fontSize: "12px !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-},
-
-//singleProduct.jsx
-singleProductContainer: {
-  textAlign: "center",
-  float: "none",
-  maxWidth: "98%",
-  margin: "0 auto !important",
-  padding: "20px 0px",
-  "@media (max-width: 500px)": {
-    display: "block !important",
-  },
-},
-singleProductcolumn:{
-  "@media (max-width: 500px)": {
-    maxWidth:"100% !important"
-  }
-},
-singleProductimgSec: {
-  boxShadow: "none !important",
-  borderRadius: "16px !important",
-  marginBottom: "15px !important",
-},
-singleProductimgSecChild: {
-  cursor: "pointer",
-},
-singleProductrightAllign: {
-  paddingLeft: "100px !important",
-  "@media (max-width: 500px)": {
-    maxWidth:"100% !important",
-    padding :"10px !important"
-  }
-},
-
-//singleProductContent.jsx
-spcontentContainer: {
-  textAlign: "left",
-},
-spheader: {
-  fontSize: "2.625rem !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  paddingBottom: "15px",
-  "@media (max-width: 800px)": {
-    fontSize: "1.625rem !important",
-  },
-},
-spprice: {
-  fontSize: "1.5rem !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  paddingBottom: "15px",
-  "@media (max-width: 800px)": {
+  lHeading: {
     fontSize: "1.25rem !important",
-  }
-},
-pCode: {
-  fontSize: "1.25rem !important",
-  fontFamily: "T-Star Pro !important",
-  marginLeft: "16px",
-  color: "#6e6e73",
-},
-pText: {
-  fontSize: "1.25rem !important",
-  lineHeight: "1.9rem !important",
-  marginBottom: "25px !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  "@media (max-width: 800px)": {
+    fontFamily: "enphase-visuelt-medium !important",
+    "@media (max-width:500px)": {
+      fontSize: "0.875rem !important",
+      fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    },
+  },
+  learnMoreDivider: {
+    margin: "0.7em 15em !important",
+    "@media (max-width:500px)": {
+      margin: "10px 10px !important",
+    },
+    "@media screen and (min-width: 501px) and (max-width: 800px)": {
+      margin: "10px 40px !important",
+    },
+  },
+  storeAcc: {
+    fontSize: "12px !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+  },
+
+  //singleProduct.jsx
+  singleProductContainer: {
+    textAlign: "center",
+    float: "none",
+    maxWidth: "98%",
+    margin: "0 auto !important",
+    padding: "20px 0px",
+    "@media (max-width: 500px)": {
+      display: "block !important",
+    },
+  },
+  singleProductcolumn: {
+    "@media (max-width: 500px)": {
+      maxWidth: "100% !important",
+    },
+  },
+  singleProductimgSec: {
+    boxShadow: "none !important",
+    borderRadius: "16px !important",
+    marginBottom: "15px !important",
+  },
+  singleProductimgSecChild: {
+    cursor: "pointer",
+  },
+  singleProductrightAllign: {
+    paddingLeft: "100px !important",
+    "@media (max-width: 500px)": {
+      maxWidth: "100% !important",
+      padding: "10px !important",
+    },
+  },
+
+  //singleProductContent.jsx
+  spcontentContainer: {
+    textAlign: "left",
+  },
+  spheader: {
+    fontSize: "2.625rem !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    paddingBottom: "15px",
+    "@media (max-width: 800px)": {
+      fontSize: "1.625rem !important",
+    },
+  },
+  spprice: {
+    fontSize: "1.5rem !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    paddingBottom: "15px",
+    "@media (max-width: 800px)": {
+      fontSize: "1.25rem !important",
+    },
+  },
+  pCode: {
+    fontSize: "1.25rem !important",
+    fontFamily: "T-Star Pro !important",
+    marginLeft: "16px",
+    color: "#6e6e73",
+  },
+  pText: {
+    fontSize: "1.25rem !important",
+    lineHeight: "1.9rem !important",
+    marginBottom: "25px !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    "@media (max-width: 800px)": {
+      fontSize: "1rem !important",
+    },
+  },
+  pTextRead: {
+    fontSize: "1.25rem !important",
+    lineHeight: "1.9rem !important",
+    marginBottom: "25px !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    textDecoration: "underline",
+    cursor: "pointer",
+  },
+  spqnty: {
     fontSize: "1rem !important",
-  }
-},
-pTextRead: {
-  fontSize: "1.25rem !important",
-  lineHeight: "1.9rem !important",
-  marginBottom: "25px !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  textDecoration: "underline",
-  cursor: "pointer",
-},
-spqnty: {
-  fontSize: "1rem !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  marginBottom: "18px !important",
-},
-spinputContainer: {
-  position: "relative",
-},
-spinputBox: {
-  position: "relative",
-  outline: " none",
-  width: "95px",
-  backgroundColor: " #fff",
-  border: " 1px solid #3c3c3c",
-  borderRadius: " 8px",
-  padding: "8px 48px 8px 7px",
-  height: "56px",
-  textAlign: " center",
-  cursor: "pointer",
-},
-sparrowContainer: {
-  opacity: 1,
-  position: "absolute",
-  backgroundColor: "#fff",
-  top: 0,
-  right: "83%",
-  width: "calc(10% - 6px)",
-  height: "100%",
-  border: " 1px solid #3c3c3c",
-  borderRadius: "0 8px 8px 0",
-  display: "flex",
-  flexDirection: "column",
-  padding: "0 6px 0",
-  alignItems: "center",
-  justifyContent: "center",
-  cursor: " pointer",
-  "@media (max-width: 500px)": {
-  right: "71%",
-  width: "calc(14% - 6px)"
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    marginBottom: "18px !important",
   },
-  "@media screen and (min-width: 501px) and (max-width: 800px)":{
-    right: "65%",
-    width: "calc(19% - 6px)"
+  spinputContainer: {
+    position: "relative",
   },
-},
-spupArrow: {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  cursor: "pointer !important",
-  width: "16px",
-  height: "16px",
-},
-spcartBtn: {
-  width: "95% !important",
-  border: "1px solid #000 !important",
-  backgroundColor: "#000 !important",
-  color: "#fff !important",
-  fontSize: "1rem !important !important",
-  fontFamily: "enphase-visuelt-medium !important",
-  borderRadius: "56px !important",
-  padding: "26px 32px !important",
-  margin: "30px 0px !important",
-  "@media (max-width: 800px)": {
-    fontSize: "0.875rem !important",
-    textTransform:"capitalize !important",
-  }
-},
+  spinputBox: {
+    position: "relative",
+    outline: " none",
+    width: "95px",
+    backgroundColor: " #fff",
+    border: " 1px solid #3c3c3c",
+    borderRadius: " 8px",
+    padding: "8px 48px 8px 7px",
+    height: "56px",
+    textAlign: " center",
+    cursor: "pointer",
+  },
+  sparrowContainer: {
+    opacity: 1,
+    position: "absolute",
+    backgroundColor: "#fff",
+    top: 0,
+    right: "83%",
+    width: "calc(10% - 6px)",
+    height: "100%",
+    border: " 1px solid #3c3c3c",
+    borderRadius: "0 8px 8px 0",
+    display: "flex",
+    flexDirection: "column",
+    padding: "0 6px 0",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: " pointer",
+    "@media (max-width: 500px)": {
+      right: "71%",
+      width: "calc(14% - 6px)",
+    },
+    "@media screen and (min-width: 501px) and (max-width: 800px)": {
+      right: "65%",
+      width: "calc(19% - 6px)",
+    },
+  },
+  spupArrow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer !important",
+    width: "16px",
+    height: "16px",
+  },
+  spcartBtn: {
+    width: "95% !important",
+    border: "1px solid #000 !important",
+    backgroundColor: "#000 !important",
+    color: "#fff !important",
+    fontSize: "1rem !important !important",
+    fontFamily: "enphase-visuelt-medium !important",
+    borderRadius: "56px !important",
+    padding: "26px 32px !important",
+    margin: "30px 0px !important",
+    "@media (max-width: 800px)": {
+      fontSize: "0.875rem !important",
+      textTransform: "capitalize !important",
+    },
+  },
 
-//StoreSignIn.jsx
-storeSignInContainer: {
-  padding: "40px 0px",
-},
-signInRegister: {
-  width: "400px !important",
-  margin: "0 auto",
-},
-storeLogin: {
-  backgroundColor: "#fff",
-  width: "100%",
-  background: "#faf6ef",
-  padding: "40px",
-  borderRadius: "16px",
-},
-blockTitle: {
-  marginBottom: "0",
-  paddingBottom: "8px",
-},
-blockTitleVariant: {
-  fontFamily: "enphase-visuelt-medium,sans-serif !important",
-  fontWeight: "normal !important",
-  fontSize: "1.8rem !important",
-},
-storeSignInContent: {
-  fontFamily: "enphase-visuelt-regular,sans-serif !important",
-},
-storeSignInBtn: {
-  border: "1px solid #000 !important",
-  backgroundColor: "#000 !important",
-  color: "#fff !important",
-  fontSize: "1rem !important",
-  fontFamily: "enphase-visuelt-medium !important",
-  borderRadius: "56px !important",
-  textTransform: "capitalize !important",
-  width: "100% !important",
-},
-storeSignUpBtn: {
-  "&:before": {
-    content: '"Not a Member Yet?" !important',
-    paddingRight: "10px !important",
+  //StoreSignIn.jsx
+  storeSignInContainer: {
+    padding: "40px 0px",
   },
-  marginTop: "25px !important",
-  fontSize: "12px !important !important",
-  fontFamily: "enphase-visuelt-regular,sans-serif  !important",
-  textTransform: "none !important",
-},
-frgtPassword: {
-  fontSize: "12px",
-  marginTop: "16px",
-  fontFamily: "enphase-visuelt-regular,sans-serif  !important",
-},
+  signInRegister: {
+    width: "400px !important",
+    margin: "0 auto",
+  },
+  storeLogin: {
+    backgroundColor: "#fff",
+    width: "100%",
+    background: "#faf6ef",
+    padding: "40px",
+    borderRadius: "16px",
+  },
+  blockTitle: {
+    marginBottom: "0",
+    paddingBottom: "8px",
+  },
+  blockTitleVariant: {
+    fontFamily: "enphase-visuelt-medium,sans-serif !important",
+    fontWeight: "normal !important",
+    fontSize: "1.8rem !important",
+  },
+  storeSignInContent: {
+    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+  },
+  storeSignInBtn: {
+    border: "1px solid #000 !important",
+    backgroundColor: "#000 !important",
+    color: "#fff !important",
+    fontSize: "1rem !important",
+    fontFamily: "enphase-visuelt-medium !important",
+    borderRadius: "56px !important",
+    textTransform: "capitalize !important",
+    width: "100% !important",
+  },
+  storeSignUpBtn: {
+    "&:before": {
+      content: '"Not a Member Yet?" !important',
+      paddingRight: "10px !important",
+    },
+    marginTop: "25px !important",
+    fontSize: "12px !important !important",
+    fontFamily: "enphase-visuelt-regular,sans-serif  !important",
+    textTransform: "none !important",
+  },
+  frgtPassword: {
+    fontSize: "12px",
+    marginTop: "16px",
+    fontFamily: "enphase-visuelt-regular,sans-serif  !important",
+  },
 
-//StoreSignInForm.jsx
+  //StoreSignInForm.jsx
 
-fieldNote: {
-  borderBottom: " 1px solid #7d7d7d",
-  marginBottom: "0",
-  paddingBottom: "24px",
-  fontSize: "13px !important",
-},
-storeInputContainer: {
-  marginTop: "40px",
-},
-storelabel: {
-  margin: " 0 0 8px !important",
-  display: " inline-block !important",
-  fontFamily: "T-Star Pro !important",
-  fontSize: "0.75rem !important",
-  fontWeight: "600 !important",
-  color: "#000 !important",
-  lineHeight: "1em !important",
-  letterSpacing: "0.05em !important",
-  textTransform: "uppercase !important",
-  "&:after": {
-    content: '"*" !important',
-    color: "#e02b27 !important",
-    fontSize: "1.2rem !important",
-    margin: "0 0 0 5px !important",
+  fieldNote: {
+    borderBottom: " 1px solid #7d7d7d",
+    marginBottom: "0",
+    paddingBottom: "24px",
+    fontSize: "13px !important",
   },
-},
-storeinputData: {
-  width: "100%",
-},
+  storeInputContainer: {
+    marginTop: "40px",
+  },
+  storelabel: {
+    margin: " 0 0 8px !important",
+    display: " inline-block !important",
+    fontFamily: "T-Star Pro !important",
+    fontSize: "0.75rem !important",
+    fontWeight: "600 !important",
+    color: "#000 !important",
+    lineHeight: "1em !important",
+    letterSpacing: "0.05em !important",
+    textTransform: "uppercase !important",
+    "&:after": {
+      content: '"*" !important',
+      color: "#e02b27 !important",
+      fontSize: "1.2rem !important",
+      margin: "0 0 0 5px !important",
+    },
+  },
+  storeinputData: {
+    width: "100%",
+  },
 
-signInBox: {
-  "& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
-    padding: "8px 9px !important",
+  signInBox: {
+    "& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
+      padding: "8px 9px !important",
+    },
+    "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+      borderColor: "#0a0802",
+    },
+    background: "#faf6ef !important",
+    borderRadius: "8px !important",
+    // border: "1px solid #7d7d7d !important",
+    width: "100% !important",
   },
-  "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
-    borderColor: "#0a0802",
+  remeberMe: {
+    display: "flex !important",
+    margin: "0 0 20px",
+    position: "relative !important",
   },
-  background: "#faf6ef !important",
-  borderRadius: "8px !important",
- // border: "1px solid #7d7d7d !important",
-  width: "100% !important",
-},
-remeberMe: {
-  display: "flex !important",
-  margin: "0 0 20px",
-  position: "relative !important",
-},
-checkBox: {
-  padding: "0 !important",
-  "&.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.Mui-checked": {
-    color: "#0075FF !important",
+  checkBox: {
+    padding: "0 !important",
+    "&.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.Mui-checked": {
+      color: "#0075FF !important",
+    },
   },
-},
-rememberLabel: {
-  position: "absolute !important",
-  fontFamily: "T-Star Pro !important",
-  fontSize: " 0.75rem !important",
-  lineHeight: "1em !important",
-  color: "#000 !important",
-  letterSpacing: " 0.05em !important",
-  left: "9%",
-  top: "30%",
-},
-whatsThis: {
-  fontSize: "12px",
-  cursor: "help",
-},
-}))
+  rememberLabel: {
+    position: "absolute !important",
+    fontFamily: "T-Star Pro !important",
+    fontSize: " 0.75rem !important",
+    lineHeight: "1em !important",
+    color: "#000 !important",
+    letterSpacing: " 0.05em !important",
+    left: "9%",
+    top: "30%",
+  },
+  whatsThis: {
+    fontSize: "12px",
+    cursor: "help",
+  },
+}));

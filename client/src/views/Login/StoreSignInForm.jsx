@@ -13,7 +13,7 @@ export default function StoreSignInForm(props) {
   const [userError, setUserError] = useState("");
   const { register, setRegister } = props;
   const handleSubmit = (event) => {
-    console.log(event,"asdasd");
+    console.log(event,);
   };
   const inputs = [
     {

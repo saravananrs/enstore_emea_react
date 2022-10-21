@@ -2,7 +2,7 @@ import { Box, Button, Divider, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
-
+// import dropImg from "../../Assets/Header/spritemap.svg";
 
 export default function HeaderDropDown() {
   const classes = useStyledComponent();
@@ -24,7 +24,8 @@ export default function HeaderDropDown() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        Get Enphase <KeyboardArrowDownOutlinedIcon className={classes.dropDownArrow} />
+        Get Enphase
+        <KeyboardArrowDownOutlinedIcon className={classes.dropDownArrow} />
       </Button>
       <Menu
         id="basic-menu"
@@ -38,8 +39,9 @@ export default function HeaderDropDown() {
           "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
             {
               top: { xs: "53px !important" },
-              left: { xs: "19px", md: "182px" },
-              width: { xs: "100%", md: "20%" },
+              left: { xs: "19px", md: "182" },
+              width: { xs: "100%", md: "25%" },
+              borderRadius: "8px !important",
             },
         }}
       >

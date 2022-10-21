@@ -5,7 +5,6 @@ import {
   Divider,
   Grid,
   Menu,
-  MenuItem,
   TextField,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
@@ -23,7 +22,6 @@ const useStyles = makeStyles(() => ({
     "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
       {
         padding: "16px 14px",
-
         marginTop: "3px",
         width: "25% !important",
         maxHeight: "500px",
@@ -43,7 +41,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function HeaderSearch() {
+export default function HeaderSearch(props) {
+  const { setMobileOpen, mobileOpen, setCloseVisible, closeVisible } = props;
   const classes = useStyles();
   const classCheck = useStyledComponent();
   const { allLocalData } = useSelector((state) => state.store);
@@ -58,15 +57,28 @@ export default function HeaderSearch() {
   const handleClick = (event) => {
     setEnphaseSearch(event.currentTarget);
   };
-  const handlePress = (e) =>{
-    if(e.key === "Enter"){
-        navigate("/viewall", {
-             state: {name:searchResult , searchBox: filteredSerachResult },
-          })
-    }
-  }
   const handleClose = () => {
     setEnphaseSearch(null);
+  };
+  const handlePress = (e) => {
+    if (e.key === "Enter") {
+      navigate("/viewall", {
+        state: { name: searchResult, searchBox: filteredSerachResult },
+      });
+      if (mobileOpen && closeVisible !== undefined) {
+        setMobileOpen(!mobileOpen);
+        setCloseVisible(!closeVisible);
+      }
+      handleClose();
+    }
+  };
+  const handleSinglePageClick = (url) => {
+    navigate(`/product/${url}`);
+    if (mobileOpen && closeVisible !== undefined) {
+      setMobileOpen(!mobileOpen);
+      setCloseVisible(!closeVisible);
+    }
+    handleClose();
   };
   const onHandleChange = (e) => {
     e.preventDefault();
@@ -108,8 +120,12 @@ export default function HeaderSearch() {
               marginLeft: { xs: "0px", md: "-61px" },
               padding: "16px 14px",
               marginTop: "3px",
-              width: {xs:"50% !important",sm:"55% !important",md:"25% !important"},
-              maxHeight: {xs:"300px",md:"500px"},
+              width: {
+                xs: "50% !important",
+                sm: "55% !important",
+                md: "25% !important",
+              },
+              maxHeight: { xs: "300px", md: "500px" },
             },
         }}
         onClose={handleClose}
@@ -136,17 +152,16 @@ export default function HeaderSearch() {
               <ul style={{ marginTop: "20px" }}>
                 {filteredSerachResult.map((item) => {
                   let custome_attribute = {};
-                  item.custom_attributes.map((attributes) => {
-                    custome_attribute[attributes.attribute_code] =
-                      attributes.value;
-                  });
+                  item.custom_attributes.map((attributes) => 
+                    custome_attribute[attributes.attribute_code] = attributes.value
+                  );
                   return (
                     <>
                       <li
                         className={classes.headersearchList}
                         key={item}
                         onClick={() =>
-                          navigate(`/product/${custome_attribute.url_key}`)
+                          handleSinglePageClick(custome_attribute.url_key)
                         }
                       >
                         <Box className={classCheck.cartImgContainer}>
