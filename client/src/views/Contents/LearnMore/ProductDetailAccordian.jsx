@@ -5,63 +5,8 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@material-ui/styles";
 import { Divider, Box, Grid } from "@mui/material";
-const useStyles = makeStyles(() => ({
-  accordianContainer: {
-    margin: "20px 0px",
-  },
-  accTitle: {
-    fontSize: "1.6rem !important",
-    lineHeight: "1.3rem !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    paddingLeft: "30px !important",
-    position: "relative",
-    "@media (max-width: 800px)": {
-      fontSize: "1.125rem !important",
-    },
-  },
-  accordianContent: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "1.25rem !important",
-    lineHeight: "1.6rem !important",
-    padding: "0 32px",
-    marginBottom: "17px",
-  },
-  acclists: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "1.25rem !important",
-    lineHeight: "1.6rem !important",
-  },
-  acclistitems: {
-    marginTop: "32px",
-  },
-  acclistTexts: {
-    paddingBottom: "12px",
-    listStyleType: "disc",
-    marginLeft: "14px",
-    textAlign: "left",
-    lineHeight: "2.5rem !important",
-    marginRight: "22px",
-    color: "#000",
-  },
-  accTable: {
-    borderCollapse: "collapse",
-    borderColor: "#6e6e73",
-  },
-  accTableHead: {
-    padding: "6px 16px",
-    fontWeight: "400",
-  },
-  accTableContent: {
-    marginRight: "20px !important",
-    marginTop: "30px !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "1.25rem !important",
-    lineHeight: "1.6rem !important",
-  },
-}));
-
+import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -99,14 +44,7 @@ export default function ProductDetailAccordian(props) {
   product.custom_attributes.map((attributes) => {
     custome_attribute[attributes.attribute_code] = attributes.value;
   });
-  // function getText(html) {
-  //   let divContainer = document.createElement("div");
-  //   divContainer.innerHTML = html;
-  //   return divContainer.textContent || divContainer.innerText || "";
-  // }
-  // let detailsData = custome_attribute.description;
-  // console.log(getText(detailsData), "custome_attribute");
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [expandedTech, setExpandedTech] = React.useState(false);
   const [expandedCompat, setExpandedCompat] = React.useState(false);
@@ -126,7 +64,7 @@ export default function ProductDetailAccordian(props) {
   };
   return (
     <React.Fragment>
-      <Box className={classes.accordianContainer}>
+      <Box className={classes.productDetailAccordianContainer}>
         <Accordion expanded={expanded} >
           <AccordionSummary onClick={handleDetailClick}>
             <Typography variant="h3" className={classes.accTitle}>
@@ -194,7 +132,7 @@ export default function ProductDetailAccordian(props) {
                     </tr>
                   </tbody>
                 </table>
-                <ul className={classes.acclistitems}>
+                <ul className={classes.productDetailacclistitems}>
                   <li className={classes.acclistTexts}>
                     Lighter weight than earlier M-Series Microinverters
                   </li>
@@ -222,7 +160,7 @@ export default function ProductDetailAccordian(props) {
           <AccordionDetails>
             <Grid className={classes.accordianContent}>
               <Box className={classes.acclists}>
-                <ul className={classes.acclistitems}>
+                <ul className={classes.productDetailacclistitems}>
                   <li className={classes.acclistTexts}>
                     Lighter weight than earlier M-Series Microinverters
                   </li>
@@ -250,7 +188,7 @@ export default function ProductDetailAccordian(props) {
           <AccordionDetails>
             <Grid className={classes.accordianContent}>
               <Box className={classes.acclists}>
-                <ul className={classes.acclistitems}>
+                <ul className={classes.productDetailacclistitems}>
                   <li className={classes.acclistTexts}>
                     Lighter weight than earlier M-Series Microinverters
                   </li>
@@ -278,7 +216,7 @@ export default function ProductDetailAccordian(props) {
           <AccordionDetails>
             <Grid className={classes.accordianContent}>
               <Box className={classes.acclists}>
-                <ul className={classes.acclistitems}>
+                <ul className={classes.productDetailacclistitems}>
                   <li className={classes.acclistTexts}>
                     Lighter weight than earlier M-Series Microinverters
                   </li>

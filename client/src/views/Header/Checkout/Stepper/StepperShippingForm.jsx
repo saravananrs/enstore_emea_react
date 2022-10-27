@@ -9,93 +9,17 @@ import {
   styled,
 } from "@mui/material";
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 
 const TextField = styled(TextValidator)(() => ({
   width: "100%",
   marginBottom: "16px",
 }));
 
-const useStyles = makeStyles(() => ({
-  inputData: {
-    position: " relative",
-    cursor: "text",
-    paddingLeft: "8px !important",
-  },
-  inputBox: {
-    marginBottom: "0 !important",
-    borderColor: "transparent !important",
-    "& .css-rmuk7y-MuiFormLabel-root-MuiInputLabel-root": {
-      fontSize: "12px",
-    },
-    "& .css-q0aqjl-MuiFormLabel-root-MuiInputLabel-root": {
-      fontSize: "14px",
-      top: "6px",
-    },
-
-    "& .css-pixsb5-MuiInputBase-root-MuiOutlinedInput-root": {
-      borderStyle: "solid",
-      borderColor: "transparent",
-      borderRadius: "4px",
-      color: "#181818",
-      fontSize: "16px",
-      height: "48px",
-      width: "100%",
-      outline: "none",
-    },
-    "& .css-1ev87vg-MuiGrid-root>.MuiGrid-item": {
-      padding: "0 !important",
-    },
-  },
-  selectLabel: {
-    "& .css-1i705n7-MuiFormLabel-root-MuiInputLabel-root": {
-      fontSize: "14px !important",
-      top: "3px !important",
-    },
-  },
-  stateSelect: {
-    "& .css-6hp17o-MuiList-root-MuiMenu-list": {
-      height: "100px !important",
-    },
-    "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-      {
-        padding: "12.5px 14px !important",
-      },
-    "& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
-      {
-        height: "100px !important",
-      },
-  },
-
-  selectBox: {
-    marginTop: "3px",
-    "& .css-q0aqjl-MuiFormLabel-root-MuiInputLabel-root": {
-      fontSize: "14px !important",
-      top: "3px !important",
-      left: "-7px !important",
-    },
-    "& .css-i4bv87-MuiSvgIcon-root": {
-      display: "none !important",
-    },
-    " & .css-1q60rmi-MuiAutocomplete-endAdornment": {
-      display: "none !important",
-    },
-    "& .css-rmuk7y-MuiFormLabel-root-MuiInputLabel-root": {
-      fontSize: "14px !important",
-    },
-    "& .css-1aetoos-MuiInputBase-root-MuiOutlinedInput-root": {
-      padding: "6px 10px !important",
-    },
-    "& .css-wq0uzk-MuiFormControl-root-MuiTextField-root": {
-      marginBottom: "0 !important",
-    },
-  },
-}));
-
 export default function StepperShippingForm(props) {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const filter = createFilterOptions();
   const [userError, setUserError] = useState("");
   const {
@@ -115,9 +39,11 @@ export default function StepperShippingForm(props) {
     const value = e.target.value;
     setRegister({ ...register, [name]: value });
   };
-  const onHandleStreetChange = (e, newValue) => {
+  const onHandleStreetChange = (e) => {
     e.preventDefault();
-    setRegister({ ...register, address: newValue.label });
+    const name = e.target.name;
+    const value = e.target.value;
+    setRegister({ ...register, [name]: value });
   };
   const onEnqFocusEvent = () => {
     setUserError("");
@@ -196,12 +122,10 @@ export default function StepperShippingForm(props) {
   ];
   const streetData = [
     {
-      label: indAddress && indAddress !== undefined && indAddress[0]?.street[0],
-      country_id:
-        indAddress && indAddress !== undefined && indAddress[0]?.country_id,
-      postcode:
-        indAddress && indAddress !== undefined && indAddress[0]?.postcode,
-      city: indAddress && indAddress !== undefined && indAddress[0]?.city,
+      label: indAddress !== undefined && indAddress[0]?.street[0],
+      country_id: indAddress !== undefined && indAddress[0]?.country_id,
+      postcode: indAddress !== undefined && indAddress[0]?.postcode,
+      city: indAddress !== undefined && indAddress[0]?.city,
     },
   ];
   return (
@@ -237,69 +161,73 @@ export default function StepperShippingForm(props) {
         })}
         <Grid item xs={12} className={classes.inputData}>
           {indAddress && indAddress !== undefined ? (
-            <form onSubmit={handleSubmit}>
-              <Autocomplete
-                className={classes.selectBox}
-                value={register.address}
-                onChange={(e, newValue) => {
-                  onHandleStreetChange(e, newValue);
-                }}
-                freeSolo
-                selectOnFocus
-                onFocus={onEnqFocusEvent}
-                filterOptions={(options, params) => {
-                  const filtered = filter(options, params);
-                  const { inputValue } = params;
-                  const isExisting = options.some(
-                    (option) => inputValue === option.label
-                  );
-                  if (inputValue !== "" && !isExisting) {
-                    filtered.push({
-                      inputValue,
-                      label: inputValue,
-                      country_id: options[0].country_id,
-                      postcode: options[0].postcode,
-                      city: options[0].city,
-                    });
-                  }
+            <Autocomplete
+              className={classes.selectBox}
+              value={register.address}
+              // onChange={(e, newValue) => {
+              //   onHandleStreetChange(e, newValue);
+              // }}
+              freeSolo
+              onKeyDown={(e) => {
+                e.stopPropagation();
+              }}
+              onError={() => null}
+              filterOptions={(options, params) => {
+                const filtered = filter(options, params);
+                const { inputValue } = params;
+                const isExisting = options.some(
+                  (option) => inputValue === option.label
+                );
+                if (inputValue !== "" && !isExisting) {
+                  filtered.push({
+                    inputValue,
+                    label: inputValue,
+                    country_id: options[0].country_id,
+                    postcode: options[0].postcode,
+                    city: options[0].city,
+                  });
+                }
 
-                  return filtered;
-                }}
-                handleHomeEndKeys
-                options={streetData}
-                getOptionLabel={(option) => {
-                  if (typeof option === "string") {
-                    return option;
-                  }
-                  if (option.inputValue) {
-                    return option.inputValue;
-                  }
-                  return option.label;
-                }}
-                renderOption={(props, option) => (
-                  <div onClick={() => setStreet(true)}>
-                    <li {...props}>
-                      {option.label +
-                        "," +
-                        option.country_id +
-                        "," +
-                        option.postcode +
-                        "," +
-                        option.city}{" "}
-                    </li>
-                  </div>
-                )}
-                renderInput={(params) => (
-                  <TextField {...params} label="Street Address" />
-                )}
-              />
-            </form>
+                return filtered;
+              }}
+              handleHomeEndKeys
+              options={streetData}
+              getOptionLabel={(option) => {
+                if (typeof option === "string") {
+                  return option;
+                }
+                if (option.inputValue) {
+                  return (register.address = option.inputValue);
+                }
+                return (register.address = option.label);
+              }}
+              renderOption={(props, option) => (
+                <div onClick={() => setStreet(true)}>
+                  <li {...props}>
+                    {option.label +
+                      "," +
+                      option.country_id +
+                      "," +
+                      option.postcode +
+                      "," +
+                      option.city}{" "}
+                  </li>
+                </div>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="address"
+                  onChange={onHandleStreetChange}
+                  label="Street Address"
+                />
+              )}
+            />
           ) : (
             <TextField
               type="text"
               name="address"
               className={classes.inputBox}
-              // id={datas.id}
               value={register.address}
               onChange={onRegister}
               onFocus={onEnqFocusEvent}

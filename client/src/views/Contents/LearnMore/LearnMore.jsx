@@ -1,6 +1,5 @@
 import { Divider, Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/styles";
+import React, { useEffect } from "react";
 import SingleProduct from "./SingleProduct";
 import LifestyleParts from "../LifestyleParts";
 import { useParams } from "react-router-dom";

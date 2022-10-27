@@ -1,36 +1,12 @@
 import { Container } from "@mui/system";
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
 import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 
-const useStyles = makeStyles(() => ({
-  successContaier: {
-    textAlign: "center",
-  },
-  sucessBox: {
-    padding: "16px",
-    textAlign: "center",
-    paddingTop: "48px",
-    paddingBottom: "48px",
-    maxWidth: "60%",
-    margin: " 0 auto",
-  },
-  tick: {
-    fill: "#50a159",
-    width: "46px",
-    height: "46px",
-    marginBottom: "16px",
-  },
-  content: {
-    color: "#000",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    marginBottom: "12px",
-  },
-}));
 export default function Success() {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const { state } = useLocation();
   const navigate = useNavigate();
   const order = state.order;

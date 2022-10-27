@@ -3,50 +3,12 @@ import { styled } from "@mui/material/styles";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import { makeStyles } from "@material-ui/styles";
 import {ValidatorForm } from "react-material-ui-form-validator";
 import { getDiscountInfo } from "../../../redux/actions/EnstoreActions";
 import {  Box, Typography, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-const useStyles = makeStyles(() => ({
-  couponTitle: {
-    fontSize: "13px !important",
-    color: "#F37321 !important",
-    fontFamily: "enphase-visuelt-medium !important",
-  },
-  cartPageDiscounContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    padding: "0px !important",
-    borderBottom: "1px solid #F37321 !important",
-  },
-  discBox: {
-    width: "100% !important",
-    border:"none",
-    background:"#F9F9F9",
-    marginBottom: "0px !important",
-    "&:focus":{
-        outline:"none",
-        background:"#F9F9F9 !important",
-    },
-    padding:"5px"
-  },
-  discApplyBtn: {
-    color: "#F37321 !important",
-    cursor: "pointer",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  couponMsg: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "15px !important",
-    // color: "#de1124",
-    marginTop: "10px",
-  },
-}));
-
+import { useMuiStyles } from "../../Contents/Styles/useMuiStyle.hook";
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -62,7 +24,7 @@ const AccordionSummary = styled((props) => <MuiAccordionSummary {...props} />)(
 );
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({}));
 export default function CheckoutOrderDisc(props) {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const [isLoading , setIsLoading] = useState(false)
   const { checkout, discountInfo } = useSelector((state) => state.store);
   const dispatch = useDispatch();
@@ -98,7 +60,7 @@ export default function CheckoutOrderDisc(props) {
         </AccordionSummary>
         <AccordionDetails>
           <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
-            <Box className={classes.cartPageDiscounContainer}>
+            <Box className={classes.cartOrderDiscounContainer}>
               <input 
               type="text"
               name="discount"

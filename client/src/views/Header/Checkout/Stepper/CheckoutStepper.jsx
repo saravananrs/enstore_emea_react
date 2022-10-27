@@ -25,27 +25,14 @@ export default function CheckoutStepper(props) {
   const registeData = JSON.parse(storeSignIn);
   const IntialShippingRegister = {
     email: registeData?.email ? registeData?.email : "",
-    phone:
-      indAddress && indAddress !== undefined ? indAddress[0]?.telephone : "",
-    fname:
-      indAddress && indAddress !== undefined ? indAddress[0]?.firstname : "",
-    lname:
-      indAddress && indAddress !== undefined ? indAddress[0]?.lastname : "",
-    country:  indAddress && indAddress !== undefined 
-    ? indAddress[0]?.country_id
-    :"",
+    phone: indAddress !== undefined ? indAddress[0]?.telephone : "",
+    fname: indAddress !== undefined ? indAddress[0]?.firstname : "",
+    lname: indAddress !== undefined ? indAddress[0]?.lastname : "",
+    country: indAddress !== undefined ? indAddress[0]?.country_id : "",
     address: "",
-    optional: "",
-    postal: indAddress && indAddress !== undefined 
-    ? indAddress[0]?.postcode
-    : "",
-    city:indAddress && indAddress !== undefined 
-    ? indAddress[0]?.city
-    :  "",
-    province:
-      indAddress && indAddress !== undefined
-        ? indAddress[0]?.region.region
-        : "",
+    postal: indAddress !== undefined ? indAddress[0]?.postcode : "",
+    city: indAddress !== undefined ? indAddress[0]?.city : "",
+    province: indAddress !== undefined ? indAddress[0]?.region.region : "",
   };
   const [activeStep, setActiveStep] = useState(0);
   const [register, setRegister] = useState(IntialShippingRegister);
@@ -55,7 +42,7 @@ export default function CheckoutStepper(props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps.map((label) => {
           const stepProps = {};
           const labelProps = {};
           return (

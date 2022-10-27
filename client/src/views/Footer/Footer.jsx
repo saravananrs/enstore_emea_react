@@ -1,30 +1,11 @@
 import { Grid, Box } from "@mui/material";
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
 import enphase from "../../Assets/Header/spritemap.svg";
 import FooterMobile from "./FooterMobile";
-
-const useStyles = makeStyles(() => ({
-  logo: {
-    paddingLeft: "57px !important",
-    marginTop: "-17px !important",
-  },
-  listItems: {
-    marginTop: "30px",
-    cursor: "pointer",
-  },
-  app_footer: {
-    position: " relative",
-    borderTop: "0.8px solid #dcdcd6",
-    padding: "87px 0px 30px 0px",
-    "@media (max-width: 500px)": {
-      paddingTop: "20px",
-    },
-  },
-}));
+import { useMuiStyles } from "../Contents/Styles/useMuiStyle.hook";
 
 const Footer = () => {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const houseOwners = [
     "Enphase Energy System",
     "Enphase App",

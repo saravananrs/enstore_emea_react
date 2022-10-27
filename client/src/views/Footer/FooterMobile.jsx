@@ -5,27 +5,8 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import enphase from "../../Assets/Header/spritemap.svg";
-import { makeStyles } from "@material-ui/styles";
 import { Divider, Box, Grid } from "@mui/material";
-const useStyles = makeStyles(() => ({
-  headings: {
-    color: "#6e6e73",
-  },
-  logo: {
-    marginLeft: "20px",
-    paddingBottom: "10px",
-  },
-  accContainer: {
-    float: "none",
-    width: "100%",
-    margin: "0 auto",
-    maxWidth: "90%",
-  },
-  itemLists: {
-    marginLeft: "10px !important",
-  },
-}));
-
+import { useMuiStyles } from "../Contents/Styles/useMuiStyle.hook";
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -59,7 +40,7 @@ const AccordionSummary = styled((props) => (
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 export default function FooterMobile() {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const [expanded, setExpanded] = useState(false);
   const [expandedBusiness, setExpandedBusiness] = useState(false);
   const [expandedTech, setExpandedTech] = useState(false);

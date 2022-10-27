@@ -1,34 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/styles";
-import { Divider, Box, Typography, Grid, AccordionDetails } from "@mui/material";
+import { Divider, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllData, getAllLocalData } from "../../../redux/actions/EnstoreActions";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import { getAllLocalData } from "../../../redux/actions/EnstoreActions";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-const useStyles = makeStyles(() => ({
-  viewAllCategory: {
-    padding: "0px 20px ",
-  },
-  catList: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "16px !important",
-  },
-  catListLi: {
-    padding: "8px 0px",
-    display: "flex",
-    cursor:"pointer",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  accListItems:{
-    padding:"12px 6px 12px 6px"
-  }
-}));
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -42,23 +22,20 @@ const Accordion = styled((props) => (
   },
 }));
 const AccordionSummary = styled((props) => (
-  <MuiAccordionSummary
-  sx={{ padding:"0 !important"}}
-    {...props}
-  />
+  <MuiAccordionSummary sx={{ padding: "0 !important" }} {...props} />
 ))(({}) => ({
   border: "none",
-  "& .css-1betqn-MuiAccordionSummary-content":{
-    margin:"0 !important"
-  }
+  "& .css-1betqn-MuiAccordionSummary-content": {
+    margin: "0 !important",
+  },
 }));
 export default function ViewAllCategory() {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const [expanded, setExpanded] = useState(false);
   const { allLocalData } = useSelector((state) => state.store);
   const categories = allLocalData?.selected_categories;
   const dispatch = useDispatch();
-  const navigate =  useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAllLocalData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,31 +48,41 @@ export default function ViewAllCategory() {
       <ul className={classes.catList}>
         <li className={classes.catListLi}>Featured Products</li>
         <Divider sx={{ margin: "10px 0px" }} />
-        <Accordion expanded={expanded} >
-          <AccordionSummary onClick={handleDetailClick}
-           expandIcon={expanded ? <RemoveIcon sx={{ fontSize: "0.9rem", color: "#6e6e73",}}/> : <AddIcon sx={{ fontSize: "0.9rem", color: "#6e6e73",}} />}
+        <Accordion expanded={expanded}>
+          <AccordionSummary
+            onClick={handleDetailClick}
+            expandIcon={
+              expanded ? (
+                <RemoveIcon sx={{ fontSize: "0.9rem", color: "#6e6e73" }} />
+              ) : (
+                <AddIcon sx={{ fontSize: "0.9rem", color: "#6e6e73" }} />
+              )
+            }
           >
             <li className={classes.catListLi}>Popular Products</li>
           </AccordionSummary>
-          <Box >
+          <Box>
             <ul>
-              <li className={classes.accListItems} onClick={()=>console.log("askdgkj")}>For homeowners</li>
-              <li  className={classes.accListItems}>For Installers</li>
+              <li className={classes.accListItems}>For homeowners</li>
+              <li className={classes.accListItems}>For Installers</li>
             </ul>
           </Box>
         </Accordion>
 
         <Divider sx={{ margin: "10px 0px" }} />
-        {categories?.map((cat ,index) => {
+        {categories?.map((cat, index) => {
           return (
             <>
-              <li className={classes.catListLi}
-                 onClick={() =>
-                    navigate("/viewall", {
-                      state: { category: cat , item:index },
-                    })
-                  }
-              >{cat.name}</li>
+              <li
+                className={classes.catListLi}
+                onClick={() =>
+                  navigate("/viewall", {
+                    state: { category: cat, item: index },
+                  })
+                }
+              >
+                {cat.name}
+              </li>
               <Divider sx={{ margin: "10px 0px" }} />
             </>
           );

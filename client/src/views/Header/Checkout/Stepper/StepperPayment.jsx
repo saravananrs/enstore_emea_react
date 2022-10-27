@@ -3,7 +3,6 @@ import React from "react";
 import { Box, Button, Checkbox } from "@mui/material";
 // import { loadStripe } from "@stripe/stripe-js";
 // import CheckoutForm from "../../../Contents/stripe/CheckoutForm";
-import { makeStyles } from "@material-ui/styles";
 import $ from "jquery";
 import instance from "../../../../utils/axiosconfig";
 import { clearCartAndOrderData, orderData } from "../../../../redux/actions/EnstoreActions";
@@ -11,62 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-// import CircularProgress from "@mui/material/CircularProgress";
-const useStyles = makeStyles(() => ({
-  spinnerBox: {
-    width: "100%",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f9f9fa",
-  },
-  spinner: {
-    color: "#f37321 !important",
-  },
-  PaymentContainer: {
-    padding: "calc(3 * 8px) calc(4 * 8px) calc(1.5 * 8px)",
-    position: "relative",
-    width: "100%",
-  },
-  TermsandCondition: {
-    color: "#333",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "1.42857143",
-    fontSize: "14px",
-  },
-  reqField: {
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontStyle: "normal",
-    fontSize: "12px",
-    color: "red",
-  },
-  continuebtn: {
-    margin: "calc(3 * 8px) 0 calc(2 * 8px) !important",
-    alignItems: "center !important",
-    background: "#F37321 !important",
-    borderRadius: "4px !important",
-    padding: "1px 16px !important",
-    cursor: "pointer !important",
-    color: "#fff !important",
-    display: "flex !important",
-    fontSize: "16px !important",
-    height: "48px !important",
-    justifyContent: "center !important",
-    position: "relative !important",
-    width: "100% !important",
-  },
-  checkBox: {
-    padding: "0 !important",
-    // "& .css-i4bv87-MuiSvgIcon-root":{
-    //     color:"#0075FF !important"
-    // },
-  },
-}));
+import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 export default function StepperPayment(props) {
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const {  discountInfo } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);

@@ -10,7 +10,6 @@ body,
   display: none;
 } */
 
-
 .App-header {
   top: 0;
   min-height: 4rem;
@@ -90,57 +89,56 @@ body,
 }
 
 /* modalbox input */
-.inputBox{
+.inputBox {
   border-style: solid;
   padding-top: 24px;
   background-color: #f4f4f4;
   border-color: transparent;
-  border-radius:  4px;
-  color:#181818;
-  font-size:  16px;
-  height:  48px;
+  border-radius: 4px;
+  color: #181818;
+  font-size: 16px;
+  height: 48px;
   width: 100%;
   outline: none;
 }
-.inputBox:focus{
- 
+.inputBox:focus {
   border-width: 2px;
-  border-color: #F37321;
+  border-color: #f37321;
   background-color: #f4f4f4;
 }
-.floatlabel{
+.floatlabel {
   color: #707070;
   height: 16px;
   font-size: 12px;
-  left:  30px;
+  left: 30px;
   opacity: 1;
-  overflow:  hidden;
+  overflow: hidden;
   pointer-events: none;
   position: absolute;
   text-overflow: ellipsis;
   top: 15px;
   white-space: nowrap;
   width: calc(100% - 20px);
-  transition: .2s ease all;
+  transition: 0.2s ease all;
 }
-.floatlabel:focus{
-  color:#F37321;
+.floatlabel:focus {
+  color: #f37321;
 }
-.css-1w7e6fu-MuiSvgIcon-root-MuiStepIcon-root.Mui-active{
-  color:#F37321 !important;
+.css-1w7e6fu-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+  color: #f37321 !important;
 }
 /* .inputBox:not(:placeholder-shown)~ .floatlabel{
   opacity: 1;
 } */
-.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate{
-  color:#0075FF !important  ;
+.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+.css-1ombvec-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: #0075ff !important  ;
 }
 /* Stepper */
 
 .css-j5w0w9-MuiStepConnector-root {
-  width:76px !important;
+  width: 76px !important;
 }
-
 
 /* MEDIA QUERY */
 /* lifestyle  */
@@ -155,11 +153,11 @@ body,
 /* stepper */
 @media (max-width: 480px) {
   .css-j5w0w9-MuiStepConnector-root {
-    width:57px !important;
+    width: 57px !important;
   }
 }
-@media screen and (min-width: 481px) and (max-width: 880px){
+@media screen and (min-width: 481px) and (max-width: 880px) {
   .css-j5w0w9-MuiStepConnector-root {
-    width:182px!important;
+    width: 182px !important;
   }
 }

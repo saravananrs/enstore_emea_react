@@ -37,18 +37,6 @@ export default function HeroSection() {
         "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Accessories%402x.png?itok=PH31WBsZ",
       name: "Accesories",
     },
-    // {
-    //   id: 6,
-    //   imgUrl:
-    //     "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2022-07/ACM.png?itok=Ae52gNyN",
-    //   name: "AC modules",
-    // },
-    // {
-    //   id: 7,
-    //   imgUrl:
-    //     "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2022-02/Category%20icon.png?itok=FIuRERb3",
-    //   name: "EV chargers",
-    // },
     {
       id: 6,
       imgUrl:

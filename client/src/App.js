@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import { Store } from "./redux/Store";
+import {ReactQueryDevtools} from "react-query/devtools"
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import "./store-magento.css";
@@ -38,6 +39,7 @@ function App() {
               {/* <Header /> */}
               <Content />
               {/* <Footer /> */}
+              <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
             </QueryClientProvider>
           </BrowserRouter>
         </ThemeProvider>

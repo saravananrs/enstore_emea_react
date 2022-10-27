@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   getAllData,
-  getAllLocalData,
+  // getAllLocalData,
 } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "./Styles/useStyles.hook";
+import { useLocData } from "../Hooks/useRQAllItems.hook";
 
 export default function CardGrid() {
   const classes = useStyledComponent();
+  // const { data } = useLocData();
+  // const localData = data?.data;
   const { allData, allLocalData } = useSelector((state) => state.store);
   const categories =
     allLocalData === undefined
@@ -21,13 +24,13 @@ export default function CardGrid() {
     allLocalData === undefined
       ? allData?.productsToReturn?.map((item) => item.items)
       : allLocalData?.productsToReturn?.map((item) => item.items);
-  
+
   useEffect(() => {
     if (allLocalData === undefined) {
       dispatch(getAllData());
     }
     setInterval(() => {
-      dispatch(getAllLocalData());
+     // dispatch(getAllLocalData());
     }, 360000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -36,11 +39,8 @@ export default function CardGrid() {
     setInterval(() => {
       dispatch(getAllData());
     }, 300000);
-  }, [allData]);
-  // if (categories === undefined) {
-  //   return <Spinner />;
-  // }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <React.Fragment>
       {categories?.map((pName, index) => {
@@ -52,7 +52,8 @@ export default function CardGrid() {
               className={classes.cardGridContainer}
             >
               <Box className={classes.cardGridHeader}>
-                <Typography variant="h3" className={classes.cardGridTitle}>
+                <Typography variant="h3" 
+                 className={classes.cardGridTitle}>
                   {pName.name}
                 </Typography>
               </Box>

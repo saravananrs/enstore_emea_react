@@ -7,43 +7,17 @@ import {
   Menu,
   TextField,
 } from "@mui/material";
-import { makeStyles } from "@material-ui/styles";
 import search from "../../Assets/Header/spritemap.svg";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLocalData } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 import { useNavigate } from "react-router-dom";
-const useStyles = makeStyles(() => ({
-  headerSearchButton: {
-    color: "#F0F0F0 !important",
-  },
-  searchDropdown: {
-    "& .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":
-      {
-        padding: "16px 14px",
-        marginTop: "3px",
-        width: "25% !important",
-        maxHeight: "500px",
-      },
-  },
-  searchBox: {
-    "& .css-1g24dm6-MuiInputBase-input-MuiOutlinedInput-input": {
-      padding: "12.5px 14px !important",
-    },
-  },
-  headersearchList: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    margin: "5px 0px",
-    cursor: "pointer",
-  },
-}));
+import { useMuiStyles } from "../Contents/Styles/useMuiStyle.hook";
 
 export default function HeaderSearch(props) {
   const { setMobileOpen, mobileOpen, setCloseVisible, closeVisible } = props;
-  const classes = useStyles();
+  const classes = useMuiStyles();
   const classCheck = useStyledComponent();
   const { allLocalData } = useSelector((state) => state.store);
   const [enphaseSearch, setEnphaseSearch] = useState(null);

@@ -251,9 +251,9 @@ export const useStyledComponent = makeStyles(() => ({
     height: "20px",
     width: "110px",
   },
-    imgContain:{
-    width: '95px',
-    marginLeft: '19px',
+  imgContain: {
+    width: "95px",
+    marginLeft: "19px",
   },
   //HeroSection.jsx
   storageContainer: {
@@ -560,7 +560,18 @@ export const useStyledComponent = makeStyles(() => ({
     "@media (max-width: 780px)": {
       fontSize: "1.625rem !important",
     },
+    opacity: 0,
+    transform: "translateY(10vh)",
+    visibility: "hidden",
+    transition:
+      "opacity 1200ms ease-out, transform 600ms ease-out,visibility 1200ms ease-out",
   },
+   lifeVisible:{
+    opacity: '1',
+    transform: 'none',
+    visibility: 'visible',
+  },
+ 
   lifestyleHeadings: {
     textAlign: "center",
   },

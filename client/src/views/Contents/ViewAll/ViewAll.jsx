@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { makeStyles } from "@material-ui/styles";
 import { Divider, Box, Typography, Grid } from "@mui/material";
 import ViewAllCard from "./ViewAllCard";
 import cart from "../../../Assets/Header/spritemap.svg";
@@ -12,88 +11,10 @@ import {
   getAllLocalData,
 } from "../../../redux/actions/EnstoreActions";
 import ViewAllMobile from "./ViewAllMobile";
-
-const useStyles = makeStyles(() => ({
-  viewAllHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    float: "none",
-    maxWidth: "70%",
-    "@media (max-width:500px)": {
-      maxWidth: "88%",
-    },
-    "@media screen and (min-width: 501px) and (max-width: 800px)": {
-      maxWidth: "88%",
-    },
-    margin: "0 auto",
-    alignItems: "center",
-  },
-  viewAllBagIcon: {
-    fontSize: "0.875rem !important",
-    position: "absolute",
-    left: "-18%",
-    "& .svg-small": {
-      width: "16px !important",
-      height: "16px !important",
-      color: "#6e6e73 !important",
-    },
-  },
-  viewAllHeading: {
-    fontSize: "1.25rem !important",
-    fontFamily: "enphase-visuelt-medium !important",
-    "@media (max-width:500px)": {
-      fontSize: "0.875rem !important",
-      fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    },
-  },
-  viewAllSideText: {
-    position: "relative",
-    color: "#6e6e73 !important",
-    fontSize: "0.875rem !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  viewAllDivider: {
-    margin: "0.7em 12.5em !important",
-    "@media (max-width:500px)": {
-      margin: "10px 10px !important",
-    },
-    "@media screen and (min-width: 501px) and (max-width: 800px)": {
-      margin: "10px 40px !important",
-    },
-  },
-  viewallContent: {
-    padding: "20px 0px ",
-    float: "none",
-    width: "100%",
-    margin: "0 auto",
-    maxWidth: "97%",
-  },
-  viewAllItemHeader: {
-    fontSize: "2rem !important",
-    marginBottom: "20px !important",
-    fontWeight: "normal !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  viewAllItemHeaderSub: {
-    marginTop: "10px !important",
-    fontSize: "2.625rem !important",
-    fontWeight: "normal !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  viewAllItemHeaderpara: {
-    fontSize: "1.25rem !important",
-    fontWeight: "normal !important",
-    lineHeight: "1.6em !important",
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
-  },
-  viewAllCardContainer: {
-    padding: "30px 0px",
-  },
-}));
+import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 export default function ViewAll() {
   const { state } = useLocation();
   const { item, category, searchBox, name } = state;
-  console.log(name, "searchBoxsearchBox");
   const { allData, allLocalData } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const productsReturn =
@@ -107,7 +28,7 @@ export default function ViewAll() {
     dispatch(getAllLocalData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const classes = useStyles();
+  const classes = useMuiStyles();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
