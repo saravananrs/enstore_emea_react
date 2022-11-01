@@ -102,13 +102,13 @@ export const getAllLocalData = () => async (dispatch) => {
   await instance
     .get("/allLocalData")
     .then((res) => {
+      localStorage.setItem("localResponse",res.status)
       dispatch({
         type: ALL_LOCAL_DATA,
         payload: res.data,
       })
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: ALL_LOCAL_DATA,
         payload: err.res.data,

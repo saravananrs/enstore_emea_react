@@ -21,8 +21,10 @@ export default function ViewAll() {
     allLocalData === undefined
       ? allData?.productsToReturn?.map((item) => item.items)
       : allLocalData?.productsToReturn?.map((item) => item.items);
+      const response = localStorage.getItem("localResponse");
+      const localRes = JSON.parse(response)
   useEffect(() => {
-    if (allLocalData === undefined) {
+    if (localRes !== 200) {
       dispatch(getAllData());
     }
     dispatch(getAllLocalData());

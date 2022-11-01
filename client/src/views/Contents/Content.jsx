@@ -31,8 +31,10 @@ const Content = () => {
   const classes = useStyles();
   const { allData,allLocalData} = useSelector((state) => state.store);
   const dispatch = useDispatch();
+  const response = localStorage.getItem("localResponse");
+  const localRes = JSON.parse(response)
   useEffect(() => {
-    if(allLocalData === undefined){
+    if(localRes !== 200){
       dispatch(getAllData());
     }
     dispatch(getAllLocalData())

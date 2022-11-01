@@ -123,7 +123,7 @@ getAllDataFromLocal = async (req, res) => {
   function processFile(content) {
     const allLoc = content
     const allLocData = JSON.parse(allLoc);
-    res.send(allLocData);
+    res.status(201).send(allLocData);
   }
 };
 

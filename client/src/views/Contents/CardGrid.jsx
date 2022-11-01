@@ -24,13 +24,14 @@ export default function CardGrid() {
     allLocalData === undefined
       ? allData?.productsToReturn?.map((item) => item.items)
       : allLocalData?.productsToReturn?.map((item) => item.items);
-
+  const response = localStorage.getItem("localResponse");
+  const localRes = JSON.parse(response)
   useEffect(() => {
-    if (allLocalData === undefined) {
+    if (localRes !== 200) {
       dispatch(getAllData());
     }
     setInterval(() => {
-     // dispatch(getAllLocalData());
+      // dispatch(getAllLocalData());
     }, 360000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,8 +53,7 @@ export default function CardGrid() {
               className={classes.cardGridContainer}
             >
               <Box className={classes.cardGridHeader}>
-                <Typography variant="h3" 
-                 className={classes.cardGridTitle}>
+                <Typography variant="h3" className={classes.cardGridTitle}>
                   {pName.name}
                 </Typography>
               </Box>
