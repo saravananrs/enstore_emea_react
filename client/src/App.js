@@ -39,7 +39,7 @@ function App() {
               {/* <Header /> */}
               <Content />
               {/* <Footer /> */}
-              <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
+              {/* <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/> */}
             </QueryClientProvider>
           </BrowserRouter>
         </ThemeProvider>
