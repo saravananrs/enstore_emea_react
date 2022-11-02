@@ -163,7 +163,7 @@ export default function HeaderCart() {
             </Grid>
             <Divider />
             <Box className={classes.bagCartContainer}>
-              <ul className={classes.bagCartList}>
+              <ul className={`${cartData.length > 1 ? classes.bagCartListHeight :classes.bagCartList}`}>
                 {cartData?.map((item) => {
                   return (
                     <div>

@@ -25,6 +25,8 @@ export default function StepperPayment(props) {
     handleCloseMenu,
     razorpayOrderIdResponse,
     indAddress,
+    setActiveStep,
+    activeStep,
     filteredIndReg,
     setRazorpayOrderIdResponse,
     shippingMethod
@@ -106,6 +108,9 @@ useEffect(()=>{
     reInitialize()
   }
 },[discountInfo])
+const handleBack = () => {
+  setActiveStep(activeStep - 1);
+};
  
   const handleSubmit = () => {
     console.log("enter submit");
@@ -170,7 +175,7 @@ useEffect(()=>{
           });
       },
       prefill: {
-        name: register.fname + "" + register.lname,
+        name: register.fname + " " + register.lname,
         email: register.email,
         contact: register.phone,
       },
@@ -195,6 +200,7 @@ useEffect(()=>{
     });
   };
   return (
+    <>
     <Box className={classes.PaymentContainer}>
       <Box className={classes.TermsandCondition} sx={{ marginBottom: "20px" }}>
         All payments made on the Enphase Store are enabled by our Payments
@@ -236,6 +242,7 @@ useEffect(()=>{
           Pay With Razorpay
         </Button>
       )}
+       
       {/* <Elements stripe={stripePromise}>
       <CheckoutForm
        indAddress={indAddress}
@@ -244,6 +251,8 @@ useEffect(()=>{
         handleCloseMenu={handleCloseMenu}
       />
     </Elements> */}
+    <Button onClick={handleBack}>← Back</Button>
     </Box>
+    </>
   );
 }

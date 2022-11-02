@@ -28,7 +28,7 @@ export default function CheckoutStepper(props) {
     phone: indAddress !== undefined ? indAddress[0]?.telephone : "",
     fname: indAddress !== undefined ? indAddress[0]?.firstname : "",
     lname: indAddress !== undefined ? indAddress[0]?.lastname : "",
-    country: indAddress !== undefined ? indAddress[0]?.country_id : "",
+    country: "IN",
     address: "",
     postal: indAddress !== undefined ? indAddress[0]?.postcode : "",
     city: indAddress !== undefined ? indAddress[0]?.city : "",
@@ -70,6 +70,8 @@ export default function CheckoutStepper(props) {
           ) : activeStep === 2 ? (
             <StepperPayment
               register={register}
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
               indAddress={indAddress}
               handleClose={handleClose}
               filteredIndReg={filteredIndReg}

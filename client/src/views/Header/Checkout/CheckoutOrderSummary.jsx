@@ -62,17 +62,17 @@ export default function CheckoutOrderSummary(props) {
           <ul className={classes.checkSummarysubList}>
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.checkSummarysubTotal}>
-              <Box className={classes.subTotalName}> Subtotal</Box>
+              <Box className={classes.subTotalName}>Cart Subtotal</Box>
               <Box className={classes.subprice}> ₹ {subTotal?.toFixed(2)}</Box>
             </li>
-            <li className={classes.checkSummarysubTotal}>
+            {orderData.delivery !== 0 &&  <li className={classes.checkSummarysubTotal}>
               <Box className={classes.subTotalName}> Delivery</Box>
               <Box className={classes.subprice}> ₹ {orderData.delivery}</Box>
-            </li>
-            <li className={classes.checkSummarysubTotal}>
+            </li>}
+            {orderData.tax !== 0 && <li className={classes.checkSummarysubTotal}>
               <Box className={classes.subTotalName}> Taxes</Box>
               <Box className={classes.subprice}> ₹ {orderData.tax}</Box>
-            </li>
+            </li>}
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.checkSummarysubTotal}>
               <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>

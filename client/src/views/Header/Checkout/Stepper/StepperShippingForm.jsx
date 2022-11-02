@@ -115,15 +115,14 @@ export default function StepperShippingForm(props) {
       name: "country",
       type: "text",
       text: "Country",
-      value:
-        indAddress !== undefined && street === false ? " " : register.country,
+      value: register.country,
       validators: ["required"],
     },
   ];
   const streetData = [
     {
       label: indAddress !== undefined && indAddress[0]?.street[0],
-      country_id: indAddress !== undefined && indAddress[0]?.country_id,
+      //country_id: indAddress !== undefined && indAddress[0]?.country_id,
       postcode: indAddress !== undefined && indAddress[0]?.postcode,
       city: indAddress !== undefined && indAddress[0]?.city,
     },
@@ -182,7 +181,7 @@ export default function StepperShippingForm(props) {
                   filtered.push({
                     inputValue,
                     label: inputValue,
-                    country_id: options[0].country_id,
+                   // country_id: options[0].country_id,
                     postcode: options[0].postcode,
                     city: options[0].city,
                   });
@@ -205,8 +204,8 @@ export default function StepperShippingForm(props) {
                 <div onClick={() => setStreet(true)}>
                   <li {...props}>
                     {option.label +
-                      "," +
-                      option.country_id +
+                      // "," +
+                     // option.country_id +
                       "," +
                       option.postcode +
                       "," +

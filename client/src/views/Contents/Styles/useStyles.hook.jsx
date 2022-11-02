@@ -109,8 +109,13 @@ export const useStyledComponent = makeStyles(() => ({
     overflowY: "auto !important",
   },
   bagCartList: {
-    overflowY: "auto",
+    overflowY: "hidden",
     height: "124px !important",
+    padding: "20px !important",
+  },
+  bagCartListHeight:{
+    overflowY: "auto",
+    height: "170px !important",
     padding: "20px !important",
   },
 
