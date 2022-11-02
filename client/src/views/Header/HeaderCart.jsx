@@ -187,7 +187,7 @@ export default function HeaderCart() {
             <Box className={classes.bagPage}>Your Bag is empty</Box> <Divider />
           </>
         )}
-
+ <Divider />
         <Box className={classes.items}>
           <a href="#" className="navicon">
             <svg
