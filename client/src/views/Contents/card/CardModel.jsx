@@ -25,7 +25,7 @@ export default function CardModel(props) {
   const { cartData } = useSelector((state) => state.store);
   const handleAddtocartClick = (item) =>{
     dispatch(addToCart(item, 1))
-    if(cartData.length > 0){
+    if(cartData.length > 1){
       dispatch(
         orderData({
           delivery: 0,
