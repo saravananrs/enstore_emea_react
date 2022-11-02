@@ -34,6 +34,7 @@ export default function CheckoutStepper(props) {
     city: indAddress !== undefined ? indAddress[0]?.city : "",
     province: indAddress !== undefined ? indAddress[0]?.region.region : "",
   };
+  
   const [activeStep, setActiveStep] = useState(0);
   const [register, setRegister] = useState(IntialShippingRegister);
   const [shippingMethod, setShippingMethod] = useState({});
