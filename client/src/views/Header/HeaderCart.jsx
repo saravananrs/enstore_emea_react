@@ -80,7 +80,7 @@ export default function HeaderCart() {
   };
   const handleCheckOutClick = async () => {
     setToggle(false);
-    if (createdCartData === null || con === true) {
+    // if (createdCartData === null || con === true) {
       await dispatch(addCartItemsCheckout());
       const quoteId = localStorage.getItem("tokenKey");
       cartData.map((items) => {
@@ -94,7 +94,7 @@ export default function HeaderCart() {
         };
         dispatch(addCartFinalCheckOut(reqBody));
       });
-    }
+    // }
     await setOpenDialog(true);
     setToggle(true);
   };
