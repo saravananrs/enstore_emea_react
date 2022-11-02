@@ -3,7 +3,7 @@ import { Box, Divider } from "@mui/material";
 import upArrow from "../../Assets/Header/spritemap.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addToCart, clearCartItem } from "../../redux/actions/EnstoreActions";
+import { addToCart, clearCartItem, orderData } from "../../redux/actions/EnstoreActions";
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 import useCartItems from "../Hooks/useCartItems.hook";
 export default function HeaderCartItem(props) {
@@ -35,6 +35,15 @@ export default function HeaderCartItem(props) {
       setSubTotal(subTotal - products.price);
     }
   };
+  const handleRemoveItem = async (item) =>{
+    dispatch(clearCartItem(item))
+    dispatch(
+      orderData({
+        delivery: 0,
+        tax: 0,
+      })
+    );
+  }
   useEffect(() => {
     if (cartData.length === 1) {
       setSubTotal(item.price);
@@ -99,7 +108,7 @@ export default function HeaderCartItem(props) {
             &nbsp;&nbsp;
             <Box
               className={classes.remove}
-              onClick={() => dispatch(clearCartItem(item))}
+              onClick={() => handleRemoveItem(item)}
             >
               Remove
             </Box>

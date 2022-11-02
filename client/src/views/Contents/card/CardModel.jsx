@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dummy from "../../../Assets/images/dummy.jpg";
 import solar from "../../../Assets/images/solar.jpg";
-import { addToCart } from "./../../../redux/actions/EnstoreActions";
+import { addToCart, orderData } from "./../../../redux/actions/EnstoreActions";
 import {
   Grid,
   Typography,
@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import Carousel from "react-elastic-carousel";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
 import { useStyledComponent } from "../Styles/useStyles.hook";
 export default function CardModel(props) {
@@ -22,6 +22,18 @@ export default function CardModel(props) {
   const filteredProducts = items?.filter((i) => i.status === 1  && i.visibility == 4);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { cartData } = useSelector((state) => state.store);
+  const handleAddtocartClick = (item) =>{
+    dispatch(addToCart(item, 1))
+    if(cartData.length > 0){
+      dispatch(
+        orderData({
+          delivery: 0,
+          tax: 0,
+        })
+      );
+    }
+  }
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -136,7 +148,8 @@ export default function CardModel(props) {
                           <Box className={classes.cartabs}>
                             <Button
                               className={classes.addbtn}
-                              onClick={() => dispatch(addToCart(item, 1))}
+                              onClick={() => 
+                                handleAddtocartClick(item)}
                             >
                               Add to Cart
                             </Button>
