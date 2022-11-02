@@ -98,6 +98,7 @@ export default function StepperShippingForm(props) {
       name: "postal",
       type: "text",
       text: "Postal",
+      readOnly: false,
       value:
         indAddress !== undefined && street === false ? " " : register.postal,
       validators: ["required"],
@@ -106,6 +107,7 @@ export default function StepperShippingForm(props) {
       id: 2,
       name: "city",
       type: "text",
+      readOnly: false,
       text: "City",
       value: indAddress !== undefined && street === false ? " " : register.city,
       validators: ["required"],
@@ -115,6 +117,7 @@ export default function StepperShippingForm(props) {
       name: "country",
       type: "text",
       text: "Country",
+      readOnly: true,
       value: register.country,
       validators: ["required"],
     },
@@ -181,7 +184,7 @@ export default function StepperShippingForm(props) {
                   filtered.push({
                     inputValue,
                     label: inputValue,
-                   // country_id: options[0].country_id,
+                    // country_id: options[0].country_id,
                     postcode: options[0].postcode,
                     city: options[0].city,
                   });
@@ -205,7 +208,7 @@ export default function StepperShippingForm(props) {
                   <li {...props}>
                     {option.label +
                       // "," +
-                     // option.country_id +
+                      // option.country_id +
                       "," +
                       option.postcode +
                       "," +
@@ -266,6 +269,7 @@ export default function StepperShippingForm(props) {
           return (
             <Grid item xs={4} className={classes.inputData}>
               <TextField
+                inputProps={{ readOnly: datas.readOnly }}
                 type={datas.type}
                 className={classes.inputBox}
                 name={datas.name}
