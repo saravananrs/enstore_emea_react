@@ -38,6 +38,7 @@ export default function CheckoutOrderDisc(props) {
   };
   const handleDiscount = (e) => {
     e.preventDefault();
+    console.log(e.target.value,"shas");
     setDiscountCode(e.target.value);
   };
   const handleApplyClick = async(e) => {
@@ -67,6 +68,7 @@ export default function CheckoutOrderDisc(props) {
               className={classes.discBox}
                 value={discountCode}
                 placeholder="Enter discount code"
+                onKeyDown={(event) => event.stopPropagation()}
                 onChange={handleDiscount}
               />
               <Typography

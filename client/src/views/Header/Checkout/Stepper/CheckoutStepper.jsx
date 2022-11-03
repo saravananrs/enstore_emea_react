@@ -7,10 +7,13 @@ import StepperShipping from "./StepperShipping";
 import StepperDelivery from "./StepperDelivery";
 import StepperPayment from "./StepperPayment";
 import useStepper from "./useStepper.hook";
+import { useSelector } from "react-redux";
 
 export default function CheckoutStepper(props) {
   const [street, setStreet] = useState(false);
   const { steps, regiondata } = useStepper();
+  const{checkout} = useSelector((state)=> state.store)
+  console.log(checkout,'checkout');
   const filteredIndReg = regiondata.filter((reg) => reg.country_id === "IN");
   const savedAddress = localStorage.getItem("savedAddress");
   const storeSavedAddress = JSON.parse(savedAddress);

@@ -208,7 +208,6 @@ export const addCartFinalCheckOut = (datas) => async (dispatch) => {
   await instance
     .post("/cartItems", datas)
     .then((response) => {
-      console.log("response", response);
       localStorage.setItem("cartData", JSON.stringify(response.data));
       dispatch({
         type: POST_Final_Checkout,
@@ -237,7 +236,6 @@ export const createOrder = (datas) => async (dispatch) => {
     });
 };
 export const getDiscountInfo = (info) => async (dispatch) => {
-  
   await instance
     .post("/discount",info)
     .then((res) => {

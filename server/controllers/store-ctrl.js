@@ -240,9 +240,10 @@ getShippingInformation = async (req, res) => {
     });
 };
 getDiscountInformation = async (req, res) => {
+  console.log(req.body.data,"body");
   var config = {
     method: 'put',
-    url: `${serverBaseUrl}/rest/V1/carts/${req.body.data}/coupons/${req.body.coupon}`,
+    url: `https://store-qa2.enphase.com/storefront/en-in/rest/V1/carts/${req.body.data}/coupons/${req.body.coupon}`,
     headers: {  
       'Authorization': 'Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b', 
       'Content-Type': 'application/json', 
@@ -255,7 +256,7 @@ getDiscountInformation = async (req, res) => {
     res.send(response.data)
   })
   .catch(function (error) {
-    console.log(error.response.data,"data");
+   // console.log(error.response.data,"data");
     res.send(error.response.data)
   });
   
