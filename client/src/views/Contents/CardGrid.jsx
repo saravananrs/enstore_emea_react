@@ -30,20 +30,10 @@ export default function CardGrid() {
     if (localRes !== 200) {
       dispatch(getAllData());
     }
-    setInterval(() => {
-      // dispatch(getAllLocalData());
-    }, 360000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     dispatch(getAllData());
-  //   }, 300000);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
   return (
-    <React.Fragment>
+    <Box className ={classes.cardgridWidth}>
       {categories?.map((pName, index) => {
         return (
           <>
@@ -61,7 +51,7 @@ export default function CardGrid() {
             {productsReturn?.map((pdcts, proindex) => {
               return (
                 index === proindex && (
-                  <Grid container className={classes.cardContainer}>
+                  <Grid className={classes.cardContainer} >
                     <CardModel
                       items={pdcts}
                       category={pName}
@@ -75,6 +65,6 @@ export default function CardGrid() {
           </>
         );
       })}
-    </React.Fragment>
+    </Box>
   );
 }

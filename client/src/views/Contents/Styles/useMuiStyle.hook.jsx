@@ -293,7 +293,7 @@ export const useMuiStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     float: "none",
-    maxWidth: "70%",
+    maxWidth: "60%",
     "@media (max-width:500px)": {
       maxWidth: "88%",
     },
@@ -328,7 +328,7 @@ export const useMuiStyles = makeStyles(() => ({
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
   viewAllDivider: {
-    margin: "0.7em 12.5em !important",
+    margin: "0.7em 15.5em !important",
     "@media (max-width:500px)": {
       margin: "10px 10px !important",
     },
@@ -342,6 +342,9 @@ export const useMuiStyles = makeStyles(() => ({
     width: "100%",
     margin: "0 auto",
     maxWidth: "97%",
+    "@media screen and (min-width: 1650px) and (max-width: 2200px)": {
+      maxWidth:"78%"
+    }
   },
   viewAllItemHeader: {
     fontSize: "2rem !important",
@@ -363,11 +366,17 @@ export const useMuiStyles = makeStyles(() => ({
   },
   viewAllCardContainer: {
     padding: "30px 0px",
+    float:"none",
+    margin:"0 auto",
+    width:"100% !important",
   },
   //viewAllCard.jsx
 
   viewAllCard: {
     padding: "24px",
+    display:"flex",
+    flexDirection:"column",
+    alignItems:"center",
     borderRadius: "16px !important",
     transition: "box-shadow .3s ease-out !important",
     position: "relative",
@@ -375,12 +384,12 @@ export const useMuiStyles = makeStyles(() => ({
     marginBottom:"20px !important",
     boxShadow:"none !important",
     "@media screen and (min-width: 300px) and (max-width: 476px)": {
-      height:"560px"
+      height:"500px",
     },
     "@media screen and (min-width: 478px) and (max-width: 800px)": {
       height:"600px"
     },
-    "@media screen and (min-width: 1440px) and (max-width: 1740px)": {
+    "@media screen and (min-width: 1440px) and (max-width: 2240px)": {
         height:"850px"
     }
   },
@@ -388,6 +397,9 @@ export const useMuiStyles = makeStyles(() => ({
     width: "100%",
     height: "auto",
     padding:"38px !important",
+    "@media (max-width: 780px)": {
+      padding:"0px !important",
+    },
     transition: " opacity cubic-bezier(0.4,0,0.2,1) 500ms",
     
   },
@@ -412,6 +424,12 @@ export const useMuiStyles = makeStyles(() => ({
       fontSize:' 1.2rem !important',
   },
   },
+  viewAllMobile:{
+    "@media (max-width: 780px)": {
+      width:"calc(100% + 8px) !important",
+      marginLeft:"10px  !important"
+    },
+  },
   viewAllPrice:{
     background:"linear-gradient(to right,#FAF6EF 8%,#f0f0f0 18%,#FAF6EF 33%)",
     backgroundSize:"900px 104px",
@@ -425,12 +443,12 @@ export const useMuiStyles = makeStyles(() => ({
   viewAllCardFooter: {
     position: "absolute",
     bottom: '5%',
-    left: '24%',
+    //left: '24%',
     "@media screen and (min-width: 300px) and (max-width: 476px)": {
-        left: '23%',
+     //   left: '23%',
     },
     "@media screen and (min-width: 478px) and (max-width: 1030px)": {
-      left: '17%',
+     // left: '17%',
   },
   },
   buttonContainer: {
@@ -523,6 +541,10 @@ export const useMuiStyles = makeStyles(() => ({
     position: " relative",
     borderTop: "0.8px solid #dcdcd6",
     padding: "87px 0px 30px 0px",
+    float: "none",
+    width: "100%",
+    margin: "0 auto",
+    maxWidth:"78%",
     "@media (max-width: 500px)": {
       paddingTop: "20px",
     },

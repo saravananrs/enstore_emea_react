@@ -56,7 +56,7 @@ const Content = () => {
     );
   }
   return (
-    <div>
+    <div className="app_content">
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

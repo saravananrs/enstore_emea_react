@@ -19,13 +19,15 @@ import Spinner from "../../../Spinner/Spinner";
 import { useStyledComponent } from "../Styles/useStyles.hook";
 export default function CardModel(props) {
   const { items, category, categoryIndex, selectiveIndex } = props;
-  const filteredProducts = items?.filter((i) => i.status === 1  && i.visibility == 4);
+  const filteredProducts = items?.filter(
+    (i) => i.status === 1 && i.visibility == 4
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartData } = useSelector((state) => state.store);
-  const handleAddtocartClick = (item) =>{
-    dispatch(addToCart(item, 1))
-    if(cartData.length > 1){
+  const handleAddtocartClick = (item) => {
+    dispatch(addToCart(item, 1));
+    if (cartData.length > 1) {
       dispatch(
         orderData({
           delivery: 0,
@@ -33,12 +35,12 @@ export default function CardModel(props) {
         })
       );
     }
-  }
+  };
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
     { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
+    { width: 1200, itemsToShow: 3 },
   ];
   const viewAllImg = [
     {
@@ -49,7 +51,7 @@ export default function CardModel(props) {
     },
     {
       id: 2,
-      imgUrl:solar,
+      imgUrl: solar,
       background: "linear-gradient(180deg, #7bb9e9 0%,#c4dbff 100%) !important",
     },
     {
@@ -77,15 +79,15 @@ export default function CardModel(props) {
   }
   return (
     <>
-      {items && (
-        <Carousel breakPoints={breakPoints} pagination={false}>
-          {filteredProducts?.slice(0, 5).map((item) => {
+      {items && 
+        // <Carousel breakPoints={breakPoints} pagination={false}>
+          filteredProducts?.slice(0, 5).map((item) => {
             let custome_attribute = {};
             item.custom_attributes.map((attributes) => {
               custome_attribute[attributes.attribute_code] = attributes.value;
             });
             return (
-              <>
+              <Box className={classes.cardModelContainer}>
                 <Card key={item.id} className={classes.card}>
                   {custome_attribute.thumbnail &&
                   custome_attribute.thumbnail !== undefined &&
@@ -148,8 +150,7 @@ export default function CardModel(props) {
                           <Box className={classes.cartabs}>
                             <Button
                               className={classes.addbtn}
-                              onClick={() => 
-                                handleAddtocartClick(item)}
+                              onClick={() => handleAddtocartClick(item)}
                             >
                               Add to Cart
                             </Button>
@@ -171,7 +172,7 @@ export default function CardModel(props) {
                     </Grid>
                   </footer>
                 </Card>
-              </>
+              </Box>
             );
           })}
           {viewAllImg.map((view, index) => {
@@ -201,9 +202,9 @@ export default function CardModel(props) {
                 </Card>
               )
             );
-          })}
-        </Carousel>
-      )}
+          })
+        // </Carousel>
+      }
     </>
   );
 }

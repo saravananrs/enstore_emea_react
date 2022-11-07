@@ -52,7 +52,7 @@ export default function SingleProductContents(props) {
           <Typography variant="h4" className={classes.pText}>
             {getText(descriptionData)}
           </Typography>
-          {readMore ? (
+          {/* {readMore ? (
             <Typography
               variant="body2"
               className={classes.pTextRead}
@@ -79,7 +79,7 @@ export default function SingleProductContents(props) {
                 The product comes with a 5-year warranty.
               </Typography>
             </>
-          )}
+          )} */}
         </Box>
         <Box>
           <Typography variant="body1" className={classes.spqnty}>

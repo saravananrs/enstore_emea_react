@@ -23,6 +23,7 @@ export default function ViewAllCard(props) {
   return (
     <Grid
     container
+    className={classes.viewAllMobile}
     rowSpacing={1}
     columnSpacing={{ xs: 1, sm: 2, md: 3 }}
   >

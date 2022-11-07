@@ -5,7 +5,7 @@ import CheckoutOrderDisc from "./CheckoutOrderDisc";
 import { useMuiStyles } from "../../Contents/Styles/useMuiStyle.hook";
 
 export default function CheckoutOrderSummary(props) {
-  const { cartData, orderData } = useSelector((state) => state.store);
+  const { cartData, orderData ,discountInfo} = useSelector((state) => state.store);
   const [discountCode, setDiscountCode] = useState("");
   const { subTotal } = props;
   const activeStep = localStorage.getItem("actStep")
@@ -71,13 +71,13 @@ export default function CheckoutOrderSummary(props) {
               <Box className={classes.subTotalName}>Cart Subtotal</Box>
               <Box className={classes.subprice}> ₹ {subTotal?.toFixed(2)}</Box>
             </li>
-            {activeStep === "2" && (
+            {orderData.tax !== 0 && (
               <>
                 <li className={classes.checkSummarysubTotal}>
                   <Box className={classes.subTotalName}> Delivery</Box>
                   <Box className={classes.subprice}>
-                    {" "}
-                    ₹ {orderData.delivery}
+                    {discountInfo ? "--" : <span>₹ {orderData.delivery}</span> }
+                    
                   </Box>
                 </li>
                 <li className={classes.checkSummarysubTotal}>

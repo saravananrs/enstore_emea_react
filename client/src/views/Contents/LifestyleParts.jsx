@@ -35,7 +35,7 @@ export default function LifestyleParts() {
             <Box className={classes.helpGridSection}>Terms of sale</Box>
             <Box className={classes.helpGridSection}>Terms of shipping</Box>
             <Box className={classes.helpGridSection}>
-              Return process for Guest Users
+              Return process 
             </Box>
           </Grid>
         </Box>

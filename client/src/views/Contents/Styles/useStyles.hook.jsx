@@ -113,7 +113,7 @@ export const useStyledComponent = makeStyles(() => ({
     height: "124px !important",
     padding: "20px !important",
   },
-  bagCartListHeight:{
+  bagCartListHeight: {
     overflowY: "auto",
     height: "170px !important",
     padding: "20px !important",
@@ -271,13 +271,13 @@ export const useStyledComponent = makeStyles(() => ({
     float: "none",
     width: "100%",
     margin: "0 auto",
-    maxWidth: "90%",
-    paddingBottom: "6%",
+    maxWidth: "70%",
+    paddingBottom: "4%",
     fontFamily: "enphase-visuelt-regular,sans-serif",
   },
   headTitle: {
     marginBottom: "15px !important",
-    fontSize: "56px !important",
+    fontSize: "48px !important",
     "@media (max-width: 780px)": {
       fontSize: "32px !important",
     },
@@ -286,11 +286,25 @@ export const useStyledComponent = makeStyles(() => ({
   productContainer: {
     paddingBottom: "2%",
     overflowY: "hidden",
-    marginBottom: "5%",
+    marginBottom: "1%",
+    float:"none",
+    margin:"0 auto",
+    width:"100%",
+    maxWidth:"70%",
+    "@media (max-width: 780px)": {
+      maxWidth:"95%",
+      overflowX:"auto",
+    },
   },
   productList: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between",
+    "@media (max-width: 780px)": {
+      justifyContent: "space-between !important",
+    },
+    // justifyContent: "space-between",
+    // margin:"0px 0 60px 0"
   },
   pImages: {
     position: "relative",
@@ -300,30 +314,32 @@ export const useStyledComponent = makeStyles(() => ({
   },
   pName: {
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
-    fontSize: "1rem !important",
+    fontSize: "14.9px !important",
+    marginTop: "6px ",
+    textAlign: "center !important",
+    lineHeight: "2em !important",
     "@media (max-width: 780px)": {
       fontSize: "0.875rem !important",
     },
     color: "#6e6e73",
-    textAlign: "center",
   },
   positions: {
     objectPosition: "center",
-    height: " 130px",
-    width: "140px",
+    height: "100px",
+    width: "90px",
     "@media (max-width: 780px)": {
       height: "80px",
       width: "80px",
     },
   },
   listItems: {
-    marginLeft: "15px",
+    marginLeft: "35px !important",
   },
   //HeroSectionImg.jsx
   homeContainer: {
     float: "none",
     margin: "0 auto",
-    maxWidth: "95%",
+    maxWidth: "85%",
     position: "relative",
     "@media (max-width: 780px)": {
       maxWidth: "90%",
@@ -392,22 +408,46 @@ export const useStyledComponent = makeStyles(() => ({
   //cardGrid.jsx
 
   cardGridContainer: {
-    paddingTop: "70px",
+    paddingTop: "20px",
+    display: "flex !important",
     "@media (max-width: 780px)": {
       padding: "50px 0px",
     },
   },
-  cardGridHeader: {
-    float: "none",
+  cardContainer: {
+    display: "flex !important",
+    flexDirection: "row !important",
+    flexWrap: "wrap",
+   // float:"none",
+    justifyContent: "center !important",
+    // margin:"0 auto",
+    // width:"100%",
+    // maxWidth:"78%",
+    "@media (max-width: 780px)": {
+      maxWidth:"100% !important",
+    },
+    // "@media screen and (min-width: 1650px) and (max-width: 2200px)": {
+    //   maxWidth:"65% !important",
+    // }
+  },
+  cardgridWidth:{
+     float: "none",
     width: "100%",
     margin: "0 auto",
-    maxWidth: "90%",
+    maxWidth: "80%",
+  },
+  cardGridHeader: {
+    // float: "none",
+    // width: "100%",
+    // margin: "0 auto",
+    // maxWidth: "76%",
     paddingBottom: "5%",
+    marginLeft:"4%",
     fontFamily: "enphase-visuelt-regular,sans-serif",
   },
   cardGridTitle: {
     marginBottom: "15px !important",
-    fontSize: "2.67rem !important",
+    fontSize: "2.2rem !important",
     "@media (max-width: 780px)": {
       fontSize: "1.625rem !important",
     },
@@ -425,12 +465,22 @@ export const useStyledComponent = makeStyles(() => ({
   },
 
   card: {
-    maxWidth: 300,
-    width: "300px",
+    maxWidth: 330,
+    display:"flex",
+    flexDirection:"column",
+    alignItems:'center',
+    width: "330px",
+    textAlign: "center !important",
     padding: "10px 20px",
+    marginBottom:"20px !important",
     height: "540px",
     "@media (max-width: 780px)": {
       height: "500px",
+    },
+    "@media screen and (min-width: 1650px) and (max-width: 2200px)": {
+      maxWidth: "405px !important",
+      width: "405px !important",
+      height: "608px !important",
     },
     position: "relative !important",
     marginLeft: "20px",
@@ -440,7 +490,7 @@ export const useStyledComponent = makeStyles(() => ({
     boxShadow: "none !important",
     "&:hover": {
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3) !important",
-    },
+    }
   },
   viewallbtn: {
     fontSize: "1.5rem !important",
@@ -449,13 +499,18 @@ export const useStyledComponent = makeStyles(() => ({
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
   },
   cardViewAll: {
-    maxWidth: 300,
-    width: "300px",
+    maxWidth: 330,
+    width: "330px",
     textAlign: "center !important",
     padding: "10px 20px",
     height: "540px",
     "@media (max-width: 780px)": {
       height: "500px",
+    },
+    "@media screen and (min-width: 1650px) and (max-width: 2200px)": {
+      maxWidth: "405px !important",
+      width: "405px !important",
+      height: "608px !important",
     },
     position: "relative !important",
     marginLeft: "20px",
@@ -478,13 +533,13 @@ export const useStyledComponent = makeStyles(() => ({
   },
   title: {
     textAlign: "center",
-    fontSize: " 1.5rem !important",
+    fontSize: " 1rem !important",
     lineHeight: "1.3em",
     cursor: "default !important",
     "@media (max-width: 780px)": {
-      fontSize: "1.125rem !important",
+      fontSize: "1rem !important",
     },
-    fontFamily: "enphase-visuelt-regular,sans-serif !important",
+    fontFamily: "enphase-visuelt-medium !important",
   },
   price: {
     fontFamily: "enphase-visuelt-medium !important",
@@ -498,7 +553,8 @@ export const useStyledComponent = makeStyles(() => ({
     textTransform: "capitalize !important",
     fontFamily: "enphase-visuelt-medium !important",
     borderRadius: "25px !important",
-    padding: "4px 20px 0 20px !important",
+    padding: "0px 13px 0 13px !important",
+    fontSize:"12px !important",
     height: "36px",
     "@media screen and (min-width: 300px) and (max-width: 376px)": {
       fontSize: "12px !important",
@@ -513,10 +569,11 @@ export const useStyledComponent = makeStyles(() => ({
   addbtn: {
     border: "1px solid #3c3c3c  !important",
     color: "#3c3c3c  !important",
+    padding: "0px 13px 0 13px !important",
+    fontSize:"12px !important",
     marginLeft: "10px !important",
     backgroundColor: "transparent  !important",
     borderRadius: "25px !important",
-    padding: "4px 20px 0 20px !important",
     height: "36px",
     textTransform: "capitalize !important",
     fontFamily: "enphase-visuelt-medium !important",
@@ -543,15 +600,19 @@ export const useStyledComponent = makeStyles(() => ({
   //lifeStyle.jsx
   lifeStyleContainer: {
     padding: "70px 0px",
+    float: "none",
+    width: "100%",
+    margin: "0 auto",
+    maxWidth: "78%",
     "@media (max-width: 780px)": {
       padding: "10px 0px 50px 0px",
     },
   },
   lifeStyleHeader: {
-    float: "none",
-    width: "100%",
-    margin: "0 auto",
-    maxWidth: "90%",
+    // float: "none",
+    // width: "100%",
+    // margin: "0 auto",
+    // maxWidth: "90%",
     paddingBottom: "2%",
     fontFamily: "enphase-visuelt-regular,sans-serif",
     "&:active": {
@@ -561,7 +622,7 @@ export const useStyledComponent = makeStyles(() => ({
   },
   lifeStyleTitle: {
     marginBottom: "15px !important",
-    fontSize: "2.67rem !important",
+    fontSize: "2.2rem !important",
     "@media (max-width: 780px)": {
       fontSize: "1.625rem !important",
     },
@@ -571,26 +632,25 @@ export const useStyledComponent = makeStyles(() => ({
     transition:
       "opacity 1200ms ease-out, transform 600ms ease-out,visibility 1200ms ease-out",
   },
-   lifeVisible:{
-    opacity: '1',
-    transform: 'none',
-    visibility: 'visible',
+  lifeVisible: {
+    opacity: "1",
+    transform: "none",
+    visibility: "visible",
   },
- 
+
   lifestyleHeadings: {
-    textAlign: "center",
+    display:"flex !important",
+    justifyContent:"center !important"
   },
   lifeText: {
     position: "absolute",
     zIndex: "1",
     fontFamily: "enphase-visuelt-regular,sans-serif !important",
     fontSize: "2.625rem !important",
-    left: "28%",
     marginTop: "60px !important",
     "@media (max-width: 780px)": {
-      left: "4%",
       margin: "24px !important",
-      fontSize: "1.625rem !important",
+      fontSize: "1.25rem !important",
     },
   },
   //lifeStyleParts.jsx
@@ -598,7 +658,7 @@ export const useStyledComponent = makeStyles(() => ({
     float: "none",
     width: "100%",
     margin: "0 auto",
-    maxWidth: "90%",
+    maxWidth: "65%",
     justifyContent: "space-between",
     padding: "24px 0px",
   },
@@ -651,7 +711,7 @@ export const useStyledComponent = makeStyles(() => ({
   lifestyleFooter: {
     float: "none",
     margin: "0 auto",
-    maxWidth: "90%",
+    maxWidth: "78%",
     justifyContent: "space-between",
     alignItems: "center",
     "@media (max-width: 780px)": {
@@ -732,7 +792,7 @@ export const useStyledComponent = makeStyles(() => ({
   singleProductContainer: {
     textAlign: "center",
     float: "none",
-    maxWidth: "98%",
+    maxWidth: "78%",
     margin: "0 auto !important",
     padding: "20px 0px",
     "@media (max-width: 500px)": {
@@ -828,8 +888,8 @@ export const useStyledComponent = makeStyles(() => ({
     position: "absolute",
     backgroundColor: "#fff",
     top: 0,
-    right: "83%",
-    width: "calc(10% - 6px)",
+    right: "68%",
+    width: "calc(17% - 6px)",
     height: "100%",
     border: " 1px solid #3c3c3c",
     borderRadius: "0 8px 8px 0",
@@ -839,13 +899,17 @@ export const useStyledComponent = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     cursor: " pointer",
+    "@media screen and (min-width: 1650px) and (max-width: 2200px)": {
+      right: "82%",
+      width: "calc(10% - 6px)",
+    },
     "@media (max-width: 500px)": {
-      right: "71%",
-      width: "calc(14% - 6px)",
+      right: "59%",
+      width: "calc(22% - 6px)",
     },
     "@media screen and (min-width: 501px) and (max-width: 800px)": {
-      right: "65%",
-      width: "calc(19% - 6px)",
+      right: "52%",
+      width: "calc(26% - 6px)",
     },
   },
   spupArrow: {
