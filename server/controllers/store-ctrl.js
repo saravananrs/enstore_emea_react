@@ -38,6 +38,8 @@ const Razorpay = require("razorpay"),
       });
   };
 getAllData = async (req, res) => {
+  var date = new Date();
+  console.log(date.toISOString(), " Get all data")
   var productsToReturn = [];
 
   await serverInstance
@@ -110,7 +112,9 @@ getAllData = async (req, res) => {
         .catch((err) => console.log(err));
     });
 };
-
+setInterval(()=>{
+  var data = axios.get(`http://localhost:8000/api/allData`);
+}, 600000)
 getAllDataFromLocal = async (req, res) => {
   fs.readFile("../datas.json", function read(err, data) {
     if (err) {

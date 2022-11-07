@@ -36,12 +36,12 @@ export default function CardGrid() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setInterval(() => {
-      dispatch(getAllData());
-    }, 300000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     dispatch(getAllData());
+  //   }, 300000);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   return (
     <React.Fragment>
       {categories?.map((pName, index) => {
