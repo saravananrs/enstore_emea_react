@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { Grid, Box } from "@mui/material";
 import CheckoutOrderSummary from "./CheckoutOrderSummary";
@@ -58,7 +58,7 @@ export default function CheckoutContainer(props) {
             className={classes.summaryContainer}
             sx={{ display: { xs: "none !important", md: "block !important" } }}
           >
-            <CheckoutOrderSummary subTotal={subTotal} />
+            <CheckoutOrderSummary subTotal={subTotal}/>
           </Grid>
         </Grid>
       </Dialog>

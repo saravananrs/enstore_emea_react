@@ -11,9 +11,9 @@ import { useSelector } from "react-redux";
 
 export default function CheckoutStepper(props) {
   const [street, setStreet] = useState(false);
+  const [razorpayOrderIdResponse, setRazorpayOrderIdResponse] = useState({});
   const { steps, regiondata } = useStepper();
-  const{checkout} = useSelector((state)=> state.store)
-  console.log(checkout,'checkout');
+  // const{checkout} = useSelector((state)=> state.store)
   const filteredIndReg = regiondata.filter((reg) => reg.country_id === "IN");
   const savedAddress = localStorage.getItem("savedAddress");
   const storeSavedAddress = JSON.parse(savedAddress);
@@ -39,9 +39,10 @@ export default function CheckoutStepper(props) {
   };
 
   const [activeStep, setActiveStep] = useState(0);
+  localStorage.setItem("actStep",activeStep)
   const [register, setRegister] = useState(IntialShippingRegister);
   const [shippingMethod, setShippingMethod] = useState({});
-  const [razorpayOrderIdResponse, setRazorpayOrderIdResponse] = useState({});
+  
   const { handleClose, handleCloseMenu } = props;
   return (
     <Box sx={{ width: "100%" }}>

@@ -38,7 +38,6 @@ export default function CheckoutOrderDisc(props) {
   };
   const handleDiscount = (e) => {
     e.preventDefault();
-    console.log(e.target.value,"shas");
     setDiscountCode(e.target.value);
   };
   const handleApplyClick = async(e) => {

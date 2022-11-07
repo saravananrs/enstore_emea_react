@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { getAllData, getAllLocalData } from "../../redux/actions/EnstoreActions";
+import { Routes, Route } from "react-router-dom";
+import {
+  getAllData,
+  getAllLocalData,
+} from "../../redux/actions/EnstoreActions";
 import { makeStyles } from "@material-ui/styles";
-import Spinner from "../../Spinner/Spinner";
 import Footer from "../Footer/Footer";
 import Success from "../Header/Checkout/Success/Success";
 import Header from "../Header/Header";
@@ -29,21 +31,23 @@ const useStyles = makeStyles(() => ({
 }));
 const Content = () => {
   const classes = useStyles();
-  const { allData,allLocalData} = useSelector((state) => state.store);
+  const { allData, allLocalData } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const response = localStorage.getItem("localResponse");
-  const localRes = JSON.parse(response)
+  const localRes = JSON.parse(response);
   useEffect(() => {
-    if(localRes !== 200){
+    if (localRes !== 200) {
       dispatch(getAllData());
     }
-    dispatch(getAllLocalData())
+    dispatch(getAllLocalData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-  const categories = allLocalData === undefined ?  allData?.selected_categories :  allLocalData?.selected_categories
-  if (categories === undefined ) {
+  const categories =
+    allLocalData === undefined
+      ? allData?.selected_categories
+      : allLocalData?.selected_categories;
+  if (categories === undefined) {
     return (
       <Box className={classes.spinnerBox}>
         {" "}

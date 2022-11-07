@@ -8,6 +8,7 @@ export default function CheckoutOrderSummary(props) {
   const { cartData, orderData } = useSelector((state) => state.store);
   const [discountCode, setDiscountCode] = useState("");
   const { subTotal } = props;
+  const activeStep = localStorage.getItem("actStep")
   const unique = [];
 
   cartData.filter((list) => {
@@ -40,10 +41,15 @@ export default function CheckoutOrderSummary(props) {
                 </Box>
                 <Grid sx={{ width: "100%" }}>
                   <Box className={classes.checkSummarylistDetails}>
-                    <Typography variant="h4" className={classes.checkSummaryitemName}>
+                    <Typography
+                      variant="h4"
+                      className={classes.checkSummaryitemName}
+                    >
                       {items.name}
                     </Typography>
-                    <Box className={classes.checkSummaryitemPrice}>₹ {items.price}</Box>
+                    <Box className={classes.checkSummaryitemPrice}>
+                      ₹ {items.price}
+                    </Box>
                   </Box>
                   <Box className={classes.checkSummarylistQty}>
                     Quantity: &nbsp;{items.cartQty}
@@ -65,14 +71,21 @@ export default function CheckoutOrderSummary(props) {
               <Box className={classes.subTotalName}>Cart Subtotal</Box>
               <Box className={classes.subprice}> ₹ {subTotal?.toFixed(2)}</Box>
             </li>
-            {orderData.delivery !== 0 &&  <li className={classes.checkSummarysubTotal}>
-              <Box className={classes.subTotalName}> Delivery</Box>
-              <Box className={classes.subprice}> ₹ {orderData.delivery}</Box>
-            </li>}
-            {orderData.tax !== 0 && <li className={classes.checkSummarysubTotal}>
-              <Box className={classes.subTotalName}> Taxes</Box>
-              <Box className={classes.subprice}> ₹ {orderData.tax}</Box>
-            </li>}
+            {activeStep === "2" && (
+              <>
+                <li className={classes.checkSummarysubTotal}>
+                  <Box className={classes.subTotalName}> Delivery</Box>
+                  <Box className={classes.subprice}>
+                    {" "}
+                    ₹ {orderData.delivery}
+                  </Box>
+                </li>
+                <li className={classes.checkSummarysubTotal}>
+                  <Box className={classes.subTotalName}> Taxes</Box>
+                  <Box className={classes.subprice}> ₹ {orderData.tax}</Box>
+                </li>
+              </>
+            )}
             <Divider sx={{ marginBottom: "10px" }} />
             <li className={classes.checkSummarysubTotal}>
               <Box sx={{ color: "#000000", fontWeight: "600" }}> Total</Box>
