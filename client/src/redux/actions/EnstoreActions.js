@@ -27,7 +27,7 @@ export const setSpinner = (spinnerset) => async (dispatch) => {
 
 export const storeLogin = (data) => async (dispatch) => {
   await instance
-    .post("/login", data)
+    .post("/account/login", data)
     .then((response) => {
       localStorage.setItem("storeSignIn", JSON.stringify(response.data));
       dispatch({
@@ -41,7 +41,7 @@ export const storeLogin = (data) => async (dispatch) => {
 };
 export const getSavedAddress = (email) => async (dispatch) => {
   await instance
-    .post("/savedAddress", email)
+    .post("/checkout/savedAddress", email)
     .then((res) => {
       localStorage.setItem("savedAddress", JSON.stringify(res.data));
       dispatch({
@@ -82,7 +82,7 @@ export const adminLogin = (userName, password) => async (dispatch) => {
 };
 export const getAllData = () => async (dispatch) => {
   await instance
-    .get("/allData")
+    .get("/catalog/allData")
     .then((res) => {
       dispatch({
         type: ALL_DATA,
@@ -100,7 +100,7 @@ export const getAllData = () => async (dispatch) => {
 };
 export const getAllLocalData = () => async (dispatch) => {
   await instance
-    .get("/allLocalData")
+    .get("/catalog/allLocalData")
     .then((res) => {
       localStorage.setItem("localResponse",res.status)
       dispatch({
@@ -117,7 +117,7 @@ export const getAllLocalData = () => async (dispatch) => {
 };
 export const getCategories = () => async (dispatch) => {
   await instance
-    .get("/categories")
+    .get("/catalog/categories")
     .then((res) => {
       dispatch({
         type: FETCH_CATEGORIES,
@@ -135,7 +135,7 @@ export const getCategories = () => async (dispatch) => {
 };
 export const getProducts = (id) => async (dispatch) => {
   await instance
-    .get(`/products`, {
+    .get(`/catalog/products`, {
       params: { id: id },
     })
     .then((res) => {
@@ -160,7 +160,7 @@ export const getSingleProduct = (id) => {
   return async (dispatch) => {
     dispatch(setSpinner(true));
     await instance
-      .get(`/productsByURLKey`, {
+      .get(`/catalog/productsByURLKey`, {
         params: { id: id },
       })
       .then((res) => {
@@ -191,7 +191,7 @@ export const addToCart = (cartData, qty) => async (dispatch) => {
 };
 export const addCartItemsCheckout = () => async (dispatch) => {
   await instance
-    .get("/quoteId")
+    .get("/checkout/quoteId")
     .then((response) => {
       console.log("response", response);
       localStorage.setItem("tokenKey", response.data);
@@ -206,7 +206,7 @@ export const addCartItemsCheckout = () => async (dispatch) => {
 };
 export const addCartFinalCheckOut = (datas) => async (dispatch) => {
   await instance
-    .post("/cartItems", datas)
+    .post("/checkout/cartItems", datas)
     .then((response) => {
       localStorage.setItem("cartData", JSON.stringify(response.data));
       dispatch({
@@ -220,7 +220,7 @@ export const addCartFinalCheckOut = (datas) => async (dispatch) => {
 };
 export const createOrder = (datas) => async (dispatch) => {
   await instance
-    .post("/createOrder", datas)
+    .post("/checkout/createOrder", datas)
     .then((response) => {
       console.log("response", response.data);
       console.log("order Id", response.data.increment_id);
@@ -237,7 +237,7 @@ export const createOrder = (datas) => async (dispatch) => {
 };
 export const getDiscountInfo = (info) => async (dispatch) => {
   await instance
-    .post("/discount",info)
+    .post("/checkout/discount",info)
     .then((res) => {
       dispatch({
         type: DISCOUNT_INFO,

@@ -43,7 +43,7 @@ export default function StepperShipping(props) {
       data: quoteId,
     };
     await instance
-      .post("/estimateShipping", reqBody)
+      .post("/checkout/estimateShipping", reqBody)
       .then((response) => {
         console.log("response", response.data);
         setShippingMethod(response.data);

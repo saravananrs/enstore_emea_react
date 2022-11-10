@@ -80,7 +80,7 @@ export default function StepperDelivery(props) {
       payment_capture: 1,
     };
     await instance
-      .post("/shippingInformation", reqBody)
+      .post("/checkout/shippingInformation", reqBody)
       .then((response) => {
         console.log("response", response.data);
         dispatch(
@@ -92,7 +92,7 @@ export default function StepperDelivery(props) {
         obj.amount = Math.round(
           Number(response.data.totals.base_grand_total) * 100
         );
-        instance.post("/createRazorpayOrderID", obj).then((response) => {
+        instance.post("/checkout/createRazorpayOrderID", obj).then((response) => {
           console.log("razor pay esponse");
           setRazorpayOrderIdResponse(response.data);
           setToggle(true);

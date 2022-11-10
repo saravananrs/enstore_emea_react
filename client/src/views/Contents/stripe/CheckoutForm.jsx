@@ -164,7 +164,7 @@ const CheckoutForm = (props) => {
       data: quoteId,
     };
     await instance
-      .post("/createOrder", reqBody)
+      .post("checkout/createOrder", reqBody)
       .then((response) => {
         console.log("response", response.data);
         console.log("order Id", response.data.increment_id);

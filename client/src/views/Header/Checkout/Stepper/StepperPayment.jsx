@@ -82,7 +82,7 @@ export default function StepperPayment(props) {
       payment_capture : 1
     }
     await instance
-      .post("/shippingInformation", reqBody)
+      .post("/checkout/shippingInformation", reqBody)
       .then((response) => {
         console.log("response", response.data);
         dispatch(
@@ -93,7 +93,7 @@ export default function StepperPayment(props) {
         );
         obj.amount= Math.round(Number(response.data.totals.base_grand_total) * 100);
         instance
-        .post("/createRazorpayOrderID", obj)
+        .post("/checkout/createRazorpayOrderID", obj)
         .then((response) => {
           console.log("razor pay esponse", );
           setRazorpayOrderIdResponse(response.data)
@@ -159,7 +159,7 @@ const handleBack = () => {
           data: quoteId,
         };
         await instance
-          .post("/createOrder", reqBody)
+          .post("/checkout/createOrder", reqBody)
           .then((response) => {
             console.log("response", response.data);
             console.log("order Id", response.data.increment_id);

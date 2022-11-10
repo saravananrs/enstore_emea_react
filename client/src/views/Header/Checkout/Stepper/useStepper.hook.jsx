@@ -54,7 +54,7 @@ export default function useStepper() {
 
   React.useEffect(()=>{
       const fetchAllRegData = async() =>{
-          await instance.get('/allReg')
+          await instance.get('/checkout/allReg')
           .then((res)=>{
               setRegionData(res.data)
           })
