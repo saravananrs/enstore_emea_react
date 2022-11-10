@@ -1,8 +1,11 @@
-import { Container } from "@mui/system";
-import React from "react";
-import { Box, Button } from "@mui/material";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+// MUI
+import { Container } from "@mui/system";
+import { Box, Button } from "@mui/material";
+
+// Hooks
 import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 
 export default function Success() {

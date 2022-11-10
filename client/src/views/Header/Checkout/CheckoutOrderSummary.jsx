@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { Grid, Box, Typography, Divider } from "@mui/material";
-import { useSelector } from "react-redux";
+
+// Components
 import CheckoutOrderDisc from "./CheckoutOrderDisc";
+
+// MUI
+import { Grid, Box, Typography, Divider } from "@mui/material";
+
+// Redux
+import { useSelector } from "react-redux";
+
+// Hooks
 import { useMuiStyles } from "../../Contents/Styles/useMuiStyle.hook";
 
 export default function CheckoutOrderSummary(props) {
   const { cartData, orderData ,discountInfo} = useSelector((state) => state.store);
   const [discountCode, setDiscountCode] = useState("");
   const { subTotal } = props;
-  const activeStep = localStorage.getItem("actStep")
   const unique = [];
 
   cartData.filter((list) => {

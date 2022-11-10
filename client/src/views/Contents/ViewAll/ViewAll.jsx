@@ -1,17 +1,27 @@
-import React from "react";
+import React ,{ useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Divider, Box, Typography, Grid } from "@mui/material";
+
+// Components
 import ViewAllCard from "./ViewAllCard";
-import cart from "../../../Assets/Header/spritemap.svg";
-import { useEffect } from "react";
 import ViewAllCategory from "./ViewAllCategory";
+import ViewAllMobile from "./ViewAllMobile";
+
+// MUI
+import { Divider, Box, Typography, Grid } from "@mui/material";
+
+// Assets - Enphanse
+import cart from "../../../Assets/Header/spritemap.svg";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllData,
   getAllLocalData,
 } from "../../../redux/actions/EnstoreActions";
-import ViewAllMobile from "./ViewAllMobile";
+
+// Hooks
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
+
 export default function ViewAll() {
   const { state } = useLocation();
   const { item, category, searchBox, name } = state;

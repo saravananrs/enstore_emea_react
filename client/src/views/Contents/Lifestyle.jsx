@@ -1,12 +1,19 @@
-import { Grid, Typography, Box } from "@mui/material";
-import React from "react";
+import React,{useState, useEffect, useRef} from "react";
+
+// Components
 import LifestyleParts from "./LifestyleParts";
+
+// MUI
+import { Grid, Typography, Box } from "@mui/material";
+
+// Hooks
 import { useStyledComponent } from "./Styles/useStyles.hook";
+
 export default function Lifestyle() {
   const classes = useStyledComponent();
-  const [isVisible, setVisible] = React.useState(false);
-  const domRef = React.useRef();
-  React.useEffect(() => {
+  const [isVisible, setVisible] = useState(false);
+  const domRef = useRef();
+  useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => setVisible(entry.isIntersecting));
     });
@@ -33,7 +40,6 @@ export default function Lifestyle() {
           />
         </Box>
       </Grid>
-
       <LifestyleParts />
     </React.Fragment>
   );

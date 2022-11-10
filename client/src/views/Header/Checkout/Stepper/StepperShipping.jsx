@@ -1,10 +1,16 @@
-import { Box } from "@mui/material";
-import Button from "@mui/material/Button";
-import React from "react";
-import instance from "../../../../utils/axiosconfig";
-import { useState } from "react";
-import LoadingButton from "@mui/lab/LoadingButton";
+import React,{useState} from "react";
+
+//Components
 import StepperShippingForm from "./StepperShippingForm";
+
+//MUI
+import { Box,Button } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+
+//Utils
+import instance from "../../../../utils/axiosconfig";
+
+//Hooks
 import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 
 export default function StepperShipping(props) {

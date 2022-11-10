@@ -200,7 +200,12 @@ export const useStyledComponent = makeStyles(() => ({
     zIndex: 1,
   },
   update: {
-    color: "red",
+    cursor: "pointer",
+    position: "relative",
+    zIndex: 1,
+  },
+  updatePedning:{
+    textDecoration: "underline",
     cursor: "pointer",
     position: "relative",
     zIndex: 1,

@@ -1,3 +1,6 @@
+import React,{ useState ,useEffect} from "react";
+
+// MUI
 import {
   Autocomplete,
   createFilterOptions,
@@ -8,9 +11,9 @@ import {
   Select,
   styled,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+
+// Hooks
 import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 
 const TextField = styled(TextValidator)(() => ({
@@ -48,7 +51,7 @@ export default function StepperShippingForm(props) {
   const onEnqFocusEvent = () => {
     setUserError("");
   };
-  React.useEffect(() => {
+  useEffect(() => {
     if (userError === "") {
       return;
     } else {
@@ -125,7 +128,6 @@ export default function StepperShippingForm(props) {
   const streetData = [
     {
       label: indAddress !== undefined && indAddress[0]?.street[0],
-      //country_id: indAddress !== undefined && indAddress[0]?.country_id,
       postcode: indAddress !== undefined && indAddress[0]?.postcode,
       city: indAddress !== undefined && indAddress[0]?.city,
     },
@@ -166,9 +168,6 @@ export default function StepperShippingForm(props) {
             <Autocomplete
               className={classes.selectBox}
               value={register.address}
-              // onChange={(e, newValue) => {
-              //   onHandleStreetChange(e, newValue);
-              // }}
               freeSolo
               onKeyDown={(e) => {
                 e.stopPropagation();
@@ -184,7 +183,6 @@ export default function StepperShippingForm(props) {
                   filtered.push({
                     inputValue,
                     label: inputValue,
-                    // country_id: options[0].country_id,
                     postcode: options[0].postcode,
                     city: options[0].city,
                   });
@@ -207,8 +205,6 @@ export default function StepperShippingForm(props) {
                 <div onClick={() => setStreet(true)}>
                   <li {...props}>
                     {option.label +
-                      // "," +
-                      // option.country_id +
                       "," +
                       option.postcode +
                       "," +

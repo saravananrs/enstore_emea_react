@@ -205,6 +205,26 @@ getCartDetailByQuoteId = async (req, res) => {
       console.log(error, "xfg");
     });
 };
+
+updateCartDetailByQuoteId = async (req, res) => {
+  await serverInstance
+    .post(
+      `/rest/V1/guest-carts/${req.body.quote_id}/items/`,
+      req.body,
+      {
+        headers: {
+          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+        },
+      }
+    )
+    .then((response) => {
+     
+      return res.status(200).send(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+       console.log(error, "update");
+    });
+};
 getShippingEstimation = async (req, res) => {
   await serverInstance
     .post(
@@ -546,6 +566,7 @@ module.exports = {
   getProductByURLKey,
   getQuoteId,
   getCartDetailByQuoteId,
+  updateCartDetailByQuoteId,
   getShippingEstimation,
   getShippingInformation,
   createOrder,

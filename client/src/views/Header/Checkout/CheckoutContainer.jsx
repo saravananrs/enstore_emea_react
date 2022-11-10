@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import Dialog from "@mui/material/Dialog";
-import { Grid, Box } from "@mui/material";
+
+// Components
 import CheckoutOrderSummary from "./CheckoutOrderSummary";
 import CheckoutStepper from "./Stepper/CheckoutStepper";
+
+// MUI
+import Dialog from "@mui/material/Dialog";
+import { Grid, Box } from "@mui/material";
+
+// Hooks
 import { useMuiStyles } from "../../Contents/Styles/useMuiStyle.hook";
 
 export default function CheckoutContainer(props) {

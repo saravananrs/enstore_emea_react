@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
+
+// MUI
 import { Grid, styled, InputLabel, Box } from "@mui/material";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+
+// Hooks
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
 const TextField = styled(TextValidator)(() => ({

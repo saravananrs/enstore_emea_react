@@ -15,6 +15,7 @@ import {
   ALL_LOCAL_DATA,
   DISCOUNT_INFO,
   CREATE_ORDER,
+  UPADTE_CART_ITEMS
 } from "../actions/EnstoreActions";
 const initialState = {
   isLoading: true,
@@ -24,8 +25,9 @@ const initialState = {
     localStorage.getItem("cartProducts") === null
       ? []
       : JSON.parse(localStorage.getItem("cartProducts")),
-  quoteId: localStorage.getItem("tokenKey"),
+  quoteId: [],
   checkout: [],
+  updateCart : null,
   allData: [],
   allLocalData: [],
   categoryData: [],
@@ -124,7 +126,7 @@ const EnstoreReducer = function (state = initialState, action) {
     case POST_CheckOut_Click: {
       return {
         ...state,
-        quoteId: [],
+        quoteId: action.payload,
       };
     }
     case POST_CheckOut_Click: {
@@ -134,9 +136,25 @@ const EnstoreReducer = function (state = initialState, action) {
       };
     }
     case POST_Final_Checkout: {
+      const uniqueDatas = state.checkout
+      const prodIndex = uniqueDatas.findIndex(
+        (cart) => cart.sku === action.payload.sku
+      );
       return {
         ...state,
-        checkout: action.payload
+        checkout: prodIndex > -1
+        ? uniqueDatas.map((item) =>
+            item.sku === action.payload.sku
+              ? action.payload
+              : item
+          )
+        : [...uniqueDatas, action.payload],
+      };
+    }
+    case UPADTE_CART_ITEMS: {
+      return {
+        ...state,
+        updateCart: action.payload
       };
     }
     case POST_ORDER_DATA: {
@@ -167,7 +185,6 @@ const EnstoreReducer = function (state = initialState, action) {
         (item) => item.id !== action.payload.id
       );
       localStorage.setItem("cartProducts", JSON.stringify(rempoveCartItem));
-      console.log(rempoveCartItem, "clearValuesclearValues");
       return {
         ...state,
         cartData: state.cartData.filter(

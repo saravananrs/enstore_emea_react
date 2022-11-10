@@ -1,11 +1,19 @@
 import React from "react";
-import { Box, Toolbar, Container, Button } from "@mui/material";
-import logo from "../../Assets/Header/spritemap.svg";
+
+// Components
 import HeaderDropDown from "./HeaderDropDown";
 import HeaderCart from "./HeaderCart";
 import HeaderMobileView from "./HeaderMobileView";
-import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 import HeaderSearch from "./HeaderSearch";
+
+// MUI
+import { Box, Toolbar, Container, Button } from "@mui/material";
+
+// Assets - Enphase
+import logo from "../../Assets/Header/spritemap.svg";
+
+// Hooks
+import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
 const pages = ["Homeowner", "Entrepreneur", "Installers", "Store", "Support"];
 

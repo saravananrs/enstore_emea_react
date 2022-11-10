@@ -1,5 +1,9 @@
 import React from "react";
+
+// MUI
 import { Grid, Box, Button } from "@mui/material";
+
+// Hooks
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function LifestyleParts() {

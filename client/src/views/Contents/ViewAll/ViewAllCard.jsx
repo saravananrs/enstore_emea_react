@@ -1,3 +1,7 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+// MUI
 import {
   Grid,
   Card,
@@ -7,11 +11,15 @@ import {
   Button,
   Box,
 } from "@mui/material";
-import React from "react";
+
+// Redux
 import { addToCart } from "../../../redux/actions/EnstoreActions";
 import { useDispatch } from "react-redux";
+
+// Assets - Local
 import dummy from "../../../Assets/images/dummy.jpg";
-import { useNavigate } from "react-router-dom";
+
+// Hooks
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 
 export default function ViewAllCard(props) {
@@ -106,7 +114,6 @@ export default function ViewAllCard(props) {
       </Grid>
       )
     })}
-  
     </Grid>
   );
 }

@@ -1,3 +1,11 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+// Components
+import CheckoutContainer from "../../Header/Checkout/CheckoutContainer";
+import CartPageTable from "./CartPageTable";
+import CartPageSummary from "./CartPageSummary";
+// MUI
 import {
   Box,
   Button,
@@ -6,13 +14,13 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import emptyCart from "../../../Assets/images/empty.png";
-import { Link } from "react-router-dom";
-import CartPageTable from "./CartPageTable";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import CartPageSummary from "./CartPageSummary";
 import BoltIcon from "@mui/icons-material/Bolt";
+
+// Assets Local
+import emptyCart from "../../../Assets/images/empty.png";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCartFinalCheckOut,
@@ -20,7 +28,8 @@ import {
   clearCartAndOrderData,
   getDiscountInfo,
 } from "../../../redux/actions/EnstoreActions";
-import CheckoutContainer from "../../Header/Checkout/CheckoutContainer";
+
+// Hooks
 import useCartItems from "../../Hooks/useCartItems.hook";
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 
@@ -28,6 +37,7 @@ const TextField = styled(TextValidator)(() => ({
   width: "100%",
   marginBottom: "16px",
 }));
+
 export default function CartPage() {
   const classes = useMuiStyles();
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +58,6 @@ export default function CartPage() {
     setCon,
     handleClose,
     setCartdDown,
-    // handleCheckOutClick
   } = useCartItems();
   const total = cartData.reduce(
     (total, currPrice) => (total = total + currPrice.price * currPrice.cartQty),

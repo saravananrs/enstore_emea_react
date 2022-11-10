@@ -1,4 +1,7 @@
+// React query
 import { useQuery} from "react-query";
+
+// Utils
 import { request } from "../../utils/axiosconfig";
 
 

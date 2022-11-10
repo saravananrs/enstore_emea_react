@@ -1,18 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+// MUI
 import { Box, Divider } from "@mui/material";
+
+// Assets - Enphase
 import upArrow from "../../Assets/Header/spritemap.svg";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { addToCart, clearCartItem, orderData } from "../../redux/actions/EnstoreActions";
+import {
+  addToCart,
+  clearCartItem,
+  orderData,
+  updateCartItems,
+} from "../../redux/actions/EnstoreActions";
+
+// Hooks
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 import useCartItems from "../Hooks/useCartItems.hook";
+import { useState } from "react";
+
 export default function HeaderCartItem(props) {
   const classes = useStyledComponent();
-  const { item, key, setCon } = props;
-  const { cartData } = useSelector((state) => state.store);
+  const { cartData, checkout, updateCart ,quoteId} = useSelector(
+    (state) => state.store
+  );
+  const [updateSKU, setUpdateSKU] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    item,
+    key,
+    setCon,
+    setUpdateCartItems,
+    updtCondition,
+    con,
+    setLengthCheck,
+  } = props;
   const { setSubTotal, count, setCount, setQuantitySetter, subTotal } =
     useCartItems();
   const dispatch = useDispatch();
+    if (updateCart !== null  &&  updateCart?.sku === updateSKU.sku) {
+     setUpdateCartItems(true);
+     console.log("1");
+    } else if(cartData.length > 1 && updateCart !==null && item.key !==item.sku ) {
+      setUpdateCartItems(true);
+      console.log("2");
+    }else{
+      setUpdateCartItems(false);
+      console.log("3");
+    }
+    useEffect(()=>{
+      if(updateCart !== null  &&  updateCart?.sku === updateSKU.sku){
+        setIsLoading(false)
+        setCon(false)
+       }
+    },[updateCart])
+
   useEffect(() => {
     setCount(item.cartQty);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,8 +65,9 @@ export default function HeaderCartItem(props) {
   const handleIncrement = async (number, products) => {
     setCon(true);
     setQuantitySetter(false);
+    setUpdateSKU(products);
     setCount(number + 1);
-    dispatch(addToCart(products, count ));
+    dispatch(addToCart(products, count));
     setSubTotal(subTotal + products.price);
   };
   const handleDecrement = async (number, products) => {
@@ -31,19 +76,37 @@ export default function HeaderCartItem(props) {
       let setter = count - 1;
       setQuantitySetter(false);
       setCount(number - 1);
-      await dispatch(addToCart(products, setter -1));
+      setUpdateSKU(products);
+      await dispatch(addToCart(products, setter - 1));
       setSubTotal(subTotal - products.price);
     }
   };
-  const handleRemoveItem = async (item) =>{
-    dispatch(clearCartItem(item))
+  const handleProductUpdateClick = async () => {
+      setIsLoading(true);
+ //   const quoteId = localStorage.getItem("tokenKey");
+    await checkout.map((items) => {
+      if (items.sku === updateSKU.sku) {
+        const reqBody = {
+          cartItem: {
+            quote_id: quoteId,
+            item_id: items.item_id,
+            sku: items.sku,
+            qty: count,
+          },
+        };
+        dispatch(updateCartItems(reqBody));
+      }
+    });
+  };
+  const handleRemoveItem = async (item) => {
+    dispatch(clearCartItem(item));
     dispatch(
       orderData({
         delivery: 0,
         tax: 0,
       })
     );
-  }
+  };
   useEffect(() => {
     if (cartData.length === 1) {
       setSubTotal(item.price);
@@ -106,11 +169,23 @@ export default function HeaderCartItem(props) {
               </Box>
             </Box>
             &nbsp;&nbsp;
-            <Box
-              className={classes.remove}
-              onClick={() => handleRemoveItem(item)}
-            >
-              Remove
+            <Box>
+              <span
+                className={classes.remove}
+                onClick={() => handleRemoveItem(item)}
+              >
+                Remove
+              </span>{" "}
+              &nbsp;{" "}
+              {updtCondition && con && updateSKU.id === item.id && (
+                <span onClick={handleProductUpdateClick}>
+                  {isLoading ? (
+                    <span className={classes.update}>Updating</span>
+                   ) : (
+                    <span className={classes.update}>Update </span>
+                   )}
+                </span>
+              )}
             </Box>
           </Box>
         </Box>

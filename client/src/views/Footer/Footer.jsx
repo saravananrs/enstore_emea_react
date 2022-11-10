@@ -1,7 +1,15 @@
-import { Grid, Box } from "@mui/material";
 import React from "react";
-import enphase from "../../Assets/Header/spritemap.svg";
+
+// Components
 import FooterMobile from "./FooterMobile";
+
+// MUI
+import { Grid, Box } from "@mui/material";
+
+// Assets - Enphase
+import enphase from "../../Assets/Header/spritemap.svg";
+
+// Hooks
 import { useMuiStyles } from "../Contents/Styles/useMuiStyle.hook";
 
 const Footer = () => {
