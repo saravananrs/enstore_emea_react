@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// MUI
 import { Divider, Box } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllLocalData } from "../../../redux/actions/EnstoreActions";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getAllLocalData } from "../../../redux/actions/EnstoreActions";
+
+// Hooks
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 
 const Accordion = styled((props) => (
@@ -40,9 +46,7 @@ export default function ViewAllCategory() {
     dispatch(getAllLocalData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleDetailClick = () => {
-    setExpanded(!expanded);
-  };
+  
   return (
     <Box className={classes.viewAllCategory}>
       <ul className={classes.catList}>
@@ -50,7 +54,7 @@ export default function ViewAllCategory() {
         <Divider sx={{ margin: "10px 0px" }} />
         <Accordion expanded={expanded}>
           <AccordionSummary
-            onClick={handleDetailClick}
+            onClick={()=> setExpanded(!expanded)}
             expandIcon={
               expanded ? (
                 <RemoveIcon sx={{ fontSize: "0.9rem", color: "#6e6e73" }} />

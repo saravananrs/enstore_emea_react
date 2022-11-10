@@ -1,5 +1,9 @@
 import React from "react";
+
+// MUI
 import { Box, Divider, Typography } from "@mui/material";
+
+// Hooks
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
 
 export default function CartPageSummary(props) {

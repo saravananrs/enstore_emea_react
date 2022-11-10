@@ -1,7 +1,10 @@
-import { Grid, Typography, Box } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import HerosectionImg from "./HerosectionImg";
+
+// MUI
+import { Grid, Typography, Box } from "@mui/material";
+
+// Hooks
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function HeroSection() {
@@ -37,18 +40,6 @@ export default function HeroSection() {
         "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Accessories%402x.png?itok=PH31WBsZ",
       name: "Accesories",
     },
-    // {
-    //   id: 6,
-    //   imgUrl:
-    //     "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Services%402x.png?itok=PS8hPjqS",
-    //   name: "Services",
-    // },
-    // {
-    //   id: 7,
-    //   imgUrl:
-    //     "https://store-d9.enphase.com/sites/default/files/styles/max_650x650/public/2021-12/Menu-Lifestyle%402x.png?itok=UTI6SsbP",
-    //   name: "Lifestyle",
-    // },
   ];
   return (
     <React.Fragment>
@@ -81,7 +72,6 @@ export default function HeroSection() {
           })}
         </ul>
       </Grid>
-      {/* <HerosectionImg /> */}
     </React.Fragment>
   );
 }

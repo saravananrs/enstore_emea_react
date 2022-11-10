@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// MUI
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { Box } from "@mui/material";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getAllData } from "../../../redux/actions/EnstoreActions";
+
+// Hooks
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
+
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -32,7 +39,6 @@ const AccordionSummary = styled((props) => (
     {...props}
   />
 ))(({ theme }) => ({
-  // flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
@@ -51,9 +57,7 @@ export default function ViewAllMobile(props) {
     dispatch(getAllData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleDetailClick = () => {
-    setExpanded(!expanded);
-  };
+
   return (
     <Box
       sx={{
@@ -61,7 +65,7 @@ export default function ViewAllMobile(props) {
         marginBottom: "10px",
       }}
     >
-      <Accordion expanded={expanded} onClick={handleDetailClick}>
+      <Accordion expanded={expanded} onClick={()=> setExpanded(!expanded)}>
         <AccordionSummary>
           <li className={classes.viewAllItemHeaderMobile}>
             {name !== undefined ? (
@@ -94,7 +98,6 @@ export default function ViewAllMobile(props) {
                   >
                     {cat.name}
                   </li>
-                  {/* <Divider sx={{ margin: "10px 0px" }} /> */}
                 </>
               );
             })}

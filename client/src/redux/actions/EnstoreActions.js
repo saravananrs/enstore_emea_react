@@ -12,6 +12,7 @@ export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
 export const POST_Add_TO_CART = "Add_TO_CART";
 export const POST_CheckOut_Click = "Checkout_Click";
 export const POST_Final_Checkout = "Final_Checkout";
+export const UPADTE_CART_ITEMS = "UPADTE_CART_ITEMS";
 export const SHIIPING_ADDRESS = "SHIIPING_ADDRESS";
 export const POST_ORDER_DATA = "ORDER_DATA";
 export const CLEAR_CART_ORDER_DATA = "CLEAR_CART_ORDER_DATA";
@@ -181,9 +182,10 @@ export const getSingleProduct = (id) => {
       });
   };
 };
-export const addToCart = (cartData, qty) => async (dispatch) => {
+export const addToCart = (cartData, qty , key) => async (dispatch) => {
   // let localCartData = localStorage.getItem('cartData') != null ? localStorage.getItem('cartData') : []
   cartData.cartQty = qty;
+  cartData.key = key
   dispatch({
     type: POST_Add_TO_CART,
     payload: cartData,
@@ -211,6 +213,19 @@ export const addCartFinalCheckOut = (datas) => async (dispatch) => {
       localStorage.setItem("cartData", JSON.stringify(response.data));
       dispatch({
         type: POST_Final_Checkout,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+export const updateCartItems = (datas) => async (dispatch) => {
+  await instance
+    .post("/updateCartItems", datas)
+    .then((response) => {
+      dispatch({
+        type: UPADTE_CART_ITEMS,
         payload: response.data,
       });
     })

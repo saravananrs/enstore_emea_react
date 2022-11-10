@@ -1,23 +1,34 @@
-import React, { useState } from "react";
-import cart from "../../Assets/Header/spritemap.svg";
-import { Box, Menu, Divider, Grid, Typography, Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Comoonents
+import CheckoutContainer from "./Checkout/CheckoutContainer";
 import HeaderCartItem from "./HeaderCartItem";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+
+// Assets - Enphase
+import cart from "../../Assets/Header/spritemap.svg";
+
+// MUI
+import { Box, Menu, Divider, Grid, Typography, Button } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
 import {
   addCartFinalCheckOut,
   addCartItemsCheckout,
 } from "../../redux/actions/EnstoreActions";
-import CheckoutContainer from "./Checkout/CheckoutContainer";
+
+// Hooks
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
-import { Link, useNavigate } from "react-router-dom";
 import useCartItems from "../Hooks/useCartItems.hook";
 
 export default function HeaderCart() {
   const classes = useStyledComponent();
   const { cartData } = useSelector((state) => state.store);
-  const [bagLoad , setBagLoad] =  useState(true)
+  const [bagLoad, setBagLoad] = useState(true);
+  const [lengthCheck ,setLengthCheck] =  useState(false)
+  const [updtCondition , setUpdtCondition]= useState(false)
   const {
     openDialog,
     setOpenDialog,
@@ -35,6 +46,8 @@ export default function HeaderCart() {
     setCon,
     handleClose,
     open,
+    updatecartItems,
+    setUpdateCartItems,
   } = useCartItems();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +61,6 @@ export default function HeaderCart() {
   const handleClick = (event) => {
     setCartdDown(event.currentTarget);
   };
-
   useEffect(() => {
     setBagCount(cartData?.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +74,9 @@ export default function HeaderCart() {
   storedData.push(JSON.parse(createdCartData));
   const handleCartPageClick = async () => {
     setBagLoad(false);
-    await dispatch(addCartItemsCheckout());
+    if (!updatecartItems) {
+      await dispatch(addCartItemsCheckout());
+    }
     const quoteId = localStorage.getItem("tokenKey");
     cartData.map((items) => {
       const reqBody = {
@@ -79,22 +93,24 @@ export default function HeaderCart() {
     setBagLoad(true);
   };
   const handleCheckOutClick = async () => {
+    setUpdtCondition(true)
     setToggle(false);
     // if (createdCartData === null || con === true) {
+    if (!updatecartItems ) {
       await dispatch(addCartItemsCheckout());
-      const quoteId = localStorage.getItem("tokenKey");
-      cartData.map((items) => {
-        const reqBody = {
-          cartItem: {
-            sku: items.sku,
-            qty: items.cartQty,
-            quote_id: quoteId,
-          },
-          data: quoteId,
-        };
-        dispatch(addCartFinalCheckOut(reqBody));
-      });
-    // }
+    const quoteId = localStorage.getItem("tokenKey");
+    cartData.map((items) => {
+      const reqBody = {
+        cartItem: {
+          sku: items.sku,
+          qty: items.cartQty,
+          quote_id: quoteId,
+        },
+        data: quoteId,
+      };
+      dispatch(addCartFinalCheckOut(reqBody));
+    });
+    }
     await setOpenDialog(true);
     setToggle(true);
   };
@@ -163,17 +179,22 @@ export default function HeaderCart() {
             </Grid>
             <Divider />
             <Box className={classes.bagCartContainer}>
-              <ul className={`${cartData.length > 1 ? classes.bagCartListHeight :classes.bagCartList}`}>
+              <ul
+                className={`${
+                  cartData.length > 1
+                    ? classes.bagCartListHeight
+                    : classes.bagCartList
+                }`}
+              >
                 {cartData?.map((item) => {
                   return (
                     <div>
                       <HeaderCartItem
-                        setBagCount={setBagCount}
-                        setSubTotal={setSubTotal}
-                        subTotal={subTotal}
-                        setQuantitySetter={setQuantitySetter}
+                      con={con}
+                      setLengthCheck={setLengthCheck}
+                        updtCondition={updtCondition}
+                        setUpdateCartItems={setUpdateCartItems}
                         setCon={setCon}
-                        bagCount={bagCount}
                         item={item}
                       />
                     </div>
@@ -187,7 +208,7 @@ export default function HeaderCart() {
             <Box className={classes.bagPage}>Your Bag is empty</Box> <Divider />
           </>
         )}
- <Divider />
+        <Divider />
         <Box className={classes.items}>
           <a href="#" className="navicon">
             <svg
@@ -235,7 +256,7 @@ export default function HeaderCart() {
               ></path>
             </svg>
           </a>
-      {bagLoad ? "Bag":"Redirecting"}    
+          {bagLoad ? "Bag" : "Redirecting"}
         </Box>
         <Divider />
         <Link to="/signin">

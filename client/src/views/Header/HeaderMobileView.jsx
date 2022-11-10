@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+
+// Components
+import HeaderCart from "./HeaderCart";
+import HeaderDropDown from "./HeaderDropDown";
+import HeaderSearch from "./HeaderSearch";
+
+// MUI
 import {
   Box,
   IconButton,
@@ -10,11 +17,10 @@ import {
   Grid,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import HeaderCart from "./HeaderCart";
 import CloseIcon from "@mui/icons-material/Close";
-import HeaderDropDown from "./HeaderDropDown";
+
+// Hooks
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
-import HeaderSearch from "./HeaderSearch";
 
 export default function HeaderMobileView(props) {
   const pages = ["Homeowner", "Entrepreneur", "Installers", "Store", "Support"];

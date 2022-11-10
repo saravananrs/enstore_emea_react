@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dummy from "../../../Assets/images/dummy.jpg";
-import solar from "../../../Assets/images/solar.jpg";
-import { addToCart, orderData } from "./../../../redux/actions/EnstoreActions";
+
+// Components
+import Spinner from "../../../Spinner/Spinner";
+
+// MUI
 import {
   Grid,
   Typography,
@@ -13,10 +15,21 @@ import {
   Button,
   Tooltip,
 } from "@mui/material";
-import Carousel from "react-elastic-carousel";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../../../Spinner/Spinner";
+import { addToCart, orderData } from "./../../../redux/actions/EnstoreActions";
+
+// Assets - Local
+import dummy from "../../../Assets/images/dummy.jpg";
+import solar from "../../../Assets/images/solar.jpg";
+
+// Carousel
+import Carousel from "react-elastic-carousel";
+
+// Hooks
 import { useStyledComponent } from "../Styles/useStyles.hook";
+
 export default function CardModel(props) {
   const { items, category, categoryIndex, selectiveIndex } = props;
   const filteredProducts = items?.filter(
@@ -26,7 +39,8 @@ export default function CardModel(props) {
   const navigate = useNavigate();
   const { cartData } = useSelector((state) => state.store);
   const handleAddtocartClick = (item) => {
-    dispatch(addToCart(item, 1));
+    const cartKey =  item.sku
+    dispatch(addToCart(item, 1 ,cartKey));
     if (cartData.length > 1) {
       dispatch(
         orderData({

@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
-import {
-  getAllData,
-  getAllLocalData,
-} from "../../redux/actions/EnstoreActions";
-import { makeStyles } from "@material-ui/styles";
+
+// Components
 import Footer from "../Footer/Footer";
 import Success from "../Header/Checkout/Success/Success";
 import Header from "../Header/Header";
@@ -14,8 +9,20 @@ import CartPage from "./CartPage/CartPage";
 import HomePage from "./HomePage";
 import LearnMore from "./LearnMore/LearnMore";
 import ViewAll from "./ViewAll/ViewAll";
+
+// MUI
+import { makeStyles } from "@material-ui/styles";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import {
+  getAllData,
+  getAllLocalData,
+} from "../../redux/actions/EnstoreActions";
+
 const useStyles = makeStyles(() => ({
   spinnerBox: {
     width: "100%",

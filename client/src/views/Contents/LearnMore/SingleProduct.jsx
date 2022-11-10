@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Paper } from "@mui/material";
+
+// Components
 import SingleProductContents from "./SingleProductContents";
 import ProductDetailAccordian from "./ProductDetailAccordian";
+
+// MUI
+import { Grid, Paper } from "@mui/material";
+
+// Hooks
 import { useStyledComponent } from "../Styles/useStyles.hook";
 
 const SingleProduct = (props) => {

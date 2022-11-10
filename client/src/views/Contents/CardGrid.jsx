@@ -1,19 +1,22 @@
-import { Grid, Typography, Box } from "@mui/material";
-import React from "react";
+import React , { useEffect }from "react";
+
+// Components
 import CardModel from "./card/CardModel";
+
+// MUI
+import { Grid, Typography, Box } from "@mui/material";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import {
   getAllData,
-  // getAllLocalData,
 } from "../../redux/actions/EnstoreActions";
+
+// Hooks
 import { useStyledComponent } from "./Styles/useStyles.hook";
-import { useLocData } from "../Hooks/useRQAllItems.hook";
 
 export default function CardGrid() {
   const classes = useStyledComponent();
-  // const { data } = useLocData();
-  // const localData = data?.data;
   const { allData, allLocalData } = useSelector((state) => state.store);
   const categories =
     allLocalData === undefined

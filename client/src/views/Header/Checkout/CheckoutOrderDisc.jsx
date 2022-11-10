@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+
+// MUI
 import { styled } from "@mui/material/styles";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import {ValidatorForm } from "react-material-ui-form-validator";
-import { getDiscountInfo } from "../../../redux/actions/EnstoreActions";
 import {  Box, Typography, CircularProgress } from "@mui/material";
+import {ValidatorForm } from "react-material-ui-form-validator";
+
+// Redux
+import { getDiscountInfo } from "../../../redux/actions/EnstoreActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+
+// Hooks
 import { useMuiStyles } from "../../Contents/Styles/useMuiStyle.hook";
+
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
+))(() => ({
   backgroundColor: "transparent",
   "&:before": {
     display: "none",
   },
 }));
 const AccordionSummary = styled((props) => <MuiAccordionSummary {...props} />)(
-  ({ theme }) => ({
+  () => ({
     border: "none",
   })
 );
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({}));
+const AccordionDetails = styled(MuiAccordionDetails)(() => ({}));
 export default function CheckoutOrderDisc(props) {
   const classes = useMuiStyles();
   const [isLoading , setIsLoading] = useState(false)
@@ -30,9 +36,6 @@ export default function CheckoutOrderDisc(props) {
   const dispatch = useDispatch();
   const { setDiscountCode, discountCode } = props;
   const [expanded, setExpanded] = useState(false);
-  const handleExpansionClick = () => {
-    setExpanded(!expanded);
-  };
   const handleSubmit = (event) => {
     console.log(event);
   };
@@ -53,7 +56,7 @@ export default function CheckoutOrderDisc(props) {
   return (
     <Box className={classes.accordianContainer}>
       <Accordion expanded={expanded}>
-        <AccordionSummary onClick={handleExpansionClick}>
+        <AccordionSummary onClick={()=> setExpanded(!expanded)}>
           <Typography variant="h3" className={classes.couponTitle}>
             APPLY COUPON CODE
           </Typography>

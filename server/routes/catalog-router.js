@@ -8,5 +8,6 @@ router.get('/allLocalData', catalogCtrl.getAllDataFromLocal)
 router.get('/categories', catalogCtrl.getCategories)
 router.get('/products', catalogCtrl.getProducts)
 router.get('/productsByURLKey', catalogCtrl.getProductByURLKey)
+router.post('/updateCartItems',storeCtrl.updateCartDetailByQuoteId)
 
 module.exports = router

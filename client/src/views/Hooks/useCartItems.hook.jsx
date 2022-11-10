@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function useCartItems() {
-  const dispatch = useDispatch();
-  const { cartData } = useSelector((state) => state.store);
   const [openDialog, setOpenDialog] = useState(false);
   const [toggle, setToggle] = useState(true);
   const [cartdDown, setCartdDown] = useState(null);
@@ -12,12 +9,14 @@ export default function useCartItems() {
   const [quantitySetter, setQuantitySetter] = useState(true);
   const [con, setCon] = useState(false);
   const [count, setCount] = useState(1);
- 
+ const [updatecartItems , setUpdateCartItems ] =  useState(false)
   const open = Boolean(cartdDown);
   const handleClose = () => {
     setCartdDown(null);
   };
   return {
+    setUpdateCartItems,
+    updatecartItems,
     open,
     openDialog,
     setOpenDialog,

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+// MUI
 import {
   Button,
   Radio,
@@ -8,10 +10,16 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import instance from "../../../../utils/axiosconfig";
 import LoadingButton from "@mui/lab/LoadingButton";
+
+// Utils
+import instance from "../../../../utils/axiosconfig";
+
+// Redux
 import { orderData } from "../../../../redux/actions/EnstoreActions";
 import { useDispatch } from "react-redux";
+
+// Hooks
 import { useMuiStyles } from "../../../Contents/Styles/useMuiStyle.hook";
 
 export default function StepperDelivery(props) {

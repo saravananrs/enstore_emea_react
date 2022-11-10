@@ -1,15 +1,22 @@
-import React from "react";
+import React,{ useState } from "react";
+
+// MUI
 import { Box, Typography, Button } from "@mui/material";
+
+// Assets - Enphase
 import upArrow from "../../../Assets/Header/spritemap.svg";
-import { useState } from "react";
+
+// Redux
 import { addToCart } from "./../../../redux/actions/EnstoreActions";
 import { useDispatch } from "react-redux";
+
+// Hooks
 import { useStyledComponent } from "../Styles/useStyles.hook";
+
 export default function SingleProductContents(props) {
   const product = props.productData;
   const classes = useStyledComponent()
   const [count, setCount] = useState(1);
-  const [readMore, setReadMore] = useState(true);
   const dispatch = useDispatch();
   let custome_attribute = {};
   product.custom_attributes.map((attributes) => {
@@ -24,9 +31,6 @@ export default function SingleProductContents(props) {
 
   let descriptionData = custome_attribute.short_description;
 
-  const handleReadClick = () => {
-    setReadMore(!readMore);
-  };
   const handleIncrement = (number) => {
     setCount(number + 1);
   };
@@ -52,34 +56,6 @@ export default function SingleProductContents(props) {
           <Typography variant="h4" className={classes.pText}>
             {getText(descriptionData)}
           </Typography>
-          {/* {readMore ? (
-            <Typography
-              variant="body2"
-              className={classes.pTextRead}
-              onClick={handleReadClick}
-            >
-              Read More
-            </Typography>
-          ) : (
-            <>
-              <Typography variant="body2" className={classes.pText}>
-                Using the IQ Load Controller helps power your critical loads for
-                a longer time when off-grid by shedding non-essential loads, or
-                can help ensure the right solar-to-storage ratio for an off-grid
-                system.
-              </Typography>
-              <Typography variant="body2" className={classes.pText}>
-                This product can be used to control 2x36A dedicated loads or
-                2x32A branch or solar circuits.
-              </Typography>
-              <Typography variant="body2" className={classes.pText}>
-                The DIN rail design enables easy installation and servicing.
-              </Typography>
-              <Typography variant="body2" className={classes.pText}>
-                The product comes with a 5-year warranty.
-              </Typography>
-            </>
-          )} */}
         </Box>
         <Box>
           <Typography variant="body1" className={classes.spqnty}>

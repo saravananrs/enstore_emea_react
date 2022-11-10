@@ -1,12 +1,21 @@
-import { Divider, Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+// Components
 import SingleProduct from "./SingleProduct";
 import LifestyleParts from "../LifestyleParts";
-import { useParams } from "react-router-dom";
 import Spinner from "../../../Spinner/Spinner";
+
+// MUI
+import { Divider, Box, Typography } from "@mui/material";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../../redux/actions/EnstoreActions";
+
+// Hooks
 import { useStyledComponent } from "../Styles/useStyles.hook";
+
 export default function LearnMore() {
   let { urlKey } = useParams();
   const {singleProduct} = useSelector((state)=> state.store)

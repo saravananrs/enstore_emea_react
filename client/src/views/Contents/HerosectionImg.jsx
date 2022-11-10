@@ -1,5 +1,9 @@
 import React from "react";
+
+// MUI
 import { Button, Grid, Typography, Box } from "@mui/material";
+
+// Hooks
 import { useStyledComponent } from "./Styles/useStyles.hook";
 
 export default function HerosectionImg() {

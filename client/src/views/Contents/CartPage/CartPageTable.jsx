@@ -1,14 +1,23 @@
-import { Box, Divider, Grid } from "@mui/material";
 import React, { useEffect } from "react";
+
+// MUI
+import { Box, Divider, Grid } from "@mui/material";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import upArrow from "../../../Assets/Header/spritemap.svg";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   addToCart,
   clearCartItem,
 } from "../../../redux/actions/EnstoreActions";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+// Assets - Enphase
+import upArrow from "../../../Assets/Header/spritemap.svg";
+
+// Hooks
 import useCartItems from "../../Hooks/useCartItems.hook";
 import { useMuiStyles } from "../Styles/useMuiStyle.hook";
+
 export default function CartPageTable(props) {
   const { products, setSubTotal, setCon, setQuantitySetter, subTotal } = props;
   const classes = useMuiStyles();

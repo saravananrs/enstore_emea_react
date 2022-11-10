@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
+import { useNavigate } from "react-router-dom";
+
+// MUI
 import {
   Box,
   Button,
@@ -7,12 +10,16 @@ import {
   Menu,
   TextField,
 } from "@mui/material";
+
+// Assets - Enphase
 import search from "../../Assets/Header/spritemap.svg";
-import { useState } from "react";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLocalData } from "../../redux/actions/EnstoreActions";
+
+// Hooks
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
-import { useNavigate } from "react-router-dom";
 import { useMuiStyles } from "../Contents/Styles/useMuiStyle.hook";
 
 export default function HeaderSearch(props) {
