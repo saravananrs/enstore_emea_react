@@ -222,7 +222,7 @@ export const addCartFinalCheckOut = (datas) => async (dispatch) => {
 };
 export const updateCartItems = (datas) => async (dispatch) => {
   await instance
-    .post("/updateCartItems", datas)
+    .post("/catalog/updateCartItems", datas)
     .then((response) => {
       dispatch({
         type: UPADTE_CART_ITEMS,
