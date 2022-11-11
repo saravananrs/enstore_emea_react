@@ -22,12 +22,11 @@ import { useState } from "react";
 
 export default function HeaderCartItem(props) {
   const classes = useStyledComponent();
-  const { cartData, checkout, updateCart ,quoteId} = useSelector(
+  const { cartData, checkout, updateCart, quoteId } = useSelector(
     (state) => state.store
   );
   const [updateSKU, setUpdateSKU] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
   const {
     item,
     key,
@@ -35,27 +34,43 @@ export default function HeaderCartItem(props) {
     setUpdateCartItems,
     updtCondition,
     con,
-    setLengthCheck,
   } = props;
   const { setSubTotal, count, setCount, setQuantitySetter, subTotal } =
     useCartItems();
+
   const dispatch = useDispatch();
-    if (updateCart !== null  &&  updateCart?.sku === updateSKU.sku) {
-     setUpdateCartItems(true);
-     console.log("1");
-    } else if(cartData.length > 1 && updateCart !==null && item.key !==item.sku ) {
+
+  useEffect(() => {
+    if (updateCart !== null && item.key !== item.sku) {
       setUpdateCartItems(true);
-      console.log("2");
-    }else{
-      setUpdateCartItems(false);
-      console.log("3");
     }
-    useEffect(()=>{
-      if(updateCart !== null  &&  updateCart?.sku === updateSKU.sku){
-        setIsLoading(false)
-        setCon(false)
-       }
-    },[updateCart])
+    if (updateCart !== null && item.key == item.sku) {
+      setUpdateCartItems(false);
+    }
+    //  if (
+    //   cartData.length > 1 &&
+    //   updateCart !== null &&
+    //   item.key !== item.sku
+    // ) {
+    //   setUpdateCartItems(true);
+    //   console.log("2");
+    // } else if (cartData.length === 1 && updateCart !== null &&
+    //   item.key !== item.sku) {
+    //   setUpdateCartItems(true);
+    //   console.log("3");
+    // }
+    //  else {
+    //   setUpdateCartItems(false);
+    //   console.log("4");
+    // }
+  }, [updateCart]);
+
+  useEffect(() => {
+    if (updateCart !== null && updateCart?.sku === updateSKU.sku) {
+      setIsLoading(false);
+      setCon(false);
+    }
+  }, [updateCart]);
 
   useEffect(() => {
     setCount(item.cartQty);
@@ -82,8 +97,8 @@ export default function HeaderCartItem(props) {
     }
   };
   const handleProductUpdateClick = async () => {
-      setIsLoading(true);
- //   const quoteId = localStorage.getItem("tokenKey");
+    setIsLoading(true);
+    //   const quoteId = localStorage.getItem("tokenKey");
     await checkout.map((items) => {
       if (items.sku === updateSKU.sku) {
         const reqBody = {
@@ -99,7 +114,20 @@ export default function HeaderCartItem(props) {
     });
   };
   const handleRemoveItem = async (item) => {
-    dispatch(clearCartItem(item));
+    await checkout.map((items) => {
+      if (items.sku === item.sku) {
+        const reqBody = {
+          cartItem: {
+            quote_id: quoteId,
+            item_id: items.item_id,
+            sku: items.sku,
+            qty: 0,
+          },
+        };
+        dispatch(updateCartItems(reqBody));
+      }
+    });
+    await dispatch(clearCartItem(item));
     dispatch(
       orderData({
         delivery: 0,
@@ -181,9 +209,9 @@ export default function HeaderCartItem(props) {
                 <span onClick={handleProductUpdateClick}>
                   {isLoading ? (
                     <span className={classes.update}>Updating</span>
-                   ) : (
+                  ) : (
                     <span className={classes.update}>Update </span>
-                   )}
+                  )}
                 </span>
               )}
             </Box>

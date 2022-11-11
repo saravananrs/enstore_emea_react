@@ -80,12 +80,16 @@ getAllData = async (req, res) => {
                     );
                 })
                 .catch((err) => console.log(err));
-        });
+        })
+        .catch((err)=>{
+            console.log(err,"ert");
+            res.send(err.data)
+        })
 };
 
 //Every 10min fetch the catalog data from Enstore and save it in local.
 setInterval(() => {
-    var data = axios.get(`http://localhost:8000/api/allData`);
+    var data = axios.get(`http://localhost:8000/api/catalog/allData`);
 }, 600000)
 
 //Get all data from local catalog data.
