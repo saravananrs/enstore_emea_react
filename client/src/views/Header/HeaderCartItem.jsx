@@ -27,24 +27,29 @@ export default function HeaderCartItem(props) {
   );
   const [updateSKU, setUpdateSKU] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    item,
-    key,
-    setCon,
-    setUpdateCartItems,
-    updtCondition,
-    con,
-  } = props;
+  const[checkUpdate,setCheckUpdate] = useState(false)
+  const { item, key, setCon, setUpdateCartItems, updtCondition, con } = props;
   const { setSubTotal, count, setCount, setQuantitySetter, subTotal } =
     useCartItems();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (updateCart !== null && item.key !== item.sku) {
+    // if (updateCart !== null && item.key !== item.sku) {
+    //   setUpdateCartItems(true);
+    // }
+    // if (updateCart !== null && item.key == item.sku) {
+    //   setUpdateCartItems(false);
+    // }
+    if (updateCart !== null && cartData.length > 1) {
+      setCheckUpdate(true)
       setUpdateCartItems(true);
     }
-    if (updateCart !== null && item.key == item.sku) {
+    if (cartData.length === 1 && updateCart !== null && item.key !== item.sku) {
+      setCheckUpdate(true)
+      setUpdateCartItems(true);
+    }
+    if (updateCart !== null && item.key == item.sku && checkUpdate=== false) {
       setUpdateCartItems(false);
     }
     //  if (
@@ -53,15 +58,12 @@ export default function HeaderCartItem(props) {
     //   item.key !== item.sku
     // ) {
     //   setUpdateCartItems(true);
-    //   console.log("2");
     // } else if (cartData.length === 1 && updateCart !== null &&
     //   item.key !== item.sku) {
     //   setUpdateCartItems(true);
-    //   console.log("3");
     // }
     //  else {
     //   setUpdateCartItems(false);
-    //   console.log("4");
     // }
   }, [updateCart]);
 
