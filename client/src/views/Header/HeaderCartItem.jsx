@@ -66,7 +66,7 @@ export default function HeaderCartItem(props) {
     //  else {
     //   setUpdateCartItems(false);
     // }
-  }, [updateCart ,checkUpdate]);
+  }, [updateCart]);
 
   useEffect(() => {
     if (updateCart !== null && updateCart?.sku === updateSKU.sku) {
