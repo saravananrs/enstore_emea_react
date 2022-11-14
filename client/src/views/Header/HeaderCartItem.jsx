@@ -52,6 +52,7 @@ export default function HeaderCartItem(props) {
     if (updateCart !== null && item.key == item.sku && checkUpdate=== false) {
       setUpdateCartItems(false);
     }
+    console.log(checkUpdate,"checkUpdate");
     //  if (
     //   cartData.length > 1 &&
     //   updateCart !== null &&
@@ -65,7 +66,7 @@ export default function HeaderCartItem(props) {
     //  else {
     //   setUpdateCartItems(false);
     // }
-  }, [updateCart]);
+  }, [updateCart ,checkUpdate]);
 
   useEffect(() => {
     if (updateCart !== null && updateCart?.sku === updateSKU.sku) {

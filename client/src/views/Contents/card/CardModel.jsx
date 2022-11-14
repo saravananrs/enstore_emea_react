@@ -209,7 +209,6 @@ export default function CardModel(props) {
                   <CardMedia
                     component="img"
                     sx={{ marginTop: "100px" }}
-                    // className={classes.cardimg}
                     image={view.imgUrl}
                     alt="products"
                   />
