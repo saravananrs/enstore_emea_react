@@ -15,7 +15,8 @@ import {
   ALL_LOCAL_DATA,
   DISCOUNT_INFO,
   CREATE_ORDER,
-  UPADTE_CART_ITEMS
+  UPADTE_CART_ITEMS,
+  REMOVE_CART_ITEMS,
 } from "../actions/EnstoreActions";
 const initialState = {
   isLoading: true,
@@ -28,6 +29,7 @@ const initialState = {
   quoteId: [],
   checkout: [],
   updateCart : null,
+  removeCart:null,
   allData: [],
   allLocalData: [],
   categoryData: [],
@@ -155,6 +157,12 @@ const EnstoreReducer = function (state = initialState, action) {
       return {
         ...state,
         updateCart: action.payload
+      };
+    }
+    case REMOVE_CART_ITEMS: {
+      return {
+        ...state,
+        removeCart: action.payload
       };
     }
     case POST_ORDER_DATA: {

@@ -25,10 +25,11 @@ import useCartItems from "../Hooks/useCartItems.hook";
 
 export default function HeaderCart() {
   const classes = useStyledComponent();
-  const { cartData } = useSelector((state) => state.store);
+  const { cartData ,checkout,} = useSelector((state) => state.store);
   const [bagLoad, setBagLoad] = useState(true);
-  const [lengthCheck ,setLengthCheck] =  useState(false)
-  const [updtCondition , setUpdtCondition]= useState(false)
+  const [lengthCheck, setLengthCheck] = useState(false);
+  const [updtCondition, setUpdtCondition] = useState(false);
+  const results = cartData.filter(({ sku: id1 }) => !checkout.some(({ sku: id2 }) => id2 === id1));
   const {
     openDialog,
     setOpenDialog,
@@ -41,7 +42,6 @@ export default function HeaderCart() {
     subTotal,
     setSubTotal,
     quantitySetter,
-    setQuantitySetter,
     con,
     setCon,
     handleClose,
@@ -51,11 +51,11 @@ export default function HeaderCart() {
   } = useCartItems();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (cartData?.length >= 1 && quantitySetter) {
       setSubTotal(total);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
 
   const handleClick = (event) => {
@@ -63,7 +63,6 @@ export default function HeaderCart() {
   };
   useEffect(() => {
     setBagCount(cartData?.length);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
   const total = cartData?.reduce(
     (total, currPrice) => (total = total + currPrice.price * currPrice.cartQty),
@@ -72,44 +71,37 @@ export default function HeaderCart() {
   const storedData = [];
   let createdCartData = localStorage.getItem("cartData");
   storedData.push(JSON.parse(createdCartData));
+
+  let quoteId = localStorage.getItem("tokenKey");
+
   const handleCartPageClick = async () => {
     setBagLoad(false);
-    if (!updatecartItems) {
+    if (quoteId === null) {
       await dispatch(addCartItemsCheckout());
     }
-    const quoteId = localStorage.getItem("tokenKey");
-    cartData.map((items) => {
-      const reqBody = {
-        cartItem: {
-          sku: items.sku,
-          qty: items.cartQty,
-          quote_id: quoteId,
-        },
-        data: quoteId,
-      };
-      dispatch(addCartFinalCheckOut(reqBody));
-    });
     await navigate("/cart");
     setBagLoad(true);
   };
+ 
   const handleCheckOutClick = async () => {
-    setUpdtCondition(true)
+    setUpdtCondition(true);
     setToggle(false);
-    // if (createdCartData === null || con === true) {
-    if (!updatecartItems ) {
+    if (quoteId === null) {
       await dispatch(addCartItemsCheckout());
-    const quoteId = localStorage.getItem("tokenKey");
-    cartData.map((items) => {
-      const reqBody = {
-        cartItem: {
-          sku: items.sku,
-          qty: items.cartQty,
-          quote_id: quoteId,
-        },
-        data: quoteId,
-      };
-      dispatch(addCartFinalCheckOut(reqBody));
-    });
+    }
+    if (updatecartItems === true && results.length !== 0) {
+      let quote = localStorage.getItem("tokenKey");
+      await results.map(async (items) => {
+        const reqBody = {
+          cartItem: {
+            sku: items.sku,
+            qty: items.cartQty,
+            quote_id: quote,
+          },
+          data: quote,
+        };
+         await dispatch(addCartFinalCheckOut(reqBody));
+      });
     }
     await setOpenDialog(true);
     setToggle(true);
@@ -190,8 +182,8 @@ export default function HeaderCart() {
                   return (
                     <div>
                       <HeaderCartItem
-                      con={con}
-                      setLengthCheck={setLengthCheck}
+                        con={con}
+                        setLengthCheck={setLengthCheck}
                         updtCondition={updtCondition}
                         setUpdateCartItems={setUpdateCartItems}
                         setCon={setCon}

@@ -9,5 +9,6 @@ router.get('/categories', catalogCtrl.getCategories)
 router.get('/products', catalogCtrl.getProducts)
 router.get('/productsByURLKey', catalogCtrl.getProductByURLKey)
 router.post('/updateCartItems',catalogCtrl.updateCartDetailByQuoteId)
+router.post('/removeCartItems', catalogCtrl.removeCartDetailByQuoteId)
 
 module.exports = router

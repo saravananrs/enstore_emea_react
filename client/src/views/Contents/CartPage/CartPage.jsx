@@ -44,6 +44,9 @@ export default function CartPage() {
   const { cartData, checkout, discountInfo } = useSelector(
     (state) => state.store
   );
+  const [updtCondition, setUpdtCondition] = useState(false);
+  const results = cartData.filter(({ sku: id1 }) => !checkout.some(({ sku: id2 }) => id2 === id1));
+  let quoteId = localStorage.getItem("tokenKey");
   const [discountCode, setDiscountCode] = useState("");
   const {
     openDialog,
@@ -57,6 +60,8 @@ export default function CartPage() {
     con,
     setCon,
     handleClose,
+    updatecartItems,
+    setUpdateCartItems,
     setCartdDown,
   } = useCartItems();
   const total = cartData.reduce(
@@ -99,20 +104,23 @@ export default function CartPage() {
   }, []);
 
   const handleCheckOutClick = async () => {
+    setUpdtCondition(true);
     setToggle(false);
-    if (createdCartData === null || con === true) {
+    if (quoteId === null) {
       await dispatch(addCartItemsCheckout());
-      const quoteId = localStorage.getItem("tokenKey");
-      cartData.map((items) => {
+    }
+    if (updatecartItems === true && results.length !== 0) {
+      let quote = localStorage.getItem("tokenKey");
+      await results.map((items) => {
         const reqBody = {
           cartItem: {
             sku: items.sku,
             qty: items.cartQty,
-            quote_id: quoteId,
+            quote_id: quote,
           },
-          data: quoteId,
+          data: quote,
         };
-        dispatch(addCartFinalCheckOut(reqBody));
+          dispatch(addCartFinalCheckOut(reqBody));
       });
     }
     await setOpenDialog(true);
@@ -121,7 +129,6 @@ export default function CartPage() {
   const handleClearListClick = async () => {
     await dispatch(clearCartAndOrderData());
   };
-  console.log(checkout, "checkoutcheckout");
   return (
     <Container maxWidth="xl" className={classes.cartPageContainer}>
       <Link to="/" className={classes.cpContinue}>
@@ -145,8 +152,11 @@ export default function CartPage() {
                 return (
                   <CartPageTable
                     products={products}
+                    updtCondition={updtCondition}
                     setQuantitySetter={setQuantitySetter}
+                    setUpdateCartItems={setUpdateCartItems}
                     setCon={setCon}
+                    con={con}
                     setSubTotal={setSubTotal}
                     subTotal={subTotal}
                   />
@@ -160,7 +170,7 @@ export default function CartPage() {
               >
                 Clear Shopping Bag
               </Button>
-              <Button className={classes.cartPageclear}>
+              <Button className={classes.cartPageclear} >
                 Update Shopping Bag
               </Button>
             </Box>

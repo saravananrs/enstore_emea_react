@@ -5,7 +5,6 @@ export const POST_STORE_LOGIN = "STORE_LOGIN";
 export const POST_ADMIN_LOGIN = "ADMIN_LOGIN";
 export const ALL_DATA = "ALL_DATA";
 export const ALL_LOCAL_DATA = "ALL_LOCAL_DATA";
-export const DISCOUNT_INFO = "DISCOUNT_INFO";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const SINGLE_PRODUCTS = "SINGLE_PRODUCTS";
@@ -13,6 +12,8 @@ export const POST_Add_TO_CART = "Add_TO_CART";
 export const POST_CheckOut_Click = "Checkout_Click";
 export const POST_Final_Checkout = "Final_Checkout";
 export const UPADTE_CART_ITEMS = "UPADTE_CART_ITEMS";
+export const REMOVE_CART_ITEMS = "REMOVE_CART_ITEMS";
+export const DISCOUNT_INFO = "DISCOUNT_INFO";
 export const SHIIPING_ADDRESS = "SHIIPING_ADDRESS";
 export const POST_ORDER_DATA = "ORDER_DATA";
 export const CLEAR_CART_ORDER_DATA = "CLEAR_CART_ORDER_DATA";
@@ -226,6 +227,19 @@ export const updateCartItems = (datas) => async (dispatch) => {
     .then((response) => {
       dispatch({
         type: UPADTE_CART_ITEMS,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+export const removeCartItems = (datas) => async (dispatch) => {
+  await instance
+    .post("/catalog/removeCartItems", datas)
+    .then((response) => {
+      dispatch({
+        type: REMOVE_CART_ITEMS,
         payload: response.data,
       });
     })

@@ -185,6 +185,11 @@ export const useMuiStyles = makeStyles(() => ({
     position: "relative",
     overflow: "hidden",
   },
+  updateAlign:{
+    position:"absolute",
+    top: "178%",
+    right: "65%",
+  },
   cartPageinputBox: {
     position: "relative",
     outline: " none",
@@ -232,6 +237,20 @@ export const useMuiStyles = makeStyles(() => ({
     color: "#757575 !important",
     position: "absolute",
     top: "166%",
+  },
+  cartUpdateBtn: {
+    border: " 1px solid #000 !important",
+    backgroundColor: "#000  !important",
+    color: " #fff  !important",
+    textTransform: "capitalize !important",
+    fontFamily: "enphase-visuelt-medium !important",
+    borderRadius: "25px !important",
+    cursor:"pointer",
+    padding: "6px 20px 6px 20px !important",
+    height: "36px",
+    "@media screen and (min-width: 300px) and (max-width: 476px)": {
+      fontSize: "12px !important",
+    },
   },
 
   //productDetailAccordian.jsx

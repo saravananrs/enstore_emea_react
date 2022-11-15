@@ -177,6 +177,8 @@ getProductByURLKey = async (req, res) => {
             console.log(req);
         });
 };
+
+//update cart items
 updateCartDetailByQuoteId = async (req, res) => {
     await serverInstance
       .post(
@@ -197,11 +199,31 @@ updateCartDetailByQuoteId = async (req, res) => {
       });
   };
 
+  // remove cart items
+  removeCartDetailByQuoteId = async (req, res) => {
+    await serverInstance
+      .delete(
+        `/rest/V1/guest-carts/${req.body.quote_id}/items/${req.body.item_id}`,
+        {
+          headers: {
+            Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+          },
+        }
+      )
+      .then((response) => {
+       
+        return res.status(200).send(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+         console.log(error, "remove");
+      });
+  };
 module.exports = {
     getAllData,
     getAllDataFromLocal,
     getCategories,
     getProducts,
     getProductByURLKey,
-    updateCartDetailByQuoteId
+    updateCartDetailByQuoteId,
+    removeCartDetailByQuoteId
 };

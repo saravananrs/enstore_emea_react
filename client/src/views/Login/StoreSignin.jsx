@@ -23,7 +23,6 @@ export default function StoreSignin() {
   const storeSignIn = localStorage.getItem("storeSignIn");
   const [isLoading, setIsLoading] = useState(true);
   const loginData = JSON.parse(storeSignIn);
-  console.log(loginData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [register, setRegister] = useState(IntialStoreSignInRegister);

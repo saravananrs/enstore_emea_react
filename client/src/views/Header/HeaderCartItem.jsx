@@ -12,6 +12,7 @@ import {
   addToCart,
   clearCartItem,
   orderData,
+  removeCartItems,
   updateCartItems,
 } from "../../redux/actions/EnstoreActions";
 
@@ -22,7 +23,7 @@ import { useState } from "react";
 
 export default function HeaderCartItem(props) {
   const classes = useStyledComponent();
-  const { cartData, checkout, updateCart, quoteId } = useSelector(
+  const { cartData, checkout, updateCart} = useSelector(
     (state) => state.store
   );
   const [updateSKU, setUpdateSKU] = useState({});
@@ -31,28 +32,14 @@ export default function HeaderCartItem(props) {
   const { item, key, setCon, setUpdateCartItems, updtCondition, con } = props;
   const { setSubTotal, count, setCount, setQuantitySetter, subTotal } =
     useCartItems();
-
   const dispatch = useDispatch();
+  let quoteId = localStorage.getItem("tokenKey");
 
   useEffect(() => {
-    // if (updateCart !== null && item.key !== item.sku) {
-    //   setUpdateCartItems(true);
-    // }
-    // if (updateCart !== null && item.key == item.sku) {
-    //   setUpdateCartItems(false);
-    // }
-    if (updateCart !== null && cartData.length > 1) {
-      setCheckUpdate(true)
+    if (updateCart !== null && item.key == item.sku ) {
       setUpdateCartItems(true);
     }
-    if (cartData.length === 1 && updateCart !== null && item.key !== item.sku) {
-      setCheckUpdate(true)
-      setUpdateCartItems(true);
-    }
-    if (updateCart !== null && item.key == item.sku && checkUpdate=== false) {
-      setUpdateCartItems(false);
-    }
-    console.log(checkUpdate,"checkUpdate");
+    // +++++++++
     //  if (
     //   cartData.length > 1 &&
     //   updateCart !== null &&
@@ -78,7 +65,7 @@ export default function HeaderCartItem(props) {
   useEffect(() => {
     setCount(item.cartQty);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cartData]);
 
   const handleIncrement = async (number, products) => {
     setCon(true);
@@ -101,7 +88,7 @@ export default function HeaderCartItem(props) {
   };
   const handleProductUpdateClick = async () => {
     setIsLoading(true);
-    //   const quoteId = localStorage.getItem("tokenKey");
+    setUpdateCartItems(false);
     await checkout.map((items) => {
       if (items.sku === updateSKU.sku) {
         const reqBody = {
@@ -120,14 +107,10 @@ export default function HeaderCartItem(props) {
     await checkout.map((items) => {
       if (items.sku === item.sku) {
         const reqBody = {
-          cartItem: {
             quote_id: quoteId,
             item_id: items.item_id,
-            sku: items.sku,
-            qty: 0,
-          },
         };
-        dispatch(updateCartItems(reqBody));
+        dispatch(removeCartItems(reqBody));
       }
     });
     await dispatch(clearCartItem(item));
