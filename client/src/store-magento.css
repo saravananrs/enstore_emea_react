@@ -10728,7 +10728,8 @@ body.checkout-index-index,
 body.account,
 body.customer-account-login,
 body.customer-account-logoutsuccess {
-    background-color: #faf6ef
+    background-color: #faf6ef;
+    padding-right: 0px !important;
 }
 
 .customer-account-login .block.block-customer-login {

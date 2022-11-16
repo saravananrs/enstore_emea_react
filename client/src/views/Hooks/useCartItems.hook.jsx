@@ -9,7 +9,7 @@ export default function useCartItems() {
   const [quantitySetter, setQuantitySetter] = useState(true);
   const [con, setCon] = useState(false);
   const [count, setCount] = useState(1);
- const [updatecartItems , setUpdateCartItems ] =  useState(true)
+  const [updatecartItems, setUpdateCartItems] = useState(true);
   const open = Boolean(cartdDown);
   const handleClose = () => {
     setCartdDown(null);

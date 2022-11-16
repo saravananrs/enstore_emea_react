@@ -28,7 +28,6 @@ export default function HeaderCartItem(props) {
   );
   const [updateSKU, setUpdateSKU] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const[checkUpdate,setCheckUpdate] = useState(false)
   const { item, key, setCon, setUpdateCartItems, updtCondition, con } = props;
   const { setSubTotal, count, setCount, setQuantitySetter, subTotal } =
     useCartItems();
@@ -39,20 +38,6 @@ export default function HeaderCartItem(props) {
     if (updateCart !== null && item.key == item.sku ) {
       setUpdateCartItems(true);
     }
-    // +++++++++
-    //  if (
-    //   cartData.length > 1 &&
-    //   updateCart !== null &&
-    //   item.key !== item.sku
-    // ) {
-    //   setUpdateCartItems(true);
-    // } else if (cartData.length === 1 && updateCart !== null &&
-    //   item.key !== item.sku) {
-    //   setUpdateCartItems(true);
-    // }
-    //  else {
-    //   setUpdateCartItems(false);
-    // }
   }, [updateCart]);
 
   useEffect(() => {
@@ -64,7 +49,6 @@ export default function HeaderCartItem(props) {
 
   useEffect(() => {
     setCount(item.cartQty);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartData]);
 
   const handleIncrement = async (number, products) => {

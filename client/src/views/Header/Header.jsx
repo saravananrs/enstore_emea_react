@@ -19,7 +19,7 @@ const pages = ["Homeowner", "Entrepreneur", "Installers", "Store", "Support"];
 
 const Header = () => {
   const classes = useStyledComponent();
-
+  
   return (
     <header className="App-header">
       <Container maxWidth="xl" className={classes.headerContainer}>
