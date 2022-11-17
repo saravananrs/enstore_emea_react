@@ -14,6 +14,9 @@ import { getSavedAddress, storeLogin } from "../../redux/actions/EnstoreActions"
 // Hooks
 import { useStyledComponent } from "../Contents/Styles/useStyles.hook";
 
+//utils 
+import instance from "../../utils/axiosconfig";
+
 const IntialStoreSignInRegister = {
   email: "",
   password: "",
@@ -38,6 +41,18 @@ export default function StoreSignin() {
         email: register.email
     }
     await navigate("/");
+    const tokenData ={
+      username: register.email,
+      password:register.password
+    }
+    await instance
+    .post("/account/userToken",tokenData)
+    .then((response) => {
+      console.log(response.data,"response");
+    })
+    .catch((error) => {
+      console.log(error,"errrrr");
+    });
     await dispatch(getSavedAddress(emailData))
     setIsLoading(true)
   };

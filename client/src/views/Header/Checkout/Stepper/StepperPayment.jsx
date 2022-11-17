@@ -230,7 +230,7 @@ const handleBack = () => {
           {!isLoading ? (
             <span>Pay With Razorpay</span>
           ) : (
-            <span>Loading...</span>
+            <span>Please Wait...</span>
           )}
         </Button>
       ) : (
@@ -251,7 +251,8 @@ const handleBack = () => {
         handleCloseMenu={handleCloseMenu}
       />
     </Elements> */}
-    <Button onClick={handleBack}>← Back</Button>
+    {isLoading && <small>The transaction is being proceesed. Please don't refresh or click back button.</small>}
+  <br />  <Button onClick={handleBack}>← Back</Button>
     </Box>
     </>
   );

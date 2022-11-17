@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 // Components
@@ -25,7 +25,7 @@ import dummy from "../../../Assets/images/dummy.jpg";
 import solar from "../../../Assets/images/solar.jpg";
 
 // Carousel
-import Carousel from "react-elastic-carousel";
+// import Carousel from "react-elastic-carousel";
 
 // Hooks
 import { useStyledComponent } from "../Styles/useStyles.hook";
@@ -33,20 +33,15 @@ import { useStyledComponent } from "../Styles/useStyles.hook";
 export default function CardModel(props) {
   const { items, category, categoryIndex, selectiveIndex } = props;
   const filteredProducts = items?.filter(
-    (i) => i.status === 1 && i.visibility == 4
+    (i) => i.status === 1 && i.visibility === 4
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { cartData, updateCart } = useSelector((state) => state.store);
+  const { cartData } = useSelector((state) => state.store);
 
   const handleAddtocartClick = (item) => {
     const cartKey = item.sku;
-    // Math.floor((Math.random()*10) + 1);
     dispatch(addToCart(item, 1, cartKey));
-    //   if(updateCart !==null){
-    //     localStorage.setItem("cartKey",cartKey)
-    //     dispatch(addToCart(item, 1,cartKey));
-    // }
     if (cartData.length > 1) {
       dispatch(
         orderData({
@@ -56,12 +51,12 @@ export default function CardModel(props) {
       );
     }
   };
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 3 },
-  ];
+  // const breakPoints = [
+  //   { width: 1, itemsToShow: 1 },
+  //   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+  //   { width: 768, itemsToShow: 3 },
+  //   { width: 1200, itemsToShow: 3 },
+  // ];
   const viewAllImg = [
     {
       id: 1,
@@ -108,9 +103,9 @@ export default function CardModel(props) {
         // <Carousel breakPoints={breakPoints} pagination={false}>
         filteredProducts?.slice(0, 5).map((item) => {
           let custome_attribute = {};
-          item.custom_attributes.map((attributes) => {
-            custome_attribute[attributes.attribute_code] = attributes.value;
-          });
+          item.custom_attributes.map((attributes) => 
+            custome_attribute[attributes.attribute_code] = attributes.value
+          );
           return (
             <Box className={classes.cardModelContainer}>
               <Card key={item.id} className={classes.card}>

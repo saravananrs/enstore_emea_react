@@ -2,6 +2,7 @@ const request = require("request");
 const OAuth = require("oauth-1.0a");
 const crypto = require("crypto");
 var CryptoJS = require("crypto-js");
+const serverInstance = require("../config/axiosConfig")
 const jwt = require("jwt-simple");
 
 enlightenOAuthLogin = async function (req, res) {
@@ -20,9 +21,9 @@ enlightenOAuthLogin = async function (req, res) {
         url: "https://api-qa2.enphaseenergy.com/oauth/access_token",
         method: "POST",
         data: {
-            x_auth_username: "ayyapu@gmail.com",
+            x_auth_username: req.body.enlightenusername,
             x_auth_mode: "client_auth",
-            x_auth_password: "26Nov$2018",
+            x_auth_password: req.body.enlightenpassword,
         },
     };
 
@@ -167,7 +168,27 @@ async function authenticationOAuth() {
     }
     return oauth;
 }
+grtTokenfromLogin = async (req, res) => {
+    await serverInstance
+      .post(
+        `/rest/V1/integration/customer/token`,
+        req.body,
+        {
+          headers: {
+            Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+          },
+        }
+      )
+      .then((response) => {
+       
+        return res.send(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+         console.log(error, "token");
+      });
+  };
 
 module.exports = {
     enlightenOAuthLogin,
+    grtTokenfromLogin,
 };
