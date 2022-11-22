@@ -304,9 +304,9 @@ export const useStyledComponent = makeStyles(() => ({
   productList: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     "@media (max-width: 780px)": {
-      justifyContent: "space-between !important",
+      justifyContent: "space-around !important",
     },
     // justifyContent: "space-between",
     // margin:"0px 0 60px 0"

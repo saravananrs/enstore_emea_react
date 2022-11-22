@@ -1,5 +1,5 @@
 const axios = require("axios");
-const serverInstance = require("../config/axiosConfig")
+const serverInstance = require("../config/axiosConfig");
 const fs = require("fs");
 // const t = require('../../')
 const request = require("request");
@@ -10,19 +10,12 @@ const SUCCESS_STATUS = "OK";
 const jwt = require("jwt-simple");
 const { config } = require("process");
 const serverBaseUrl = require("../config/serverConfig");
-const Razorpay = require("razorpay")
+const Razorpay = require("razorpay");
 
 //Create cart id.
 getQuoteId = async (req, res) => {
   await serverInstance
-    .post(
-      "/rest/V1/guest-carts/",
-      {
-        headers: {
-          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-        },
-      }
-    )
+    .post("/rest/V1/guest-carts/")
     .then((response) => {
       return res.send(JSON.stringify(response.data));
     })
@@ -35,15 +28,7 @@ getQuoteId = async (req, res) => {
 //Get cart details using quote id.
 getCartDetailByQuoteId = async (req, res) => {
   await serverInstance
-    .post(
-      `/rest/V1/guest-carts/${req.body.data}/items`,
-      req.body,
-      {
-        headers: {
-          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-        },
-      }
-    )
+    .post(`/rest/V1/guest-carts/${req.body.data}/items`, req.body)
     .then((response) => {
       return res.send(JSON.stringify(response.data));
     })
@@ -72,12 +57,7 @@ getAlRegionData = async (req, res) => {
 getSavedShippingAddress = async (req, res) => {
   await serverInstance
     .get(
-      `/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=${req.body.email}&searchCriteria[filterGroups][0][filters][0][condition_type]=eq`,
-      {
-        headers: {
-          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-        },
-      }
+      `/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=${req.body.email}&searchCriteria[filterGroups][0][filters][0][condition_type]=eq`
     )
     .then((response) => {
       return res.send(JSON.stringify(response.data.items));
@@ -93,12 +73,7 @@ getShippingEstimation = async (req, res) => {
   await serverInstance
     .post(
       `/rest/V1/guest-carts/${req.body.data}/estimate-shipping-methods`,
-      req.body,
-      {
-        headers: {
-          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-        },
-      }
+      req.body
     )
     .then((response) => {
       return res.send(JSON.stringify(response.data));
@@ -114,12 +89,7 @@ getShippingInformation = async (req, res) => {
   await serverInstance
     .post(
       `/rest/V1/guest-carts/${req.body.data}/shipping-information`,
-      req.body,
-      {
-        headers: {
-          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-        },
-      }
+      req.body
     )
     .then((response) => {
       return res.send(JSON.stringify(response.data));
@@ -134,24 +104,23 @@ getShippingInformation = async (req, res) => {
 getDiscountInformation = async (req, res) => {
   console.log(req.body.data, "body");
   var config = {
-    method: 'put',
+    method: "put",
     url: `https://store-qa2.enphase.com/storefront/en-in/rest/V1/carts/${req.body.data}/coupons/${req.body.coupon}`,
     headers: {
-      'Authorization': 'Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b',
-      'Content-Type': 'application/json',
+      Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
+      "Content-Type": "application/json",
     },
   };
 
   axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
-      res.send(response.data)
+      res.send(response.data);
     })
     .catch(function (error) {
       // console.log(error.response.data,"data");
-      res.send(error.response.data)
+      res.send(error.response.data);
     });
-
 };
 
 //Create razorpay order id.
@@ -182,24 +151,11 @@ razorPayCreateOrderId = async function (req, res) {
 //Create order in Enstore.
 createOrder = async (req, res) => {
   await serverInstance
-    .post(
-      `/rest/V1/guest-carts/${req.body.data}/payment-information`,
-      req.body,
-      {
-        headers: {
-          Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-        },
-      }
-    )
+    .post(`/rest/V1/guest-carts/${req.body.data}/payment-information`, req.body)
     .then(async (response) => {
       await serverInstance
         .get(
-          `/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`,
-          {
-            headers: {
-              Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-            },
-          }
+          `/rest/V1/orders?searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=${response.data}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`
         )
         .then((orderResponse) => {
           return res.send(JSON.stringify(orderResponse.data.items[0]));
@@ -244,5 +200,5 @@ module.exports = {
   getShippingInformation,
   getDiscountInformation,
   razorPayCreateOrderId,
-  createOrder
+  createOrder,
 };

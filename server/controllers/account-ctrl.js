@@ -172,12 +172,7 @@ grtTokenfromLogin = async (req, res) => {
     await serverInstance
       .post(
         `/rest/V1/integration/customer/token`,
-        req.body,
-        {
-          headers: {
-            Authorization: "Bearer 12zns9crv9oi2qfsq5v98j9org6tfk6b",
-          },
-        }
+        req.body
       )
       .then((response) => {
        
